@@ -12,7 +12,7 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-function split() {
+function Split() {
   const [progress, setProgress] = useState(0);
 
   const [file, setFile] = useState(null);
@@ -379,4 +379,4 @@ function split() {
   );
 }
 
-export default split;
+export default Split;

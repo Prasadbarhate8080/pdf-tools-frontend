@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useCallback, useRef } from "react";
 import { useDropzone } from "react-dropzone";
-function split() {
+
+function Page() {
   const [file, setFile] = useState(null);
   const downloadRef = useRef();
 
@@ -90,4 +91,4 @@ function split() {
   );
 }
 
-export default split;
+export default Page;
