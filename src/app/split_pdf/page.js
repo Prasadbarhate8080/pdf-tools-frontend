@@ -170,7 +170,7 @@ function Split() {
               </p>
             ) : (
               <p className="text-[#568DF8] hidden lg:block text-lg font-semibold">
-                Drag 'n' drop some files here, or click to select files
+                Drag n drop some files here, or click to select files
               </p>
             )}
           </div>
