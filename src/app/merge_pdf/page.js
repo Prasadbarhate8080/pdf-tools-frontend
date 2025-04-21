@@ -58,7 +58,7 @@ useEffect(() => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/pdf/merge",
+        "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/merge",
         formData,
         {
           headers: {

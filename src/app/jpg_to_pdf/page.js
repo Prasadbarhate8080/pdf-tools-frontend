@@ -66,7 +66,7 @@ const DropzoneJpgToPdf = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/pdf/jpg_to_pdf",
+        "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/jpg_to_pdf",
         formData,
         {
           headers: {

@@ -58,7 +58,7 @@ function Split() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/pdf/split",
+        "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/split",
         formData,
         {
           headers: {
