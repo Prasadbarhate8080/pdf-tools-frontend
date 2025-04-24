@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Head from "next/head";
 import StoreProvider from "@/store/StoreProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -16,15 +17,15 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Allinone PDF",
   description: "tool for all pdf related operations",
-  verification: {
-    google: "GZyDSZ0235mXorrHf",
-  },
 };
 
 export default function RootLayout({ children }) {
   return (
     
       <html lang="en">
+        <Head>
+        <meta name="google-site-verification" content="GZyDSZ0235mXorrHf-X9v-zWGErdSVDPfJd1iuUZh-E" />
+        </Head>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
