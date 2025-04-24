@@ -124,7 +124,7 @@ function Home() {
                     className="text-[14px] leading-[16px] 
                 text-[#777] mt-3"
                   >
-                    Convert the pdf from JPG to PDF
+                    Create the PDF from Images
                   </p>
                 </div>
               </Link>

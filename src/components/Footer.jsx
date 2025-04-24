@@ -25,15 +25,15 @@ function Footer() {
         {/* Quick Links */}
         <div className="flex flex-col flex-1 w-fit">
           <h3 className="text-lg font-semibold text-[#1E293B] mb-3 w-fit">Quick Links</h3>
-          <Link href="/privacy" className="hover:text-[#F59E0B] w-fit mb-1 transition">Privacy Policy</Link>
-          <Link href="/contact" className="hover:text-[#F59E0B] w-fit mb-1 transition">Contact</Link>
-          <Link href="/about" className="hover:text-[#F59E0B] w-fit mb-1 transition">About Us</Link>
+          <Link href="/privacy" className="hover:text-[#3B82F6] w-fit mb-1 transition">Privacy Policy</Link>
+          <Link href="/contact" className="hover:text-[#3B82F6] w-fit mb-1 transition">Contact</Link>
+          <Link href="/about" className="hover:text-[#3B82F6] w-fit mb-1 transition">About Us</Link>
         </div>
 
         {/* Contact Info / Socials */}
         <div className="flex flex-col  flex-1 min-w-[200px]">
           <h3 className="text-lg font-semibold text-[#1E293B] mb-3">Get in Touch</h3>
-          <p className="text-sm mb-2">📧 support@yourdomain.com</p>
+          {/* <p className="text-sm mb-2">📧 support@yourdomain.com</p> */}
           <div className="flex gap-4">
             <a href="#" className="hover:text-[#3B82F6] transition">Twitter</a>
             <a href="#" className="hover:text-[#6366F1] transition">LinkedIn</a>

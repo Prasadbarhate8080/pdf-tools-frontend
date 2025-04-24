@@ -132,7 +132,7 @@ function Header() {
           </div>
           <div
             ref={hamBurgerMenu}
-            className="absolute z-10 lg:block hidden right-0 top-20"
+            className="absolute z-10 lg:hidden! hidden right-0 top-20"
           >
             <ul className=" flex gap-8 py-2 bg-white px-8 shadow flex-col text-gray-700 list-none text-md font-semibold  h-full ">
               <Link href={"/merge_pdf"}>

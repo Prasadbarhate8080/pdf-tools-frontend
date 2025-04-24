@@ -53,15 +53,7 @@ const Page = () => {
         </p>
       </section>
 
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 text-orange-600">📬 Contact Us</h2>
-        <p className="text-gray-700">
-          For any feedback, issues, or business inquiries, feel free to reach out:
-        </p>
-        <ul className="list-disc list-inside text-gray-700 mt-2 space-y-1">
-          <li>📧 Email: 2005prasadbarhate@gmail.com</li>
-        </ul>
-      </section>
+      
     </div>
   );
 };
