@@ -18,6 +18,13 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
+
+export const metadata = {
+  title: "Convert JPG to PDF Online | Allinonepdf",
+  description: "Easily convert JPG images into a single PDF document using Allinonepdf – no sign-up, no watermark, totally free.",
+};
+
+
 const DropzoneJpgToPdf = () => {
   const dispatch = useDispatch();
   const [files, setFiles] = useState([]);
