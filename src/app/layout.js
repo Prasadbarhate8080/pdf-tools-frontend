@@ -17,15 +17,16 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Allinone PDF",
   description: "tool for all pdf related operations",
+  verification: {
+    google: "GZyDSZ0235mXorrHf-X9v-zWGErdSVDPfJd1iuUZh-E", 
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     
       <html lang="en">
-        <Head>
-        <meta name="google-site-verification" content="GZyDSZ0235mXorrHf-X9v-zWGErdSVDPfJd1iuUZh-E" />
-        </Head>
+       
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
