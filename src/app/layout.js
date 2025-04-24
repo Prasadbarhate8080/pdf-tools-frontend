@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Allinone PDF",
   description: "tool for all pdf related operations",
+  verification: {
+    google: "GZyDSZ0235mXorrHf",
+  },
 };
 
 export default function RootLayout({ children }) {
