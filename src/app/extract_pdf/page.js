@@ -7,23 +7,30 @@ import { useDropzone } from "react-dropzone";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
+import Processing from "@/components/Processing";
+import ProgressBar from "@/components/ProgressBar";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setProgress } from "@/store/progressBarSlice";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
 export default function PDFDropZoneViewer() {
+  const dispatch = useDispatch();
   const [file, setFile] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [selectedPages, setSelectedPages] = useState([]);
   const [isDroped, setisDroped] = useState(false);
   const [extracting, setExtracting] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const downloadRef = useRef();
   const dragRef = useRef();
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
+
+  let progress = useSelector((state) => state.fileProgress.progress);
 
   const onDrop = useCallback((acceptedFiles) => {
     const selectedFile = acceptedFiles[0];
@@ -55,11 +62,11 @@ export default function PDFDropZoneViewer() {
   const handleExtract = async () => {
     if (!file || selectedPages.length === 0)
       return alert("Select at least one page.");
-
+    setisUploading(true);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("pages", JSON.stringify(selectedPages));
-
+    
     try {
       const response = await axios.post(
         "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/extract_pdf",
@@ -73,7 +80,8 @@ export default function PDFDropZoneViewer() {
             const percent = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total
             );
-            setProgress(percent);
+            
+            dispatch(setProgress(percent))
 
             if (percent === 100) {
               setIsProcessing(true);
@@ -112,10 +120,10 @@ export default function PDFDropZoneViewer() {
     <div className="p-1 mx-auto bg-[#F7F5FB] min-h-[658px]">
       {!mergeStatus && !isDroped && (
         <div>
-          <h1 className="text-center mt-4 text-4xl font-bold text-gray-800">
+          <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
             Extract Pages From PDF
           </h1>
-          <p className="text-center text-gray-500 text-">
+          <p className="text-center text-gray-500 text-md">
             select pages as you want to extract
           </p>
         </div>
@@ -135,7 +143,7 @@ export default function PDFDropZoneViewer() {
           {...getRootProps()}
           className={`lg:border-2 lg:border-dashed lg:border-[#568DF8]
                          flex flex-col justify-center  items-center gap-4
-                         lg:rounded-xl p-4 h-60 cursor-pointer text-center lg:max-w-6xl mx-auto mt-6
+                         lg:rounded-xl p-4 max-w-fit lg:h-60 cursor-pointer text-center lg:max-w-6xl mx-auto mt-10
                          ${isDragActive ? "bg-blue-100" : "bg-[#F8FAFF]"}`}
         >
           <div className="lg:block hidden">
@@ -172,7 +180,7 @@ export default function PDFDropZoneViewer() {
         </div>
       )}
 
-      {file && isDroped && !isUploading && !mergeStatus && (
+      {file && isDroped &&  !isUploading && !mergeStatus && (
         <>
           <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
             <div className="flex flex-wrap max-w-7xl justify-center mx-auto gap-8 mt-6">
@@ -210,23 +218,10 @@ export default function PDFDropZoneViewer() {
       )}
 
       {progress > 0 && progress < 100 && (
-        <div>
-          <div className="mt-10 max-w-5xl mx-auto bg-gray-200 h-4 rounded">
-            <div
-              className="bg-orange-700 h-full rounded transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-          <p className="mt-2 text-xl font-bold text-center text-gray-600">
-            {progress}% uploaded
-          </p>
-        </div>
+        <ProgressBar />
       )}
       {progress === 100 && isProcessing && (
-        <div className="flex flex-col items-center mt-6">
-          <p className="text-gray-700 mb-2">Processing PDF... Please wait</p>
-          <div className="w-10 h-10 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-        </div>
+        <Processing />
       )}
 
       {mergeStatus && (

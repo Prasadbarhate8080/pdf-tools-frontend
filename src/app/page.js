@@ -3,16 +3,17 @@ import Image from "next/image";
 import home from "./home.module.css";
 import Link from "next/link";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 function Home() {
   return (
     <div className="bg-[#F7F5FB]">
       <main className="">
         <div className="bg-[#F7F5FB]">
           <div className="p-10 ">
-            <h1 className="text-4xl text-gray-800 text-center font-semibold">
+            <h1 className="md:text-4xl text-2xl text-gray-800 text-center font-semibold">
               Tools you need to work with PDFs in one place
             </h1>
-            <p className="text-2xl text-center mt-2 text-gray-600">
+            <p className="md:text-2xl text-xl text-center mt-2 text-gray-600">
               All are 100% FREE and easy to use! Merge, split, convert, extract
               PDFs with just a few clicks.
             </p>
@@ -131,37 +132,7 @@ function Home() {
           </div>
         </div>
       </main>
-      <footer>
-        <div className="h-40 bg-[#909CC2] mt-6">
-          <div className="max-w-7xl flex p-10 items-center justify-around h-full mx-auto">
-            <div>
-              <Image
-                src={"/footer_logo.jpg"}
-                height={10}
-                width={165}
-                alt="allinone pdf logo"
-              ></Image>
-            </div>
-            <div className="flex gap-25">
-              <div className="text-gray-200 text-lg hover:text-[#F8D0A8] cursor-pointer">
-                <span>Legal & Privacy</span>
-              </div>
-              <div className="text-gray-200 text-lg hover:text-[#F8D0A8] cursor-pointer">
-                <span>Contact</span>
-              </div>
-              <div className="text-gray-200 text-lg hover:text-[#F8D0A8] cursor-pointer">
-                <span>About Us</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="h-8 bg-[#084887] text-center
-               flex items-center justify-center text-gray-200"
-        >
-          <span>© Allin one pdf 2025 ® - Your PDF Editor</span>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

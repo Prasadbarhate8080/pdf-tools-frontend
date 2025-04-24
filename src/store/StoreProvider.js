@@ -5,9 +5,7 @@ import { Provider } from 'react-redux'
 function StoreProvider({children}) {
   return (
     <Provider store={store}>
-    
       {children}
- 
     </Provider>
   )
 }

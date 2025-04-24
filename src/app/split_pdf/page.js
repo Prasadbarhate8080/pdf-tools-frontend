@@ -7,14 +7,18 @@ import { Document, Page, pdfjs } from "react-pdf";
 import Image from "next/image";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
+import Processing from "@/components/Processing";
+import ProgressBar from "@/components/ProgressBar";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setProgress } from "@/store/progressBarSlice";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
 function Split() {
-  const [progress, setProgress] = useState(0);
-
+  const dispatch = useDispatch();
   const [file, setFile] = useState(null);
   const [isUploading, setisUploading] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -22,6 +26,9 @@ function Split() {
   const [endPage, setEndPage] = useState();
   const [mergeStatus, setMerge] = useState(false);
   const dragRef = useRef();
+
+
+  let progress = useSelector((state) => state.fileProgress.progress);
 
   const [isDroped, setisDroped] = useState(false);
   const downloadRef = useRef();
@@ -37,10 +44,6 @@ function Split() {
   }, []);
 
   //useEffects
-  useEffect(() => {
-   
-  }, [isProcessing])
-  
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -69,7 +72,7 @@ function Split() {
             const percent = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total
             );
-            setProgress(percent);
+            dispatch(setProgress(percent));
             if (percent === 100) {
               setIsProcessing(true);
             }
@@ -124,10 +127,10 @@ function Split() {
     <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px]">
       {!mergeStatus && (
         <div>
-          <h1 className="text-center mt-4 text-4xl font-bold text-gray-800">
+          <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
             Split PDF Files
           </h1>
-          <p className="text-center text-gray-500 text-">
+          <p className="text-center text-gray-500 text-md">
             Take a slice of a PDF
           </p>
         </div>
@@ -139,7 +142,7 @@ function Split() {
             {...getRootProps()}
             className={`lg:border-2 lg:border-dashed lg:border-[#568DF8]
                     flex flex-col justify-center  items-center gap-4
-                    lg:rounded-xl p-4 h-60 cursor-pointer text-center lg:max-w-6xl mx-auto mt-6
+                    lg:rounded-xl p-4 max-w-fit lg:h-60 cursor-pointer text-center lg:max-w-6xl mx-auto mt-10
                     ${isDragActive ? "bg-blue-100" : "bg-[#F8FAFF]"}`}
           >
             <div className="lg:block hidden">
@@ -234,23 +237,10 @@ function Split() {
           </div>
         )}
         {progress > 0 && progress < 100 && (
-          <div>
-            <div className="mt-10 max-w-5xl mx-auto bg-gray-200 h-4 rounded">
-              <div
-                className="bg-orange-700 h-full rounded transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-            <p className="mt-2 text-xl font-bold text-center text-gray-600">
-              {progress}% uploaded
-            </p>
-          </div>
+          <ProgressBar />
         )}
         {progress === 100 && isProcessing && (
-          <div className="flex flex-col items-center mt-6">
-            <p className="text-gray-700 mb-2">Processing PDF... Please wait</p>
-            <div className="w-10 h-10 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-          </div>
+          <Processing />
         )}
       </form>
       {mergeStatus && (
