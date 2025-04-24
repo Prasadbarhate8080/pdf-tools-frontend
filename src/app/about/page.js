@@ -32,7 +32,6 @@ const Page = () => {
         <ul className="list-disc list-inside text-gray-700 space-y-1">
           <li>We never save your files.</li>
           <li>Encrypted and secure HTTPS connections.</li>
-          <li>Auto deletion after processing (if APIs are used).</li>
         </ul>
       </section>
 

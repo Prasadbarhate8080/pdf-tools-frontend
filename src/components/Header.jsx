@@ -69,7 +69,7 @@ function Header() {
                     alt="down arrow"
                   ></Image>
                 </div>
-                <div className={` ${styles.dropdownCard}`}>
+                <div className={`${styles.dropdownCard}`}>
                   <ul className="list-none flex flex-col text-md text-gray-700 gap-5">
                     <Link href={"/merge_pdf"}>
                       <li className="flex gap-2 hover:bg-gray-100 px-2 py-1 rounded-md items-center">

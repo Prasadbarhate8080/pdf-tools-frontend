@@ -25,7 +25,7 @@ function Footer() {
         {/* Quick Links */}
         <div className="flex flex-col flex-1 w-fit">
           <h3 className="text-lg font-semibold text-[#1E293B] mb-3 w-fit">Quick Links</h3>
-          <Link href="/privacy" className="hover:text-[#F59E0B] w-fit mb-1 transition">Legal & Privacy</Link>
+          <Link href="/privacy" className="hover:text-[#F59E0B] w-fit mb-1 transition">Privacy Policy</Link>
           <Link href="/contact" className="hover:text-[#F59E0B] w-fit mb-1 transition">Contact</Link>
           <Link href="/about" className="hover:text-[#F59E0B] w-fit mb-1 transition">About Us</Link>
         </div>
