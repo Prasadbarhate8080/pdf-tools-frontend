@@ -28,6 +28,7 @@ function Merge() {
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
   const [mergedFileURL, setMergedFileURL] = useState("")
+  const [serverPreparing, setServerPreparing] = useState(false)
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
@@ -46,8 +47,19 @@ function Merge() {
     multiple: true,
   });
 
+  useEffect(() => {
+    if(progress > 0)
+      setServerPreparing(false)    
+  }, [progress])
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setTimeout(() => {
+      if(serverPreparing)
+        toast.info("Please refresh the page and try again");
+    },12000)
+    setServerPreparing(true);
     setisUploading(true);
 
     const formData = new FormData();
@@ -57,7 +69,7 @@ function Merge() {
 
     try {
       const response = await axios
-        .post("http://localhost:8000/api/v1/pdf/merge", formData, {
+        .post("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/merge", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -67,7 +79,6 @@ function Merge() {
               (progressEvent.loaded * 100) / progressEvent.total
             );
             dispatch(setProgress(percent));
-
             if (percent === 100) {
               setIsProcessing(true);
             }
@@ -259,13 +270,19 @@ function Merge() {
 
         {progress > 0 && progress < 100 && <ProgressBar />}
 
+        {serverPreparing &&  <div className="flex flex-col items-center mt-8">
+                <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
+                <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+          }
+
         {progress === 100 && isProcessing && <Processing />}
       </form>
 
       {mergedFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download Merged PDF
+            Download Converted PDF
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
@@ -273,7 +290,7 @@ function Merge() {
               download
               className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
-              Download Merged PDF
+              Download Converted PDF
             </a>
           </div>
         </div>

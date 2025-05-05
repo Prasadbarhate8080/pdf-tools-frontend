@@ -18,9 +18,6 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-
-
-
 function Split() {
   const dispatch = useDispatch();
   const [file, setFile] = useState(null);
@@ -31,7 +28,7 @@ function Split() {
   const [mergeStatus, setMerge] = useState(false);
   const dragRef = useRef();
   const [splitFileURL, setSplitFileURL] = useState("");
-
+  const [serverPreparing, setServerPreparing] = useState(false)
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
@@ -50,6 +47,12 @@ function Split() {
 
   //useEffects
 
+ useEffect(() => {
+    if(progress > 0)
+      setServerPreparing(false)    
+  }, [progress])
+  
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { "application/pdf": [] },
@@ -58,6 +61,11 @@ function Split() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setTimeout(() => {
+          if(serverPreparing)
+            toast.info("Please refresh the page and try again");
+        },12000)
+  setServerPreparing(true);
     setisUploading(true);
     const formData = new FormData();
     formData.append("pdf_file", file);
@@ -66,7 +74,7 @@ function Split() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/pdf/split",
+        "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/split",
         formData,
         {
           headers: {
@@ -237,6 +245,13 @@ function Split() {
         {progress > 0 && progress < 100 && (
           <ProgressBar />
         )}
+
+          {serverPreparing &&  <div className="flex flex-col items-center mt-8">
+                <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
+                <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+          }
+
         {progress === 100 && isProcessing && (
           <Processing />
         )}

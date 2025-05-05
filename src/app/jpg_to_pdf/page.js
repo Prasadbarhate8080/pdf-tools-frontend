@@ -29,7 +29,7 @@ const DropzoneJpgToPdf = () => {
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
   const [createdPDFURL, setCreatedPDFURL] = useState(false);
-
+  const [serverPreparing, setServerPreparing] = useState(false)
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
@@ -44,6 +44,11 @@ const DropzoneJpgToPdf = () => {
 
     setImages((prev) => [...prev, ...imagePreviews]);
   }, []);
+
+ useEffect(() => {
+    if(progress > 0)
+      setServerPreparing(false)    
+  }, [progress])
 
   useEffect(() => {
     return () => {
@@ -63,6 +68,11 @@ const DropzoneJpgToPdf = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setTimeout(() => {
+      if(serverPreparing)
+        toast.info("Please refresh the page and try again");
+    },12000)
+    setServerPreparing(true);
     setisUploading(true);
 
     if (files.length === 0) {
@@ -75,7 +85,7 @@ const DropzoneJpgToPdf = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/pdf/jpg_to_pdf",
+        "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/jpg_to_pdf",
         formData,
         {
           headers: {
@@ -219,6 +229,11 @@ const DropzoneJpgToPdf = () => {
         )}
 
         {progress > 0 && progress < 100 && <ProgressBar />}
+        {serverPreparing &&  <div className="flex flex-col items-center mt-8">
+                <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
+                <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+          }
         {progress === 100 && isProcessing && <Processing />}
       </form>
 

@@ -31,6 +31,7 @@ export default function PDFDropZoneViewer() {
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
     const [extractedFileURL, setExtractedFileURL] = useState(null);
+    
   
 
   let progress = useSelector((state) => state.fileProgress.progress);
@@ -49,6 +50,12 @@ export default function PDFDropZoneViewer() {
     accept: { "application/pdf": [] },
     multiple:false
   });
+
+ useEffect(() => {
+    if(progress > 0)
+      setServerPreparing(false)    
+  }, [progress])
+  
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -72,7 +79,7 @@ export default function PDFDropZoneViewer() {
     
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/pdf/extract_pdf",
+        "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/extract_pdf",
         formData,
         {
           headers: {

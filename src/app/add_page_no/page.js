@@ -30,12 +30,19 @@ function PageNO() {
   const [compressedFileURL, setCompressedFileURL] = useState(null);
   const [pageNumberAddedFileURL, setPageNumberAddedFileURL] = useState(null);
   const [page_no_position, setPage_no_position] = useState("bottom-right");
+  const [serverPreparing, setServerPreparing] = useState(false)
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
   useEffect(() => {
     console.log(page_no_position);
   }, [page_no_position]);
+
+  useEffect(() => {
+    if(progress > 0)
+      setServerPreparing(false)    
+  }, [progress])
+  
 
   const onDrop = useCallback((acceptedFiles) => {
     // accepted file is an array
@@ -57,6 +64,11 @@ function PageNO() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log("inside handle submit");
+    setTimeout(() => {
+      if(serverPreparing)
+        toast.info("Please refresh the page and try again");
+    },12000)
+    setServerPreparing(true);
 
     const formData = new FormData();
     formData.append("pdf_file", file);
@@ -64,7 +76,7 @@ function PageNO() {
 
     try {
       axios
-        .post("http://localhost:8000/api/v1/pdf/add_page_no", formData, {
+        .post("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/add_page_no", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -278,7 +290,11 @@ function PageNO() {
         )}
 
         {progress > 0 && progress < 100 && <ProgressBar />}
-
+        {serverPreparing &&  <div className="flex flex-col items-center mt-8">
+                <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
+                <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+          }
         {progress === 100 && isProcessing && <Processing />}
       </form>
 

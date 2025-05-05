@@ -29,6 +29,7 @@ export default function PDFDropZoneViewer() {
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
   const [removedFileURL, setRemovedFileURL] = useState(null);
+  const [serverPreparing, setServerPreparing] = useState(false)
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
@@ -40,6 +41,12 @@ export default function PDFDropZoneViewer() {
       setSelectedPages([]);
     }
   }, []);
+
+  useEffect(() => {
+    if(progress > 0)
+      setServerPreparing(false)    
+  }, [progress])
+  
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -60,6 +67,12 @@ export default function PDFDropZoneViewer() {
   };
 
   const handleRemove = async () => {
+    setTimeout(() => {
+      if(serverPreparing)
+        toast.info("Please refresh the page and try again");
+    },12000)
+    setServerPreparing(true);
+
     if (!file || selectedPages.length === 0)
       return alert("Select at least one page.");
     setisUploading(true);
@@ -69,7 +82,7 @@ export default function PDFDropZoneViewer() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/pdf/remove_pdf_pages",
+        "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/remove_pdf_pages",
         formData,
         {
           headers: {
@@ -211,6 +224,11 @@ export default function PDFDropZoneViewer() {
 
       {/* progress bar and proessing */}
       {progress > 0 && progress < 100 && <ProgressBar />}
+      {serverPreparing &&  <div className="flex flex-col items-center mt-8">
+                <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
+                <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+          }
       {progress === 100 && isProcessing && <Processing />}
 
       {/* after task complete button will show */}

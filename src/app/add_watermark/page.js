@@ -31,7 +31,7 @@ function AddWaterMarkPage() {
   const [pageNumberAddedFileURL, setPageNumberAddedFileURL] = useState(null);
   const [water_mark_position,setPage_no_position] = useState("center")
   const [water_mark_text,setWater_mark_text] = useState("PdfToolify");
-  
+  const [serverPreparing, setServerPreparing] = useState(false)
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
@@ -40,6 +40,11 @@ useEffect(() => {
  console.log(water_mark_position);
  
 }, [water_mark_position])
+
+useEffect(() => {
+  if(progress > 0)
+    setServerPreparing(false)    
+}, [progress])
 
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -62,6 +67,11 @@ useEffect(() => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log("inside handle submit");
+    setTimeout(() => {
+      if(serverPreparing)
+        toast.info("Please refresh the page and try again");
+    },12000)
+    setServerPreparing(true);
 
         const formData = new FormData();
         formData.append("pdf_file", file);
@@ -70,7 +80,7 @@ useEffect(() => {
 
         try {
         axios
-            .post("http://localhost:8000/api/v1/pdf/add_water_mark", formData, {
+            .post("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/add_water_mark", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -133,9 +143,7 @@ useEffect(() => {
                     });
                 } catch (error) {
                     toast.error("something went wrong")
-                }
-
-                
+                } 
                 // console.log(data.message);
 
                 // const reader = new FileReader();
@@ -304,7 +312,11 @@ useEffect(() => {
 
         
         {progress > 0 && progress < 100 && <ProgressBar />}
-
+        {serverPreparing &&  <div className="flex flex-col items-center mt-8">
+                <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
+                <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+          }
         {progress === 100 && isProcessing && <Processing />}
       </form>
 

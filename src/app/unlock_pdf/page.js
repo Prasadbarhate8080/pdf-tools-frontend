@@ -28,13 +28,15 @@ function Unlock() {
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
   const [compressedFileURL, setCompressedFileURL] = useState(null);
+  const [serverPreparing, setServerPreparing] = useState(false)
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
   useEffect(() => {
-    console.log(mergeStatus, isDroped);
-  }, [isDroped, mergeStatus]);
-
+    if(progress > 0)
+      setServerPreparing(false)    
+  }, [progress])
+  
   const onDrop = useCallback((acceptedFiles) => {
     // accepted file is an array
     setisDroped(true);
@@ -55,12 +57,17 @@ function Unlock() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log("inside handle submit");
+    setTimeout(() => {
+      if(serverPreparing)
+        toast.info("Please refresh the page and try again");
+    },12000)
+    setServerPreparing(true);
 
     const formData = new FormData();
     formData.append("pdf_file", file);
     try {
       axios
-        .post("http://localhost:8000/api/v1/pdf/unlock_pdf", formData, {
+        .post("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/unlock_pdf", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -253,7 +260,11 @@ function Unlock() {
 
         
         {progress > 0 && progress < 100 && <ProgressBar />}
-
+        {serverPreparing &&  <div className="flex flex-col items-center mt-8">
+                <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
+                <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+          }
         {progress === 100 && isProcessing && <Processing />}
       </form>
 

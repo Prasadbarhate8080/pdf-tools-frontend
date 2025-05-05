@@ -28,7 +28,7 @@ function Pdfa() {
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
   const [compressedFileURL, setCompressedFileURL] = useState(null);
-
+  
   let progress = useSelector((state) => state.fileProgress.progress);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function Pdfa() {
     formData.append("pdf_file", file);
     try {
       axios
-        .post("http://localhost:8000/api/v1/pdf/pdf_to_pdfa", formData, {
+        .post("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/pdf_to_pdfa", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
