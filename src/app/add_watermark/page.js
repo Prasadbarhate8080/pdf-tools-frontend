@@ -5,9 +5,9 @@ import { toast, ToastContainer } from "react-toastify";
 import Link from "next/link";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
-import { Document, PageWatermark, pdfjs } from "react-pdf";
-import "react-pdf/dist/PageWatermark/AnnotationLayer.css";
-import "react-pdf/dist/PageWatermark/TextLayer.css";
+import { Document, AddPageWaterMark, pdfjs } from "react-pdf";
+import "react-pdf/dist/AddPageWaterMark/AnnotationLayer.css";
+import "react-pdf/dist/AddPageWaterMark/TextLayer.css";
 import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import { useSelector } from "react-redux";
@@ -18,7 +18,7 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-function PageWatermark() {
+function AddPageWaterMark() {
   const dispatch = useDispatch();
   const [file, setFile] = useState({});
   const [isDroped, setisDroped] = useState(false);
@@ -232,7 +232,7 @@ useEffect(() => {
               >
                 <Document file={file}>
                   <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                    <PageWatermark pageNumber={1} width={180} />
+                    <AddPageWaterMark pageNumber={1} width={180} />
                   </div>
                 </Document>
 
@@ -260,14 +260,14 @@ useEffect(() => {
                 <div className="flex items-center justify-center w-fit mx-auto mt-4">
                 <div className="ml-4 md:flex md:justify-center md:items-center md:gap-3 md:flex-wrap">
                 <label
-                htmlFor="PageWatermark-position"
+                htmlFor="AddPageWaterMark-position"
                 className="text-gray-700 font-medium "
                 >
                 Select  watermark Position: 
               </label>
 
               <select
-                id="PageWatermark-position"
+                id="AddPageWaterMark-position"
                 name="water_mark_position"
                 value={water_mark_position}
                 onChange={(e) => setPage_no_position(e.target.value)}
@@ -311,7 +311,7 @@ useEffect(() => {
       {pageNumberAddedFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download PageWatermark Number Added PDF
+            Download AddPageWaterMark Number Added PDF
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
@@ -330,4 +330,4 @@ useEffect(() => {
   );
 }
 
-export default PageWatermark;
+export default AddPageWaterMark;
