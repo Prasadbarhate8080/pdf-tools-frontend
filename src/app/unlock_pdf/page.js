@@ -62,7 +62,7 @@ function Unlock() {
         toast.info("Please refresh the page and try again");
     },12000)
     setServerPreparing(true);
-
+    setisUploading(true)
     const formData = new FormData();
     formData.append("pdf_file", file);
     try {

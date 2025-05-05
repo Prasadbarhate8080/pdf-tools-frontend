@@ -48,7 +48,9 @@ function PDFToJPG() {
 
   useEffect(() => {
     if(progress > 0)
+    {
       setServerPreparing(false)    
+    }
   }, [progress])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -59,6 +61,7 @@ function PDFToJPG() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log("inside handle submit");
+    setisUploading(true);
     setTimeout(() => {
       if(serverPreparing)
         toast.info("Please refresh the page and try again");
@@ -225,7 +228,6 @@ function PDFToJPG() {
                     <Page pageNumber={1} width={180} />
                   </div>
                 </Document>
-
                 {/* File name */}
                 <div className=" py-2 px-3 text-center">
                   <p
@@ -252,7 +254,7 @@ function PDFToJPG() {
 
         
         {progress > 0 && progress < 100 && <ProgressBar />}
-        {serverPreparing &&  <div className="flex flex-col items-center mt-8">
+        {serverPreparing && isDroped &&  <div className="flex flex-col items-center mt-8">
                 <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
                 <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
               </div>

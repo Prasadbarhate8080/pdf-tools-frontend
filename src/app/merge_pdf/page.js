@@ -282,7 +282,7 @@ function Merge() {
       {mergedFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download Converted PDF
+            Download Merged PDF
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
@@ -290,7 +290,7 @@ function Merge() {
               download
               className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
-              Download Converted PDF
+              Download Merged PDF
             </a>
           </div>
         </div>

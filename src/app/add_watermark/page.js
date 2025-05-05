@@ -71,6 +71,7 @@ useEffect(() => {
       if(serverPreparing)
         toast.info("Please refresh the page and try again");
     },12000)
+    setisUploading(true)
     setServerPreparing(true);
 
         const formData = new FormData();

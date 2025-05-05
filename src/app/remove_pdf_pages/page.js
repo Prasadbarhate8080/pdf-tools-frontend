@@ -72,6 +72,7 @@ export default function PDFDropZoneViewer() {
         toast.info("Please refresh the page and try again");
     },12000)
     setServerPreparing(true);
+    setisUploading(true)
 
     if (!file || selectedPages.length === 0)
       return alert("Select at least one page.");

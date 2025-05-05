@@ -33,11 +33,7 @@ function Protect() {
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
-  useEffect(() => {
-    if(progress > 0)
-      setServerPreparing(false)    
-  }, [progress])
-  
+
   const onDrop = useCallback((acceptedFiles) => {
     // accepted file is an array
     setisDroped(true);
@@ -49,6 +45,13 @@ function Protect() {
       setFile({});
     }
   }, []);
+
+  useEffect(() => {
+    if(progress > 0)
+    {
+      setServerPreparing(false)  
+    }
+  }, [progress,serverPreparing])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -62,6 +65,7 @@ function Protect() {
       if(serverPreparing)
         toast.info("Please refresh the page and try again");
     },12000)
+    setisUploading(true)
     setServerPreparing(true);
 
     const formData = new FormData();
@@ -80,9 +84,7 @@ function Protect() {
             const percent = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total
             );
-
             dispatch(setProgress(percent));
-
             if (percent === 100) {
               setIsProcessing(true);
             }
@@ -90,7 +92,6 @@ function Protect() {
         })
         .then(async (response) => {
           // console.log(" response is is came");
-          console.log(response);
 
           setisUploading(false);
           setIsProcessing(false);
