@@ -5,9 +5,9 @@ import { toast, ToastContainer } from "react-toastify";
 import Link from "next/link";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
-import { Document, AddWaterMarkToPage, pdfjs } from "react-pdf";
-import "react-pdf/dist/AddWaterMarkToPage/AnnotationLayer.css";
-import "react-pdf/dist/AddWaterMarkToPage/TextLayer.css";
+import { Document, Page, pdfjs } from "react-pdf";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
 import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import { useSelector } from "react-redux";
@@ -18,7 +18,7 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-function AddWaterMarkToPage() {
+function AddWaterMarkPage() {
   const dispatch = useDispatch();
   const [file, setFile] = useState({});
   const [isDroped, setisDroped] = useState(false);
@@ -232,7 +232,7 @@ useEffect(() => {
               >
                 <Document file={file}>
                   <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                    <AddWaterMarkToPage pageNumber={1} width={180} />
+                    <Page pageNumber={1} width={180} />
                   </div>
                 </Document>
 
@@ -311,7 +311,7 @@ useEffect(() => {
       {pageNumberAddedFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download AddWaterMarkToPage Number Added PDF
+            Download Page Number Added PDF
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
@@ -330,4 +330,4 @@ useEffect(() => {
   );
 }
 
-export default AddWaterMarkToPage;
+export default AddWaterMarkPage;
