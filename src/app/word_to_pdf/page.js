@@ -39,8 +39,12 @@ function page() {
     // accepted file is an array
     setisDroped(true);
     setFile(acceptedFiles[0]);
-
-    if (acceptedFiles[0].type != "application/pdf") {
+    const extArray = acceptedFiles[0].path.split(".");  
+    const lastIndex = extArray.length - 1;
+    const ext = extArray[lastIndex]
+    console.log(ext);
+    
+    if (ext != "doc" && ext != "docx") {
       toast.error("please upload pdf file");
       setisDroped(false);
       setFile({});
@@ -49,7 +53,7 @@ function page() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: { "application/pdf": [] },
+    accept: { ".doc, .docx ": [] },
   });
 
   const handleSubmit = async (e) => {
@@ -57,10 +61,10 @@ function page() {
     // console.log("inside handle submit");
 
     const formData = new FormData();
-    formData.append("f1", file);
+    formData.append("pdf_file", file);
     try {
       axios
-        .post("http://localhost:8000/api/v1/pdf/pdf_to_jpg", formData, {
+        .post("http://localhost:8000/api/v1/pdf/word_to_pdf", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -89,9 +93,11 @@ function page() {
           if (response) {
             const blob = response.data;
             const url = URL.createObjectURL(blob);
+
             // const text = await blob.text();
             // const data = JSON.parse(text);
             // console.log(data.message);
+
             setCompressedFileURL(url);
           } else {
             toast.error("Error compressing pdf PDFs");
@@ -148,10 +154,10 @@ function page() {
       {!mergeStatus && (
         <div>
           <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            PDF to JPG
+            Convert Word File into PDF
           </h1>
           <p className="text-center text-gray-500 md:text-md">
-          Convert the pdf into JPG images
+            Convert the Docx into PDF
           </p>
         </div>
       )}
@@ -183,14 +189,14 @@ function page() {
                 className="px-6 py-4 text-white  bg-orange-500 
                     font-bold text-2xl rounded-md"
               >
-                Tap to Select PDF File
+                Tap to Select Docx file
               </span>
             </div>
             <input
               {...getInputProps()}
               type="file"
               name="pdf_file"
-              accept="application/pdf"
+              accept=".doc, .docx"
             />
             {isDragActive ? (
               <p className="text-[#568DF8]  lg:block hidden text-lg font-semibold">
@@ -211,11 +217,19 @@ function page() {
                 className="w-[220px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
                           transition-all duration-300 overflow-hidden"
               >
-                <Document file={file}>
+                <div>
                   <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                    <Page pageNumber={1} width={180} />
+                    <div className="w-[180px] h-[250px] flex flex-col items-center justify-center">
+                    <Image
+                            className="object-contain"
+                            src="/word_logo.jpg"
+                            width={130}
+                            height={130}
+                            alt="Picture of the author"
+                    />
+                    </div>
                   </div>
-                </Document>
+                </div>
 
                 {/* File name */}
                 <div className=" py-2 px-3 text-center">
@@ -235,7 +249,7 @@ function page() {
                 className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
                        bg-[#F58A07] hover:bg-[#F79B2E] active:bg-[#F79B2E]`}
               >
-                Convert To JPG
+                Convert To PDF
               </button>
             </div>
           </div>
@@ -250,15 +264,15 @@ function page() {
       {compressedFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download JPG Images 
+            Download Converted PDF
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
               href={compressedFileURL}
-              download="converted_images.zip"
+              download
               className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
-              Download Zip File
+              Download Converted PDF
             </a>
           </div>
         </div>

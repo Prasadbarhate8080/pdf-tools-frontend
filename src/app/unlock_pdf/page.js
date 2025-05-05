@@ -57,10 +57,10 @@ function page() {
     // console.log("inside handle submit");
 
     const formData = new FormData();
-    formData.append("f1", file);
+    formData.append("pdf_file", file);
     try {
       axios
-        .post("http://localhost:8000/api/v1/pdf/pdf_to_jpg", formData, {
+        .post("http://localhost:8000/api/v1/pdf/unlock_pdf", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -89,9 +89,11 @@ function page() {
           if (response) {
             const blob = response.data;
             const url = URL.createObjectURL(blob);
+
             // const text = await blob.text();
             // const data = JSON.parse(text);
             // console.log(data.message);
+
             setCompressedFileURL(url);
           } else {
             toast.error("Error compressing pdf PDFs");
@@ -148,10 +150,10 @@ function page() {
       {!mergeStatus && (
         <div>
           <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            PDF to JPG
+            Unlock PDF File
           </h1>
           <p className="text-center text-gray-500 md:text-md">
-          Convert the pdf into JPG images
+            Easily unlock the PDF File
           </p>
         </div>
       )}
@@ -211,11 +213,19 @@ function page() {
                 className="w-[220px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
                           transition-all duration-300 overflow-hidden"
               >
-                <Document file={file}>
-                  <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                    <Page pageNumber={1} width={180} />
-                  </div>
-                </Document>
+                <div>
+                                  <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                                    <div className="w-[180px] h-[250px] flex flex-col items-center justify-center">
+                                    <Image
+                                            className="object-contain"
+                                            src="/pdf_logo.png"
+                                            width={130}
+                                            height={130}
+                                            alt="pdf image"
+                                    />
+                                    </div>
+                                  </div>
+                                </div>
 
                 {/* File name */}
                 <div className=" py-2 px-3 text-center">
@@ -235,7 +245,7 @@ function page() {
                 className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
                        bg-[#F58A07] hover:bg-[#F79B2E] active:bg-[#F79B2E]`}
               >
-                Convert To JPG
+                Unlock The PDF File
               </button>
             </div>
           </div>
@@ -250,17 +260,17 @@ function page() {
       {compressedFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download JPG Images 
+            Download Unlocked PDF
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
               href={compressedFileURL}
-              download="converted_images.zip"
+              download
               className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
-              Download Zip File
+            Download Unlocked PDF
             </a>
-          </div>
+          </div>    
         </div>
       )}
 

@@ -28,6 +28,7 @@ function page() {
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
   const [compressedFileURL, setCompressedFileURL] = useState(null);
+  const [password, setPassword] = useState(null);
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
@@ -57,10 +58,11 @@ function page() {
     // console.log("inside handle submit");
 
     const formData = new FormData();
-    formData.append("f1", file);
-    try {
+    formData.append("pdf_file", file);
+    formData.append("password",password);
+    try {   
       axios
-        .post("http://localhost:8000/api/v1/pdf/pdf_to_jpg", formData, {
+        .post("http://localhost:8000/api/v1/pdf/protect_pdf", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -89,9 +91,11 @@ function page() {
           if (response) {
             const blob = response.data;
             const url = URL.createObjectURL(blob);
+
             // const text = await blob.text();
             // const data = JSON.parse(text);
             // console.log(data.message);
+
             setCompressedFileURL(url);
           } else {
             toast.error("Error compressing pdf PDFs");
@@ -148,10 +152,10 @@ function page() {
       {!mergeStatus && (
         <div>
           <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            PDF to JPG
+            Protect PDF File
           </h1>
           <p className="text-center text-gray-500 md:text-md">
-          Convert the pdf into JPG images
+            Easily Protect the PDF File
           </p>
         </div>
       )}
@@ -212,8 +216,8 @@ function page() {
                           transition-all duration-300 overflow-hidden"
               >
                 <Document file={file}>
-                  <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                    <Page pageNumber={1} width={180} />
+                  <div className="px-4 pt-4 pb-1 flex h-[250px] flex-col items-center justify-center">
+                    <Page pageNumber={1} width={180} className={"h-full"} />
                   </div>
                 </Document>
 
@@ -228,20 +232,27 @@ function page() {
                 </div>
               </li>
             </ul>
-
+            <div className="text-center w-fit mx-auto mt-3">
+                <label htmlFor="password" className="block w-full text-left">Enter Password</label>
+                <input
+                onChange={(e) => {setPassword(e.target.value)}}
+                type="password" id="password" 
+                className="bg-white text-gray indent-1 border-2 border-gray-500 h-8
+                 hover:border-gray-700 rounded-md "
+                 />
+            </div>
             <div className="flex  items-center justify-center gap-4 mt-6">
               {/* Merge Button */}
               <button
                 className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
                        bg-[#F58A07] hover:bg-[#F79B2E] active:bg-[#F79B2E]`}
               >
-                Convert To JPG
+                Protect The PDF File
               </button>
             </div>
           </div>
         )}
 
-        
         {progress > 0 && progress < 100 && <ProgressBar />}
 
         {progress === 100 && isProcessing && <Processing />}
@@ -250,15 +261,15 @@ function page() {
       {compressedFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download JPG Images 
+            Download Protected PDF
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
               href={compressedFileURL}
-              download="converted_images.zip"
+              download
               className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
-              Download Zip File
+              Download Protected PDF
             </a>
           </div>
         </div>

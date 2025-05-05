@@ -18,10 +18,6 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-
-
-
-
 const DropzoneJpgToPdf = () => {
   const dispatch = useDispatch();
   const [files, setFiles] = useState([]);
@@ -32,6 +28,7 @@ const DropzoneJpgToPdf = () => {
   const dragRef = useRef();
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
+  const [createdPDFURL, setCreatedPDFURL] = useState(false);
 
 
   let progress = useSelector((state) => state.fileProgress.progress);
@@ -78,7 +75,7 @@ const DropzoneJpgToPdf = () => {
 
     try {
       const response = await axios.post(
-        "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/jpg_to_pdf",
+        "http://localhost:8000/api/v1/pdf/jpg_to_pdf",
         formData,
         {
           headers: {
@@ -89,7 +86,7 @@ const DropzoneJpgToPdf = () => {
             const percent = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total
             );
-            dispatch(setProgress(percent))
+            dispatch(setProgress(percent));
             if (percent === 100) {
               setIsProcessing(true);
             }
@@ -105,16 +102,7 @@ const DropzoneJpgToPdf = () => {
       if (response) {
         const blob = await response.data;
         const url = URL.createObjectURL(blob);
-
-        setTimeout(() => {
-          if (downloadRef.current) {
-            downloadRef.current.innerHTML = `
-              <a href="${url}" download class="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2">
-                Download Created PDF
-              </a>
-            `;
-          }
-        }, 0);
+        setCreatedPDFURL(url)
       } else {
         alert("Error merging PDFs");
       }
@@ -161,24 +149,24 @@ const DropzoneJpgToPdf = () => {
               ></Image>
             </div>
             <div className="lg:hidden">
-            <span
-              className="px-6 py-4 text-white  bg-orange-500 
+              <span
+                className="px-6 py-4 text-white  bg-orange-500 
                            font-bold text-2xl rounded-md"
-            >
-              Tap to Select Images
-            </span>
-          </div>
+              >
+                Tap to Select Images
+              </span>
+            </div>
 
             <input {...getInputProps()} multiple type="file" name="pdf_files" />
             {isDragActive ? (
-            <p className="text-[#568DF8] hidden lg:block  text-lg font-semibold">
-              Drop the files here ...
-            </p>
-          ) : (
-            <p className="text-[#568DF8] hidden lg:block text-lg font-semibold">
-              Drag n drop some files here, or click to select files
-            </p>
-          )}
+              <p className="text-[#568DF8] hidden lg:block  text-lg font-semibold">
+                Drop the files here ...
+              </p>
+            ) : (
+              <p className="text-[#568DF8] hidden lg:block text-lg font-semibold">
+                Drag n drop some files here, or click to select files
+              </p>
+            )}
           </div>
         )}
         {isDroped && !isUploading && !mergeStatus && (
@@ -192,11 +180,11 @@ const DropzoneJpgToPdf = () => {
                 >
                   <div>
                     <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                      <img
-                        src={imgObj.preview}
-                        alt={`uploaded-${idx}`}
-                        style={{ width: "200px", height: "auto" }}
-                      />
+                      <div className="w-[200px] h-[250px]">
+                        <img
+                        className="object-contain"
+                        src={imgObj.preview} alt={`uploaded-${idx}`} />
+                      </div>
                     </div>
                   </div>
 
@@ -230,20 +218,24 @@ const DropzoneJpgToPdf = () => {
           </div>
         )}
 
-        {progress > 0 && progress < 100 && (
-          <ProgressBar />
-        )}
-        {progress === 100 && isProcessing && (
-          <Processing />
-        )}
+        {progress > 0 && progress < 100 && <ProgressBar />}
+        {progress === 100 && isProcessing && <Processing />}
       </form>
 
-      {mergeStatus && (
-        <div className="max-w-5xl mx-auto mt-10">
+      {createdPDFURL && (
+        <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download Created PDF
+            Download Extracted PDF
           </h1>
-          <div className="mt-3 w-fit mx-auto" ref={downloadRef}></div>
+          <div className="mt-3 w-fit mx-auto">
+            <a
+              href={createdPDFURL}
+              download
+              className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
+            >
+              Download Extracted PDF
+            </a>
+          </div>
         </div>
       )}
 

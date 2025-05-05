@@ -25,12 +25,13 @@ export default function PDFDropZoneViewer() {
   const [numPages, setNumPages] = useState(null);
   const [selectedPages, setSelectedPages] = useState([]);
   const [isDroped, setisDroped] = useState(false);
-  const [extracting, setExtracting] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const downloadRef = useRef();
   const dragRef = useRef();
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
+    const [extractedFileURL, setExtractedFileURL] = useState(null);
+  
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
@@ -71,7 +72,7 @@ export default function PDFDropZoneViewer() {
     
     try {
       const response = await axios.post(
-        "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/extract_pdf",
+        "http://localhost:8000/api/v1/pdf/extract_pdf",
         formData,
         {
           headers: {
@@ -99,16 +100,7 @@ export default function PDFDropZoneViewer() {
       if (response) {
         const blob = await response.data;
         const url = URL.createObjectURL(blob);
-
-        setTimeout(() => {
-          if (downloadRef.current) {
-            downloadRef.current.innerHTML = `
-              <a href="${url}" download class="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2">
-                Download Extracted PDF
-              </a>
-            `;
-          }
-        }, 0);
+        setExtractedFileURL(url)
       } else {
         alert("Error merging PDFs");
       }
@@ -208,6 +200,7 @@ export default function PDFDropZoneViewer() {
             </div>
           </Document>
 
+            {/* button for extracting pages */}
           <div className="mt-6 text-center">
             <button
               onClick={handleExtract}
@@ -219,6 +212,7 @@ export default function PDFDropZoneViewer() {
         </>
       )}
 
+      {/* progress bar and proessing */}
       {progress > 0 && progress < 100 && (
         <ProgressBar />
       )}
@@ -226,15 +220,25 @@ export default function PDFDropZoneViewer() {
         <Processing />
       )}
 
-      {mergeStatus && (
-        <div className="max-w-5xl mx-auto mt-10">
+      {/* after task complete button will show */}
+      {extractedFileURL && (
+        <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Pages Extracted From PDF
+            Download Extracted PDF
           </h1>
-          <div className="mt-3 w-fit mx-auto" ref={downloadRef}></div>
+          <div className="mt-3 w-fit mx-auto">
+            <a
+              href={extractedFileURL}
+              download
+              className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
+            >
+              Download Extracted PDF
+            </a>
+          </div>
         </div>
       )}
 
+      {/* tools show after task will complete */}
       {mergeStatus && (
         <div className="bg-[#F8ECE7] mt-30">
           <div className="p-6 flex max-w-7xl justify-center gap-8 flex-wrap mx-auto mt-10 ">

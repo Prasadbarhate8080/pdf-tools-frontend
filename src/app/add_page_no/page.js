@@ -28,12 +28,14 @@ function page() {
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
   const [compressedFileURL, setCompressedFileURL] = useState(null);
+  const [pageNumberAddedFileURL, setPageNumberAddedFileURL] = useState(null);
+  const [page_no_position, setPage_no_position] = useState("bottom-right");
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
   useEffect(() => {
-    console.log(mergeStatus, isDroped);
-  }, [isDroped, mergeStatus]);
+    console.log(page_no_position);
+  }, [page_no_position]);
 
   const onDrop = useCallback((acceptedFiles) => {
     // accepted file is an array
@@ -57,10 +59,12 @@ function page() {
     // console.log("inside handle submit");
 
     const formData = new FormData();
-    formData.append("f1", file);
+    formData.append("pdf_file", file);
+    formData.append("page_no_position", page_no_position);
+
     try {
       axios
-        .post("http://localhost:8000/api/v1/pdf/pdf_to_jpg", formData, {
+        .post("http://localhost:8000/api/v1/pdf/add_page_no", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -89,10 +93,12 @@ function page() {
           if (response) {
             const blob = response.data;
             const url = URL.createObjectURL(blob);
+
             // const text = await blob.text();
             // const data = JSON.parse(text);
             // console.log(data.message);
-            setCompressedFileURL(url);
+
+            setPageNumberAddedFileURL(url);
           } else {
             toast.error("Error compressing pdf PDFs");
           }
@@ -104,19 +110,25 @@ function page() {
           setisDroped(false);
           // Server ne kuch response diya (error ke saath)
           if (error.response && error.response.data instanceof Blob) {
-            const blob = error.response.data;
-            const text = await blob.text();
-            const jsonData = JSON.parse(text);
+            let jsonData;
+            try {
+              const blob = error.response.data;
+              const text = await blob.text();
+              jsonData = JSON.parse(text);
 
-            toast.error(jsonData.message, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+              toast.error(jsonData.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            } catch (error) {
+              toast.error("something went wrong");
+            }
+
             // console.log(data.message);
 
             // const reader = new FileReader();
@@ -148,10 +160,10 @@ function page() {
       {!mergeStatus && (
         <div>
           <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            PDF to JPG
+            Add Page Number To PDF
           </h1>
           <p className="text-center text-gray-500 md:text-md">
-          Convert the pdf into JPG images
+            Add Page Number To PDF File
           </p>
         </div>
       )}
@@ -229,36 +241,59 @@ function page() {
               </li>
             </ul>
 
+            <div className="flex flex-wrap items-center justify-center gap-4 w-fit mx-auto mt-6">
+              <label
+                htmlFor="page-position"
+                className="text-gray-700 font-medium"
+              >
+                Select Position for Page Number:
+              </label>
+
+              <select
+                id="page-position"
+                name="page_no_position"
+                value={page_no_position}
+                onChange={(e) => setPage_no_position(e.target.value)}
+                className="border border-gray-400 rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+              >
+                <option value="top-right">Top Right</option>
+                <option value="top-center">Top Center</option>
+                <option value="top-left">Top Left</option>
+                <option value="bottom-right">Bottom Right</option>
+                <option value="bottom-center">Bottom Center</option>
+                <option value="bottom-left">Bottom Left</option>
+              </select>
+            </div>
+
             <div className="flex  items-center justify-center gap-4 mt-6">
               {/* Merge Button */}
               <button
                 className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
                        bg-[#F58A07] hover:bg-[#F79B2E] active:bg-[#F79B2E]`}
               >
-                Convert To JPG
+                Add Page Numbers
               </button>
             </div>
           </div>
         )}
 
-        
         {progress > 0 && progress < 100 && <ProgressBar />}
 
         {progress === 100 && isProcessing && <Processing />}
       </form>
 
-      {compressedFileURL && (
+      {pageNumberAddedFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download JPG Images 
+            Download Page Number Added PDF
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
-              href={compressedFileURL}
-              download="converted_images.zip"
+              href={pageNumberAddedFileURL}
+              download
               className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
-              Download Zip File
+              Download PDF
             </a>
           </div>
         </div>

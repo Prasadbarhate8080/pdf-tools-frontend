@@ -3,6 +3,7 @@ import React from "react";
 
 const Page = () => {
   return (
+    <div className="bg-white min-h-screen">
     <div className="max-w-5xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold text-center mb-8 text-orange-700">About Us</h1>
 
@@ -54,6 +55,7 @@ const Page = () => {
       </section>
 
       
+    </div>
     </div>
   );
 };
