@@ -18,7 +18,7 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-function page() {
+function Page() {
   const dispatch = useDispatch();
   const [file, setFile] = useState({});
   const [isDroped, setisDroped] = useState(false);
@@ -260,14 +260,14 @@ useEffect(() => {
                 <div className="flex items-center justify-center w-fit mx-auto mt-4">
                 <div className="ml-4 md:flex md:justify-center md:items-center md:gap-3 md:flex-wrap">
                 <label
-                htmlFor="page-position"
+                htmlFor="Page-position"
                 className="text-gray-700 font-medium "
                 >
                 Select  watermark Position: 
               </label>
 
               <select
-                id="page-position"
+                id="Page-position"
                 name="water_mark_position"
                 value={water_mark_position}
                 onChange={(e) => setPage_no_position(e.target.value)}
@@ -330,4 +330,4 @@ useEffect(() => {
   );
 }
 
-export default page;
+export default Page;

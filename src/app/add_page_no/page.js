@@ -18,7 +18,7 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-function page() {
+function Page() {
   const dispatch = useDispatch();
   const [file, setFile] = useState({});
   const [isDroped, setisDroped] = useState(false);
@@ -243,14 +243,14 @@ function page() {
 
             <div className="flex flex-wrap items-center justify-center gap-4 w-fit mx-auto mt-6">
               <label
-                htmlFor="page-position"
+                htmlFor="Page-position"
                 className="text-gray-700 font-medium"
               >
                 Select Position for Page Number:
               </label>
 
               <select
-                id="page-position"
+                id="Page-position"
                 name="page_no_position"
                 value={page_no_position}
                 onChange={(e) => setPage_no_position(e.target.value)}
@@ -304,4 +304,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

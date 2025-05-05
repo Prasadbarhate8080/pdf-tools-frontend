@@ -18,7 +18,7 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-function page() {
+function Page() {
   const dispatch = useDispatch();
   const [file, setFile] = useState({});
   const [isDroped, setisDroped] = useState(false);
@@ -280,4 +280,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
