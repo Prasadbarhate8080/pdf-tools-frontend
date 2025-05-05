@@ -1,5 +1,6 @@
 "use client";
-import { useState, useRef, useCallback,useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import Image from "next/image";
 import axios from "axios";
 import Link from "next/link";
@@ -17,8 +18,6 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-
-
 export default function PDFDropZoneViewer() {
   const dispatch = useDispatch();
   const [file, setFile] = useState(null);
@@ -30,9 +29,8 @@ export default function PDFDropZoneViewer() {
   const dragRef = useRef();
   const [mergeStatus, setMerge] = useState(false);
   const [isUploading, setisUploading] = useState(false);
-    const [extractedFileURL, setExtractedFileURL] = useState(null);
-    
-  
+  const [extractedFileURL, setExtractedFileURL] = useState(null);
+  const [serverPreparing, setServerPreparing] = useState(false)
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
@@ -45,17 +43,17 @@ export default function PDFDropZoneViewer() {
     }
   }, []);
 
+ 
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { "application/pdf": [] },
-    multiple:false
+    multiple: false,
   });
 
- useEffect(() => {
-    if(progress > 0)
-      setServerPreparing(false)    
-  }, [progress])
-  
+  useEffect(() => {
+    if (progress > 0) setServerPreparing(false);
+  }, [progress]);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -76,44 +74,100 @@ export default function PDFDropZoneViewer() {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("pages", JSON.stringify(selectedPages));
-    
+    setServerPreparing(true)
     try {
-      const response = await axios.post(
-        "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/extract_pdf",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          responseType: "blob",
-          onUploadProgress: (progressEvent) => {
-            const percent = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            
-            dispatch(setProgress(percent))
+      const response = await axios
+        .post(
+          "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/extract_pdf",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            responseType: "blob",
+            onUploadProgress: (progressEvent) => {
+              const percent = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
 
-            if (percent === 100) {
-              setIsProcessing(true);
+              dispatch(setProgress(percent));
+
+              if (percent === 100) {
+                setIsProcessing(true);
+              }
+            },
+          }
+        )
+        .then(async (response) => {
+          // console.log(" response is is came");
+
+          setisUploading(false);
+          setIsProcessing(false);
+          setMerge(true);
+
+          if (response) {
+            const blob = response.data;
+            const url = URL.createObjectURL(blob);
+
+            // const text = await blob.text();
+            // const data = JSON.parse(text);
+            // console.log(data.message);
+
+            setExtractedFileURL(url);
+          } else {
+            toast.error("Error extracting pdf PDFs");
+          }
+        })
+        .catch(async (error) => {
+          setisUploading(false);
+          setIsProcessing(false);
+          setFile({});
+          setisDroped(false);
+          setServerPreparing(false);
+          setMerge(false)
+          // Server ne kuch response diya (error ke saath)
+          if (error.response && error.response.data instanceof Blob) {
+            let jsonData;
+            try {
+              const blob = error.response.data;
+              const text = await blob.text();
+              jsonData = JSON.parse(text);
+
+              toast.error(jsonData.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            } catch (error) {
+              toast.error("something went wrong");
             }
-          },
-        }
-      );
-      setIsProcessing(false);
-      setisUploading(false);
-      setMerge(true);
-      console.log(response);
+            // console.log(data.message);
 
-      if (response) {
-        const blob = await response.data;
-        const url = URL.createObjectURL(blob);
-        setExtractedFileURL(url)
-      } else {
-        alert("Error merging PDFs");
-      }
+            // const reader = new FileReader();
+
+            // reader.onload = () => {
+            //   const text = reader.result;
+            //   console.log("❌ Server error response as text:", text);
+            // };
+
+            // reader.readAsText(error.response.data);
+          }
+          // Server ne kuch diya hi nahi (network fail etc.)
+          else if (error.request) {
+            console.log("❌ No response from server:", error.request);
+          }
+          // Axios setup me hi kuch dikkat thi
+          else {
+            console.log("❌ Axios error:", error.message);
+          }
+        });
     } catch (error) {
-      console.error("Error:", error);
-      alert("Something went wrong");
+      toast.error("something went wrong")
+      setServerPreparing(false);
     }
   };
 
@@ -181,7 +235,7 @@ export default function PDFDropZoneViewer() {
         </div>
       )}
 
-      {file && isDroped &&  !isUploading && !mergeStatus && (
+      {file && isDroped && !isUploading && !mergeStatus && (
         <>
           <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
             <div className="flex flex-wrap max-w-7xl justify-center mx-auto gap-8 mt-6">
@@ -207,7 +261,7 @@ export default function PDFDropZoneViewer() {
             </div>
           </Document>
 
-            {/* button for extracting pages */}
+          {/* button for extracting pages */}
           <div className="mt-6 text-center">
             <button
               onClick={handleExtract}
@@ -220,12 +274,16 @@ export default function PDFDropZoneViewer() {
       )}
 
       {/* progress bar and proessing */}
-      {progress > 0 && progress < 100 && (
-        <ProgressBar />
-      )}
-      {progress === 100 && isProcessing && (
-        <Processing />
-      )}
+      {progress > 0 && progress < 100 && <ProgressBar />}
+      {serverPreparing && isDroped && (
+          <div className="flex flex-col items-center mt-8">
+            <p className="text-gray-700 text-md mb-2">
+              Preparing Server... Please wait
+            </p>
+            <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
+      {progress === 100 && isProcessing && <Processing />}
 
       {/* after task complete button will show */}
       {extractedFileURL && (
@@ -359,6 +417,8 @@ export default function PDFDropZoneViewer() {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
+
   );
 }

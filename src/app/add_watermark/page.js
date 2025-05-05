@@ -29,23 +29,19 @@ function AddWaterMarkPage() {
   const [isUploading, setisUploading] = useState(false);
   const [compressedFileURL, setCompressedFileURL] = useState(null);
   const [pageNumberAddedFileURL, setPageNumberAddedFileURL] = useState(null);
-  const [water_mark_position,setPage_no_position] = useState("center")
-  const [water_mark_text,setWater_mark_text] = useState("PdfToolify");
-  const [serverPreparing, setServerPreparing] = useState(false)
+  const [water_mark_position, setPage_no_position] = useState("center");
+  const [water_mark_text, setWater_mark_text] = useState("PdfToolify");
+  const [serverPreparing, setServerPreparing] = useState(false);
 
   let progress = useSelector((state) => state.fileProgress.progress);
 
+  useEffect(() => {
+    console.log(water_mark_position);
+  }, [water_mark_position]);
 
-useEffect(() => {
- console.log(water_mark_position);
- 
-}, [water_mark_position])
-
-useEffect(() => {
-  if(progress > 0)
-    setServerPreparing(false)    
-}, [progress])
-
+  useEffect(() => {
+    if (progress > 0) setServerPreparing(false);
+  }, [progress]);
 
   const onDrop = useCallback((acceptedFiles) => {
     // accepted file is an array
@@ -68,108 +64,111 @@ useEffect(() => {
     e.preventDefault();
     // console.log("inside handle submit");
     setTimeout(() => {
-      if(serverPreparing)
-        toast.info("Please refresh the page and try again");
-    },12000)
-    setisUploading(true)
+      if (serverPreparing) toast.info("Please refresh the page and try again");
+    }, 12000);
+    setisUploading(true);
     setServerPreparing(true);
 
-        const formData = new FormData();
-        formData.append("pdf_file", file);
-        formData.append("water_mark_position", water_mark_position);
-        formData.append("water_mark_text",water_mark_text);
+    const formData = new FormData();
+    formData.append("pdf_file", file);
+    formData.append("water_mark_position", water_mark_position);
+    formData.append("water_mark_text", water_mark_text);
 
-        try {
-        axios
-            .post("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/add_water_mark", formData, {
+    try {
+      axios
+        .post(
+          "https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/add_water_mark",
+          formData,
+          {
             headers: {
-                "Content-Type": "multipart/form-data",
+              "Content-Type": "multipart/form-data",
             },
 
             responseType: "blob",
 
             onUploadProgress: (progressEvent) => {
-                const percent = Math.round(
+              const percent = Math.round(
                 (progressEvent.loaded * 100) / progressEvent.total
-                );
+              );
 
-                dispatch(setProgress(percent));
+              dispatch(setProgress(percent));
 
-                if (percent === 100) {
+              if (percent === 100) {
                 setIsProcessing(true);
-                }
+              }
             },
-            })
-            .then(async (response) => {
-            // console.log(" response is is came");
-            console.log(response);
+          }
+        )
+        .then(async (response) => {
+          // console.log(" response is is came");
 
-            setisUploading(false);
-            setIsProcessing(false);
-            setMerge(true);
-            if (response) {
-                const blob = response.data;
-                const url = URL.createObjectURL(blob);
+          setisUploading(false);
+          setIsProcessing(false);
+          setMerge(true);
 
-                // const text = await blob.text();
-                // const data = JSON.parse(text);
-                // console.log(data.message);
+          if (response) {
+            const blob = response.data;
+            const url = URL.createObjectURL(blob);
 
-                setPageNumberAddedFileURL(url);
-            } else {
-                toast.error("Error compressing pdf PDFs");
+            // const text = await blob.text();
+            // const data = JSON.parse(text);
+            // console.log(data.message);
+
+            setPageNumberAddedFileURL(url);
+          } else {
+            toast.error("Error compressing pdf PDFs");
+          }
+        })
+        .catch(async (error) => {
+          setisUploading(false);
+          setIsProcessing(false);
+          setFile({});
+          setisDroped(false);
+          setServerPreparing(false);
+          // Server ne kuch response diya (error ke saath)
+          if (error.response && error.response.data instanceof Blob) {
+            let jsonData;
+            try {
+              const blob = error.response.data;
+              const text = await blob.text();
+              jsonData = JSON.parse(text);
+
+              toast.error(jsonData.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            } catch (error) {
+              toast.error("something went wrong");
             }
-            })
-            .catch(async (error) => {
-            setisUploading(false);
-            setIsProcessing(false);
-            setFile({});
-            setisDroped(false);
-            // Server ne kuch response diya (error ke saath)
-            if (error.response && error.response.data instanceof Blob) {
-                let jsonData;
-                try {
-                    const blob = error.response.data;
-                    const text = await blob.text();
-                    jsonData = JSON.parse(text);
+            // console.log(data.message);
 
-                    toast.error(jsonData.message, {
-                        position: "top-right",
-                        autoClose: 3000,    
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                } catch (error) {
-                    toast.error("something went wrong")
-                } 
-                // console.log(data.message);
+            // const reader = new FileReader();
 
-                // const reader = new FileReader();
+            // reader.onload = () => {
+            //   const text = reader.result;
+            //   console.log("❌ Server error response as text:", text);
+            // };
 
-                // reader.onload = () => {
-                //   const text = reader.result;
-                //   console.log("❌ Server error response as text:", text);
-                // };
-
-                // reader.readAsText(error.response.data);
-            }
-            // Server ne kuch diya hi nahi (network fail etc.)
-            else if (error.request) {
-                console.log("❌ No response from server:", error.request);
-            }
-            // Axios setup me hi kuch dikkat thi
-            else {
-                console.log("❌ Axios error:", error.message);
-            }
-            ``;
-            });
-        } catch (error) {
-        toast.error("there is the error  in compressing the pdf");
-        }
-    };
+            // reader.readAsText(error.response.data);
+          }
+          // Server ne kuch diya hi nahi (network fail etc.)
+          else if (error.request) {
+            console.log("❌ No response from server:", error.request);
+          }
+          // Axios setup me hi kuch dikkat thi
+          else {
+            console.log("❌ Axios error:", error.message);
+          };
+        });
+    } catch (error) {
+      toast.error("there is the error  in compressing the pdf");
+    }
+  };
 
   return (
     <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px] ">
@@ -179,7 +178,7 @@ useEffect(() => {
             Add Watermark ON PDF Pages
           </h1>
           <p className="text-center text-gray-500 md:text-md">
-          Add Watermark As your choice
+            Add Watermark As your choice
           </p>
         </div>
       )}
@@ -258,43 +257,53 @@ useEffect(() => {
             </ul>
 
             <div className="w-fit mx-auto p-2">
-                <div className="mt-3 flex flex-col justify-center items-center">
-                    <div>
-                    <label htmlFor="watermark-text" className="text-gray-700 block">Watermark Text:</label>
-                    <input type="text" id="watermark-text" value={water_mark_text} onChange={(e) => {setWater_mark_text(e.target.value)}}
+              <div className="mt-3 flex flex-col justify-center items-center">
+                <div>
+                  <label
+                    htmlFor="watermark-text"
+                    className="text-gray-700 block"
+                  >
+                    Watermark Text:
+                  </label>
+                  <input
+                    type="text"
+                    id="watermark-text"
+                    value={water_mark_text}
+                    onChange={(e) => {
+                      setWater_mark_text(e.target.value);
+                    }}
                     className="w-60 h-10 focus-within::border-blue-500 indent-2  border-2 border-gray-600 rounded-md"
-                    />
-                    </div>
+                  />
                 </div>
-                <div className="flex items-center justify-center w-fit mx-auto mt-4">
+              </div>
+              <div className="flex items-center justify-center w-fit mx-auto mt-4">
                 <div className="ml-4 md:flex md:justify-center md:items-center md:gap-3 md:flex-wrap">
-                <label
-                htmlFor="AddWaterMarkToPage-position"
-                className="text-gray-700 font-medium "
-                >
-                Select  watermark Position: 
-              </label>
+                  <label
+                    htmlFor="AddWaterMarkToPage-position"
+                    className="text-gray-700 font-medium "
+                  >
+                    Select watermark Position:
+                  </label>
 
-              <select
-                id="AddWaterMarkToPage-position"
-                name="water_mark_position"
-                value={water_mark_position}
-                onChange={(e) => setPage_no_position(e.target.value)}
-                className="border sm:block sm:mt-4  md:mt-0 border-gray-400 rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-              >
-                <option value="center">Center</option>
-                <option value="top-right">Top Right</option>
-                <option value="top-center">Top Center</option>
-                <option value="top-left">Top Left</option>
-                <option value="bottom-right">Bottom Right</option>
-                <option value="bottom-center">Bottom Center</option>
-                <option value="bottom-left">Bottom Left</option>
-              </select>
+                  <select
+                    id="AddWaterMarkToPage-position"
+                    name="water_mark_position"
+                    value={water_mark_position}
+                    onChange={(e) => setPage_no_position(e.target.value)}
+                    className="border sm:block sm:mt-4  md:mt-0 border-gray-400 rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                  >
+                    <option value="center">Center</option>
+                    <option value="top-right">Top Right</option>
+                    <option value="top-center">Top Center</option>
+                    <option value="top-left">Top Left</option>
+                    <option value="bottom-right">Bottom Right</option>
+                    <option value="bottom-center">Bottom Center</option>
+                    <option value="bottom-left">Bottom Left</option>
+                  </select>
+                </div>
               </div>
             </div>
-            </div>
 
-           
             <div className="flex  items-center justify-center gap-4 mt-6">
               {/* Merge Button */}
               <button
@@ -304,20 +313,18 @@ useEffect(() => {
                 Add Watermark
               </button>
             </div>
-            
-
           </div>
-
-          
         )}
 
-        
         {progress > 0 && progress < 100 && <ProgressBar />}
-        {serverPreparing &&  <div className="flex flex-col items-center mt-8">
-                <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
-                <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-              </div>
-          }
+        {serverPreparing && isDroped && (
+          <div className="flex flex-col items-center mt-8">
+            <p className="text-gray-700 text-md mb-2">
+              Preparing Server... Please wait
+            </p>
+            <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
         {progress === 100 && isProcessing && <Processing />}
       </form>
 
@@ -332,7 +339,7 @@ useEffect(() => {
               download
               className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
-              Download  PDF
+              Download PDF
             </a>
           </div>
         </div>
