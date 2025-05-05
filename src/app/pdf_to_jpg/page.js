@@ -18,7 +18,7 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-function Page() {
+function PDFToJPG() {
   const dispatch = useDispatch();
   const [file, setFile] = useState({});
   const [isDroped, setisDroped] = useState(false);
@@ -269,4 +269,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default PDFToJPG;
