@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Allinone PDF",
-  description: "tool for all pdf related operations",
+  title: "PDFtoolify | Online PDF tools",
+  description: "tools for all pdf related operations",
   verification: {
-    google: "GZyDSZ0235mXorrHf-X9v-zWGErdSVDPfJd1iuUZh-E", 
+    google: "",
   },
 };
 
