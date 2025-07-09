@@ -16,8 +16,7 @@ export const metadata = {
   title: "PDFtoolify | Online PDF tools",
   description: "tools for all pdf related operations",
   verification: {
-    google: "",
-  },
+  }
 };
 
 export default function RootLayout({ children }) {
