@@ -13,10 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL(`https://www.pdftoolify.com`),
   title: "PDFtoolify | Online PDF tools",
   description: "tools for all pdf related operations",
-  verification: {
-  }
+  alternates: {
+        canonical: './',
+    }
 };
 
 export default function RootLayout({ children }) {
