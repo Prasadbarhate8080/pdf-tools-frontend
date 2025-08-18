@@ -9,6 +9,8 @@ import ProgressBar from "@/components/ProgressBar";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setProgress } from "@/store/progressBarSlice";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
