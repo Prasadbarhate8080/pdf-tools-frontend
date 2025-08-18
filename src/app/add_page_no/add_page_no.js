@@ -1,4 +1,5 @@
-import Link from "next/link";
+"use client"
+import { useState,useRef,useEffect,useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { Document, Page, pdfjs } from "react-pdf";
