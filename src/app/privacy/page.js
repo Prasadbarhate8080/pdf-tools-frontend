@@ -1,5 +1,19 @@
 import React from "react";
 
+export const metadata = {
+    title: "Privacy",
+    description: "Privacy",
+    robots: {
+    index: false,
+    follow: true,
+  },
+    alternates: {
+    canonical: "/privacy",
+  },
+  };
+  
+
+
 const PrivacyPolicy = () => {
   return (
     <div className="bg-white min-h-screen">

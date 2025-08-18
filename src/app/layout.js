@@ -14,8 +14,11 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   metadataBase: new URL(`https://www.pdftoolify.com`),
-  title: "PDFtoolify | Online PDF tools",
-  description: "tools for all pdf related operations",
+  title:{ 
+    default:"PDFtoolify | Online PDF tools",
+    template:"%s - PDFtoolify"
+  },
+  description: "Tools for all pdf related operations",
   alternates: {
         canonical: './',
     }

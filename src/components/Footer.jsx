@@ -43,7 +43,7 @@ function Footer() {
 
       {/* Bottom Strip */}
       <div className="bg-[#CBD5E1] text-center py-3 text-sm border-t border-gray-300 text-[#374151]">
-        © {new Date().getFullYear()} All in One PDF ® — Built with ❤️ to simplify your PDFs
+        © {new Date().getFullYear()} PdfToolify ® All Rights Reserved
       </div>
     </footer>
   );

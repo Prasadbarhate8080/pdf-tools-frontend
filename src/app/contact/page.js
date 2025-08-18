@@ -1,5 +1,15 @@
 import React from 'react';
 
+export const metadata = {
+    title: "About",
+    description: "About PDFtoolify fast and secure pdf tool",
+    alternates: {
+    canonical: "/contact",
+  },
+  };
+  
+
+
 const Contact = () => {
   return (
     <div className="bg-white min-h-screen">

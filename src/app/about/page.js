@@ -1,5 +1,12 @@
-"use client";
 import React from "react";
+
+export const metadata = {
+    title: "About",
+    description: "About ",
+    alternates: {
+    canonical: "/about",
+  },
+  };
 
 const Page = () => {
   return (
