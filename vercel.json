@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "pdftoolify.com" }],
+      "destination": "https://www.pdftoolify.com/:1",
+      "permanent": true
+    }
+  ]
+}

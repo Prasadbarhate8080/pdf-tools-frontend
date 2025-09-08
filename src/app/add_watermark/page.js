@@ -1,6 +1,6 @@
 import AddWaterMarkPage from "./add_watermark"
 export const metadata = {
-    title: "Add watermark to pdf",
+    title: "Add watermark on pdf pages",
     description: "Add watermark to pdf file online,easily add watermark to pdf files online",
     alternates: {
     canonical: "/add_watermark",

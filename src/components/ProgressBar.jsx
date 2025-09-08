@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-function ProgressBar() {
-  const progress = useSelector((state) => state.fileProgress.progress);
+function ProgressBar({progress}) {
+  // const progress = useSelector((state) => state.fileProgress.progress);
   return (
     <div>
     <div className="mt-10 max-w-5xl mx-auto bg-gray-200 h-4 rounded">

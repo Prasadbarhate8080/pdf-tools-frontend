@@ -1,4 +1,5 @@
 import React from 'react'
+import Compress from './compress_pdf';
 
 export const metadata = {
     title: "Compress Pdf files online",
@@ -12,7 +13,7 @@ export const metadata = {
 function page() {
   return (
     <div>
-      
+      <Compress />
     </div>
   )
 }

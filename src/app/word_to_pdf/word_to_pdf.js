@@ -10,9 +10,9 @@ import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { setProgress } from "@/store/progressBarSlice";
+
+import { useFileUpload } from "@/hooks/useFileUpload";
+import FileInput from "@/components/FileInput";
 
 
 
@@ -21,145 +21,23 @@ if (typeof window !== "undefined") {
 }
 
 function WordToPdf() {
-  const dispatch = useDispatch();
-  const [file, setFile] = useState({});
-  const [isDroped, setisDroped] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const downloadRef = useRef();
-  const dragRef = useRef();
-  const [mergeStatus, setMerge] = useState(false);
-  const [isUploading, setisUploading] = useState(false);
-  const [compressedFileURL, setCompressedFileURL] = useState(null);
-  const [serverPreparing, setServerPreparing] = useState(false)
 
-  let progress = useSelector((state) => state.fileProgress.progress);
 
-  useEffect(() => {
-    if(progress > 0)
-      setServerPreparing(false)    
-  }, [progress])
+  let {files,isDroped,isProcessing,completionStatus,isUploading,
+      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi
+      } = useFileUpload()
   
-  const onDrop = useCallback((acceptedFiles) => {
-    // accepted file is an array
-    setisDroped(true);
-    setFile(acceptedFiles[0]);
-    const extArray = acceptedFiles[0].path.split(".");  
-    const lastIndex = extArray.length - 1;
-    const ext = extArray[lastIndex]
-    
-    if (ext != "doc" && ext != "docx") {
-      toast.error("please upload pdf file");
-      setisDroped(false);
-      setFile({});
-    }
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: { ".doc, .docx ": [] },
-  });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("inside handle submit");
-    setTimeout(() => {
-      if(serverPreparing)
-        toast.info("Please refresh the page and try again");
-    },12000)
-    setServerPreparing(true);
-    setisUploading(true)
     const formData = new FormData();
-    formData.append("pdf_file", file);
-    try {
-      axios
-        .post("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/word_to_pdf", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+    formData.append("pdf_file", files);
 
-          responseType: "blob",
-
-          onUploadProgress: (progressEvent) => {
-            const percent = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-
-            dispatch(setProgress(percent));
-
-            if (percent === 100) {
-              setIsProcessing(true);
-            }
-          },
-        })
-        .then(async (response) => {
-          // console.log(" response is is came");
-          console.log(response);
-
-          setisUploading(false);
-          setIsProcessing(false);
-          setMerge(true);
-          if (response) {
-            const blob = response.data;
-            const url = URL.createObjectURL(blob);
-
-            // const text = await blob.text();
-            // const data = JSON.parse(text);
-            // console.log(data.message);
-
-            setCompressedFileURL(url);
-          } else {
-            toast.error("Error compressing pdf PDFs");
-          }
-        })
-        .catch(async (error) => {
-          setisUploading(false);
-          setIsProcessing(false);
-          setFile({});
-          setisDroped(false);
-          // Server ne kuch response diya (error ke saath)
-          if (error.response && error.response.data instanceof Blob) {
-            const blob = error.response.data;
-            const text = await blob.text();
-            const jsonData = JSON.parse(text);
-
-            toast.error(jsonData.message, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-            // console.log(data.message);
-
-            // const reader = new FileReader();
-
-            // reader.onload = () => {
-            //   const text = reader.result;
-            //   console.log("❌ Server error response as text:", text);
-            // };
-
-            // reader.readAsText(error.response.data);
-          }
-          // Server ne kuch diya hi nahi (network fail etc.)
-          else if (error.request) {
-            console.log("❌ No response from server:", error.request);
-          }
-          // Axios setup me hi kuch dikkat thi
-          else {
-            console.log("❌ Axios error:", error.message);
-          }
-          ``;
-        });
-    } catch (error) {
-      toast.error("there is the error  in compressing the pdf");
-    }
+    callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/word_to_pdf", formData);
   };
 
   return (
     <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px] ">
-      {!mergeStatus && (
+      {!completionStatus && (
         <div>
           <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
             Convert Word File into PDF
@@ -176,64 +54,30 @@ function WordToPdf() {
         encType="multipart/form-data"
       >
         {!isDroped && (
-          <div
-            ref={dragRef}
-            {...getRootProps()}
-            className={`lg:border-2 lg:border-dashed lg:border-[#568DF8]
-                  flex flex-col  items-center justify-center gap-4
-                  lg:rounded-xl p-4 max-w-fit lg:h-60 cursor-pointer text-center lg:max-w-6xl mx-auto mt-10
-                  ${isDragActive ? "bg-blue-100" : "bg-[#F8FAFF]"}`}
-          >
-            <div className="lg:block hidden">
-              <Image
-                src={"/file_upload.png"}
-                height={40}
-                width={50}
-                alt="file upload"
-              ></Image>
-            </div>
-            <div className="lg:hidden">
-              <span
-                className="px-6 py-4 text-white  bg-orange-500 
-                    font-bold text-2xl rounded-md"
-              >
-                Tap to Select Docx file
-              </span>
-            </div>
-            <input
-              {...getInputProps()}
-              type="file"
-              name="pdf_file"
-              accept=".doc, .docx"
-            />
-            {isDragActive ? (
-              <p className="text-[#568DF8]  lg:block hidden text-lg font-semibold">
-                Drop the files here ...
-              </p>
-            ) : (
-              <p className="text-[#568DF8] hidden lg:block text-lg font-semibold">
-                Drag n drop some files here, or click to select files
-              </p>
-            )}
-          </div>
+          <FileInput setFiles={setFiles} setisDroped={setisDroped} multiple={false}
+          accept={{
+            "application/msword": [".doc"],
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"]
+            }}
+          mode="wordFile"/>
         )}
 
-        {isDroped && !isUploading && !isProcessing && !mergeStatus && (
+        {isDroped && !isUploading && !isProcessing && !completionStatus && (
           <div className="max-w-7xl mx-auto p-10">
             <ul className="mt-6 flex flex-wrap justify-center gap-6">
               <li
                 className="w-[220px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
-                          transition-all duration-300 overflow-hidden"
+                         transition-all duration-300 overflow-hidden"
               >
                 <div>
                   <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
                     <div className="w-[180px] h-[250px] flex flex-col items-center justify-center">
                     <Image
-                            className="object-contain"
-                            src="/word_logo.jpg"
-                            width={130}
-                            height={130}
-                            alt="Picture of the author"
+                      className="object-contain"
+                      src="/word_logo.jpg"
+                      width={130}
+                      height={130}
+                      alt="Picture of the author"
                     />
                     </div>
                   </div>
@@ -243,9 +87,9 @@ function WordToPdf() {
                 <div className=" py-2 px-3 text-center">
                   <p
                     className="text-sm font-medium  truncate"
-                    title={file.name}
+                    title={files.name}
                   >
-                    {file.name}
+                    {files.name}
                   </p>
                 </div>
               </li>
@@ -264,7 +108,7 @@ function WordToPdf() {
         )}
 
         
-        {progress > 0 && progress < 100 && <ProgressBar />}
+        {progress > 0 && progress < 100 && <ProgressBar progress={progress}/>}
         {serverPreparing &&  <div className="flex flex-col items-center mt-8">
                 <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
                 <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
@@ -273,14 +117,14 @@ function WordToPdf() {
         {progress === 100 && isProcessing && <Processing />}
       </form>
 
-      {compressedFileURL && (
+      {downloadFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download Converted PDF
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
-              href={compressedFileURL}
+              href={downloadFileURL}
               download
               className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
