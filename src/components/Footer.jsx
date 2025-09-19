@@ -5,45 +5,55 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <footer className="bg-[#E2E8F0] text-[#374151] w-full mt-5">
-      {/* Top Section */}
-      <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between gap-10">
-        {/* Logo & About */}
-        <div className="flex flex-col flex-1 min-w-[200px]">
-          <Image
-            src="/footer_logo.png"
-            height={50}
-            width={180}
-            alt="All in One PDF Logo"
-            className="mb-4"
-          />
-          <p className="text-sm">
-            Your all-in-one solution for working with PDFs. Simple, Fast, and Free.
-          </p>
+    <footer className="h-[410px] bg-[#202020] mt-20">
+      <div className="flex h-[300px] pt-16 justify-between max-w-6xl mx-auto">
+        <div className="basis-[30%]">
+          <div className="flex flex-col gap-4">
+            <Image
+            src={"/PDFtoolify_footer_logo.svg"}
+            height={25}
+            width={182}
+            alt="PDFtoolify logo"
+          ></Image>
+          <p className="text-xl text-white w-fit text-center">Smart And Simple PDF <br /> Solution.</p>
+          </div>
         </div>
-
-        {/* Quick Links */}
-        <div className="flex flex-col flex-1 w-fit">
-          <h3 className="text-lg font-semibold text-[#1E293B] mb-3 w-fit">Quick Links</h3>
-          <Link href="/privacy" className="hover:text-[#3B82F6] w-fit mb-1 transition">Privacy Policy</Link>
-          <Link href="/contact" className="hover:text-[#3B82F6] w-fit mb-1 transition">Contact</Link>
-          <Link href="/about" className="hover:text-[#3B82F6] w-fit mb-1 transition">About Us</Link>
-        </div>
-
-        {/* Contact Info / Socials */}
-        <div className="flex flex-col  flex-1 min-w-[200px]">
-          <h3 className="text-lg font-semibold text-[#1E293B] mb-3">Get in Touch</h3>
-          {/* <p className="text-sm mb-2">📧 support@yourdomain.com</p> */}
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-[#3B82F6] transition">Twitter</a>
-            <a href="#" className="hover:text-[#6366F1] transition">LinkedIn</a>
+        <div className="flex basis-[70%] justify-between">
+          <div className="w-[180px] text-sm flex flex-col gap-4 text-white">
+            <span>PDF Online Tools</span>
+            <div className="flex flex-col gap-4 text-sm text-[#C4C4C4]">
+              <a href="">Merge PDF</a>
+              <a href="">Add Pages to PDF</a>
+              <a href="">JPG to PDF</a>
+              <a href="">Remove PDF Pages</a>
+            </div>
+          </div>
+          <div className="border-white text-sm w-[180px] text-white flex flex-col gap-4">
+            <span>PDF Software</span>
+            <div className="flex flex-col gap-4 text-sm text-[#C4C4C4]">
+              <a href="">PDFtoolify for Windows</a>
+              <a href="">PDFtoolify for Android</a>
+            </div>
+          </div>
+          <div className="border-white text-sm w-[180px] text-white flex flex-col gap-4">
+            <span>Company</span>
+            <div className="flex flex-col gap-4 text-sm text-[#C4C4C4]">
+              <a href="">About</a>
+              <a href="">Company</a>
+              <a href="">Blog</a>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Bottom Strip */}
-      <div className="bg-[#CBD5E1] text-center py-3 text-sm border-t border-gray-300 text-[#374151]">
-        © {new Date().getFullYear()} PdfToolify ® All Rights Reserved
+      <hr className="text-[#C4C4C4] mt-6"/>
+      <div className="text-[#C4C4C4] text-sm">
+        <span className="flex gap-10 w-fit mx-auto">
+          <a href="">Terms And Condition</a>
+          <a href="">Privacy Policy</a>
+        </span>
+        <span className="w-fit block mt-2 mx-auto">
+          Copyright @ 2025 PDFtoolify
+        </span>
       </div>
     </footer>
   );

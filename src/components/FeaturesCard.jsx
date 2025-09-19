@@ -1,0 +1,16 @@
+import React from 'react'
+
+function FeaturesCard({Icon,heading,paragraph}) {
+  return (
+    <div className="flex flex-col gap-3  w-96">
+            <div className="flex justify-center"><Icon strokwidth={1} size={45}/></div>
+              <div><h3 className="text-md font-semibold text-gray-800 text-center">{heading}</h3></div>
+              <div>
+                <p className="text-center text-sm font-medium text-gray-800">{paragraph}
+                </p>
+              </div>
+          </div>
+  )
+}
+
+export default FeaturesCard

@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ToolName from "./ToolName";
-function ToolsSection({
+function MobileToolsSection({
   isActiveTools,
   setIsActiveTools,
   setIsActiveHamBurger,
@@ -197,4 +197,4 @@ function ToolsSection({
   );
 }
 
-export default ToolsSection;
+export default MobileToolsSection;
