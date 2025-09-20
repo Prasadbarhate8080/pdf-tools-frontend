@@ -7,7 +7,6 @@ import Image from "next/image";
 import MobileToolsSection from "./MobileToolsSection";
 import HeaderToolsSection from "./HeaderToolsSection";
 import Link from "next/link";
-import ToolName from "./ToolName";
 function Header() {
   const [isActiveTools, setIsActiveTools] = useState(false);
   const hamBurgerMenu = useRef(null);
@@ -52,7 +51,7 @@ function Header() {
             <ul className=" flex gap-8 text-gray-700 list-none text-md font-medium  h-full items-center">
               <Link href={"/"}>
                 <li
-                  className={` hover:cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-md `}
+                  className={`hover:cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-md `}
                 >
                   Home
                 </li>
@@ -73,19 +72,16 @@ function Header() {
                 </li>
               </Link>
               <li
-                className={`hover:cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-md flex justify-center relative gap-1 items-center ${styles.toolItems}`}
+                className={`hover:cursor-pointer  hover:bg-gray-100 px-2 py-1 rounded-md flex justify-center relative gap-1 items-center ${styles.toolItems}`}
                 onMouseEnter={() => setIsActiveDropdown(true)}
                 onMouseLeave={() => setIsActiveDropdown(false)}
               >
                 <span
                 >Tools</span>
-                <div>
-                  <Image
-                    src={"/down_arrow.png"}
-                    height={10}
-                    width={12}
-                    alt="down arrow"
-                  ></Image>
+                <div className="downArrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-4 ${styles.downArrow}`}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                  </svg>
                 </div>
 
                 {/* dropdown section of tools */}

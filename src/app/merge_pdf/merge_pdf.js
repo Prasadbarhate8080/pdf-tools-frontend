@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { setProgress } from "@/store/progressBarSlice";
 import FileInput from "@/components/FileInput";
 import { useFileUpload } from "@/hooks/useFileUpload";
-
+import {  MergeIcon } from "lucide-react";
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
@@ -39,6 +39,7 @@ function Merge() {
     <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px] ">
       {!completionStatus && (
         <div>
+          <MergeIcon />
           <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
             Merge PDF Files
           </h1>
