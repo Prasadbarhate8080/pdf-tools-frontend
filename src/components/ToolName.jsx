@@ -19,14 +19,14 @@ function ToolName(
     <Link href={href} className={`${className}`}>
           <li
           onClick={() => {setIsActiveTools(false); setIsActiveHamBurger(false)}}
-          className="flex gap-2 hover:bg-gray-100 px-2 py-1 rounded-md items-center">
+          className="flex gap-1 hover:bg-gray-100 px-2 py-1 rounded-md items-center">
             <Image
               src={src}
               width={width}
               height={height}
               alt={alt}
             ></Image>
-            <span>{title}</span>
+            <span className='text-sm'>{title}</span>
           </li>
         </Link>
   )

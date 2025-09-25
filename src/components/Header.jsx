@@ -51,28 +51,28 @@ function Header() {
             <ul className=" flex gap-8 text-gray-700 list-none text-md font-medium  h-full items-center">
               <Link href={"/"}>
                 <li
-                  className={`hover:cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-md `}
+                  className={`hover:cursor-pointer px-2 py-1 rounded-md `}
                 >
                   Home
                 </li>
               </Link>
               <Link href={"/merge_pdf"}>
-                <li className=" hover:cursor-pointer  hover:bg-gray-100 px-2 py-1 rounded-md">
+                <li className=" hover:cursor-pointer  px-2 py-1 rounded-md">
                   Merge PDF
                 </li>
               </Link>
               <Link href={"/split_pdf"}>
-                <li className=" hover:cursor-pointer  hover:bg-gray-100 px-2 py-1 rounded-md">
+                <li className=" hover:cursor-pointer  px-2 py-1 rounded-md">
                   Split PDF
                 </li>
               </Link>
               <Link href={"/split_pdf"}>
-                <li className=" hover:cursor-pointer  hover:bg-gray-100 px-2 py-1 rounded-md">
+                <li className=" hover:cursor-pointer  px-2 py-1 rounded-md">
                   Blogs
                 </li>
               </Link>
               <li
-                className={`hover:cursor-pointer  hover:bg-gray-100 px-2 py-1 rounded-md flex justify-center relative gap-1 items-center ${styles.toolItems}`}
+                className={`hover:cursor-pointer  px-2 py-1 rounded-md flex justify-center relative gap-1 items-center ${styles.toolItems}`}
                 onMouseEnter={() => setIsActiveDropdown(true)}
                 onMouseLeave={() => setIsActiveDropdown(false)}
               >

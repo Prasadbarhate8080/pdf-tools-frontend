@@ -34,7 +34,7 @@ function Home() {
         <InfoCard 
         heading={"Create a perfect PDF Document with PDFtoolify"}
         paragraph={"Create PDF from jpg,png images and also manage your PDF document safely"}
-        buttonText={"Create a PDF documnet"}
+        buttonText={"Create a PDF document"}
         src={"/create_doc.png"}
         alt={"Create a perfect PDF Document with PDFtoolify"}
         />
@@ -48,7 +48,7 @@ function Home() {
         />
         <InfoCard 
         heading={"Compress PDF"}
-        paragraph={"Compres PDF - minimize the size  of the PDF use PDFtoolify compress tool to minimize or decrese the size of the PDF"}
+        paragraph={"Compress PDF - minimize the size  of the PDF use PDFtoolify compress tool to minimize or decrease the size of the PDF"}
         buttonText={"Compress PDF file"}
         src={"/compress.jpg"}
         alt={"Compress PDF"}
@@ -58,23 +58,23 @@ function Home() {
         <h1 className="text-3xl font-semibold text-center text-gray-800 mt-4">Why Choose PDFtoolify</h1>
         {/* FeaturesCard section */}
         <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-          <FeaturesCard Icon={Users} heading={"Userfrindely Experience"}
-            paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
+          <FeaturesCard Icon={Users} heading={"User-Friendly Experience"}
+            paragraph={"Designed to be simple and intuitive to be everyone. So anyone can be easily use this tool and make their work simple"}
           />
           <FeaturesCard Icon={Rabbit} heading={"Fast And Easy to use"}
-            paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
+            paragraph={"Operate on your PDFs within seconds so make your PDF task fast and easy. And make your work life better"}
           />
           <FeaturesCard Icon={ShieldCheck} heading={"Secure And Private"}
-            paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
+            paragraph={"We never store your files. your files deleted automatically after task completed. your documents remain safe, private and only accessible to you"}
           />
           <FeaturesCard Icon={TreePalm} heading={"Work Anywhere"}
-            paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
+            paragraph={"We have android app and desktop app use this for you to work comfortably anywhere you want to work with PDFs"}
           />
           <FeaturesCard Icon={CreditCard} heading={"Free & Affordable"}
-            paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
+            paragraph={"Enjoy our tools for free currently we are not taking any charges. so enjoy and make your life easy."}
           />
           <FeaturesCard Icon={Clock} heading={"Save Time, save Work"}
-            paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
+            paragraph={"By using our tools you can quickly do your tasks. you can save your time much better."}
           />
         </div>
         <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Handle With PDF Anywhere</h1>
@@ -84,12 +84,11 @@ function Home() {
           buttonText={"Download Now"}
           />
           <DownloadSoftware imgSrc={"/os_android.png"} heading={"Android"} 
-          paragraph={"Download PDFtoolify app free for android. Use Read,merge,split and more PDF related featues for free"} 
+          paragraph={"Download PDFtoolify app free for android. Use Read,merge,split and more PDF related features for free"} 
           buttonText={"Download Now"}
           />
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
