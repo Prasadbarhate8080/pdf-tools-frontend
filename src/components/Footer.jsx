@@ -49,7 +49,7 @@ function Footer() {
       <div className="text-[#C4C4C4] text-sm">
         <span className="flex gap-10 w-fit mx-auto">
           <Link href="/">Terms And Conditions</Link>
-          <Link href="/privacy_policy">Privacy Policy</Link>
+          <Link href="/privacy">Privacy Policy</Link>
         </span>
         <span className="w-fit block mt-2 mx-auto">
           Copyright © 2025 PDFtoolify. All rights reserved.
