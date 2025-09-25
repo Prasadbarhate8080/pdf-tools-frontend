@@ -22,25 +22,25 @@ function Footer() {
           <div className="w-[180px] text-sm flex flex-col gap-4 text-white">
             <span>PDF Online Tools</span>
             <div className="flex flex-col gap-4 text-sm text-[#C4C4C4]">
-              <a href="">Merge PDF</a>
-              <a href="">Add Pages to PDF</a>
-              <a href="">JPG to PDF</a>
-              <a href="">Remove PDF Pages</a>
+              <Link href="/merge_pdf">Merge PDF</Link>
+              <Link href="/add_pages_to_pdf">Add Pages to PDF</Link>
+              <Link href="/jpg_to_pdf">JPG to PDF</Link>
+              <Link href="/remove_pdf_pages">Remove PDF Pages</Link>
             </div>
           </div>
           <div className="border-white text-sm w-[180px] text-white flex flex-col gap-4">
             <span>PDF Software</span>
             <div className="flex flex-col gap-4 text-sm text-[#C4C4C4]">
-              <a href="">PDFtoolify for Windows</a>
-              <a href="">PDFtoolify for Android</a>
+              <Link href="">PDFtoolify for Windows</Link>
+              <Link href="">PDFtoolify for Android</Link>
             </div>
           </div>
           <div className="border-white text-sm w-[180px] text-white flex flex-col gap-4">
             <span>Company</span>
             <div className="flex flex-col gap-4 text-sm text-[#C4C4C4]">
-              <a href="">About</a>
-              <a href="">Company</a>
-              <a href="">Blog</a>
+              <Link href="/">About</Link>
+              <Link href="/">Company</Link>
+              <Link href="/">Blog</Link>
             </div>
           </div>
         </div>
@@ -48,11 +48,11 @@ function Footer() {
       <hr className="text-[#C4C4C4] mt-6"/>
       <div className="text-[#C4C4C4] text-sm">
         <span className="flex gap-10 w-fit mx-auto">
-          <a href="">Terms And Conditions</a>
-          <a href="">Privacy Policy</a>
+          <Link href="/">Terms And Conditions</Link>
+          <Link href="/privacy_policy">Privacy Policy</Link>
         </span>
         <span className="w-fit block mt-2 mx-auto">
-          Copyright @ 2025 PDFtoolify
+          Copyright © 2025 PDFtoolify. All rights reserved.
         </span>
       </div>
     </footer>
