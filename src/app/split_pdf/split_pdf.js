@@ -15,6 +15,8 @@ import { useDispatch } from "react-redux";
 import { setProgress } from "@/store/progressBarSlice";
 import FileInput from "@/components/FileInput"; 
 import { useFileUpload } from "@/hooks/useFileUpload";
+import { CircleCheck, FileOutput, Scissors, Settings, ShieldCheck, Smartphone, Sparkles, SplitIcon } from "lucide-react";
+import FeaturesCard from "@/components/FeaturesCard";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -43,24 +45,176 @@ function Split() {
       <ToastContainer />
       {!completionStatus && (
         <div>
-          <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            Split PDF Files
+          <h1 className="mt-12 text-3xl flex justify-center items-center gap-4 md:text-4xl font-bold text-gray-800">
+            <SplitIcon color="gray" size={35} strokeWidth={2} /> Split PDF Files
           </h1>
-          <p className="text-center text-gray-500 text-md">
-            Take a slice of a PDF
+          <p className="text-center text-gray-500 mt-2 md:text-md">
+            Free to split PDF Files into smaller PDFs online
           </p>
         </div>
       )}
       <form onSubmit={handleSubmit} encType="multipart/form-data">  
         {!isDroped && (
-          <FileInput setisDroped={setisDroped} setFiles={setFiles} multiple={false} accept= {{ "application/pdf": [] }}/>
+          <div>
+            <FileInput setisDroped={setisDroped} setFiles={setFiles} multiple={false} accept= {{ "application/pdf": [] }}/>
+            <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">Split PDF files online for free</h1>
+            {/* points section */}
+            <div className="flex justify-center max-w-7xl mt-6 mx-auto gap-4">
+              <div className="flex flex-col gap-2 w-xl text-sm">
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>Our free PDF Splitter can be work on any device </span>
+                </div>
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>Using PDFtoolify split tool you can easily split PDF files</span>
+                </div>
+              </div>
+              <div className="w-xl flex flex-col gap-2 text-sm">
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>PDFtoolify is secure and easy to use tool for PDF related operations</span>
+                </div>  
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>No SignUp require to split PDF online</span>
+                </div>
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>split PDFs in seconds with PDFtoolify — free, fast, and secure.</span>
+                </div>
+              </div>
+            </div>
+            {/* feature card section */}
+            <div className="max-w-7xl flex mx-auto mt-32 flex-wrap gap-10 justify-evenly">
+              <FeaturesCard Icon={Scissors} heading={"Split PDFs Instantly"}
+                paragraph={"Easily divide large PDF files into smaller parts in just seconds. Perfect for managing documents efficiently."}
+              />
+              <FeaturesCard Icon={Settings} heading={"Custom Page Selection"}
+                paragraph={"Choose exactly which pages you want to split and create a new PDF tailored to your needs."}
+              />
+              <FeaturesCard Icon={FileOutput} heading={"Multiple Splitting Options"}
+                paragraph={"Split PDFs by page range, specific pages, or extract every page into a separate file."}
+              />
+              <FeaturesCard Icon={ShieldCheck} heading={"Safe and Secure Splitting"}
+                paragraph={"All your files are processed securely, and automatically deleted after splitting for complete privacy."}
+              />
+              <FeaturesCard Icon={Sparkles} heading={"High Quality Results"}
+                paragraph={"Your split documents maintain the same quality and formatting as the original file—no loss."}
+              />
+              <FeaturesCard Icon={Smartphone} heading={"Work on Any Device"}
+                paragraph={"Split PDFs directly from your browser on desktop, tablet, or mobile without any installation."}
+              />
+            </div>
+            {/* how to section */}
+            <div className="flex max-w-7xl mx-auto mt-24">
+              <div className="flex basis-[50%] justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="560" height="360" viewBox="0 0 560 360" fill="none">
+                  <rect width="560" height="360" rx="20" fill="#E6F0FF"/>
+                  <rect x="100" y="100" width="80" height="100" rx="8" fill="white" stroke="#1E40AF" strokeWidth="2"/>
+                  <text x="140" y="160" textAnchor="middle" font-size="18" fill="#1E40AF" font-family="Arial">PDF</text>
+                  <rect x="380" y="100" width="80" height="100" rx="8" fill="white" stroke="#1E40AF" strokeWidth="2"/>
+                  <text x="420" y="160" textAnchor="middle" font-size="18" fill="#1E40AF" font-family="Arial">PDF</text>
+                  <path d="M220 150 H340" stroke="#1E3A8A" strokeWidth="4" marker-end="url(#arrowhead)"/>
+                  <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                      refX="10" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="#1E3A8A"/>
+                    </marker>
+                  </defs>
+                  <rect x="240" y="220" width="80" height="100" rx="8" fill="white" stroke="#059669" strokeWidth="2"/>
+                  <text x="280" y="280" textAnchor="middle" font-size="18" fill="#059669" font-family="Arial">PDF</text>
+                </svg>
+              </div>
+              <div className="flex basis-[50%] justify-center items-center">
+                <div className="flex flex-col gap-3">
+                  <div className="flex gap-4 items-center">
+                    <span className="w-5 h-5 rounded-md bg-black inline-block"></span> 
+                    <span className="text-2xl text-gray-800 font-semibold">How to split PDFs online for free?</span>
+                  </div>
+                  <p className="whitespace-pre">1.     Select files or drag and drop files in the select container</p>
+                  <p className="whitespace-pre">2.     Enter start and end page to split PDF and press split pdf button</p>
+                  <p className="whitespace-pre">3.     Download the split PDFs by pressing Download button</p>
+                </div>
+              </div>
+            </div>
+            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Split PDF FAQs</h1>
+            {/* FAQs Section */}
+            <div className="max-w-4xl mx-auto flex flex-col mt-12 items-start gap-6">
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">Is PDFtoolify really free to split PDFs?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes, splitting PDFs with PDFtoolify is 100% free. You can separate pages without any sign-up or hidden charges.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">How can I split PDF files online?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Simply upload your PDF, select the pages you want to extract or split, and click on “Split PDF.” 
+                  Your file will be ready to download instantly.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">Will my PDF quality change after splitting?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  No. PDFtoolify keeps the original formatting and quality of your PDF files after splitting.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">Is it safe to split PDFs online?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. Your files are processed securely, and they are automatically deleted after the task is completed.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">Can I split large PDFs with many pages?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Absolutely. PDFtoolify supports splitting large PDF files quickly and efficiently without any page limit.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">Does splitting PDFs cost anything?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  No, splitting PDFs is completely free on PDFtoolify. There are no hidden fees.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+            </div>
+            {/* <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Split PDF Blog Articles </h1> */}
+            {/* PostCard section */}
+            {/* <div className="max-w-6xl p-4 bg-[#fcf8f8] mx-auto mt-20 flex flex-wrap justify-evenly">
+             <PostCard
+                src={"https://www.google.com/imgres?q=split%20pdf%20images&imgurl=https%3A%2F%2Fwww.jotform.com%2Fblog%2Fwp-content%2Fuploads%2F2018%2F12%2FHow-to-split-PDF-files-00cec9.png&imgrefurl=https%3A%2F%2Fwww.jotform.com%2Fblog%2Fhow-to-split-pdf%2F&docid=77fWbPAi3IAUeM&tbnid=9VL9vFjHKFZ5fM&vet=12ahUKEwih7eHvlfmPAxWId2wGHXKcHZkQM3oECBgQAA..i&w=825&h=500&hcb=2&ved=2ahUKEwih7eHvlfmPAxWId2wGHXKcHZkQM3oECBgQAA  "}
+                date={"15-9-2025"}
+                heading={"How to Split PDF Files Online for Free in Seconds"}
+                description={"Learn the easiest way to split PDF files online without downloading any software. Step-by-step guide to separate pages quickly and securely."}
+              />
+              <PostCard
+                src={"/safe_to_merge.png"}
+                date={"11-8-2025"}
+                heading={"Best Free Online Tool to Split PDF Pages Instantly"}
+                description={"Discover the fastest and most reliable tool to split PDF pages online. No sign-up, no hidden charges — just upload, split, and download."}
+              />
+              <PostCard
+                src={"/onine_pdf_merger.jpg"}
+                date={"23-8-2025"}
+                heading={"Split Large PDF Files into Smaller Parts Easily"}
+                description={"Need to manage big PDFs? Use our free Split PDF tool to break large documents into smaller, manageable files without losing quality."}
+              />
+            </div> */}
+          </div>
         )}
         {isDroped && !isUploading && !completionStatus && (
           <div className="max-w-7xl mx-auto p-10">
             <ul className="mt-6 flex flex-wrap justify-center gap-6">
               <li
                 className="w-[220px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
-                    transition-all duration-300 overflow-hidden "
+                    transition-all duration-300 overflow-hidden"
               >
                 <Document file={files}>
                   <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">

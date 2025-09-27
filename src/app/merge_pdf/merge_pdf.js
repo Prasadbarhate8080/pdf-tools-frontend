@@ -154,8 +154,9 @@ function Merge() {
                 <hr className="text-gray-800"/>
               </div>
             </div>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Merge PDF Blog Articles </h1>
-            <div className="max-w-6xl p-4 bg-[#fcf8f8] mx-auto mt-20 flex flex-wrap justify-evenly">
+            {/* <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Merge PDF Blog Articles </h1> */}
+            {/* PostCard section */}
+            {/* <div className="max-w-6xl p-4 bg-[#fcf8f8] mx-auto mt-20 flex flex-wrap justify-evenly">
              <PostCard
                 src={"/how_to_merge.png"}
                 date={"15-9-2025"}
@@ -174,7 +175,7 @@ function Merge() {
                 heading={"Best Free Online PDF Merger Combine Multiple Files in Seconds"}
                 description={"Quickly combine multiple PDFs into a single document with our free online PDF merger. No signup, no hidden charges—just fast, secure, and reliable PDF merging anytime, anywhere."}
               />
-            </div>
+            </div> */}
           </div>
         )}
         {isDroped && !isUploading && !completionStatus && (
