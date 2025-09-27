@@ -78,7 +78,8 @@ function Merge() {
               </div>
             </div>
             {/* feature card section */}
-            <div className="max-w-7xl flex mx-auto mt-32 flex-wrap gap-10 justify-evenly">
+            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Why Choose PDFtoolify</h1>
+            <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
               <FeaturesCard Icon={MousePointerClick } heading={"Easy to Use"}
                 paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
               />

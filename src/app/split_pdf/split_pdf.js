@@ -86,7 +86,8 @@ function Split() {
               </div>
             </div>
             {/* feature card section */}
-            <div className="max-w-7xl flex mx-auto mt-32 flex-wrap gap-10 justify-evenly">
+            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Why Choose PDFtoolify</h1>
+            <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
               <FeaturesCard Icon={Scissors} heading={"Split PDFs Instantly"}
                 paragraph={"Easily divide large PDF files into smaller parts in just seconds. Perfect for managing documents efficiently."}
               />
@@ -112,10 +113,10 @@ function Split() {
                 <svg xmlns="http://www.w3.org/2000/svg" width="560" height="360" viewBox="0 0 560 360" fill="none">
                   <rect width="560" height="360" rx="20" fill="#E6F0FF"/>
                   <rect x="100" y="100" width="80" height="100" rx="8" fill="white" stroke="#1E40AF" strokeWidth="2"/>
-                  <text x="140" y="160" textAnchor="middle" font-size="18" fill="#1E40AF" font-family="Arial">PDF</text>
+                  <text x="140" y="160" textAnchor="middle" fontSize="18" fill="#1E40AF" fontFamily="Arial">PDF</text>
                   <rect x="380" y="100" width="80" height="100" rx="8" fill="white" stroke="#1E40AF" strokeWidth="2"/>
-                  <text x="420" y="160" textAnchor="middle" font-size="18" fill="#1E40AF" font-family="Arial">PDF</text>
-                  <path d="M220 150 H340" stroke="#1E3A8A" strokeWidth="4" marker-end="url(#arrowhead)"/>
+                  <text x="420" y="160" textAnchor="middle" fontSize="18" fill="#1E40AF" fontFamily="Arial">PDF</text>
+                  <path d="M220 150 H340" stroke="#1E3A8A" strokeWidth="4" markerEnd="url(#arrowhead)"/>
                   <defs>
                     <marker id="arrowhead" markerWidth="10" markerHeight="7" 
                       refX="10" refY="3.5" orient="auto">
@@ -123,7 +124,7 @@ function Split() {
                     </marker>
                   </defs>
                   <rect x="240" y="220" width="80" height="100" rx="8" fill="white" stroke="#059669" strokeWidth="2"/>
-                  <text x="280" y="280" textAnchor="middle" font-size="18" fill="#059669" font-family="Arial">PDF</text>
+                  <text x="280" y="280" textAnchor="middle" fontSize="18" fill="#059669" fontFamily="Arial">PDF</text>
                 </svg>
               </div>
               <div className="flex basis-[50%] justify-center items-center">
