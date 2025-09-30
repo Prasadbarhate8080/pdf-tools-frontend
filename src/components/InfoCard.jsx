@@ -2,11 +2,11 @@ import React from 'react'
 import Image from 'next/image'
 function InfoCard({heading,paragraph,buttonText,src,alt,flip,imageHeight=400,imageWidth=400}) {
   return (
-    <div className={`${flip ? "flex-row-reverse" : ""} mt-10 flex w-6xl mx-auto`}>
-      <div className="basis-[50%] flex  items-center justify-center text-gray-800">
-        <div className="w-[400px] flex flex-col gap-4">
-          <h2 className="text-2xl  font-semibold">{heading}</h2>
-          <p className="text-sm ">
+    <div className={`${flip ? "lg:flex-row-reverse" : ""} mt-10 flex max-w-6xl justify-evenly mx-auto flex-wrap lg:flex-row flex-col-reverse  lg:flex-nowrap`}>
+      <div className="max-w-3xl flex  items-center justify-center text-gray-800">
+        <div className="max-w-[400px] flex flex-col gap-4 px-2">
+          <h2 className=" text-xl md:text-2xl font-semibold">{heading}</h2>  
+          <p className="text-xs md:text-sm ">
             {paragraph}
           </p>
           <button className="flex gap-2 text-blue-700">
@@ -17,7 +17,7 @@ function InfoCard({heading,paragraph,buttonText,src,alt,flip,imageHeight=400,ima
           </button>
         </div>
       </div>
-      <div className="basis-[50%] flex items-center justify-center">
+      <div className="max-w-3xl flex items-center justify-center">
           <Image 
           src={src}
           width={imageWidth}

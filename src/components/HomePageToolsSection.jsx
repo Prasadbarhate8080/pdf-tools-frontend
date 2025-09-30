@@ -8,7 +8,7 @@ function HomePageToolsSection() {
         <h1 className="md:text-3xl text-2xl text-gray-800 text-center font-semibold">
           PDFtoolify Free Online Tools
         </h1>
-        <p className="text-md w-[975px] mx-auto text-center mt-2 text-gray-700">
+        <p className="text-sm md:text-[16px]  px-1 mx-auto text-center max-w-3xl   mt-2 text-gray-700">
           Tools you need to work with PDFs in one place PDFtoolify offers dozens of tools to help you complete simple and quick PDF tasks directly in your web browser.
         </p>
       </div>

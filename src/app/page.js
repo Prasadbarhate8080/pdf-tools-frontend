@@ -20,8 +20,8 @@ function Home() {
           </div>
         </div>
         <div className="mt-16">
-          <h1 className="text-3xl font-semibold text-center text-gray-800">Simplify Your PDF Tasks With PDFtoolify</h1>
-          <p className="text-center">PDFtoolify is a secure and trusted PDF software. we have all the tools to work on PDF. PDFtoolify is free and <br /> easy to use PDF software</p>
+          <h1 className="lg:text-3xl md:text-2xl text-xl font-semibold text-center text-gray-800">Simplify Your PDF Tasks With PDFtoolify</h1>
+          <p className="text-center">PDFtoolify is a secure and trusted PDF software. we have all the tools to work on PDF. PDFtoolify is free and  easy to use PDF software</p>
         </div>
         <InfoCard 
         heading={"Manage All Your PDF Tasks In One Place"}
@@ -30,7 +30,7 @@ function Home() {
         src={"/manage_doc.jpg"}
         alt={"Manage All Your PDF Tasks In One Place"}
         />
-        <h1 className="text-3xl mt-5 font-semibold text-center text-gray-800">Most Useful tools Provided By PDFtoolify</h1>
+        <h1 className="lg:text-3xl md:text-2xl text-xl mt-10 lg:mt-5 font-semibold text-center text-gray-800">Most Useful tools Provided By PDFtoolify</h1>
         <InfoCard 
         heading={"Create a perfect PDF Document with PDFtoolify"}
         paragraph={"Create PDF from jpg,png images and also manage your PDF document safely"}
@@ -55,9 +55,9 @@ function Home() {
         imageHeight={550}
         imageWidth={550}
         />
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mt-4">Why Choose PDFtoolify</h1>
+        <h1 className="lg:text-3xl md:text-2xl text-xl font-semibold text-center text-gray-800 mt-12 lg:mt-4">Why Choose PDFtoolify</h1>
         {/* FeaturesCard section */}
-        <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
+        <div className="max-w-7xl flex mx-auto mt-12 lg:mt-24 flex-wrap gap-10 justify-evenly">
           <FeaturesCard Icon={Users} heading={"User-Friendly Experience"}
             paragraph={"Designed to be simple and intuitive to be everyone. So anyone can be easily use this tool and make their work simple"}
           />
@@ -77,8 +77,8 @@ function Home() {
             paragraph={"By using our tools you can quickly do your tasks. you can save your time much better."}
           />
         </div>
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Handle With PDF Anywhere</h1>
-        <div className="flex justify-center mt-16 gap-20">
+        <h1 className="lg:text-3xl md:text-2xl text-xl font-semibold text-center text-gray-800 mt-20 lg:mt-24">Handle With PDF Anywhere</h1>
+        <div className="flex justify-center items-center flex-wrap mt-10 lg:mt-16 gap-10 md:gap-20">
           <DownloadSoftware imgSrc={"/windows_icon.png"} heading={"Windows"} 
           paragraph={"Download PDFtoolify for windows and simplify your PDF tasks. Use add pdf pages and more PDF related features for free"} 
           buttonText={"Download Now"}
