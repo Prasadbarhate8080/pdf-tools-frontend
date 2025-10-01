@@ -27,7 +27,7 @@ function Home() {
         heading={"Manage All Your PDF Tasks In One Place"}
         paragraph={"PDFtoolify brings all essential PDF tools together merge,split,compress,convert and more every thing you need to work with pdf."}
         buttonText={"Explore more pdf tools"}
-        src={"/manage_doc.jpg"}
+        src={"/manage_doc.png"}
         alt={"Manage All Your PDF Tasks In One Place"}
         />
         <h1 className="lg:text-3xl md:text-2xl text-xl mt-10 lg:mt-5 font-semibold text-center text-gray-800">Most Useful tools Provided By PDFtoolify</h1>
