@@ -10,14 +10,14 @@ function HeroSection() {
           >Work Smarter with Easy <br />
           PDF Tools.
           </h1>
-          <p className='text-gray-700 md:text-[16px] text-xs  '>All the PDF tools you need in one place. Manage your  documents  smarter and faster.</p>
+          <p className=' text-gray-700 md:text-[16px] text-xs  '>All the PDF tools you need in one place. Manage your  documents  smarter and faster.</p>
           <button 
           className="font-bold md:text-[16px] text-xs text-[#0026FF] border-2 border-[#0026FF] px-2 py-1 rounded-md w-fit"
           >Explore All PDF Tools
           </button>
         </div>
       </div>
-      <div className="w-[320px] h-[320px] lg:w-[510px] lg:h-[510px] md:w-[450px] md:h-[450px] relative flex justify-center items-center">
+      <div className="w-[290px] h-[300px] lg:w-[510px] lg:h-[510px] md:w-[450px] md:h-[450px] relative flex justify-center items-center">
         <Image
         fill
         src={"/hero_image.gif"}

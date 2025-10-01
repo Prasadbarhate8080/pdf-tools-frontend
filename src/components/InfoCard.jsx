@@ -18,12 +18,13 @@ function InfoCard({heading,paragraph,buttonText,src,alt,flip,imageHeight=400,ima
         </div>
       </div>
       <div className="max-w-3xl flex items-center justify-center">
+        <div className={`md:w-[400px] md:h-[400px] w-[300px] h-[300px] relative`}>
           <Image 
           src={src}
-          width={imageWidth}
-          height={imageHeight}
+          fill
           alt={alt}
           />
+        </div>
       </div>
     </div>
   )
