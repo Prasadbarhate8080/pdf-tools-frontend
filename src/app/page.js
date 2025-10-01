@@ -50,7 +50,7 @@ function Home() {
         heading={"Compress PDF"}
         paragraph={"Compress PDF - minimize the size  of the PDF use PDFtoolify compress tool to minimize or decrease the size of the PDF"}
         buttonText={"Compress PDF file"}
-        src={"/compress.jpg"}
+        src={"/compress.png"}
         alt={"Compress PDF"}
         imageHeight={550}
         imageWidth={550}
