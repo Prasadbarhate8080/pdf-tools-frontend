@@ -73,7 +73,7 @@ function useFileUpload (){
       }
     }
   }
-  return {files,isDroped,isProcessing,completionStatus,isUploading,downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi}
+  return {files,isDroped,isProcessing,completionStatus,isUploading,downloadFileURL,serverPreparing,progress,setCompletionStatus,setdownloadFileURL,setisDroped,setFiles,callApi}
 }
 
 export  {useFileUpload}

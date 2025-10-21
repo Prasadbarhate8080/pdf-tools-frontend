@@ -9,8 +9,8 @@ import { Clock, CreditCard, Rabbit, ShieldCheck, TreePalm, Users } from "lucide-
 import DownloadSoftware from "@/components/DownloadSoftware";
 function Home() {
   return (
-    <div className="">
-      <main className="">
+    <div className="bg-white">
+      <main className="bg-white">
         <div className="bg-[url('/dotted_pattern.png')]">
           <HeroSection />
           <div className={home.toolsection_gradient}>

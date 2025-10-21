@@ -34,7 +34,7 @@ function Header() {
   }, [isActiveHamBurger]);
 
   return (
-    <header className={`${home.shadow} mb-1 bg-white`}>
+    <header className={`${home.shadow} mb-1 bg-white sticky top-0 z-50`}>
       <nav className={`${home.nav_bar} lg:max-w-7xl m-auto`}>
         <div className="flex lg:px-20 px-4 md:px-4 pt-2 items-center justify-between ">
           <div>
@@ -85,7 +85,7 @@ function Header() {
                 </div>
 
                 {/* dropdown section of tools */}
-                <div className={`${styles.dropdownCard} ${isActiveDropdown ? "flex" : "hidden" }  gap-8`}
+                <div className={`${styles.dropdownCard} ${isActiveDropdown ? "flex" : "hidden" } z-10 gap-8`}
                 onClick={() => {setIsActiveDropdown(false)}}
                 >
                   <HeaderToolsSection isActiveTools={isActiveTools} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger}/>

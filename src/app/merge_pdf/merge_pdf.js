@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -8,23 +8,82 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import FileInput from "@/components/FileInput";
 import { useFileUpload } from "@/hooks/useFileUpload";
-import { BadgeCheck, CircleCheck, Gift, Infinity, MergeIcon, MousePointerClick, ShieldCheck, Zap } from "lucide-react";
+import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MergeIcon, MousePointerClick, ShieldCheck, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
-import PostCard from "@/components/PostCard";
 import Image from "next/image";
+import { PDFDocument } from "pdf-lib";
+import PDFPageComponent from "@/components/PDFPageComponent";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
 function Merge() {
+  const [loading,setLoading] = useState(false)
   let {files,isDroped,isProcessing,completionStatus,isUploading,
-      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi
+      downloadFileURL,serverPreparing,progress,setCompletionStatus,setisDroped,setFiles,callApi,setdownloadFileURL
       } = useFileUpload()
+    
+    // let mergePdf = useCallback(
+    // async () => {
+    //   try {
+    //   setLoading(true)
+    //   const mergedPdf = await PDFDocument.create();
+    //   for(const file of files)
+    //   {
+    //     const arrayBuffer = await file.arrayBuffer();
+    //     const pdf = await PDFDocument.load(arrayBuffer)
+    //     const pages = await mergedPdf.copyPages(pdf,pdf.getPageIndices())
+    //     pages.forEach((page) => {mergedPdf.addPage(page)})
+    //   }
+    //   let mergedPdfBytes = await mergedPdf.save();
+    //   const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
+    //   const url = URL.createObjectURL(blob);
+    //   setdownloadFileURL(url);
+    //   setCompletionStatus(true)
+
+    // } catch (error) { 
+    //   // toast.error(error)
+    //   console.log(error);
+    // }
+    // finally{
+    //   setLoading(false)
+    //   setisDroped(false)
+    //   setFiles([]);
+    // }
+    // },[])
+      
+    let mergePdf = async () => {
+      try {
+      setLoading(true)
+      const mergedPdf = await PDFDocument.create();
+      for(const file of files)
+      {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await PDFDocument.load(arrayBuffer)
+        const pages = await mergedPdf.copyPages(pdf,pdf.getPageIndices())
+        pages.forEach((page) => {mergedPdf.addPage(page)})
+      }
+      let mergedPdfBytes = await mergedPdf.save();
+      const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      
+      setdownloadFileURL(url);
+      setCompletionStatus(true)
+
+    } catch (error) { 
+      // toast.error(error)
+      console.log(error);
+      setisDroped(false)
+    }
+    finally{
+      setLoading(false)
+      setFiles([]);
+    }
+    }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formData.append("pdf_files", files[i]);
@@ -46,33 +105,33 @@ function Merge() {
       )}
 
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        {!isDroped && (
+        {!isDroped && !completionStatus &&(
           <div>
             <FileInput files={files} setFiles={setFiles} setisDroped={setisDroped} multiple={true} accept= {{ "application/pdf": [] }}/>
             <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">Merge PDF files online for free</h1>
             {/* points section */}
-            <div className="flex justify-center max-w-7xl mt-6 mx-auto gap-4">
+            <div className="flex justify-center  max-w-7xl mt-6 mx-auto flex-wrap gap-4">
               <div className="flex flex-col gap-2 w-xl text-sm">
-                <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                <div className="flex  gap-2">
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>Our free PDF merger can be work on any device </span>
                 </div>
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>Using PDFtoolify Merge tool you can easily combine PDF files</span>
                 </div>
               </div>
               <div className="w-xl flex flex-col gap-2 text-sm">
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>PDFtoolify is secure and easy to use tool for PDF related operations</span>
                 </div>  
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>No SignUp require to merge PDF online</span>
                 </div>
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>Combine PDFs in seconds with PDFtoolify — free, fast, and secure.</span>
                 </div>
               </div>
@@ -86,7 +145,7 @@ function Merge() {
               <FeaturesCard Icon={Gift } heading={"Free & No Sign Up"}
                 paragraph={"Merge unlimited PDF files online for free without creating an account. No hidden charges, no registration—just a quick and hassle-free PDF merging experience."}
               />
-              <FeaturesCard Icon={Infinity } heading={"PDF Merger With No Limit"}
+              <FeaturesCard Icon={InfinityIcon } heading={"PDF Merger With No Limit"}
                 paragraph={"Combine as many PDF files as you want without restrictions. Whether its dozens of times, our tool handles it all with ease and speed"}
               />
               <FeaturesCard Icon={BadgeCheck} heading={"Reliable PDF Merging"}
@@ -100,30 +159,29 @@ function Merge() {
               />
             </div>
             {/* how to section */}
-            <div className="flex max-w-7xl mx-auto mt-24">
-              <div className="flex basis-[50%] justify-center items-center">
+            <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24">
+              <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
                 <Image
-                width={560}
-                height={ 360 }
+                fill
                 src={"/how_to_merge.png"}
                 alt="how to merge pdf online"
                 />
               </div>
-              <div className="flex basis-[50%] justify-center items-center">
+              <div className="flex justify-center items-center">
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
-                    <span className="w-5 h-5 rounded-md bg-black inline-block"></span> 
-                    <span className="text-2xl text-gray-800 font-semibold">How to merge PDFs online for free?</span>
+                    <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
+                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to merge PDFs online for free?</span>
                   </div>
-                  <p className="whitespace-pre">1.     Select files or drag and drop files in the select container</p>
-                  <p className="whitespace-pre">2.     Merge PDF files by pressing merge PDF button</p>
-                  <p className="whitespace-pre">3.     Download the Merged PDFs by pressing Download button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select files or drag and drop files in the select container</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">2.     Merge PDF files by pressing merge PDF button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">3.     Download the Merged PDFs by pressing Download button</p>
                 </div>
               </div>
             </div>
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Merge PDF FAQs</h1>
             {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col mt-12 items-start gap-6">
+            <div className="max-w-4xl mx-auto flex flex-col mt-12 p-2 items-start gap-6">
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800 ">Is PDFtoolify Really Free?</p>
                 <p className=" text-sm font-medium text-gray-800">Yes,PDFtoolify is free to use you can easily use PDFtoolify for your work without signup</p>
@@ -179,53 +237,33 @@ function Merge() {
             </div> */}
           </div>
         )}
-        {isDroped && !isUploading && !completionStatus && (
-          <div className="max-w-7xl mx-auto p-10">
-            <ul className="mt-6 flex flex-wrap justify-center gap-6">
+        {isDroped  && !completionStatus && (
+          <div className="max-w-7xl mx-auto bg-gray-100 p-10">
+            <ul className="mt-6 flex flex-wrap justify-center  p-5 gap-6">
               {files.map((file, index) => (
-                <li
-                  key={index}
-                  className="w-[220px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
-                   transition-all duration-300 overflow-hidden"
-                >
-                  <Document file={file}>
-                    <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                      <Page pageNumber={1} width={180} />
-                    </div>
-                  </Document>
-
-                  {/* File name */}
-                  <div className=" py-2 px-3 text-center">
-                    <p
-                      className="text-sm font-medium  truncate"
-                      title={file.name}
-                    >
-                      {file.name}
-                    </p>
-                  </div>
-                </li>
+                <PDFPageComponent file={file} key={index}/>
               ))}
             </ul>
             <div className="flex items-center justify-center gap-4 mt-6">
               {/* Merge Button */}
               <button
                 disabled={files.length < 2}
-                className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
+                className={`px-6 py-3 rounded-md font-semibold text-xl text-white transition-all duration-300
                 ${
                   files.length < 2
-                    ? "bg-[#F9AB55] cursor-not-allowed"
-                    : "bg-[#F58A07] hover:bg-[#F79B2E] active:bg-[#F79B2E]"
+                    ? "bg-blue-300 cursor-not-allowed"
+                    : "bg-blue-500 active:bg-blue-400"
                 }`}
               >
-                Merge PDFs
+                Merge PDF Files
               </button>
 
               {/* Add More Files Button */}
               <label
                 htmlFor="addFile"
                 className="w-11 h-11 flex items-center justify-center text-2xl font-bold 
-               bg-[#F58A07] text-white rounded-full shadow-md cursor-pointer 
-               hover:bg-[#F79B2E] active:bg-[#F79B2E] transition-all duration-300"
+               bg-blue-500 text-white rounded-full shadow-md
+               active:bg-blue-400 transition-all duration-300"
                 title="Add more PDFs"
               >
                 +
@@ -261,8 +299,9 @@ function Merge() {
                 <p className="text-gray-700 text-md mb-2">Preparing server ...please wait</p>
                 <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
               </div>
-          }
-        {progress === 100 && isProcessing && <Processing />}
+        }
+        {/* {progress === 100 && isProcessing && <Processing />} */}
+        {loading && <Processing />}
       </form>
       {downloadFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
@@ -273,7 +312,7 @@ function Merge() {
             <a
               href={downloadFileURL}
               download
-              className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
+              className="bg-blue-500  active:bg-blue-400 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
               Download Merged PDF
             </a>

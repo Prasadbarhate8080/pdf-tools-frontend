@@ -5,11 +5,9 @@ import { toast } from 'react-toastify';
 
 function FileInput({setFiles,setisDroped,multiple,accept,setImages,mode="pdf"
 }) {
-
     const onDrop = useCallback((acceptedFiles) => {
     if(mode == "pdf")
     {   
-        console.log(acceptedFiles)
         const pdfFiles = acceptedFiles.filter(
         (file) => file.type === "application/pdf"
         );
@@ -30,22 +28,21 @@ function FileInput({setFiles,setisDroped,multiple,accept,setImages,mode="pdf"
             toast.info("please upload word file")
             return
         }
-       
     }
-    else
+    else if(mode == "images")
     {
-    const images = acceptedFiles.filter(
-        (file) => ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(file.type)
-    )
-    setFiles(images)
-    const imagePreviews = images.map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-    }));
+        const images = acceptedFiles.filter(
+            (file) => ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(file.type)
+        )
+        setFiles(images)
+        const imagePreviews = images.map((file) => ({
+            file,
+            preview: URL.createObjectURL(file),
+        }));
 
-    setImages((prev) => [...prev, ...imagePreviews]);
+        setImages((prev) => [...prev, ...imagePreviews]);
     }
-    setisDroped(true);
+        setisDroped(true);
     }, []);
 
     const { getRootProps, getInputProps, isDragActive, } = useDropzone({
@@ -59,7 +56,7 @@ function FileInput({setFiles,setisDroped,multiple,accept,setImages,mode="pdf"
         className={`lg:border-2 lg:border-dashed lg:border-[#568DF8]
         flex flex-col  items-center justify-center gap-4
         lg:rounded-3xl p-4 max-w-fit lg:h-72 cursor-pointer text-center lg:max-w-6xl mx-auto mt-10
-        ${isDragActive ? "bg-[#96cdf9]" : "bg-[#90CAF9]"}`}
+        ${isDragActive ? "lg:bg-[#96cdf9]" : "lg:bg-[#90CAF9]"}`}
         >
         <div className="lg:block hidden">
             <Image

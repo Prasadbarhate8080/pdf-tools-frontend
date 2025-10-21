@@ -1,43 +1,88 @@
 "use client";
-import React, { useState, useCallback,useEffect, useRef } from "react";
+import React, {  useCallback,useEffect, useRef, useState } from "react";
 import { ToastContainer,toast } from "react-toastify";
-import axios from "axios";
-import Link from "next/link";
-import { useDropzone } from "react-dropzone";
 import { Document, Page, pdfjs } from "react-pdf";
 import Image from "next/image";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { setProgress } from "@/store/progressBarSlice";
 import FileInput from "@/components/FileInput"; 
 import { useFileUpload } from "@/hooks/useFileUpload";
-import { CircleCheck, FileOutput, Scissors, Settings, ShieldCheck, Smartphone, Sparkles, SplitIcon } from "lucide-react";
+import { CircleCheck, FileOutput, Scissors, Settings, ShieldCheck, Smartphone, Sparkles, SplitIcon, LucideScissorsLineDashed, Trash2 } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
+import { PDFDocument } from "pdf-lib";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
 function Split() {
-  const [startPage, setStartPage] = useState();
-  const [endPage, setEndPage] = useState();
+  const [loading,setLoading] = useState(false)
+  const [numPages, setNumPages] = useState("");
+  const [splitRanges, setSplitRanges] = useState([])
+  const [from, setFrom] = useState(1);
+  const [to, setTo] = useState(numPages);
+  const [splitedPDFs, setsplitedPDFs] = useState([])
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages);
+    setFrom(1)
+    setTo(numPages)
+    setSplitRanges([[1,numPages]])
+  }
+
+
 
   let {files,isDroped,isProcessing,completionStatus,isUploading,
-      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi
+      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi,setCompletionStatus,setdownloadFileURL
       } = useFileUpload()
+
+  // useEffect(() => {
+  //     // console.log(downloadFileURL);
+  //     // console.log(splitedPDFs);
+      
+  // }, [splitedPDFs])
+
+    let splitPdf = async () => {
+      try {
+        setLoading(true)
+        const arrayBuffer = await files.arrayBuffer();
+        const pdf = await PDFDocument.load(arrayBuffer)
+        let url = "";
+        splitRanges.forEach(async (range) => {
+          let splitedPDF = await PDFDocument.create()
+          let pages = await splitedPDF.copyPages(
+            pdf,
+            Array.from({length: Number(range[1]) - Number(range[0])},(_,i) => range[0] + 1)
+          )
+
+          pages.forEach((page) => splitedPDF.addPage(page))
+
+          let splitPDFBytes = await splitedPDF.save();
+          const blob = new Blob([splitPDFBytes], { type: "application/pdf" });
+          url = URL.createObjectURL(blob);
+          setsplitedPDFs((prev) => [...prev,url] )
+        })
+        setdownloadFileURL(url);
+        setCompletionStatus(true)
+      } catch (error) {
+        console.log(error);
+      }
+      finally{
+        setLoading(false)
+        setisDroped(false)
+        setFiles([]);
+      }
+    } 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const formData = new FormData();
-    formData.append("pdf_file", files);
-    formData.append("startPage", startPage);
-    formData.append("endingPage", endPage);
-    callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/split",formData);
+    // splitPdf()
+    // const formData = new FormData();
+    // formData.append("pdf_file", files);
+    // formData.append("startPage", startPage);
+    // formData.append("endingPage", endPage);
+    // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/split",formData);
   };
 
   return (
@@ -54,7 +99,7 @@ function Split() {
         </div>
       )}
       <form onSubmit={handleSubmit} encType="multipart/form-data">  
-        {!isDroped && (
+        {!isDroped && !completionStatus && (
           <div>
             <FileInput setisDroped={setisDroped} setFiles={setFiles} multiple={false} accept= {{ "application/pdf": [] }}/>
             <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">Split PDF files online for free</h1>
@@ -211,29 +256,192 @@ function Split() {
           </div>
         )}
         {isDroped && !isUploading && !completionStatus && (
-          <div className="max-w-7xl mx-auto p-10">
-            <ul className="mt-6 flex flex-wrap justify-center gap-6">
-              <li
-                className="w-[220px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
-                    transition-all duration-300 overflow-hidden"
-              >
-                <Document file={files}>
-                  <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                    <Page pageNumber={1} width={180} />
-                  </div>
+          <div className="mx-auto bg-gray-100 p-1">
+            <div className="flex">
+              <div className="w-[70%]">
+                <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
+                  <ul className="mt-6 p-5 flex flex-wrap justify-center gap-8">
+                    {
+                      Array.from(new Array(0),(value,index) => {
+                      let pageNumber = index +1;
+                      return (
+                        <div className="flex items-center gap-6 " key={index}>
+                          <li
+                          className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          transition-all duration-300 overflow-hidden"
+                          key={index}
+                          >
+                            <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                              <Page pageNumber={pageNumber} width={180} />
+                            </div>  
+                            {/* page number */}
+                            <div className=" px-3 text-center">
+                              <p
+                                className="text-sm font-medium truncate"
+                              >
+                                {index + 1}
+                              </p>
+                            </div>
+                          </li>
+                          <div className="h-full flex flex-col items-center justify-center"
+                          onClick={(e) => {
+                            setSplitIndexes((prev) => {
+                              let array = [...prev];
+                              if(array.includes(index + 1)){
+                                let elementIndex = array.indexOf(index + 1)
+                                array.splice(elementIndex,1);
+                              }
+                              else{
+                                array.push(index + 1)
+                              }
+                              return array;
+                            })
+                            showSplitPDFs();
+                          }}
+                          >
+                            <div className={`border-1 border-dashed border-blue-500 w-0 h-30  ${splitIndexes.includes(index + 1) ? "block" : "hidden"}`}></div>
+                            <div className={`h-10 w-10 flex justify-center items-center hover:bg-blue-500 hover:cursor-pointer rounded-full ${splitIndexes.includes(index + 1) ? "bg-blue-500" : "bg-blue-400"}`}>
+                              <LucideScissorsLineDashed color="white" size={22} className="rotate-270"/> 
+                            </div>
+                            <div className={` border-1 w-0 h-30  border-dashed border-blue-500 ${splitIndexes.includes(index + 1) ? "block" : "hidden"}`}></div>
+                          </div>
+                        </div>
+                      )
+                      })
+                    }
+                    {splitRanges.length == 0 ? (
+                      <div className="flex items-center relative border-dotted rounded-md gap-2 border p-2">
+                        <li
+                          className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          transition-all duration-300 overflow-hidden"
+                          >
+                          <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                            <Page pageNumber={1} width={180} />
+                          </div>
+                          <div className=" px-3 text-center">
+                              <p
+                                className="text-sm font-medium truncate"
+                              >
+                                {1}
+                              </p>
+                          </div>
+                        </li>
+                        <div className="text-2xl  p-1">.......</div>
+                        <li
+                          className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          transition-all duration-300 overflow-hidden"
+                          >
+                          <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                            <Page pageNumber={numPages} width={180} />
+                          </div>
+                          <div className=" px-3 text-center">
+                              <p
+                                className="text-sm font-medium truncate"
+                              >
+                                {numPages}
+                              </p>
+                            </div>
+                        </li>
+                        <div className="p-1.5 absolute top-[-16] left-[246px]  rounded-full bg-red-700 text-white"> <Trash2 size={22}  /> </div>
+                      </div>
+                    ) :
+                    (
+                      splitRanges.map((array,index) => <div key={index} className="flex items-center relative border-dotted rounded-md gap-2 border p-2">
+                        <li
+                          className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          transition-all duration-300 overflow-hidden"
+                          >
+                          <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                            <Page pageNumber={array[0]} width={180} />
+                          </div>
+                          {/* PageNumber */}
+                          <div className=" px-3 text-center">
+                              <p
+                                className="text-sm font-medium truncate"
+                              >
+                                {array[0]}
+                              </p>
+                          </div>
+                        </li>
+                        <div className="text-2xl  p-1">.......</div>
+                        <li
+                          className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          transition-all duration-300 overflow-hidden"
+                          >
+                          <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                            <Page pageNumber={array[1]} width={180} />
+                          </div>
+                          {/* PageNumber */}
+                          <div className=" px-3 text-center">
+                              <p
+                                className="text-sm font-medium truncate"
+                              >
+                                {array[1]}
+                              </p>
+                            </div>
+                        </li>
+                        <div className="p-1.5 absolute top-[-16] left-[246px]   rounded-full bg-red-700 text-white"
+                        onClick={(e) => {
+                          setSplitRanges((prev) => {
+                            let array = [...prev];
+                            array.splice(index,1);
+                            return array;
+                          })
+                        }}
+                        > <Trash2 size={22} color="white"  /> </div>
+                      </div>)
+                    )
+                  }
+                  </ul>
                 </Document>
-                <div className=" py-2 px-3 text-center">
-                  <p
-                    className="text-sm font-medium  truncate"
-                    title={files.name}
-                  >
-                    {files.name}
-                  </p>
+              </div>
+              <div className="w-[30%] bg-gray-200 p-2 flex flex-col gap-4 h-[658px]">
+                <h4 className="font-semibold  text-gray-800">Add Range:</h4>
+                <div className="flex gap-4">
+                  <label htmlFor="from" className="w-10">from:</label>
+                  <input type="number" id="from" className="border rounded-md h-9" 
+                  value={from}
+                  onChange={(e) => {setFrom(e.currentTarget.value)}}
+                  />
                 </div>
-              </li>
-            </ul>
+                <div className="flex gap-4">
+                  <label htmlFor="to" className="w-10">To:</label>
+                  <input type="number" id="to" className="border rounded-md h-9" 
+                  value={to}
+                  onChange={(e) => {setTo(e.currentTarget.value)}}
+                  />
+                </div>
+                <button className="bg-blue-600 rounded-md font-semibold w-80 h-9 mx-auto text-white px-2 py-1"
+                onClick={(e) => {e.preventDefault()
+                  setSplitRanges((prev) => {
+                    if(prev.some((array) => {
+                      if(array[0] == Number(from) && array[1] == Number(to)) 
+                        return true
+                      else 
+                        return false
+                    }))
+                      return prev
+                    if(Number(to) > numPages) return prev
+                    let array = [...prev];
+                    array.push([Number(from),Number(to)])
+                    return array;
+                  })
+                }}
+                >Add Range</button>
+                <div className="">
+                  <span className="font-semibold text-gray-800">Ranges:</span> 
+                  <div className="w-90 min-h-14 bg-white rounded-md border">
+                    {
+                    splitRanges.map((array) => {
+                      return array[0] + "-" + array[1] + ","
+                    })
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
+            {/* <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
               <div className="flex items-center justify-center gap-4 flex-wrap">
                 <input
                   type="text"
@@ -259,13 +467,24 @@ function Split() {
                 className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
                 ${
                   !startPage || !endPage
-                    ? "bg-[#F9AB55] cursor-not-allowed"
-                    : "bg-[#F58A07] hover:bg-[#F79B2E] active:bg-[#F79B2E]"
+                    ? "bg-[#90CAF9] cursor-not-allowed"
+                    : "bg-[#568DF8]  active:bg-[#90CAF9]"
                 }`}
               >
-                Split PDFs
+                Split PDF
               </button>
-            </div>
+            </div> */}
+            <button
+                disabled={splitRanges.length <= 0}
+                className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
+                ${
+                  splitRanges.length <= 0
+                    ? "bg-[#90CAF9] cursor-not-allowed"
+                    : "bg-[#568DF8]  active:bg-[#90CAF9]"
+                }`}
+              >
+                Split PDF
+              </button>
           </div>
         )}
         {progress > 0 && progress < 100 && (
@@ -289,9 +508,13 @@ function Split() {
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
-              href={downloadFileURL}
-              download
-              className="bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
+            onClick={() => {
+              splitedPDFs.forEach((url) => {
+                url.click();
+              })
+            }}
+              // href={downloadFileURL}
+              className="bg-blue-500 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
               Download Split PDF
             </a>

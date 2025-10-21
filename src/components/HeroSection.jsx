@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 function HeroSection() {
   return ( 
-    <div className="flex h-[655px] max-w-7xl bg-[url('/dotted_pattern.png')] mx-auto items-center flex-col flex-col-reverse  md:flex-row justify-evenly">
+    <div className="flex bg-white h-[655px] max-w-7xl bg-[url('/dotted_pattern.png')] mx-auto items-center flex-col flex-col-reverse  md:flex-row justify-evenly">
       <div className="max-w-3xl flex justify-center items-center ">
         <div className='flex gap-4 max-w-[430px] pl-4 md:pl-0 flex-col'>
           <h1
