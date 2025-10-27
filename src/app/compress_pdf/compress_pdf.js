@@ -26,8 +26,6 @@ function Compress() {
     e.preventDefault();
     const formData = new FormData();
     formData.append("pdf_file", files);
-
-    
     callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/compress_pdf", formData);
   };
 

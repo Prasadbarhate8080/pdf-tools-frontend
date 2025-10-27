@@ -14,6 +14,7 @@ function useFileUpload (){
 
   const callApi = async (url,formData) => {
     try {
+      console.log("call api called");
       setServerPreparing(true);
       setisUploading(true);
       const response = await axios
@@ -49,7 +50,7 @@ function useFileUpload (){
       setFiles([]);
       setisDroped(false);
       setProgress(0)
-
+      console.log(error);
       if (error.response && error.response.data instanceof Blob) {
         const blob = error.response.data;
         const text = await blob.text();

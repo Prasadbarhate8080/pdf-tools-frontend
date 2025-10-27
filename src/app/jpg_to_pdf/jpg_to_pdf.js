@@ -1,5 +1,4 @@
 "use client"; // if you're using Next.js
-
 import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -42,6 +41,7 @@ const JpgToPdf = () => {
       let pdfDoc = await PDFDocument.create();
       const PAGE_WIDTH = 595.28;
       const PAGE_HEIGHT = 841.89;
+
       for (let img of files){
         let ext = img.name.split(".").pop().toLowerCase();
         let imageBytes = await img.arrayBuffer();
@@ -56,17 +56,24 @@ const JpgToPdf = () => {
           setFiles([])
           return
         }
-        const { width: imgWidth, height: imgHeight } = image.scale(1);
-        const x = (PAGE_WIDTH - imgWidth) / 2;
-        const y = (PAGE_HEIGHT - imgHeight) / 2;
-        const page = pdfDoc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
-        page.drawImage(image, {
-          x,
-          y,
-          width: imgWidth,
-          height: imgHeight,
-        });
-      }
+      
+      const { width: imgWidth, height: imgHeight } = image.scale(1);
+      const scale = Math.min(PAGE_WIDTH / imgWidth, PAGE_HEIGHT / imgHeight, 1);
+      const drawWidth = imgWidth * scale;
+      const drawHeight = imgHeight * scale;
+
+      // Center the image
+      const x = (PAGE_WIDTH - drawWidth) / 2;
+      const y = (PAGE_HEIGHT - drawHeight) / 2;
+
+      const page = pdfDoc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
+      page.drawImage(image, {
+        x,
+        y,
+        width: drawWidth,
+        height: drawHeight,
+      });
+    }
       const extractedPDF = await pdfDoc.save(); 
       const blob = new Blob([extractedPDF], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
@@ -75,7 +82,6 @@ const JpgToPdf = () => {
       setCompletionStatus(true)
     } catch (error) {
       console.log(error);
-      
     }
     finally{
       setLoading(false)
@@ -89,10 +95,10 @@ const JpgToPdf = () => {
       alert("Please upload images");
       return;
     }
-    // jpgToPdf();
-    const formData = new FormData();
-    files.forEach((file) => formData.append("images", file));
-    callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/jpg_to_pdf",formData)
+    jpgToPdf();
+    // const formData = new FormData();
+    // files.forEach((file) => formData.append("images", file));
+    // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/jpg_to_pdf",formData)
   };
 
   return (

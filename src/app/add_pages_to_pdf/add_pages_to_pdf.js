@@ -344,6 +344,8 @@ function AddPagesInPdf() {
                 }else{
                   pageNumberOfAddPage.current = val;
                 }
+                console.log(pageNumberOfAddPage.current);
+                
               }}
               />
               </div>

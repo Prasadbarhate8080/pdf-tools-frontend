@@ -12,6 +12,7 @@ import { useFileUpload } from "@/hooks/useFileUpload";
 import { CircleCheck, FileOutput, Scissors, Settings, ShieldCheck, Smartphone, Sparkles, SplitIcon, LucideScissorsLineDashed, Trash2 } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import { PDFDocument } from "pdf-lib";
+import JSZip from "jszip";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -48,22 +49,26 @@ function Split() {
         setLoading(true)
         const arrayBuffer = await files.arrayBuffer();
         const pdf = await PDFDocument.load(arrayBuffer)
-        let url = "";
-        splitRanges.forEach(async (range) => {
+
+        const zip = new JSZip();
+        let index = 1;
+        for(let range of splitRanges)
+        {
           let splitedPDF = await PDFDocument.create()
-          let pages = await splitedPDF.copyPages(
+          const start = Number(range[0]) - 1;
+          const end = Number(range[1]) - 1;
+          const copiedPages = await splitedPDF.copyPages(
             pdf,
-            Array.from({length: Number(range[1]) - Number(range[0])},(_,i) => range[0] + 1)
-          )
-
-          pages.forEach((page) => splitedPDF.addPage(page))
-
-          let splitPDFBytes = await splitedPDF.save();
-          const blob = new Blob([splitPDFBytes], { type: "application/pdf" });
-          url = URL.createObjectURL(blob);
-          setsplitedPDFs((prev) => [...prev,url] )
-        })
-        setdownloadFileURL(url);
+            Array.from({ length: end - start + 1 }, (_, i) => start + i)
+          );
+          copiedPages.forEach((page) => splitedPDF.addPage(page));
+          const splitPDFBytes = await splitedPDF.save();
+          zip.file(`split-part-${index}.pdf`,splitPDFBytes)
+          index++;
+        }
+        const zipBlob = await zip.generateAsync({type:"blob"})
+        let url = URL.createObjectURL(zipBlob)
+        setdownloadFileURL(url)
         setCompletionStatus(true)
       } catch (error) {
         console.log(error);
@@ -77,7 +82,7 @@ function Split() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // splitPdf()
+    splitPdf()
     // const formData = new FormData();
     // formData.append("pdf_file", files);
     // formData.append("startPage", startPage);
@@ -255,7 +260,7 @@ function Split() {
             </div> */}
           </div>
         )}
-        {isDroped && !isUploading && !completionStatus && (
+        {isDroped && !isUploading && !completionStatus && !isProcessing && (
           <div className="mx-auto bg-gray-100 p-1">
             <div className="flex">
               <div className="w-[70%]">
@@ -394,6 +399,17 @@ function Split() {
                   }
                   </ul>
                 </Document>
+                <button
+                  disabled={splitRanges.length <= 0}
+                  className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300 mx-auto block bottom-10 right-10
+                  ${
+                    splitRanges.length <= 0
+                    ? "bg-[#90CAF9] cursor-not-allowed"
+                    : "bg-blue-500  active:bg-[#90CAF9]"
+                  }`}
+                >
+                  Split PDF
+                </button>
               </div>
               <div className="w-[30%] bg-gray-200 p-2 flex flex-col gap-4 h-[658px]">
                 <h4 className="font-semibold  text-gray-800">Add Range:</h4>
@@ -474,17 +490,7 @@ function Split() {
                 Split PDF
               </button>
             </div> */}
-            <button
-                disabled={splitRanges.length <= 0}
-                className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
-                ${
-                  splitRanges.length <= 0
-                    ? "bg-[#90CAF9] cursor-not-allowed"
-                    : "bg-[#568DF8]  active:bg-[#90CAF9]"
-                }`}
-              >
-                Split PDF
-              </button>
+           
           </div>
         )}
         {progress > 0 && progress < 100 && (
@@ -508,12 +514,8 @@ function Split() {
           </h1>
           <div className="mt-3 w-fit mx-auto">
             <a
-            onClick={() => {
-              splitedPDFs.forEach((url) => {
-                url.click();
-              })
-            }}
-              // href={downloadFileURL}
+              href={downloadFileURL}
+              download
               className="bg-blue-500 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
               Download Split PDF

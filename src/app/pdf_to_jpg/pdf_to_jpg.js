@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import Image from "next/image";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -12,23 +12,52 @@ import FileInput from "@/components/FileInput";
 import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import PDFPageComponent from "@/components/PDFPageComponent";
+import JSZip from "jszip";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
 function PDFToJPG() {
-
+  const [numPages, setnumPages] = useState(0)
+  const [loading, setLoading] = useState(false)
    let {files,isDroped,isProcessing,completionStatus,isUploading,
-      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi
+      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi,setdownloadFileURL,setCompletionStatus
       } = useFileUpload()
+    
+  function onDocumentLoadSuccess ({numPages}) {
+    setnumPages(numPages)
+  }
 
+  async function convertToJpg () {
+    try {
+      if(!numPages) return
+      setLoading(true)
+      const zip = new JSZip();
+      
+      const canvases = document.querySelectorAll(".react-pdf__Page canvas");
+      canvases.forEach((canvas, i) => {
+      const imageData = canvas.toDataURL("image/jpeg", 1.0);
+      const base64Data = imageData.split(",")[1];
+      zip.file(`page_${i + 1}.jpg`, base64Data, { base64: true });
+    });
+      const zipBlob = await zip.generateAsync({type:"blob"})
+      let url = URL.createObjectURL(zipBlob)
+      setdownloadFileURL(url)
+      setCompletionStatus(true)
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("f1", files);
+    convertToJpg();
+    // const formData = new FormData();
+    // formData.append("f1", files);
     
-    callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/pdf_to_jpg", formData);
+    // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/pdf_to_jpg", formData);
   };
 
   return (
@@ -43,6 +72,18 @@ function PDFToJPG() {
           </p>
         </div>
       )}
+      {isDroped && files &&  <Document
+      className={""}
+      file={files} onLoadSuccess={onDocumentLoadSuccess}>
+        {Array.from(new Array(numPages),(el,index) => (
+          <div key={index} className="hidden">
+            <Page
+              key={index}
+              pageNumber={index + 1}
+            ></Page>
+          </div>
+        ))}
+      </Document>}
       <form
         onSubmit={(e) => {
           handleSubmit(e);

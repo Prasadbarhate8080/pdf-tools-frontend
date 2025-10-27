@@ -3,6 +3,7 @@ import "./globals.css";
 import StoreProvider from "@/store/StoreProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ToastContainer } from "react-toastify";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -38,8 +39,8 @@ export default function RootLayout({ children }) {
             {children}
             <Footer />  
           </StoreProvider>
+          <ToastContainer />
         </body>
-
       </html>
   );
 }

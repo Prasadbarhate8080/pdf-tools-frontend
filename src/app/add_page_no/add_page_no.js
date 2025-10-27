@@ -13,6 +13,7 @@ import { useFileUpload } from "@/hooks/useFileUpload";
 import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import PDFPageComponent from "@/components/PDFPageComponent";
+import { PDFDocument,rgb,StandardFonts } from "pdf-lib";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -22,16 +23,92 @@ function PageNO() {
   
     const [page_no_position, setPage_no_position] = useState("bottom-right");
     let {files,isDroped,isProcessing,completionStatus,isUploading,
-      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi
+      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi,setdownloadFileURL,setCompletionStatus
       } = useFileUpload()
-    
+  
+    function hexToRgb(hex) {
+        hex = hex.replace(/^#/, '');
+        const bigint = parseInt(hex, 16);
+        return {
+          r: ((bigint >> 16) & 255) / 255,
+          g: ((bigint >> 8) & 255) / 255,
+          b: (bigint & 255) / 255
+        };
+      }
+
+  async function addPageNumber () {
+    try {
+      if(!files) throw new Error("no file selected")
+      const arrayBuffer = await files.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(arrayBuffer)  
+      const pages = pdfDoc.getPages();
+    const totalPages = pages.length;
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const fontSize = 12; // Normal default size
+    const { r, g, b } = hexToRgb("#000000"); // Black
+
+    pages.forEach((page, index) => {
+      const { width, height } = page.getSize();
+      const text = `${index + 1}`;
+      let x = 0;
+      let y = 0;
+
+      switch (page_no_position) {
+        case "bottom-left":
+          x = 30;
+          y = 20;
+          break;
+        case "bottom-center":
+          x = width / 2 - (fontSize * text.length) / 4;
+          y = 20;
+          break;
+        case "bottom-right":
+          x = width - (fontSize * text.length);
+          y = 20;
+          break;
+        case "top-left":
+          x = 30;
+          y = height - fontSize - 10;
+          break;
+        case "top-center":
+          x = width / 2 - (fontSize * text.length) / 4;
+          y = height - fontSize - 10;
+          break;
+        case "top-right":
+          x = width - (fontSize * text.length);
+          y = height - fontSize - 10;
+          break;
+        default:
+          x = width - (fontSize * text.length);
+          y = 20;
+      }
+
+      page.drawText(text, {
+        x,
+        y,
+        size: fontSize,
+        font,
+        color: rgb(r, g, b),
+      });
+    });
+
+    const newPdfBytes = await pdfDoc.save();
+    const blob = new Blob([newPdfBytes], { type: "application/pdf" });
+    let url = URL.createObjectURL(blob)
+    setdownloadFileURL(url)
+    setCompletionStatus(true)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("pdf_file", files);
-    formData.append("page_no_position", page_no_position);
+    addPageNumber()
+    // const formData = new FormData();
+    // formData.append("pdf_file", files);
+    // formData.append("page_no_position", page_no_position);
     
-    callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/add_page_no",formData);
+    // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/add_page_no",formData);
   };
 
   return (

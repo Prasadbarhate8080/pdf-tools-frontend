@@ -11,8 +11,8 @@ import { useFileUpload } from "@/hooks/useFileUpload";
 import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap,CheckCircle2, CheckSquare, Check } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import Image from "next/image";
-import { PDFDocument } from "pdf-lib";
-
+import { error, PDFDocument } from "pdf-lib";
+import { toast } from "react-toastify";
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
@@ -41,21 +41,26 @@ export default function ExtractPdf() {
   async function extractPDF () {
     try {
       setLoading(true)
-      let arrayBuffer =await  files.arrayBuffer();
+      if(!files) throw new Error("no file selected")
+      let arrayBuffer = await  files.arrayBuffer();
       let pdf = await PDFDocument.load(arrayBuffer)
-      let totalpages = pdf.getPageCount();
+      let totalPages = pdf.getPageCount();
       let extractedPDF = await PDFDocument.create();
+      if(selectedPages.length == 0) throw new Error("please select at least one page")
+
+      let isInvalidPages = selectedPages.some((page) => page < 0 || page > totalPages)
+      if(isInvalidPages) throw new Error("invalid pages")
+
       let zeroBasedSelectedPages = selectedPages.map(page => page - 1)
       let pages = await extractedPDF.copyPages(pdf,zeroBasedSelectedPages);
       pages.forEach(page => extractedPDF.addPage(page));
       const extractedPdfBytes = await extractedPDF.save();
       const blob = new Blob([extractedPdfBytes], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
-      
       setdownloadFileURL(url);
       setCompletionStatus(true)
     } catch (error) {
-      console.log(error);
+      toast.error(error.message)
       setisDroped(false)
     }
     finally{
@@ -66,13 +71,11 @@ export default function ExtractPdf() {
   const handleExtract = async () => {
     if (!files || selectedPages.length === 0)
       return alert("Select at least one page.");
-    console.log("called");
-    
-    // extractPDF();
-    const formData = new FormData();
-    formData.append("file", files);
-    formData.append("pages", JSON.stringify(selectedPages));
-    callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/extract_pdf",formData);
+    extractPDF();
+    // const formData = new FormData();
+    // formData.append("file", files);
+    // formData.append("pages", JSON.stringify(selectedPages));
+    // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/extract_pdf",formData);
   };
 
   return (

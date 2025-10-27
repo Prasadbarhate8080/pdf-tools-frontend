@@ -55,40 +55,41 @@ function Merge() {
       
     let mergePdf = async () => {
       try {
-      setLoading(true)
-      const mergedPdf = await PDFDocument.create();
-      for(const file of files)
-      {
-        const arrayBuffer = await file.arrayBuffer();
-        const pdf = await PDFDocument.load(arrayBuffer)
-        const pages = await mergedPdf.copyPages(pdf,pdf.getPageIndices())
-        pages.forEach((page) => {mergedPdf.addPage(page)})
+        setLoading(true)
+        const mergedPdf = await PDFDocument.create();
+        for(const file of files)
+        {
+          const arrayBuffer = await file.arrayBuffer();
+          const pdf = await PDFDocument.load(arrayBuffer)
+          const pages = await mergedPdf.copyPages(pdf,pdf.getPageIndices())
+          pages.forEach((page) => {mergedPdf.addPage(page)})
+        }
+        let mergedPdfBytes = await mergedPdf.save();
+        const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        
+        setdownloadFileURL(url);
+        setCompletionStatus(true)
+      } 
+      catch (error) { 
+        toast.error(error)
+        setisDroped(false)
+        setFiles([]);
       }
-      let mergedPdfBytes = await mergedPdf.save();
-      const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
-      
-      setdownloadFileURL(url);
-      setCompletionStatus(true)
-
-    } catch (error) { 
-      // toast.error(error)
-      console.log(error);
-      setisDroped(false)
-    }
-    finally{
-      setLoading(false)
-      setFiles([]);
-    }
+      finally{
+        setLoading(false)
+        setFiles([]);
+      }
     }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append("pdf_files", files[i]);
-    }
-    callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/merge",formData);
+    mergePdf();
+    // const formData = new FormData();
+    // for (let i = 0; i < files.length; i++) {
+    //   formData.append("pdf_files", files[i]);
+    // }
+    // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/merge",formData);
   };
 
   return (
@@ -237,7 +238,7 @@ function Merge() {
             </div> */}
           </div>
         )}
-        {isDroped  && !completionStatus && (
+        {isDroped  && !completionStatus && !isProcessing && !isUploading && (
           <div className="max-w-7xl mx-auto bg-gray-100 p-10">
             <ul className="mt-6 flex flex-wrap justify-center  p-5 gap-6">
               {files.map((file, index) => (
@@ -300,8 +301,7 @@ function Merge() {
                 <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
               </div>
         }
-        {/* {progress === 100 && isProcessing && <Processing />} */}
-        {loading && <Processing />}
+        {progress === 100 && isProcessing && <Processing />}
       </form>
       {downloadFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">

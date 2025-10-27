@@ -13,6 +13,7 @@ import FileInput from "@/components/FileInput";
 import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import PDFPageComponent from "@/components/PDFPageComponent";
+import { PDFDocument, StandardFonts,rgb } from "pdf-lib";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -23,19 +24,89 @@ function AddWaterMarkPage() {
   const [water_mark_text, setWater_mark_text] = useState("PdfToolify");
 
   let {files,isDroped,isProcessing,completionStatus,isUploading,
-      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi
+      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi,setdownloadFileURL,setCompletionStatus
       } = useFileUpload()
 
+  function hexToRgb(hex) {
+    hex = hex.replace(/^#/, '');
+    const bigint = parseInt(hex, 16);
+    return {
+      r: ((bigint >> 16) & 255) / 255,
+      g: ((bigint >> 8) & 255) / 255,
+      b: (bigint & 255) / 255
+    };
+  }
+  async function addWatermark () {
+    try {
+      if(!files) throw new Error("no file selected")
+      const arrayBuffer = await files.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(arrayBuffer)
+
+      const pages = pdfDoc.getPages();
+      const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+      const fontSize = 36;
+      const { r, g, b } = hexToRgb("#cccccc");
+      pages.forEach((page) => {
+      const { width, height } = page.getSize();
+      let x = 0;
+      let y = 0;
+
+      switch (water_mark_position) {
+        case "top-left":
+          x = 50;
+          y = height - 50;
+          break;
+        case "top-right":
+          x = width - (fontSize * water_mark_text.length * 0.6);
+          y = height - 50;
+          break;
+        case "bottom-left":
+          x = 50;
+          y = 50;
+          break;
+        case "bottom-right":
+          x = width - (fontSize * water_mark_text.length * 0.6);
+          y = 50;
+          break;
+        case "center":
+        default:
+          x = width / 2 - (fontSize * water_mark_text.length) / 4;
+          y = height / 2;
+      }
+
+      page.drawText(water_mark_text, {
+        x,
+        y,
+        size: fontSize,
+        font,
+        color: rgb(r, g, b),
+        rotate: { type: "degrees", angle: 45 }, // Angled watermark
+        opacity: 0.4,
+      });
+    });
+
+    const newPdfBytes = await pdfDoc.save();
+    const blob = new Blob([newPdfBytes], { type: "application/pdf" });
+    let url = URL.createObjectURL(blob)
+    setdownloadFileURL(url)
+    setCompletionStatus(true)
+
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("pdf_file", files);
-    formData.append("water_mark_position", water_mark_position);
-    formData.append("water_mark_text", water_mark_text);
-    setTimeout(() => {
-      if (serverPreparing) toast.info("Please refresh the page and try again");
-    }, 12000);
-    callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/add_water_mark",formData);
+    addWatermark()
+    // const formData = new FormData();
+    // formData.append("pdf_file", files);
+    // formData.append("water_mark_position", water_mark_position);
+    // formData.append("water_mark_text", water_mark_text);
+    // setTimeout(() => {
+    //   if (serverPreparing) toast.info("Please refresh the page and try again");
+    // }, 12000);
+    // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/add_water_mark",formData);
 
   };
 

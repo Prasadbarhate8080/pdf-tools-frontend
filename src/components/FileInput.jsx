@@ -68,7 +68,7 @@ function FileInput({setFiles,setisDroped,multiple,accept,setImages,mode="pdf"
         </div>
         <div className="lg:hidden">
             <span
-            className="px-6 py-4 text-white bg-orange-500 
+            className="px-6 py-4 text-white bg-blue-500 
             font-bold text-2xl rounded-md"
             >
             Tap to Select PDF Files

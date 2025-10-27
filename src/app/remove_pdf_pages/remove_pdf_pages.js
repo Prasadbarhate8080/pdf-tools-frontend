@@ -10,6 +10,8 @@ import { useFileUpload } from "@/hooks/useFileUpload";
 import { BadgeCheck, Check, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import Image from "next/image";
+import { toast } from "react-toastify";
+import { PDFDocument } from "pdf-lib";
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
@@ -19,7 +21,7 @@ export default function RemovePDFPages() {
   const [selectedPages, setSelectedPages] = useState([]);
 
   let {files,isDroped,isProcessing,completionStatus,isUploading,
-      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi
+      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi,setdownloadFileURL,setCompletionStatus
       } = useFileUpload()
 
   const onDocumentLoadSuccess = ({ numPages }) => {
@@ -35,21 +37,54 @@ export default function RemovePDFPages() {
   };
 
   async function removePages(){
-    
+    try {
+      if(!files) throw new Error("no file selected")
+      if(selectedPages.length == 0) throw new Error("please select at least one page")
+
+      const arrayBuffer = await files.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(arrayBuffer)
+
+      const totalPages = pdfDoc.getPageCount();
+      // Step 3: Prepare remove set
+      const removeSet = new Set(
+        selectedPages
+          .filter(p => typeof p === "number" && p > 0 && p <= totalPages)
+          .map(p => p - 1) // Convert to 0-based
+      );
+
+      if(removeSet.size == 0) throw new Error("remove set size is zero")
+      
+      const keepPages = [];
+      for(let i = 0; i < totalPages ; i++)
+      {
+        if(!removeSet.has(i))
+          keepPages.push(i);
+      }
+
+      if(keepPages.length == 0) throw new Error("all pages selected to remove")
+      const newPdfDoc = await PDFDocument.create();
+      const copiedPages = await newPdfDoc.copyPages(pdfDoc, keepPages);
+      copiedPages.forEach(p => newPdfDoc.addPage(p));
+      const newPdfBytes = await newPdfDoc.save();
+      const blob = new Blob([newPdfBytes], { type: "application/pdf" });
+      let url = URL.createObjectURL(blob)
+      setdownloadFileURL(url)
+      setCompletionStatus(true)
+
+    } catch (error) {
+      // toast.error(error.message)
+      console.log(error)
+    }
   }
 
   const handleRemove = async () => {
-    setTimeout(() => {
-      if(serverPreparing)
-        toast.info("Please refresh the page and try again");
-    },12000)
     if (!files || selectedPages.length === 0)
       return alert("Select at least one page.");
-    const formData = new FormData();
-    formData.append("pdf_file", files);
-    formData.append("pages", JSON.stringify(selectedPages));
-
-    callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/remove_pdf_pages",formData);
+    removePages();
+    // const formData = new FormData();
+    // formData.append("pdf_file", files);
+    // formData.append("pages", JSON.stringify(selectedPages));
+    // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/remove_pdf_pages",formData);
   };
 
   return (
