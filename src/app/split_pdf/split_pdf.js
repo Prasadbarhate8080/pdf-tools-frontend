@@ -9,7 +9,7 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import FileInput from "@/components/FileInput"; 
 import { useFileUpload } from "@/hooks/useFileUpload";
-import { CircleCheck, FileOutput, Scissors, Settings, ShieldCheck, Smartphone, Sparkles, SplitIcon, LucideScissorsLineDashed, Trash2 } from "lucide-react";
+import { CircleCheck, FileOutput, Scissors, Settings, ShieldCheck, Smartphone, Sparkles, SplitIcon, LucideScissorsLineDashed, Trash2, Settings2, SettingsIcon, ToolCase, LucideSettings, Cross, CrossIcon, ClosedCaptionIcon, SidebarClose, SidebarOpen } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import { PDFDocument } from "pdf-lib";
 import JSZip from "jszip";
@@ -20,6 +20,7 @@ if (typeof window !== "undefined") {
 
 function Split() {
   const [loading,setLoading] = useState(false)
+  const [isActiveSetting, setisActiveSetting] = useState(true)
   const [numPages, setNumPages] = useState("");
   const [splitRanges, setSplitRanges] = useState([])
   const [from, setFrom] = useState(1);
@@ -32,24 +33,17 @@ function Split() {
     setSplitRanges([[1,numPages]])
   }
 
-
-
   let {files,isDroped,isProcessing,completionStatus,isUploading,
       downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi,setCompletionStatus,setdownloadFileURL
       } = useFileUpload()
 
-  // useEffect(() => {
-  //     // console.log(downloadFileURL);
-  //     // console.log(splitedPDFs);
-      
-  // }, [splitedPDFs])
 
     let splitPdf = async () => {
       try {
         setLoading(true)
         const arrayBuffer = await files.arrayBuffer();
         const pdf = await PDFDocument.load(arrayBuffer)
-
+        
         const zip = new JSZip();
         let index = 1;
         for(let range of splitRanges)
@@ -70,6 +64,9 @@ function Split() {
         let url = URL.createObjectURL(zipBlob)
         setdownloadFileURL(url)
         setCompletionStatus(true)
+        setTimeout(() => {
+          URL.revokeObjectURL(url)
+        }, 10000);
       } catch (error) {
         console.log(error);
       }
@@ -93,7 +90,7 @@ function Split() {
   return (
     <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px]">
       <ToastContainer />
-      {!completionStatus && (
+      {!completionStatus && !isDroped && (
         <div>
           <h1 className="mt-12 text-3xl flex justify-center items-center gap-4 md:text-4xl font-bold text-gray-800">
             <SplitIcon color="gray" size={35} strokeWidth={2} /> Split PDF Files
@@ -262,8 +259,8 @@ function Split() {
         )}
         {isDroped && !isUploading && !completionStatus && !isProcessing && (
           <div className="mx-auto bg-gray-100 p-1">
-            <div className="flex">
-              <div className="w-[70%]">
+            <div className="flex justify-center  gap-20">
+              <div className="w-5xl">
                 <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
                   <ul className="mt-6 p-5 flex flex-wrap justify-center gap-8">
                     {
@@ -353,11 +350,11 @@ function Split() {
                     (
                       splitRanges.map((array,index) => <div key={index} className="flex items-center relative border-dotted rounded-md gap-2 border p-2">
                         <li
-                          className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          className="lg:w-[180px] lg:h-[250px] w-[130px] h-[200px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
                           transition-all duration-300 overflow-hidden"
                           >
                           <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                            <Page pageNumber={array[0]} width={180} />
+                            <Page pageNumber={array[0]} width={110} height={180} />
                           </div>
                           {/* PageNumber */}
                           <div className=" px-3 text-center">
@@ -368,13 +365,13 @@ function Split() {
                               </p>
                           </div>
                         </li>
-                        <div className="text-2xl  p-1">.......</div>
+                        <div className="text-2xl p-1">.....</div>
                         <li
-                          className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          className="w-[130px] h-[200px] lg:w-[180px]  lg:h-[250px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
                           transition-all duration-300 overflow-hidden"
                           >
                           <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                            <Page pageNumber={array[1]} width={180} />
+                            <Page pageNumber={array[1]} width={110} height={180}  />
                           </div>
                           {/* PageNumber */}
                           <div className=" px-3 text-center">
@@ -385,7 +382,7 @@ function Split() {
                               </p>
                             </div>
                         </li>
-                        <div className="p-1.5 absolute top-[-16] left-[246px]   rounded-full bg-red-700 text-white"
+                        <div className="p-1.5 absolute top-[-16] lg:left-[200px] left-[150px]   rounded-full bg-red-700 text-white"
                         onClick={(e) => {
                           setSplitRanges((prev) => {
                             let array = [...prev];
@@ -401,7 +398,7 @@ function Split() {
                 </Document>
                 <button
                   disabled={splitRanges.length <= 0}
-                  className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300 mx-auto block bottom-10 right-10
+                  className={`px-6 py-3 rounded-md fixed top-[600px] right-5 z-10  font-semibold text-white transition-all duration-300 mx-auto block 
                   ${
                     splitRanges.length <= 0
                     ? "bg-[#90CAF9] cursor-not-allowed"
@@ -411,7 +408,14 @@ function Split() {
                   Split PDF
                 </button>
               </div>
-              <div className="w-[30%] bg-gray-200 p-2 flex flex-col gap-4 h-[658px]">
+              <div
+              onClick={() => {setisActiveSetting(prev => !prev)}}
+              className={`w-fit absolute lg:hidden ${isActiveSetting ? "hidden" : "block"} right-1 top-20`}><SidebarOpen  size={30} /></div>
+              <div className={`${isActiveSetting ? "right-0" : "right-[-380px]"} transition-all duration-300 ease-in w-[380px] lg:relative fixed  lg:right-0  bg-gray-200 p-2 flex flex-col gap-4 h-[658px]`}>
+                <div 
+                className="lg:hidden block"
+                onClick={() => {setisActiveSetting(prev => !prev)}}
+                ><SidebarClose size={30} /></div>
                 <h4 className="font-semibold  text-gray-800">Add Range:</h4>
                 <div className="flex gap-4">
                   <label htmlFor="from" className="w-10">from:</label>
@@ -456,41 +460,6 @@ function Split() {
                 </div>
               </div>
             </div>
-
-            {/* <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
-              <div className="flex items-center justify-center gap-4 flex-wrap">
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    setStartPage(e.target.value);
-                  }}
-                  placeholder="start page"
-                  className="border-1 indent-1.5 bg-white border-gray-600 rounded-md h-10"
-                />
-                <br />
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    setEndPage(e.target.value);
-                  }}
-                  placeholder="end page"
-                  className="border-1 indent-1.5 bg-white border-gray-600 rounded-md h-10"
-                />
-                <br />
-              </div>
-              <button
-                disabled={!startPage || !endPage}
-                className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
-                ${
-                  !startPage || !endPage
-                    ? "bg-[#90CAF9] cursor-not-allowed"
-                    : "bg-[#568DF8]  active:bg-[#90CAF9]"
-                }`}
-              >
-                Split PDF
-              </button>
-            </div> */}
-           
           </div>
         )}
         {progress > 0 && progress < 100 && (
@@ -508,6 +477,7 @@ function Split() {
         )}
       </form>
       {downloadFileURL && (
+        <>
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download Split PDF
@@ -522,9 +492,137 @@ function Split() {
             </a>
           </div>
         </div>
+        <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">Split PDF files online for free</h1>
+            {/* points section */}
+            <div className="flex justify-center max-w-7xl mt-6 mx-auto gap-4">
+              <div className="flex flex-col gap-2 w-xl text-sm">
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>Our free PDF Splitter can be work on any device </span>
+                </div>
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>Using PDFtoolify split tool you can easily split PDF files</span>
+                </div>
+              </div>
+              <div className="w-xl flex flex-col gap-2 text-sm">
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>PDFtoolify is secure and easy to use tool for PDF related operations</span>
+                </div>  
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>No SignUp require to split PDF online</span>
+                </div>
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>split PDFs in seconds with PDFtoolify — free, fast, and secure.</span>
+                </div>
+              </div>
+            </div>
+            {/* feature card section */}
+            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Why Choose PDFtoolify</h1>
+            <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
+              <FeaturesCard Icon={Scissors} heading={"Split PDFs Instantly"}
+                paragraph={"Easily divide large PDF files into smaller parts in just seconds. Perfect for managing documents efficiently."}
+              />
+              <FeaturesCard Icon={Settings} heading={"Custom Page Selection"}
+                paragraph={"Choose exactly which pages you want to split and create a new PDF tailored to your needs."}
+              />
+              <FeaturesCard Icon={FileOutput} heading={"Multiple Splitting Options"}
+                paragraph={"Split PDFs by page range, specific pages, or extract every page into a separate file."}
+              />
+              <FeaturesCard Icon={ShieldCheck} heading={"Safe and Secure Splitting"}
+                paragraph={"All your files are processed securely, and automatically deleted after splitting for complete privacy."}
+              />
+              <FeaturesCard Icon={Sparkles} heading={"High Quality Results"}
+                paragraph={"Your split documents maintain the same quality and formatting as the original file—no loss."}
+              />
+              <FeaturesCard Icon={Smartphone} heading={"Work on Any Device"}
+                paragraph={"Split PDFs directly from your browser on desktop, tablet, or mobile without any installation."}
+              />
+            </div>
+            {/* how to section */}
+            <div className="flex max-w-7xl mx-auto mt-24">
+              <div className="flex basis-[50%] justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="560" height="360" viewBox="0 0 560 360" fill="none">
+                  <rect width="560" height="360" rx="20" fill="#E6F0FF"/>
+                  <rect x="100" y="100" width="80" height="100" rx="8" fill="white" stroke="#1E40AF" strokeWidth="2"/>
+                  <text x="140" y="160" textAnchor="middle" fontSize="18" fill="#1E40AF" fontFamily="Arial">PDF</text>
+                  <rect x="380" y="100" width="80" height="100" rx="8" fill="white" stroke="#1E40AF" strokeWidth="2"/>
+                  <text x="420" y="160" textAnchor="middle" fontSize="18" fill="#1E40AF" fontFamily="Arial">PDF</text>
+                  <path d="M220 150 H340" stroke="#1E3A8A" strokeWidth="4" markerEnd="url(#arrowhead)"/>
+                  <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                      refX="10" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="#1E3A8A"/>
+                    </marker>
+                  </defs>
+                  <rect x="240" y="220" width="80" height="100" rx="8" fill="white" stroke="#059669" strokeWidth="2"/>
+                  <text x="280" y="280" textAnchor="middle" fontSize="18" fill="#059669" fontFamily="Arial">PDF</text>
+                </svg>
+              </div>
+              <div className="flex basis-[50%] justify-center items-center">
+                <div className="flex flex-col gap-3">
+                  <div className="flex gap-4 items-center">
+                    <span className="w-5 h-5 rounded-md bg-black inline-block"></span> 
+                    <span className="text-2xl text-gray-800 font-semibold">How to split PDFs online for free?</span>
+                  </div>
+                  <p className="whitespace-pre">1.     Select files or drag and drop files in the select container</p>
+                  <p className="whitespace-pre">2.     Enter start and end page to split PDF and press split pdf button</p>
+                  <p className="whitespace-pre">3.     Download the split PDFs by pressing Download button</p>
+                </div>
+              </div>
+            </div>
+            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Split PDF FAQs</h1>
+            {/* FAQs Section */}
+            <div className="max-w-4xl mx-auto flex flex-col mt-12 items-start gap-6">
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">Is PDFtoolify really free to split PDFs?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes, splitting PDFs with PDFtoolify is 100% free. You can separate pages without any sign-up or hidden charges.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">How can I split PDF files online?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Simply upload your PDF, select the pages you want to extract or split, and click on “Split PDF.” 
+                  Your file will be ready to download instantly.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">Will my PDF quality change after splitting?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  No. PDFtoolify keeps the original formatting and quality of your PDF files after splitting.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">Is it safe to split PDFs online?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. Your files are processed securely, and they are automatically deleted after the task is completed.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">Can I split large PDFs with many pages?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Absolutely. PDFtoolify supports splitting large PDF files quickly and efficiently without any page limit.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p className="text-xl font-semibold text-gray-800 ">Does splitting PDFs cost anything?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  No, splitting PDFs is completely free on PDFtoolify. There are no hidden fees.
+                </p>
+                <hr className="text-gray-300"/>
+              </div>
+            </div>
+        </>
       )}
-
-     
     </div>
   );
 }

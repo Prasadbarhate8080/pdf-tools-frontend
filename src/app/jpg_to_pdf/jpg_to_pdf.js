@@ -80,6 +80,9 @@ const JpgToPdf = () => {
       
       setdownloadFileURL(url);
       setCompletionStatus(true)
+      setTimeout(() => {
+          URL.revokeObjectURL(url)
+        }, 10000);
     } catch (error) {
       console.log(error);
     }

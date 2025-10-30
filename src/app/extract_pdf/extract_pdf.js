@@ -59,6 +59,9 @@ export default function ExtractPdf() {
       const url = URL.createObjectURL(blob);
       setdownloadFileURL(url);
       setCompletionStatus(true)
+      setTimeout(() => {
+          URL.revokeObjectURL(url)
+        }, 10000);
     } catch (error) {
       toast.error(error.message)
       setisDroped(false)

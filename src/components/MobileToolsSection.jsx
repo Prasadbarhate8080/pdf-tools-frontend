@@ -192,6 +192,19 @@ function MobileToolsSection({
           setIsActiveTools={setIsActiveTools}
           setIsActiveHamBurger={setIsActiveHamBurger}
         />
+        <ToolName
+          href={"/add_pages_to_pdf"}
+          src={"/add_pages_to_pdf.jpg"}
+          className={""}
+          width={30}
+          height={10}
+          title="Add Pages to pdf"
+          alt="add pages to pdf file"
+          desc="add pages to pdf file "
+          isActiveTools={isActiveTools}
+          setIsActiveTools={setIsActiveTools}
+          setIsActiveHamBurger={setIsActiveHamBurger}
+        />
       </ul>
     </div>
   );

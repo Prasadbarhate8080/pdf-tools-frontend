@@ -7,38 +7,100 @@ import "react-pdf/dist/Page/TextLayer.css";
 import Image from 'next/image';
 import { useFileUpload } from '@/hooks/useFileUpload';
 import FileInput from '@/components/FileInput';
-import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
+import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, Plus, PlusCircle, ShieldCheck, Trash2, Zap } from "lucide-react";
 import FeaturesCard from '@/components/FeaturesCard';
+import { PDFDocument } from 'pdf-lib';
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
 function AddPagesInPdf() {
+    const [loading, setLoading] = useState(false)
+    const [isPopupActive, setIsPopupActive] = useState(false)
     const [pages,setPages] = useState([]);
-    let afterBefore = useRef("after")
     let pageNumberOfAddPage = useRef(1);
     let arrayLength = useRef(null);
     let imageFiles = useRef([])
     let selectedPageType = useRef("blank");
     
     let {files,isDroped,isProcessing,completionStatus,isUploading,
-      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi
+      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi,setCompletionStatus,setdownloadFileURL
       } = useFileUpload()
       
     let pageno = 0;
 
+     async function addPagesToPdf() {
+      try {
+        setLoading(true)
+        const [imagesAndPageNumbers,blankPagesPageNumbers] = getPageNumbers()
+        let images = imagesAndPageNumbers.map((val) => val.file)
+        let imagesPageNumbers = imagesAndPageNumbers.map(val => val.pageNumber)
+        const arrayBuffer = await files.arrayBuffer();
+        const pdfDoc = await PDFDocument.load(arrayBuffer)
+
+        
+        for (let i = 0; i < images.length; i++) {
+          let imageBytes = await images[i].arrayBuffer();
+          
+          let embeddedImage;
+          
+          if (images[i].type === "image/jpeg") {
+            embeddedImage = await pdfDoc.embedJpg(imageBytes);
+          } else if (images[i].type === "image/png") {
+            embeddedImage = await pdfDoc.embedPng(imageBytes);
+          } else {  
+            continue; // skip unsupported
+          }
+
+          // Page size (A4)
+          const pageWidth = 595;
+          const pageHeight = 842;
+          const page = pdfDoc.insertPage(imagesPageNumbers[i] - 1, [pageWidth, pageHeight]);
+
+          // 🖼 Image size calculation
+          const imgWidth = pageWidth; // full width
+          const imgHeight = pageHeight * 0.65; // 65% of page height (between 60–70%)
+          const x = 0; // left se start
+          const y = (pageHeight - imgHeight) / 2; // center vertically
+
+          // Draw image
+          page.drawImage(embeddedImage, {
+            x,
+            y,
+            width: imgWidth,
+            height: imgHeight,
+          });
+        }
+
+        for (let i = 0; i < blankPagesPageNumbers.length; i++) {
+          pdfDoc.insertPage(blankPagesPageNumbers[i] - 1, [595, 842]); // A4 size
+        }
+        const finalPdfBytes = await pdfDoc.save();
+        const blob = new Blob([finalPdfBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        setdownloadFileURL(url);
+        setCompletionStatus(true)
+      } catch (error) {
+      }
+      finally{
+        setLoading(false  )
+      }
+    }
+
     const handleSubmit = (e) => {
       e.preventDefault();
-      const [imagesAndPageNumbers,blankPagesPageNumbers] = getPageNumbers()
-      const formData = new FormData();
-      formData.append("pdf_file",files);
-      imagesAndPageNumbers.forEach((val) => {
-        formData.append("images",val.file);
-      })
-      formData.append("imagesPageNumbers",JSON.stringify(imagesAndPageNumbers.map(val => val.pageNumber)));
-      formData.append("blankPagesPageNumbers",JSON.stringify(blankPagesPageNumbers));
-      callApi("http://localhost:8000/api/v1/pdf/add_pages_in_pdf",formData);
+      console.log("hsndlesubmit run");
+      addPagesToPdf();
+      // const [imagesAndPageNumbers,blankPagesPageNumbers] = getPageNumbers()
+      // const formData = new FormData();
+      // formData.append("pdf_file",files);
+      // imagesAndPageNumbers.forEach((val) => {
+      //   formData.append("images",val.file);
+      // })
+      // formData.append("imagesPageNumbers",JSON.stringify(imagesAndPageNumbers.map(val => val.pageNumber)));
+      // formData.append("blankPagesPageNumbers",JSON.stringify(blankPagesPageNumbers));
+      // callApi("http://localhost:8000/api/v1/pdf/add_pages_in_pdf",formData);
     }
 
     const onDocumentLoadSuccess = ({numPages}) => {
@@ -62,8 +124,6 @@ function AddPagesInPdf() {
           if(selectedPageType.current == "image"){
             let uniqueId = imageFiles.current[imageFiles.current.length - 1].uniqueId;
             let objectUrl = URL.createObjectURL(imageFiles.current[imageFiles.current.length - 1].file)
-            if(afterBefore.current == "after")
-            {
               newPages.splice(
                 insertAt,
                 0,
@@ -74,23 +134,8 @@ function AddPagesInPdf() {
                 uniqueId:uniqueId
                 }
               )
-            }
-            else{
-              newPages.splice(
-                insertAt - 2,
-                0,
-                {
-                type:"extra",
-                url:objectUrl,
-                blank:false,
-                uniqueId:uniqueId
-                }
-              )
-            }
           }
           else{
-            if(afterBefore.current == "after")
-            {
               newPages.splice(
                 insertAt,
                 0,
@@ -100,18 +145,6 @@ function AddPagesInPdf() {
                 blank:true
                 }
               )
-            }
-            else{
-              newPages.splice(
-                insertAt - 2,
-                0,
-                {
-                type:"extra",
-                url:null,
-                blank:true
-                }
-              )
-            }
           }
           return newPages;
         })
@@ -158,7 +191,7 @@ function AddPagesInPdf() {
 
   return (
     <div className='mx-auto p-1 bg-[#F7F5FB] min-h-[658px] '>
-      {!completionStatus && (
+      {!completionStatus && !isDroped && (
         <div>
           <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
             Add Pages in PDF
@@ -295,99 +328,96 @@ function AddPagesInPdf() {
         </div>
       )}
       {isDroped && !isUploading && !completionStatus && <div className='flex'>
-          <div data-name="pdf pages rendered panel" className=' basis-[70%] max-h-screen z-10 overflow-auto scrollbar-hide'>
+          <div data-name="pdf pages rendered panel" className=' max-w-6xl mx-auto mt-2 max-h-screen z-10 overflow-auto scrollbar-hide pt-4'>
             <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
-              <div className="flex gap-10 items-center flex-wrap z-0 justify-center">
+              <div className="flex gap-8 flex-col sm:flex-row items-center flex-wrap z-0 justify-center">
                 {
                   pages.map((page,index) => {
                     if(page.type == "normal") pageno++;
                     return page.type == "extra" ? (
-                      <div key={index} className='relative'>
-                        {page.blank ? (
-                          <div className=' w-[185px] h-[261px] bg-gray-200 flex justify-center items-center'>blank page</div>
-                        ) : (
-                          <div className=' w-[185px] h-[261px] bg-gray-200 flex justify-center items-center'><img src={`${page.url}`}/></div>
-                        )}
-                        <div className='p-5 text-center'>{index + 1}</div>
-                        <div className='text-md cursor-pointer px-1 absolute top-0 right-0'
+                      <div key={index} className='flex gap-8 flex-col sm:flex-row  justify-center items-center'>
+                        <div className='bg-blue-600 p-1 rounded-full'
                         onClick={() => {
-                          removePages(index)
-                        }}
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M18 6L6 18M6 6l12 12"/>
-                          </svg>
-                        </div>  
+                          pageNumberOfAddPage.current = index;
+                          setIsPopupActive(true)}}
+                        ><Plus color='white' /></div> {/* plus icon for adding page */}
+                        <div key={index} className='relative'>
+                          {page.blank ? (
+                            <div className=' w-[185px] h-[261px] bg-gray-200 flex justify-center items-center'>blank page</div>
+                          ) : (
+                            <div className=' w-[185px] h-[261px] bg-gray-200 flex justify-center items-center'><img src={`${page.url}`}/></div>
+                          )}
+                          <div className='p-1 text-center'>{index + 1}</div>
+                          <div className='text-md cursor-pointer p-1 rounded-full bg-red-700 text-white absolute top-0 right-0'
+                          onClick={() => {
+                            removePages(index)
+                          }}
+                          >
+                            <Trash2 size={22}/>
+                          </div> 
+                        </div>
                       </div>
                     ) : (
-                      <div key={index} className='relative'>
-                        <Page  pageNumber={pageno} width={185} />
-                        <div className='p-5 text-center'>{index + 1}</div>  
+                      <div key={index} className='flex gap-8 flex-col sm:flex-row justify-center items-center'>
+                        <div className='bg-blue-600 p-1 rounded-full'
+                        onClick={() => {
+                          pageNumberOfAddPage.current = index;
+                          setIsPopupActive(true)}}
+                        ><Plus color='white' /></div>  {/* plus icon for adding page */}
+                        <div key={index} className='relative'>
+                          <Page  pageNumber={pageno} width={185} />
+                          <div className='p-1 text-center'>{index + 1}</div>
+                        </div>
                       </div>
                       )
                   }
                   )
                 }
+                <div className='bg-blue-600 p-1  rounded-full'
+                onClick={() => {
+                  pageNumberOfAddPage.current = pages.length;
+                  setIsPopupActive(true)}}
+                ><Plus color='white' /></div> {/* plus icon for adding page */}
+                <div className={`fixed z-50 inset-0 bg-[rgba(70,70,70,0.4)] ${isPopupActive ? "flex" : "hidden"}   rounded-xl  justify-center items-center`}
+                  onClick={(e) => {
+                      setIsPopupActive(false)
+                  }}
+                >
+                  <div className='bg-white rounded-2xl p-4 w-80 h-36'>
+                    <div className='flex flex-col gap-6 p-4'>
+                      <span
+                      className='cursor-pointer'
+                      onClick={() => {
+                        selectedPageType.current = "blank"
+                        addExtraPage()
+                      }}
+                      >Add a blank page</span>
+                      <span>
+                        <label htmlFor="image_input" className='cursor-pointer'>Tap to select image to add</label>
+                        <input  
+                          className='hidden'
+                          id='image_input' type="file" accept='image/*'
+                          onChange={(e) => {
+                            const file1 = e.currentTarget.files[0]
+                            if (!file1) return;
+                            imageFiles.current.push({file:file1,uniqueId : Date.now() + Math.random().toString(36).substring(2, 9)})
+                            selectedPageType.current = "image";
+                            addExtraPage();
+                            e.currentTarget.value = "";
+                            }}
+                        />
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </Document>
           </div>
-          <div data-name="operations panel" className=' bg-gray-100 basis-[30%]'>
-            <div>
-              <label htmlFor="pageNumber">Enter Page Number: </label>
-              <input id='pageNumber' type="number"
-                className='border-1'
-                defaultValue={1}
-                onChange={(e) => {
-                  let val = Number(e.currentTarget.value);
-                  if(val > arrayLength.current){
-                    pageNumberOfAddPage.current = arrayLength.current;
-                }else{
-                  pageNumberOfAddPage.current = val;
-                }
-                console.log(pageNumberOfAddPage.current);
-                
-              }}
-              />
-              </div>
-              <div>
-                <div>
-                  <label htmlFor="after">after </label>
-                  <input type="radio" name='afterBefore' value={"after"} id='after' defaultChecked={true}  onChange={(e) => {afterBefore.current = e.currentTarget.value}}/>
-                </div>
-                <div>
-                  <label htmlFor="before">before </label>
-                  <input type="radio" name='afterBefore' value={"before"} id='before'  onChange={(e) => {afterBefore.current = e.currentTarget.value}}/>
-                </div>
-              </div>
-              <label htmlFor="image_input">tap to select image to add</label>
-              <input  
-                className='hidden'
-                id='image_input' type="file" accept='image/*'
-                onChange={(e) => {
-                  const file1 = e.currentTarget.files[0]
-                  imageFiles.current.push({file:file1,uniqueId : Date.now() + Math.random().toString(36).substring(2, 9)})
-                  selectedPageType.current = "image";
-                  addExtraPage();
-                }}
-              />  
-
-              <div>
-                <button onClick={() => {
-                  selectedPageType.current = "blank";
-                  addExtraPage();
-                }}>Add balnk page</button>
-              </div>
-              <div>
-                <button onClick={() => {
-                  const [imagesAndPageNumbers,blankPagesPageNumbers] = getPageNumbers()
-                  console.log("imagesAndPageNumbers:",imagesAndPageNumbers,"blankPagesPageNumbers:",blankPagesPageNumbers);
-                }}>Get Page Numbers</button>
-              </div>
-              <button onClick={handleSubmit}
-              className='px-2 py-1 bg-blue-600 rounded-md text-white text-xl'  
-              >Export Pdf</button>
-          </div>
         </div>}
+        {isDroped && !completionStatus && !loading && <button
+          className='bg-blue-600 fixed top-20  right-4 z-20 text-white font-semibold text-xl rounded-md px-4 py-2'
+          onClick={handleSubmit}
+          >Export PDF</button>}
         {downloadFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-10">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
@@ -397,7 +427,7 @@ function AddPagesInPdf() {
             <a
               href={downloadFileURL}
               download
-              className=" bg-[#F58A07] font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
+              className=" bg-blue-600 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
             >
               Download modified PDF
             </a>

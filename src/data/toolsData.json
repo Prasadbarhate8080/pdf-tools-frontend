@@ -128,6 +128,16 @@
         "title":"Add Page Number",
         "alt":"add page number in pdf",
         "desc":"Add page number into pdf file"
+    },
+    {
+        "href":"/add_pages_to_pdf",
+        "src":"/add_pages_to_pdf.jpg",
+        "className":"",
+        "width":33,
+        "height":10,
+        "title":"Add pages to pdf",
+        "alt":"add pages to pdf in free",
+        "desc":"Add new pages in pdf file "
     }
     
 ]

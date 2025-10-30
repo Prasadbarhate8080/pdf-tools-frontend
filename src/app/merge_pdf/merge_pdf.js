@@ -67,10 +67,12 @@ function Merge() {
         let mergedPdfBytes = await mergedPdf.save();
         const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
         const url = URL.createObjectURL(blob);
-        
         setdownloadFileURL(url);
         setCompletionStatus(true)
-      } 
+        setTimeout(() => {
+          URL.revokeObjectURL(url)
+        }, 10000);
+      }
       catch (error) { 
         toast.error(error)
         setisDroped(false)
