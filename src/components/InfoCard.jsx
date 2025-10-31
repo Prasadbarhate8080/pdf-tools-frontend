@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-function InfoCard({heading,paragraph,buttonText,src,alt,flip,imageHeight=400,imageWidth=400}) {
+function InfoCard({heading,paragraph,buttonText,src,alt,flip,imageHeight=400,imageWidth=400,callback,href}) {
   return (
     <div className={`${flip ? "lg:flex-row-reverse" : ""} mt-10 flex max-w-6xl justify-evenly mx-auto flex-wrap lg:flex-row flex-col-reverse  lg:flex-nowrap`}>
       <div className="max-w-3xl flex  items-center justify-center text-gray-800">
@@ -9,12 +9,15 @@ function InfoCard({heading,paragraph,buttonText,src,alt,flip,imageHeight=400,ima
           <p className="text-xs md:text-sm ">
             {paragraph}
           </p>
-          <button className="flex gap-2 text-blue-700">
+          <a className="flex gap-2 text-blue-700 cursor-pointer"
+          onClick={callback ? callback : null}
+          href={href ? href : null}
+          >
             {buttonText}
             <svg xmlns="http://www.w3.org/2000/svg" fill="0026FF" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
             </svg>
-          </button>
+          </a>
         </div>
       </div>
       <div className="max-w-3xl flex items-center justify-center">

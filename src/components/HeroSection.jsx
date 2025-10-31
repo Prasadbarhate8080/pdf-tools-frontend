@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import Image from 'next/image'
 function HeroSection() {
@@ -12,6 +13,10 @@ function HeroSection() {
           </h1>
           <p className=' text-gray-700 md:text-[16px] text-xs  '>All the PDF tools you need in one place. Manage your  documents  smarter and faster.</p>
           <button 
+          onClick={() => {
+            const el = document.getElementById("homePageTools");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }}
           className="font-bold md:text-[16px] text-xs text-[#0026FF] border-2 border-[#0026FF] px-2 py-1 rounded-md w-fit"
           >Explore All PDF Tools
           </button>

@@ -1,7 +1,7 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Document, Page, pdfjs } from "react-pdf";
+import {  pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import Processing from "@/components/Processing";
@@ -24,34 +24,6 @@ function Merge() {
       downloadFileURL,serverPreparing,progress,setCompletionStatus,setisDroped,setFiles,callApi,setdownloadFileURL
       } = useFileUpload()
     
-    // let mergePdf = useCallback(
-    // async () => {
-    //   try {
-    //   setLoading(true)
-    //   const mergedPdf = await PDFDocument.create();
-    //   for(const file of files)
-    //   {
-    //     const arrayBuffer = await file.arrayBuffer();
-    //     const pdf = await PDFDocument.load(arrayBuffer)
-    //     const pages = await mergedPdf.copyPages(pdf,pdf.getPageIndices())
-    //     pages.forEach((page) => {mergedPdf.addPage(page)})
-    //   }
-    //   let mergedPdfBytes = await mergedPdf.save();
-    //   const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
-    //   const url = URL.createObjectURL(blob);
-    //   setdownloadFileURL(url);
-    //   setCompletionStatus(true)
-
-    // } catch (error) { 
-    //   // toast.error(error)
-    //   console.log(error);
-    // }
-    // finally{
-    //   setLoading(false)
-    //   setisDroped(false)
-    //   setFiles([]);
-    // }
-    // },[])
       
     let mergePdf = async () => {
       try {
@@ -113,7 +85,7 @@ function Merge() {
             <FileInput files={files} setFiles={setFiles} setisDroped={setisDroped} multiple={true} accept= {{ "application/pdf": [] }}/>
             <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">Merge PDF files online for free</h1>
             {/* points section */}
-            <div className="flex justify-center  max-w-7xl mt-6 mx-auto flex-wrap gap-4">
+            <div className="flex justify-center  max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
               <div className="flex flex-col gap-2 w-xl text-sm">
                 <div className="flex  gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 

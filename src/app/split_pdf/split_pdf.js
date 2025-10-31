@@ -106,28 +106,28 @@ function Split() {
             <FileInput setisDroped={setisDroped} setFiles={setFiles} multiple={false} accept= {{ "application/pdf": [] }}/>
             <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">Split PDF files online for free</h1>
             {/* points section */}
-            <div className="flex justify-center max-w-7xl mt-6 mx-auto gap-4">
+            <div className="flex justify-center  max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
               <div className="flex flex-col gap-2 w-xl text-sm">
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>Our free PDF Splitter can be work on any device </span>
                 </div>
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>Using PDFtoolify split tool you can easily split PDF files</span>
                 </div>
               </div>
               <div className="w-xl flex flex-col gap-2 text-sm">
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>PDFtoolify is secure and easy to use tool for PDF related operations</span>
                 </div>  
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>No SignUp require to split PDF online</span>
                 </div>
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>split PDFs in seconds with PDFtoolify — free, fast, and secure.</span>
                 </div>
               </div>
@@ -155,34 +155,23 @@ function Split() {
               />
             </div>
             {/* how to section */}
-            <div className="flex max-w-7xl mx-auto mt-24">
-              <div className="flex basis-[50%] justify-center items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="560" height="360" viewBox="0 0 560 360" fill="none">
-                  <rect width="560" height="360" rx="20" fill="#E6F0FF"/>
-                  <rect x="100" y="100" width="80" height="100" rx="8" fill="white" stroke="#1E40AF" strokeWidth="2"/>
-                  <text x="140" y="160" textAnchor="middle" fontSize="18" fill="#1E40AF" fontFamily="Arial">PDF</text>
-                  <rect x="380" y="100" width="80" height="100" rx="8" fill="white" stroke="#1E40AF" strokeWidth="2"/>
-                  <text x="420" y="160" textAnchor="middle" fontSize="18" fill="#1E40AF" fontFamily="Arial">PDF</text>
-                  <path d="M220 150 H340" stroke="#1E3A8A" strokeWidth="4" markerEnd="url(#arrowhead)"/>
-                  <defs>
-                    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
-                      refX="10" refY="3.5" orient="auto">
-                      <polygon points="0 0, 10 3.5, 0 7" fill="#1E3A8A"/>
-                    </marker>
-                  </defs>
-                  <rect x="240" y="220" width="80" height="100" rx="8" fill="white" stroke="#059669" strokeWidth="2"/>
-                  <text x="280" y="280" textAnchor="middle" fontSize="18" fill="#059669" fontFamily="Arial">PDF</text>
-                </svg>
+            <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24">
+              <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
+                <Image
+                fill
+                src={"/how_to_merge.png"}
+                alt="how to merge pdf online"
+                />
               </div>
-              <div className="flex basis-[50%] justify-center items-center">
+              <div className="flex justify-center items-center">
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
-                    <span className="w-5 h-5 rounded-md bg-black inline-block"></span> 
-                    <span className="text-2xl text-gray-800 font-semibold">How to split PDFs online for free?</span>
+                    <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
+                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to merge PDFs online for free?</span>
                   </div>
-                  <p className="whitespace-pre">1.     Select files or drag and drop files in the select container</p>
-                  <p className="whitespace-pre">2.     Enter start and end page to split PDF and press split pdf button</p>
-                  <p className="whitespace-pre">3.     Download the split PDFs by pressing Download button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select files or drag and drop files in the select container</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">2.     Merge PDF files by pressing merge PDF button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">3.     Download the Merged PDFs by pressing Download button</p>
                 </div>
               </div>
             </div>

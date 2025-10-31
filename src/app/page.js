@@ -1,5 +1,5 @@
+"use client"
 import React from "react";
-import Footer from "@/components/Footer";
 import HomePageToolsSection from "@/components/HomePageToolsSection";
 import HeroSection from "@/components/HeroSection";
 import home from "./home.module.css"
@@ -21,12 +21,12 @@ function Home() {
         </div>
         <div className="mt-16">
           <h1 className="lg:text-3xl md:text-2xl text-xl font-semibold text-center text-gray-800">Simplify Your PDF Tasks With PDFtoolify</h1>
-          <p className="text-center">PDFtoolify is a secure and trusted PDF software. we have all the tools to work on PDF. PDFtoolify is free and  easy to use PDF software</p>
+          <p className="text-center text-gray-800">PDFtoolify is a secure and trusted PDF software. we have all the tools to work on PDF. PDFtoolify is free and  easy to use PDF software</p>
         </div>
         <InfoCard 
         heading={"Manage All Your PDF Tasks In One Place"}
         paragraph={"PDFtoolify brings all essential PDF tools together merge,split,compress,convert and more every thing you need to work with pdf."}
-        buttonText={"Explore more pdf tools"}
+        buttonText={"Explore  pdf tools"}
         src={"/manage_doc.png"}
         alt={"Manage All Your PDF Tasks In One Place"}
         />
@@ -35,13 +35,15 @@ function Home() {
         heading={"Create a perfect PDF Document with PDFtoolify"}
         paragraph={"Create PDF from jpg,png images and also manage your PDF document safely"}
         buttonText={"Create a PDF document"}
+        href={"/jpg_to_pdf"}
         src={"/create_doc.png"}
         alt={"Create a perfect PDF Document with PDFtoolify"}
         />
         <InfoCard 
         heading={"Add Pages in Existing PDF Document"}
         paragraph={"You can add pages in existing PDF document. And also remove pages from PDF this is simple and easy to use tool"}
-        buttonText={"Add pages in pdf"}
+        buttonText={"Add pages to pdf"}
+        href={"/add_pages_to_pdf"}
         src={"/Add_pages.png"}
         alt={"Add Pages in Existing PDF Document"}
         flip
@@ -51,6 +53,7 @@ function Home() {
         paragraph={"Compress PDF - minimize the size  of the PDF use PDFtoolify compress tool to minimize or decrease the size of the PDF"}
         buttonText={"Compress PDF file"}
         src={"/compress.png"}
+        href={"/compress_pdf"}
         alt={"Compress PDF"}
         imageHeight={550}
         imageWidth={550}

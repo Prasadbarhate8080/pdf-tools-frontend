@@ -25,15 +25,7 @@ const JpgToPdf = () => {
       downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi,setCompletionStatus,setdownloadFileURL
       } = useFileUpload()
   
-  // useEffect(() => {
-  //   return () => {
-  //     images.forEach((img) => URL.revokeObjectURL(img.preview));
-  //   };
-  // }, [images]);
 
-// useEffect(() => {
-//   console.log(files);
-// }, [files])
 
   async function jpgToPdf() {
     try {
@@ -136,29 +128,29 @@ const JpgToPdf = () => {
             Create PDF from Jpg Png images
             </h1>
             {/* points section */}
-            <div className="flex justify-center max-w-7xl mt-6 mx-auto gap-4">
+            <div className="flex justify-center  max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
               <div className="flex flex-col gap-2 w-xl text-sm">
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>Our free PDF extractor works on any device seamlessly</span>
                 </div>
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>Easily extract specific pages from your PDF files with PDFtoolify</span>
                 </div>
               </div>
               
               <div className="w-xl flex flex-col gap-2 text-sm">
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>PDFtoolify is secure and simple to use for all PDF operations</span>
                 </div>  
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>No signup required — extract PDF pages instantly</span>
                 </div>
                 <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
                   <span>Extract PDF pages in seconds — free, fast, and reliable.</span>
                 </div>
               </div>
@@ -198,24 +190,23 @@ const JpgToPdf = () => {
               />
             </div>
             {/* how to section */}
-            <div className="flex max-w-7xl mx-auto mt-24">
-              <div className="flex basis-[50%] justify-center items-center">
+            <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24">
+              <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
                 <Image
-                width={560}
-                height={ 360 }
+                fill
                 src={"/how_to_merge.png"}
                 alt="how to merge pdf online"
                 />
               </div>
-              <div className="flex basis-[50%] justify-center items-center">
+              <div className="flex justify-center items-center">
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
-                    <span className="w-5 h-5 rounded-md bg-black inline-block"></span> 
-                    <span className="text-2xl text-gray-800 font-semibold">How to merge PDFs online for free?</span>
+                    <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
+                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to merge PDFs online for free?</span>
                   </div>
-                  <p className="whitespace-pre">1.     Select files or drag and drop files in the select container</p>
-                  <p className="whitespace-pre">2.     Merge PDF files by pressing merge PDF button</p>
-                  <p className="whitespace-pre">3.     Download the Merged PDFs by pressing Download button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select files or drag and drop files in the select container</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">2.     Merge PDF files by pressing merge PDF button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">3.     Download the Merged PDFs by pressing Download button</p>
                 </div>
               </div>
             </div>

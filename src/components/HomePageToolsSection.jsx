@@ -1,10 +1,11 @@
+"use client"
 import React from 'react'
 import toolsData from "@/data/toolsData.json"
 import ToolCard from './ToolCard'
 function HomePageToolsSection() {
   return (
     <>
-      <div className="p-1">
+      <div id='homePageTools' className="p-1">
         <h1 className="md:text-3xl text-2xl text-gray-800 text-center font-semibold">
           PDFtoolify Free Online Tools
         </h1>
