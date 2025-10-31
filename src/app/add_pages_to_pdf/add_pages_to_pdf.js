@@ -7,7 +7,7 @@ import "react-pdf/dist/Page/TextLayer.css";
 import Image from 'next/image';
 import { useFileUpload } from '@/hooks/useFileUpload';
 import FileInput from '@/components/FileInput';
-import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, Plus, PlusCircle, ShieldCheck, Trash2, Zap } from "lucide-react";
+import { BadgeCheck, CircleCheck, FilePlus, Gift, InfinityIcon, MousePointerClick, Plus, PlusCircle, ShieldCheck, Trash2, Zap } from "lucide-react";
 import FeaturesCard from '@/components/FeaturesCard';
 import { PDFDocument } from 'pdf-lib';
 
@@ -210,65 +210,95 @@ function AddPagesInPdf() {
             {/* points section */}
             <div className="flex justify-center max-w-7xl mt-6 mx-auto gap-4 text-gray-800">
               <div className="flex flex-col gap-2 w-xl text-sm">
+                
                 <div className="flex gap-2">
                   <CircleCheck color="green" strokeWidth={1.5} /> 
-                  <span>Our free PDF extractor works on any device seamlessly</span>
+                  <span>Add new pages to any PDF easily using PDFtoolify</span>
                 </div>
+
                 <div className="flex gap-2">
                   <CircleCheck color="green" strokeWidth={1.5} /> 
-                  <span>Easily extract specific pages from your PDF files with PDFtoolify</span>
+                  <span>Upload images or PDFs and insert them anywhere in your document</span>
                 </div>
+
               </div>
-              
+
               <div className="w-xl flex flex-col gap-2 text-sm">
+
                 <div className="flex gap-2">
                   <CircleCheck color="green" strokeWidth={1.5} /> 
-                  <span>PDFtoolify is secure and simple to use for all PDF operations</span>
-                </div>  
-                <div className="flex gap-2">
-                  <CircleCheck color="green" strokeWidth={1.5} /> 
-                  <span>No signup required — extract PDF pages instantly</span>
+                  <span>Simple and secure tool for editing and updating PDFs online</span>
                 </div>
+
                 <div className="flex gap-2">
                   <CircleCheck color="green" strokeWidth={1.5} /> 
-                  <span>Extract PDF pages in seconds — free, fast, and reliable.</span>
+                  <span>No signup needed — add pages to your PDF instantly</span>
                 </div>
+
+                <div className="flex gap-2">
+                  <CircleCheck color="green" strokeWidth={1.5} /> 
+                  <span>Add pages in seconds — fast, free, and reliable experience</span>
+                </div>
+
               </div>
             </div>
+
             {/* feature card section */}
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
               Features of PDFtoolify - Add pages to PDF
             </h1>
             <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-              <FeaturesCard Icon={MousePointerClick } heading={"Easy to Use"} 
-                  paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
+
+              <FeaturesCard 
+                Icon={MousePointerClick} 
+                heading={"Easy to Use"} 
+                paragraph={
+                  "Designed to be simple and intuitive so anyone can easily add new pages to a PDF without technical knowledge."
+                }
               />
+
               <FeaturesCard 
                 Icon={Gift} 
                 heading={"Free & No Sign Up"} 
-                paragraph={"Extract unlimited pages from PDFs online for free without creating an account. No hidden costs, no registration—just fast and easy page extraction."}
+                paragraph={
+                  "Add pages to your PDF files online for free—no account required. No hidden charges, no limits."
+                }
               />
+
               <FeaturesCard 
-                Icon={InfinityIcon} 
-                heading={"Extract Without Limits"} 
-                paragraph={"Choose and extract as many pages as you want. Whether it's a single page or multiple sections, our tool handles it smoothly and efficiently."}
+                Icon={FilePlus} 
+                heading={"Add Unlimited Pages"} 
+                paragraph={
+                  "Insert as many pages as you want—images or PDF pages. Organize them easily before downloading."
+                }
               />
+
               <FeaturesCard 
                 Icon={BadgeCheck} 
-                heading={"Accurate Page Extraction"} 
-                paragraph={"Our PDF extractor ensures accurate results every time. Get the exact pages you need without affecting the rest of your document."}
+                heading={"Accurate Page Insertion"} 
+                paragraph={
+                  "Add your new pages exactly where you want them. Our tool maintains original formatting and quality."
+                }
               />
+
               <FeaturesCard 
                 Icon={ShieldCheck} 
-                heading={"Secure Online Extraction"} 
-                paragraph={"Your privacy is our priority. All uploaded files are automatically deleted after processing, ensuring safe and secure PDF extraction online."}
+                heading={"Secure & Private"} 
+                paragraph={
+                  "Your files stay safe. All uploaded documents are automatically deleted after processing to protect your privacy."
+                }
               />
+
               <FeaturesCard 
                 Icon={Zap} 
                 heading={"Fast & Powerful"} 
-                paragraph={"Built with advanced technology, our extractor processes files quickly. Get your selected pages in just seconds—fast, reliable, and professional."}
+                paragraph={
+                  "Add pages to your PDF in seconds with high processing speed. Reliable, fast, and built for performance."
+                }
               />
+
             </div>
+
             {/* how to section */}
             <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
               <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
@@ -282,48 +312,70 @@ function AddPagesInPdf() {
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
                     <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to merge PDFs online for free?</span>
+                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to add pages in pdf online?</span>
                   </div>
-                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select files or drag and drop files in the select container</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">2.     Merge PDF files by pressing merge PDF button</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">3.     Download the Merged PDFs by pressing Download button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select file or drag and drop file in the select container</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">2.     Add the pages where you want to add by pressing plus icon</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">3.     Press export button to add pages into the pdf</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">4.     Download the pages added PDF by pressing Download button</p>
                 </div>
               </div>
             </div>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Add pages to PDF FAQs</h1>
+            <h1 className="text-3xl font-semibold text-center p-3 text-gray-800 mt-24">Add pages to PDF FAQs</h1>
             {/* FAQs Section */}
             <div className="max-w-4xl mx-auto flex flex-col mt-12 items-start gap-6">
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is PDFtoolify Really Free?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes,PDFtoolify is free to use you can easily use PDFtoolify for your work without signup</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Is PDFtoolify Really Free?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes, PDFtoolify is completely free. You can add pages to your PDF files without creating an account.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">How can I merge PDF files with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">You just need to upload your PDF files, arrange them in order, and click on “Merge.” PDFtoolify will instantly combine them into a single file.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">How can I add pages to a PDF using PDFtoolify?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Simply upload your PDF and the pages you want to add (PDF or images), set their order, and click “Add Pages.” 
+                  PDFtoolify will instantly generate your updated document.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Will the quality of my PDFs change after merging?</p>
-                <p className=" text-sm font-medium text-gray-800">No, the merged PDF keeps the same quality and formatting as your original files.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Will the quality of my PDF change after adding pages?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  No, the original quality and formatting of your PDF remain unchanged. New pages are inserted without distortion.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is it safe to merge my PDFs online?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. PDFtoolify uses secure processing, and your files are deleted automatically after completion to ensure privacy.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Is it safe to add pages to my PDF online?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. PDFtoolify uses secure processing, and all uploaded files are automatically deleted after completion to protect your privacy.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Can I merge PDFs offline with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. You can download PDFtoolify for Windows and merge files offline without internet access.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Can I add pages offline using PDFtoolify?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. Download the Windows version of PDFtoolify to add pages to your PDF even without internet access.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Does merging PDFs cost anything?</p>
-                <p className=" text-sm font-medium text-gray-800">No, merging PDFs with PDFtoolify is completely free.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Does adding pages to a PDF cost anything?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  No, adding pages with PDFtoolify is 100% free with no hidden fees.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
             </div>
+
         </div>
       )}
       {isDroped && !isUploading && !completionStatus && <div className='flex'>

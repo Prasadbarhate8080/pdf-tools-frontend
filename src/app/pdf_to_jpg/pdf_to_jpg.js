@@ -9,7 +9,7 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
-import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, Zap } from "lucide-react";
+import { BadgeCheck, CircleCheck, Gift,  ShieldCheck, Zap,SplitSquareHorizontal,GalleryHorizontalEnd   } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import PDFPageComponent from "@/components/PDFPageComponent";
 import JSZip from "jszip";
@@ -97,66 +97,87 @@ function PDFToJPG() {
             Convert PDF into jpg images
             </h1>
             {/* points section */}
-            <div className="flex justify-center  max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
+            <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
+  
               <div className="flex flex-col gap-2 w-xl text-sm">
+                
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Our free PDF Splitter can be work on any device </span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Our free PDF to JPG converter works smoothly on any device</span>
                 </div>
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Using PDFtoolify split tool you can easily split PDF files</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Easily convert any PDF page into a high-quality JPG image</span>
                 </div>
+
               </div>
+
               <div className="w-xl flex flex-col gap-2 text-sm">
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>PDFtoolify is secure and easy to use tool for PDF related operations</span>
-                </div>  
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>No SignUp require to split PDF online</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>PDFtoolify ensures safe and secure PDF to image conversion</span>
                 </div>
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>split PDFs in seconds with PDFtoolify — free, fast, and secure.</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>No signup required — convert PDF pages to JPG instantly</span>
                 </div>
+
+                <div className="flex gap-2">
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Convert PDFs to JPG images in seconds — fast, free, and reliable</span>
+                </div>
+
               </div>
+
             </div>
+
             {/* feature card section */}
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
               Features of PDFtoolify - PDF to jpg
             </h1>
             <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-              <FeaturesCard Icon={MousePointerClick } heading={"Easy to Use"} 
-                  paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
+
+              <FeaturesCard 
+                Icon={SplitSquareHorizontal} 
+                heading="Easy Page-to-Image Conversion" 
+                paragraph="Convert your PDF pages into high-quality JPG images instantly. The tool is simple, intuitive, and perfect for everyone."
               />
+
               <FeaturesCard 
                 Icon={Gift} 
-                heading={"Free & No Sign Up"} 
-                paragraph={"Extract unlimited pages from PDFs online for free without creating an account. No hidden costs, no registration—just fast and easy page extraction."}
+                heading="Free & No Sign Up Needed" 
+                paragraph="Convert PDFs to JPG images absolutely free. No hidden charges, no login—just upload your PDF and download your JPGs instantly."
               />
+
               <FeaturesCard 
-                Icon={InfinityIcon} 
-                heading={"Extract Without Limits"} 
-                paragraph={"Choose and extract as many pages as you want. Whether it's a single page or multiple sections, our tool handles it smoothly and efficiently."}
+                Icon={GalleryHorizontalEnd} 
+                heading="Convert Unlimited Pages" 
+                paragraph="Whether you want to convert a single page or an entire PDF, our tool handles multiple page conversions quickly and smoothly."
               />
+
               <FeaturesCard 
                 Icon={BadgeCheck} 
-                heading={"Accurate Page Extraction"} 
-                paragraph={"Our PDF extractor ensures accurate results every time. Get the exact pages you need without affecting the rest of your document."}
+                heading="High-Quality JPG Output" 
+                paragraph="Every JPG image is generated with sharp clarity and accurate rendering. No quality loss during PDF-to-image conversion."
               />
+
               <FeaturesCard 
                 Icon={ShieldCheck} 
-                heading={"Secure Online Extraction"} 
-                paragraph={"Your privacy is our priority. All uploaded files are automatically deleted after processing, ensuring safe and secure PDF extraction online."}
+                heading="Safe & Private Conversion" 
+                paragraph="Your files remain secure and are deleted automatically after processing. Enjoy worry-free and private PDF to JPG conversion."
               />
+
               <FeaturesCard 
                 Icon={Zap} 
-                heading={"Fast & Powerful"} 
-                paragraph={"Built with advanced technology, our extractor processes files quickly. Get your selected pages in just seconds—fast, reliable, and professional."}
+                heading="Fast & Efficient Processing" 
+                paragraph="Our optimized engine converts PDF pages to JPGs within seconds—fast, reliable, and perfect for professional use."
               />
+
             </div>
+
             {/* how to section */}
             <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
               <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
@@ -170,7 +191,7 @@ function PDFToJPG() {
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
                     <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to merge PDFs online for free?</span>
+                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to convert pdf into jpg images?</span>
                   </div>
                   <p className="whitespace-pre text-sm tracking-tighter">1.     Select files or drag and drop files in the select container</p>
                   <p className="whitespace-pre text-sm tracking-tighter">2.     Merge PDF files by pressing merge PDF button</p>
@@ -180,38 +201,70 @@ function PDFToJPG() {
             </div>
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">PDF to jpg converter FAQs</h1>
             {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col mt-12 items-start gap-6">
+            <div className="max-w-4xl mx-auto flex flex-col p-3 mt-12 items-start gap-6">
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is PDFtoolify Really Free?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes,PDFtoolify is free to use you can easily use PDFtoolify for your work without signup</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  Is PDFtoolify’s PDF to JPG converter free?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes, PDFtoolify is completely free to use. You can convert any PDF page into a JPG image without creating an account.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">How can I merge PDF files with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">You just need to upload your PDF files, arrange them in order, and click on “Merge.” PDFtoolify will instantly combine them into a single file.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  How can I convert a PDF to JPG using PDFtoolify?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  Just upload your PDF file, and click “Convert to JPG.” PDFtoolify will instantly turn each PDF page into a high-quality JPG image.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Will the quality of my PDFs change after merging?</p>
-                <p className=" text-sm font-medium text-gray-800">No, the merged PDF keeps the same quality and formatting as your original files.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  Will the image quality change after conversion?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  No. The JPG images maintain excellent clarity and resolution. PDFtoolify ensures your output remains sharp and accurate.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is it safe to merge my PDFs online?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. PDFtoolify uses secure processing, and your files are deleted automatically after completion to ensure privacy.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  Is it safe to convert PDF files to JPG online?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. Your files are processed securely, and PDFtoolify automatically deletes all PDFs and images after the conversion is completed.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Can I merge PDFs offline with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. You can download PDFtoolify for Windows and merge files offline without internet access.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  Can I convert all pages of a PDF to JPG?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  Absolutely. You can convert a single page or all pages of a PDF—PDFtoolify handles multi-page conversion with ease.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Does merging PDFs cost anything?</p>
-                <p className=" text-sm font-medium text-gray-800">No, merging PDFs with PDFtoolify is completely free.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  Does converting PDF to JPG cost anything?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  No, PDF to JPG conversion on PDFtoolify is completely free—no hidden fees or subscription required.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
             </div>
+
           </div>
         )}
 

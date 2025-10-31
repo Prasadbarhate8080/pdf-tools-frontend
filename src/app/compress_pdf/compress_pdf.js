@@ -8,7 +8,7 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
-import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
+import { BadgeCheck, CircleCheck, CircleDashed, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import Image from "next/image";
 import PDFPageConponent from "@/components/PDFPageComponent";
@@ -54,121 +54,174 @@ function Compress() {
             Compress PDF or minimize the size of the pdf
             </h1>
             {/* points section */}
-            <div className="flex justify-center  max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
+            <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
+
               <div className="flex flex-col gap-2 w-xl text-sm">
+                
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Our free PDF Splitter can be work on any device </span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Our free PDF Compressor works smoothly on all devices</span>
                 </div>
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Using PDFtoolify split tool you can easily split PDF files</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Easily reduce PDF file size without losing important quality</span>
                 </div>
+
               </div>
+
               <div className="w-xl flex flex-col gap-2 text-sm">
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>PDFtoolify is secure and easy to use tool for PDF related operations</span>
-                </div>  
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>No SignUp require to split PDF online</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>PDFtoolify uses secure and efficient compression technology</span>
                 </div>
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>split PDFs in seconds with PDFtoolify — free, fast, and secure.</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>No signup needed — compress PDF files instantly online</span>
                 </div>
+
+                <div className="flex gap-2">
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Compress PDFs in seconds — fast, free, and reliable with PDFtoolify</span>
+                </div>
+
               </div>
+
             </div>
+
             {/* feature card section */}
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
               Features of PDFtoolify - Compress PDF
             </h1>
             <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-              <FeaturesCard Icon={MousePointerClick } heading={"Easy to Use"} 
-                  paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
+
+              <FeaturesCard 
+                Icon={MousePointerClick} 
+                heading="Simple & Easy to Use" 
+                paragraph="Compressing your PDF is extremely simple. Upload your file, choose the compression level, and download a smaller, optimized PDF instantly."
               />
+
               <FeaturesCard 
                 Icon={Gift} 
-                heading={"Free & No Sign Up"} 
-                paragraph={"Extract unlimited pages from PDFs online for free without creating an account. No hidden costs, no registration—just fast and easy page extraction."}
+                heading="Free & No Sign Up Needed" 
+                paragraph="Compress unlimited PDF files for free without creating an account. No hidden charges—just fast and effective PDF compression."
               />
+
               <FeaturesCard 
-                Icon={InfinityIcon} 
-                heading={"Extract Without Limits"} 
-                paragraph={"Choose and extract as many pages as you want. Whether it's a single page or multiple sections, our tool handles it smoothly and efficiently."}
+                Icon={CircleDashed} 
+                heading="Powerful Compression Levels" 
+                paragraph="Choose between standard, strong, or maximum compression to reduce file size the way you need—ideal for sharing, emailing, or uploading."
               />
+
               <FeaturesCard 
                 Icon={BadgeCheck} 
-                heading={"Accurate Page Extraction"} 
-                paragraph={"Our PDF extractor ensures accurate results every time. Get the exact pages you need without affecting the rest of your document."}
+                heading="Quality Preserved" 
+                paragraph="PDFtoolify ensures your PDF retains readable text and clear images even after compression. Get smaller files without losing clarity."
               />
+
               <FeaturesCard 
                 Icon={ShieldCheck} 
-                heading={"Secure Online Extraction"} 
-                paragraph={"Your privacy is our priority. All uploaded files are automatically deleted after processing, ensuring safe and secure PDF extraction online."}
+                heading="Secure Online Compression" 
+                paragraph="Your privacy is protected. All uploaded PDFs are automatically deleted after processing, ensuring safe and secure compression."
               />
+
               <FeaturesCard 
                 Icon={Zap} 
-                heading={"Fast & Powerful"} 
-                paragraph={"Built with advanced technology, our extractor processes files quickly. Get your selected pages in just seconds—fast, reliable, and professional."}
+                heading="Fast & Efficient" 
+                paragraph="Compress PDF files in seconds. Our optimized compression engine delivers fast, smooth, and reliable performance every time."
               />
+
             </div>
+
             {/* how to section */}
-            <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
-              <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
-                <Image
-                fill
-                src={"/how_to_merge.png"}
-                alt="how to merge pdf online"
-                />
-              </div>
-              <div className="flex justify-center items-center">
-                <div className="flex flex-col gap-3">
-                  <div className="flex gap-4 items-center">
-                    <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to merge PDFs online for free?</span>
+              <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
+                <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
+                  <Image
+                  fill
+                  src={"/how_to_merge.png"}
+                  alt="how to merge pdf online"
+                  />
+                </div>
+                <div className="flex justify-center items-center">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex gap-4 items-center">
+                      <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
+                      <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to compress pdf file onliine?</span>
+                    </div>
+                    <p className="whitespace-pre text-sm tracking-tighter">1.     Select file or drag and drop file in the select container</p>
+                    <p className="whitespace-pre text-sm tracking-tighter">2.     Compress PDF files by pressing compress PDF button</p>
+                    <p className="whitespace-pre text-sm tracking-tighter">3.     Download the compress PDF by pressing Download button</p>
                   </div>
-                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select files or drag and drop files in the select container</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">2.     Merge PDF files by pressing merge PDF button</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">3.     Download the Merged PDFs by pressing Download button</p>
                 </div>
               </div>
-            </div>
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Compress PDF FAQs</h1>
             {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col mt-12 items-start gap-6">
+            <div className="max-w-4xl mx-auto flex flex-col p-3 mt-12 items-start gap-6">
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is PDFtoolify Really Free?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes,PDFtoolify is free to use you can easily use PDFtoolify for your work without signup</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  Is PDFtoolify’s PDF Compressor free to use?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes, PDFtoolify’s Compress PDF tool is completely free. You can reduce the size of unlimited PDF files without creating an account.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">How can I merge PDF files with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">You just need to upload your PDF files, arrange them in order, and click on “Merge.” PDFtoolify will instantly combine them into a single file.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  How can I compress a PDF with PDFtoolify?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  Just upload your PDF file, choose your preferred compression level, and click “Compress.” PDFtoolify will reduce your file size instantly.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Will the quality of my PDFs change after merging?</p>
-                <p className=" text-sm font-medium text-gray-800">No, the merged PDF keeps the same quality and formatting as your original files.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  Will the quality of my PDF reduce after compression?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  No. PDFtoolify maintains text clarity and readable quality while reducing file size. You can also choose stronger compression if needed.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is it safe to merge my PDFs online?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. PDFtoolify uses secure processing, and your files are deleted automatically after completion to ensure privacy.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  Is it safe to compress PDFs online using PDFtoolify?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. Your files are processed securely, and PDFtoolify automatically deletes all uploaded PDFs after compression to ensure your privacy.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Can I merge PDFs offline with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. You can download PDFtoolify for Windows and merge files offline without internet access.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  Can I compress large PDF files?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  Absolutely. PDFtoolify can compress large PDFs and significantly reduce their file size without affecting essential content.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Does merging PDFs cost anything?</p>
-                <p className=" text-sm font-medium text-gray-800">No, merging PDFs with PDFtoolify is completely free.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">
+                  Do I need software to compress PDFs?
+                </p>
+                <p className="text-sm font-medium text-gray-800">
+                  No installation needed. PDFtoolify works completely online, allowing you to compress PDFs directly from your browser.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
             </div>
+
           </div>
         )}
 

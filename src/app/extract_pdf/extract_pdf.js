@@ -183,48 +183,79 @@ export default function ExtractPdf() {
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
                     <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to merge PDFs online for free?</span>
+                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to extract pdf pages online?</span>
                   </div>
-                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select files or drag and drop files in the select container</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">2.     Merge PDF files by pressing merge PDF button</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">3.     Download the Merged PDFs by pressing Download button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select file or drag and drop file in the select container</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">2.     Select Pages which you wnat to extract from the pdf</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">3.     Extract pages by pressing extract pages button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">4.     Download extracted pages pdf by pressing download button</p>
                 </div>
               </div>
             </div>
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Extract PDF Pages FAQs</h1>
             {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col mt-12 items-start gap-6">
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is PDFtoolify Really Free?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes,PDFtoolify is free to use you can easily use PDFtoolify for your work without signup</p>
-                <hr className="text-gray-800"/>
-              </div>
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">How can I merge PDF files with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">You just need to upload your PDF files, arrange them in order, and click on “Merge.” PDFtoolify will instantly combine them into a single file.</p>
-                <hr className="text-gray-800"/>
-              </div>
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Will the quality of my PDFs change after merging?</p>
-                <p className=" text-sm font-medium text-gray-800">No, the merged PDF keeps the same quality and formatting as your original files.</p>
-                <hr className="text-gray-800"/>
-              </div>
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is it safe to merge my PDFs online?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. PDFtoolify uses secure processing, and your files are deleted automatically after completion to ensure privacy.</p>
-                <hr className="text-gray-800"/>
-              </div>
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Can I merge PDFs offline with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. You can download PDFtoolify for Windows and merge files offline without internet access.</p>
-                <hr className="text-gray-800"/>
-              </div>
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Does merging PDFs cost anything?</p>
-                <p className=" text-sm font-medium text-gray-800">No, merging PDFs with PDFtoolify is completely free.</p>
-                <hr className="text-gray-800"/>
-              </div>
+            <div className="max-w-4xl mx-auto flex flex-col p-3 mt-12 items-start gap-6">
+  
+            <div className="flex flex-col gap-3">
+              <p className="text-xl font-semibold text-gray-800">
+                What is the Extract PDF tool?
+              </p>
+              <p className="text-sm font-medium text-gray-800">
+                Extract PDF allows you to select specific pages from your PDF and download them as a new PDF file.
+              </p>
+              <hr className="text-gray-800" />
             </div>
+
+            <div className="flex flex-col gap-3">
+              <p className="text-xl font-semibold text-gray-800">
+                How do I extract pages from a PDF?
+              </p>
+              <p className="text-sm font-medium text-gray-800">
+                Upload your PDF, choose page numbers or ranges like “1-3, 5”, and click on “Extract”. Your new PDF will be ready instantly.
+              </p>
+              <hr className="text-gray-800" />
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <p className="text-xl font-semibold text-gray-800">
+                Is there any quality loss after extracting pages?
+              </p>
+              <p className="text-sm font-medium text-gray-800">
+                No. The extracted PDF maintains the exact same quality as the original pages.
+              </p>
+              <hr className="text-gray-800" />
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <p className="text-xl font-semibold text-gray-800">
+                Is it safe to upload my PDF for extraction?
+              </p>
+              <p className="text-sm font-medium text-gray-800">
+                Yes. Your files are processed securely, and they are removed automatically after extraction is completed.
+              </p>
+              <hr className="text-gray-800" />
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <p className="text-xl font-semibold text-gray-800">
+                Can I extract multiple page ranges at once?
+              </p>
+              <p className="text-sm font-medium text-gray-800">
+                Yes. You can extract pages like “1-3, 5-7, 10” in a single operation and download them together.
+              </p>
+              <hr className="text-gray-800" />
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <p className="text-xl font-semibold text-gray-800">
+                Is the Extract PDF tool free?
+              </p>
+              <p className="text-sm font-medium text-gray-800">
+                Yes, PDFtoolify’s Extract PDF tool is completely free to use without signup.
+              </p>
+              <hr className="text-gray-800" />
+            </div>
+          </div>
         </div>
       )}
 

@@ -156,7 +156,7 @@ function Merge() {
             </div>
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Merge PDF FAQs</h1>
             {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col mt-12 p-2 items-start gap-6">
+            <div className="max-w-4xl mx-auto flex flex-col mt-12 p-3 items-start gap-6">
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800 ">Is PDFtoolify Really Free?</p>
                 <p className=" text-sm font-medium text-gray-800">Yes,PDFtoolify is free to use you can easily use PDFtoolify for your work without signup</p>

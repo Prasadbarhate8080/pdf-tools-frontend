@@ -9,7 +9,7 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import FileInput from "@/components/FileInput";
 import { useFileUpload } from "@/hooks/useFileUpload";
-import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
+import { BadgeCheck, CircleCheck, FileCheck2, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 
 if (typeof window !== "undefined") {
@@ -56,66 +56,99 @@ function Pdfa() {
             Covert the PDF into PDFA
             </h1>
             {/* points section */}
-            <div className="flex justify-center  max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
+            <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
+
               <div className="flex flex-col gap-2 w-xl text-sm">
+                
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Our free PDF Splitter can be work on any device </span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Convert your PDF files to archival-safe PDF/A format on any device</span>
                 </div>
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Using PDFtoolify split tool you can easily split PDF files</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>PDFtoolify ensures long-term preservation by creating ISO-standard PDF/A files</span>
                 </div>
+
               </div>
+
               <div className="w-xl flex flex-col gap-2 text-sm">
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>PDFtoolify is secure and easy to use tool for PDF related operations</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Secure and reliable — your files are deleted automatically after conversion</span>
                 </div>  
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>No SignUp require to split PDF online</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>No signup required — convert PDF to PDF/A instantly online</span>
                 </div>
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>split PDFs in seconds with PDFtoolify — free, fast, and secure.</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Fast, accurate, and compliant PDF/A conversion with PDFtoolify</span>
                 </div>
+
               </div>
+
             </div>
+
             {/* feature card section */}
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
               Features of PDFtoolify - PDF to PDFA
             </h1>
             <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-              <FeaturesCard Icon={MousePointerClick } heading={"Easy to Use"} 
-                  paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
-              />
+
               <FeaturesCard 
-                Icon={Gift} 
-                heading={"Free & No Sign Up"} 
-                paragraph={"Extract unlimited pages from PDFs online for free without creating an account. No hidden costs, no registration—just fast and easy page extraction."}
+                Icon={MousePointerClick}
+                heading={"Simple & Easy to Use"}
+                paragraph={
+                  "Designed to be intuitive and beginner-friendly — anyone can convert their PDF files to PDF/A format in just a few clicks."
+                }
               />
+
               <FeaturesCard 
-                Icon={InfinityIcon} 
-                heading={"Extract Without Limits"} 
-                paragraph={"Choose and extract as many pages as you want. Whether it's a single page or multiple sections, our tool handles it smoothly and efficiently."}
+                Icon={Gift}
+                heading={"Free & No Signup"}
+                paragraph={
+                  "Convert unlimited PDF files to PDF/A online for free. No account creation, no hidden charges — fast and effortless conversion."
+                }
               />
+
               <FeaturesCard 
-                Icon={BadgeCheck} 
-                heading={"Accurate Page Extraction"} 
-                paragraph={"Our PDF extractor ensures accurate results every time. Get the exact pages you need without affecting the rest of your document."}
+                Icon={FileCheck2}
+                heading={"PDF/A Compliant Output"}
+                paragraph={
+                  "Ensure long-term archiving with accurate PDF/A conversion. Your files remain readable, structured, and standardized for future use."
+                }
               />
+
               <FeaturesCard 
-                Icon={ShieldCheck} 
-                heading={"Secure Online Extraction"} 
-                paragraph={"Your privacy is our priority. All uploaded files are automatically deleted after processing, ensuring safe and secure PDF extraction online."}
+                Icon={BadgeCheck}
+                heading={"Preserves Original Quality"}
+                paragraph={
+                  "PDFtoolify maintains layouts, fonts, colors, and formatting while generating a fully PDF/A compliant file."
+                }
               />
+
               <FeaturesCard 
-                Icon={Zap} 
-                heading={"Fast & Powerful"} 
-                paragraph={"Built with advanced technology, our extractor processes files quickly. Get your selected pages in just seconds—fast, reliable, and professional."}
+                Icon={ShieldCheck}
+                heading={"Secure Conversion"}
+                paragraph={
+                  "Your files are processed securely, and all documents are automatically deleted after conversion for maximum privacy."
+                }
               />
+
+              <FeaturesCard 
+                Icon={Zap}
+                heading={"Fast & Efficient"}
+                paragraph={
+                  "Powered by advanced technology, the converter processes your files quickly — get your PDF/A output within seconds."
+                }
+              />
+
             </div>
+
             {/* how to section */}
             <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
               <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
@@ -129,48 +162,68 @@ function Pdfa() {
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
                     <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to merge PDFs online for free?</span>
+                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to convert PDF to PDFA?</span>
                   </div>
-                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select files or drag and drop files in the select container</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">2.     Merge PDF files by pressing merge PDF button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select file or drag and drop file in the select container</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">2.     Convert to PDFA by pressing convert to PDFA button</p>
                   <p className="whitespace-pre text-sm tracking-tighter">3.     Download the Merged PDFs by pressing Download button</p>
                 </div>
               </div>
             </div>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">PDF to PDFA converter FAQs</h1>
+            <h1 className="text-3xl font-semibold text-center p-3 text-gray-800 mt-24">PDF to PDFA converter FAQs</h1>
             {/* FAQs Section */}
             <div className="max-w-4xl mx-auto flex flex-col mt-12 items-start gap-6">
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is PDFtoolify Really Free?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes,PDFtoolify is free to use you can easily use PDFtoolify for your work without signup</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Is PDFtoolify Really Free?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes, PDFtoolify is completely free. You can convert your regular PDF files to PDF/A format without any signup.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">How can I merge PDF files with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">You just need to upload your PDF files, arrange them in order, and click on “Merge.” PDFtoolify will instantly combine them into a single file.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">How can I convert a PDF to PDF/A using PDFtoolify?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Upload your PDF file and click “Convert to PDF/A.” PDFtoolify will automatically generate a fully compliant PDF/A document for long-term archiving.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Will the quality of my PDFs change after merging?</p>
-                <p className=" text-sm font-medium text-gray-800">No, the merged PDF keeps the same quality and formatting as your original files.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Will PDF/A conversion change my file quality?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  No, the conversion preserves your document's fonts, layout, and formatting while ensuring PDF/A compliance for future readability.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is it safe to merge my PDFs online?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. PDFtoolify uses secure processing, and your files are deleted automatically after completion to ensure privacy.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Is it safe to convert my PDF to PDF/A online?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. PDFtoolify processes your files securely, and all uploaded documents are automatically deleted after conversion to protect your privacy.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Can I merge PDFs offline with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. You can download PDFtoolify for Windows and merge files offline without internet access.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Can I convert to PDF/A offline?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. You can download the Windows version of PDFtoolify to convert PDF files to PDF/A even without an internet connection.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Does merging PDFs cost anything?</p>
-                <p className=" text-sm font-medium text-gray-800">No, merging PDFs with PDFtoolify is completely free.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Does converting to PDF/A cost anything?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  No, converting PDFs to PDF/A using PDFtoolify is completely free and unlimited.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
             </div>
+
           </div>
         )}
 

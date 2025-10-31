@@ -8,7 +8,7 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
-import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
+import { BadgeCheck, CircleCheck, Gift, InfinityIcon, Lock, MousePointerClick, ShieldCheck, ShieldHalf, SplitIcon, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import Image from "next/image";
 import PDFPageComponent from "@/components/PDFPageComponent";
@@ -57,66 +57,87 @@ function Protect() {
             Protect PDF with strong password
             </h1>
             {/* points section */}
-            <div className="flex justify-center  max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
+            <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
+
               <div className="flex flex-col gap-2 w-xl text-sm">
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Our free PDF Splitter can be work on any device </span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Our free Protect PDF tool works on any device, including mobile and desktop</span>
                 </div>
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Using PDFtoolify split tool you can easily split PDF files</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Easily add a password to your PDF and secure your important documents</span>
                 </div>
+
               </div>
+
               <div className="w-xl flex flex-col gap-2 text-sm">
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>PDFtoolify is secure and easy to use tool for PDF related operations</span>
-                </div>  
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>No SignUp require to split PDF online</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>PDFtoolify uses strong encryption to protect your PDF from unauthorized access</span>
                 </div>
+
                 <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>split PDFs in seconds with PDFtoolify — free, fast, and secure.</span>
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>No signup required — lock your PDF files instantly online</span>
                 </div>
+
+                <div className="flex gap-2">
+                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
+                  <span>Protect PDFs in seconds with PDFtoolify — fast, secure, and reliable</span>
+                </div>
+
               </div>
+
             </div>
+
             {/* feature card section */}
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
               Features of PDFtoolify - Protect PDF
             </h1>
             <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-              <FeaturesCard Icon={MousePointerClick } heading={"Easy to Use"} 
-                  paragraph={"Design to be simple and intutive to be everyone anyone can be easily use this tool and make his work simple"}
+
+              <FeaturesCard 
+                Icon={Lock} 
+                heading="Easy to Protect" 
+                paragraph="Protecting your PDF is simple and intuitive. Upload your file, set a password, and secure your document instantly."
               />
+
               <FeaturesCard 
                 Icon={Gift} 
-                heading={"Free & No Sign Up"} 
-                paragraph={"Extract unlimited pages from PDFs online for free without creating an account. No hidden costs, no registration—just fast and easy page extraction."}
+                heading="Free & No Sign Up" 
+                paragraph="Add password protection to unlimited PDF files for free. No registration, no hidden fees—just quick and secure PDF locking."
               />
+
               <FeaturesCard 
-                Icon={InfinityIcon} 
-                heading={"Extract Without Limits"} 
-                paragraph={"Choose and extract as many pages as you want. Whether it's a single page or multiple sections, our tool handles it smoothly and efficiently."}
+                Icon={ShieldHalf} 
+                heading="Strong Encryption" 
+                paragraph="Your PDF is encrypted using strong security standards, ensuring your private documents stay safe from unauthorized access."
               />
+
               <FeaturesCard 
                 Icon={BadgeCheck} 
-                heading={"Accurate Page Extraction"} 
-                paragraph={"Our PDF extractor ensures accurate results every time. Get the exact pages you need without affecting the rest of your document."}
+                heading="Accurate & Reliable Protection" 
+                paragraph="PDFtoolify locks your PDF without altering its content. Your formatting and layout remain exactly the same after protection."
               />
+
               <FeaturesCard 
                 Icon={ShieldCheck} 
-                heading={"Secure Online Extraction"} 
-                paragraph={"Your privacy is our priority. All uploaded files are automatically deleted after processing, ensuring safe and secure PDF extraction online."}
+                heading="Secure Online Processing" 
+                paragraph="All uploaded files are processed securely and deleted automatically after encryption to maintain your privacy."
               />
+
               <FeaturesCard 
                 Icon={Zap} 
-                heading={"Fast & Powerful"} 
-                paragraph={"Built with advanced technology, our extractor processes files quickly. Get your selected pages in just seconds—fast, reliable, and professional."}
+                heading="Fast & Powerful" 
+                paragraph="Protect your PDF in just seconds. Our optimized engine encrypts files quickly while ensuring top-level security."
               />
+
             </div>
+
             {/* how to section */}
             <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
               <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
@@ -130,48 +151,68 @@ function Protect() {
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
                     <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to merge PDFs online for free?</span>
+                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to protect pdf online for free?</span>
                   </div>
-                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select files or drag and drop files in the select container</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">2.     Merge PDF files by pressing merge PDF button</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">3.     Download the Merged PDFs by pressing Download button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select file or drag and drop file in the select container</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">2.     protect PDF file by pressing protect PDF button</p>
+                  <p className="whitespace-pre text-sm tracking-tighter">3.     Download the protected PDF by pressing Download button</p>
                 </div>
               </div>
             </div>
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Protect PDF FAQs</h1>
             {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col mt-12 items-start gap-6">
+            <div className="max-w-4xl mx-auto flex flex-col p-3 mt-12 items-start gap-6">
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is PDFtoolify Really Free?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes,PDFtoolify is free to use you can easily use PDFtoolify for your work without signup</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Is PDFtoolify really free for protecting PDFs?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. PDFtoolify is completely free to use. You can lock your PDF files with a password without any signup or charges.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">How can I merge PDF files with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">You just need to upload your PDF files, arrange them in order, and click on “Merge.” PDFtoolify will instantly combine them into a single file.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">How can I protect my PDF using PDFtoolify?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Simply upload your PDF, enter a password, and click “Protect PDF.” Your file will instantly be encrypted with strong security.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Will the quality of my PDFs change after merging?</p>
-                <p className=" text-sm font-medium text-gray-800">No, the merged PDF keeps the same quality and formatting as your original files.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Will protecting a PDF reduce its quality?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  No. Protecting your PDF only adds encryption. Your content, layout, text, and images remain unchanged.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Is it safe to merge my PDFs online?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. PDFtoolify uses secure processing, and your files are deleted automatically after completion to ensure privacy.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Is it safe to protect my PDF online?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. PDFtoolify uses secure processing, and your files are automatically deleted after encryption to ensure complete privacy.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Can I merge PDFs offline with PDFtoolify?</p>
-                <p className=" text-sm font-medium text-gray-800">Yes. You can download PDFtoolify for Windows and merge files offline without internet access.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Can I protect PDF files offline with PDFtoolify?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Yes. You can download PDFtoolify for Windows and protect your files offline without needing internet access.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
               <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800 ">Does merging PDFs cost anything?</p>
-                <p className=" text-sm font-medium text-gray-800">No, merging PDFs with PDFtoolify is completely free.</p>
-                <hr className="text-gray-800"/>
+                <p className="text-xl font-semibold text-gray-800">Does protecting a PDF cost anything?</p>
+                <p className="text-sm font-medium text-gray-800">
+                  No. Adding a password to your PDF using PDFtoolify is completely free.
+                </p>
+                <hr className="text-gray-800" />
               </div>
+
             </div>
+
           </div>
         )}
 
