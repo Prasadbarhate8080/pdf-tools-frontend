@@ -8,6 +8,7 @@
     padding: 30px;
     width: max-content;
     gap:50px;
+    border-radius: 10px;
   }
 .toolItems:hover .downArrow{
   transform: rotate(180deg);

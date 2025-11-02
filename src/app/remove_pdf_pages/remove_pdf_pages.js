@@ -12,6 +12,7 @@ import FeaturesCard from "@/components/FeaturesCard";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { PDFDocument } from "pdf-lib";
+import ToolList from "@/components/ToolList";
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
@@ -271,7 +272,7 @@ export default function RemovePDFPages() {
               </div>
 
             </div>
-
+            <ToolList />
         </div>
       )}
 

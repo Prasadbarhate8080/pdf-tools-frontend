@@ -14,6 +14,7 @@ import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldC
 import FeaturesCard from "@/components/FeaturesCard";
 import PDFPageComponent from "@/components/PDFPageComponent";
 import { PDFDocument,rgb,StandardFonts } from "pdf-lib";
+import ToolList from "@/components/ToolList";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -291,8 +292,7 @@ function PageNO() {
               </div>
 
             </div>
-
-
+            <ToolList />
           </div>
         )}
 

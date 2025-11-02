@@ -10,6 +10,7 @@ import FileInput from '@/components/FileInput';
 import { BadgeCheck, CircleCheck, FilePlus, Gift, InfinityIcon, MousePointerClick, Plus, PlusCircle, ShieldCheck, Trash2, Zap } from "lucide-react";
 import FeaturesCard from '@/components/FeaturesCard';
 import { PDFDocument } from 'pdf-lib';
+import ToolList from '@/components/ToolList';
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -375,7 +376,7 @@ function AddPagesInPdf() {
               </div>
 
             </div>
-
+            <ToolList />
         </div>
       )}
       {isDroped && !isUploading && !completionStatus && <div className='flex'>

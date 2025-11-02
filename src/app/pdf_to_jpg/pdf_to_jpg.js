@@ -13,6 +13,7 @@ import { BadgeCheck, CircleCheck, Gift,  ShieldCheck, Zap,SplitSquareHorizontal,
 import FeaturesCard from "@/components/FeaturesCard";
 import PDFPageComponent from "@/components/PDFPageComponent";
 import JSZip from "jszip";
+import ToolList from "@/components/ToolList";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -264,7 +265,7 @@ function PDFToJPG() {
               </div>
 
             </div>
-
+            <ToolList />
           </div>
         )}
 

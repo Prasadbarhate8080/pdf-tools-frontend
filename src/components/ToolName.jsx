@@ -5,28 +5,23 @@ import Image from 'next/image';
 function ToolName(
     {
         href,
-        src,
         className,
-        width=33,
-        height=10,
         title="",
-        alt="pdftoolify",
         setIsActiveTools,
-        setIsActiveHamBurger
+        setIsActiveHamBurger,
+        strokeWidth=1,
+        size=20,
+        Icon,
+        iconClassName=""
     }
 ) {
   return (
     <Link href={href} className={`${className}`}>
           <li
           onClick={() => {setIsActiveTools(false); setIsActiveHamBurger(false)}}
-          className="flex gap-1 hover:bg-gray-100 px-2 py-1 rounded-md items-center">
-            <Image
-              src={src}
-              width={width}
-              height={height}
-              alt={alt}
-            ></Image>
-            <span className='text-sm'>{title}</span>
+          className="flex gap-1  px-2 py-1 rounded-md items-center">
+            {Icon && <Icon strokeWidth={strokeWidth} size={size} className={`${iconClassName}`}/>}
+            <span className='text-sm hover:text-blue-500'>{title}</span>
           </li>
         </Link>
   )

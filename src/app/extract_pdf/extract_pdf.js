@@ -13,6 +13,8 @@ import FeaturesCard from "@/components/FeaturesCard";
 import Image from "next/image";
 import { error, PDFDocument } from "pdf-lib";
 import { toast } from "react-toastify";
+import ToolList from "@/components/ToolList";
+
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
@@ -255,7 +257,8 @@ export default function ExtractPdf() {
               </p>
               <hr className="text-gray-800" />
             </div>
-          </div>
+            </div>
+            <ToolList />
         </div>
       )}
 

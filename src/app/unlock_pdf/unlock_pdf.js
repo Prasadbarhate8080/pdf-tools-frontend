@@ -12,6 +12,7 @@ import FileInput from "@/components/FileInput";
 import { BadgeCheck, CircleCheck, Gift, InfinityIcon, KeyRound, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import PDFPageComponent from "@/components/PDFPageComponent";
+import ToolList from "@/components/ToolList";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -210,7 +211,7 @@ function Unlock() {
               </div>
 
             </div>
-
+            <ToolList />
           </div>
         )}
 

@@ -22,7 +22,8 @@ if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
-const JpgToPdf = () => {
+
+function PNGToPDF() {
   const [loading, setLoading] = useState(false)
   const [images, setImages] = useState([]);
     let {files,isDroped,isProcessing,completionStatus,isUploading,
@@ -31,7 +32,7 @@ const JpgToPdf = () => {
   
 
 
-  async function jpgToPdf() {
+  async function pngToPdf() {
     try {
       setLoading(true)
       let pdfDoc = await PDFDocument.create();
@@ -94,7 +95,7 @@ const JpgToPdf = () => {
       alert("Please upload images");
       return;
     }
-    jpgToPdf();
+    pngToPdf();
     // const formData = new FormData();
     // files.forEach((file) => formData.append("images", file));
     // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/jpg_to_pdf",formData)
@@ -387,6 +388,6 @@ const JpgToPdf = () => {
      
     </div>
   );
-};
+}
 
-export default JpgToPdf;
+export default PNGToPDF

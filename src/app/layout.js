@@ -29,10 +29,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     
-      <html lang="en" className="bg-white">
+      <html lang="en" className="">
        
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased  bg-[#F7F5FB]!`}
         >
           <StoreProvider> 
             <Header />

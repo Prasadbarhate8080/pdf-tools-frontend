@@ -9,10 +9,11 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import FileInput from "@/components/FileInput"; 
 import { useFileUpload } from "@/hooks/useFileUpload";
-import { CircleCheck, FileOutput, Scissors, Settings, ShieldCheck, Smartphone, Sparkles, SplitIcon, LucideScissorsLineDashed, Trash2, Settings2, SettingsIcon, ToolCase, LucideSettings, Cross, CrossIcon, ClosedCaptionIcon, SidebarClose, SidebarOpen } from "lucide-react";
+import { CircleCheck, FileOutput, Scissors, Settings, ShieldCheck, Smartphone, Sparkles, SplitIcon, LucideScissorsLineDashed, Trash2,  SidebarClose, SidebarOpen } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import { PDFDocument } from "pdf-lib";
 import JSZip from "jszip";
+import ToolList from "@/components/ToolList";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -25,7 +26,6 @@ function Split() {
   const [splitRanges, setSplitRanges] = useState([])
   const [from, setFrom] = useState(1);
   const [to, setTo] = useState(numPages);
-  const [splitedPDFs, setsplitedPDFs] = useState([])
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
     setFrom(1)
@@ -222,6 +222,7 @@ function Split() {
                 <hr className="text-gray-300"/>
               </div>
             </div>
+            <ToolList />
             {/* <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Split PDF Blog Articles </h1> */}
             {/* PostCard section */}
             {/* <div className="max-w-6xl p-4 bg-[#fcf8f8] mx-auto mt-20 flex flex-wrap justify-evenly">

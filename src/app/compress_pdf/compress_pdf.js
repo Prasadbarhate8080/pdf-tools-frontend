@@ -12,6 +12,7 @@ import { BadgeCheck, CircleCheck, CircleDashed, Gift, InfinityIcon, MousePointer
 import FeaturesCard from "@/components/FeaturesCard";
 import Image from "next/image";
 import PDFPageConponent from "@/components/PDFPageComponent";
+import ToolList from "@/components/ToolList";
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
@@ -221,7 +222,7 @@ function Compress() {
               </div>
 
             </div>
-
+            <ToolList />
           </div>
         )}
 

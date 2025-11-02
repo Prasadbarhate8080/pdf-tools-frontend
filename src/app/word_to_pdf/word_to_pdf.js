@@ -14,6 +14,7 @@ import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
 import { BadgeCheck, CircleCheck, FileType2, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
+import ToolList from "@/components/ToolList";
 
 
 if (typeof window !== "undefined") {
@@ -219,7 +220,7 @@ function WordToPdf() {
               </div>
 
             </div>
-
+            <ToolList />
           </div>
         )}
 

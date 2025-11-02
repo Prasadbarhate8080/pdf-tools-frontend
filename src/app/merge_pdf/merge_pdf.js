@@ -13,6 +13,7 @@ import FeaturesCard from "@/components/FeaturesCard";
 import Image from "next/image";
 import { PDFDocument } from "pdf-lib";
 import PDFPageComponent from "@/components/PDFPageComponent";
+import ToolList from "@/components/ToolList";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -210,6 +211,7 @@ function Merge() {
                 description={"Quickly combine multiple PDFs into a single document with our free online PDF merger. No signup, no hidden charges—just fast, secure, and reliable PDF merging anytime, anywhere."}
               />
             </div> */}
+            <ToolList />
           </div>
         )}
         {isDroped  && !completionStatus && !isProcessing && !isUploading && (

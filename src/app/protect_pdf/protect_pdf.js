@@ -12,6 +12,7 @@ import { BadgeCheck, CircleCheck, Gift, InfinityIcon, Lock, MousePointerClick, S
 import FeaturesCard from "@/components/FeaturesCard";
 import Image from "next/image";
 import PDFPageComponent from "@/components/PDFPageComponent";
+import ToolList from "@/components/ToolList";
 
 
 if (typeof window !== "undefined") {
@@ -212,7 +213,7 @@ function Protect() {
               </div>
 
             </div>
-
+            <ToolList />
           </div>
         )}
 

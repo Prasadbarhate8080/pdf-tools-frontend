@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import Image from "next/image";
@@ -10,22 +10,33 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
-import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
+import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SidebarClose, SidebarOpen, SplitIcon, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
-import PDFPageComponent from "@/components/PDFPageComponent";
-import { PDFDocument, StandardFonts,rgb } from "pdf-lib";
+import { PDFDocument, StandardFonts,rgb,degrees  } from "pdf-lib";
+import ToolList from "@/components/ToolList";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
+
+
 function AddWaterMarkPage() {
-  const [water_mark_position, setPage_no_position] = useState("center");
+  const [water_mark_position, setWater_mark_position] = useState(5);
   const [water_mark_text, setWater_mark_text] = useState("PdfToolify");
+  const [numPages, setnumPages] = useState(0)
+  const [transparency, setTransparency] = useState(0)
+  const [rotation, setRotation] = useState(45)
+  const [isActiveSetting, setisActiveSetting] = useState(true)
 
   let {files,isDroped,isProcessing,completionStatus,isUploading,
       downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi,setdownloadFileURL,setCompletionStatus
       } = useFileUpload()
+
+function onDocumentLoadSuccess({numPages}){
+  setnumPages(numPages)
+}
+
 
   function hexToRgb(hex) {
     hex = hex.replace(/^#/, '');
@@ -36,43 +47,83 @@ function AddWaterMarkPage() {
       b: (bigint & 255) / 255
     };
   }
-  async function addWatermark () {
-    try {
-      if(!files) throw new Error("no file selected")
-      const arrayBuffer = await files.arrayBuffer();
-      const pdfDoc = await PDFDocument.load(arrayBuffer)
+  async function addWatermark() {
+  try {
+    if (!files) throw new Error("no file selected");
 
-      const pages = pdfDoc.getPages();
-      const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-      const fontSize = 36;
-      const { r, g, b } = hexToRgb("#cccccc");
-      pages.forEach((page) => {
+    const arrayBuffer = await files.arrayBuffer();
+    const pdfDoc = await PDFDocument.load(arrayBuffer);
+
+    const pages = pdfDoc.getPages();
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const fontSize = 36;
+
+    const { r, g, b } = hexToRgb("#cccccc");
+
+    const transparencyValue = 1 - Number(transparency) / 100;
+    const rotationValue = Number(rotation);
+
+    pages.forEach((page) => {
       const { width, height } = page.getSize();
+
+      const textWidth = font.widthOfTextAtSize(water_mark_text, fontSize);
+      const textHeight = font.heightAtSize(fontSize);
+
       let x = 0;
       let y = 0;
 
+      const padding = 90;
+
       switch (water_mark_position) {
-        case "top-left":
-          x = 50;
-          y = height - 50;
-          break;
-        case "top-right":
-          x = width - (fontSize * water_mark_text.length * 0.6);
-          y = height - 50;
-          break;
-        case "bottom-left":
-          x = 50;
-          y = 50;
-          break;
-        case "bottom-right":
-          x = width - (fontSize * water_mark_text.length * 0.6);
-          y = 50;
-          break;
-        case "center":
-        default:
-          x = width / 2 - (fontSize * water_mark_text.length) / 4;
-          y = height / 2;
-      }
+  case 1: // top-left
+    x = padding;
+    y = height - padding - fontSize;
+    break;
+
+  case 2: // top-center
+    x = (width - textWidth) / 2;
+    y = height - padding - fontSize;
+    break;
+
+  case 3: // top-right
+    x = width - textWidth - padding;
+    y = height - padding - fontSize;
+    break;
+
+  case 4: // center-left
+    x = padding;
+    y = (height / 2) - (fontSize / 2);
+    break;
+
+  case 5: // center
+    x = (width - textWidth) / 2;
+    y = (height / 2);
+    break;
+
+  case 6: // center-right
+    x = width - textWidth - padding;
+    y = (height / 2);
+    break;
+
+  case 7: // bottom-left
+    x = padding;
+    y = padding;
+    break;
+
+  case 8: // bottom-center
+    x = (width - textWidth) / 2;
+    y = padding;
+    break;
+
+  case 9: // bottom-right
+    x = width - textWidth - padding;
+    y = padding;
+    break;
+
+  default:
+    x = (width - textWidth) / 2;
+    y = (height / 2);
+}
 
       page.drawText(water_mark_text, {
         x,
@@ -80,24 +131,28 @@ function AddWaterMarkPage() {
         size: fontSize,
         font,
         color: rgb(r, g, b),
-        rotate: { type: "degrees", angle: 45 }, // Angled watermark
-        opacity: 0.4,
+        rotate: degrees(rotationValue),
+        opacity: transparencyValue,
       });
     });
 
     const newPdfBytes = await pdfDoc.save();
     const blob = new Blob([newPdfBytes], { type: "application/pdf" });
-    let url = URL.createObjectURL(blob)
-    setdownloadFileURL(url)
-    setCompletionStatus(true)
-    setTimeout(() => {
-      URL.revokeObjectURL(url)
-    }, 10000);
-    } catch (error) {
-      console.log(error);
-      
-    }
+    const url = URL.createObjectURL(blob);
+
+    setdownloadFileURL(url);
+    setCompletionStatus(true);
+
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+
+  } catch (error) {
+    console.log(error);
   }
+}
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     addWatermark()
@@ -112,9 +167,42 @@ function AddWaterMarkPage() {
 
   };
 
+  let scrollbarStyle = {
+    scrollbarWidth: "thin"
+  }
+
+  let positionArray = [
+        [1,2,3],
+        [4,5,6],
+        [7,8,9]
+      ]
+
+      
+      useEffect(() => {
+        console.log("transparency",transparency)
+        console.log("rotation",rotation,);
+        console.log("water_mark_text",water_mark_text)
+        console.log("water_mark_position",water_mark_position)
+      }, [transparency])
+      
+    
+   let dotPosition = {
+    1: "top-8 left-8",
+    2: "top-8 left-1/2 transform -translate-x-1/2",
+    3: "top-8 right-8",
+    4: "top-1/2 left-1 transform -translate-y-1/2",
+    5: "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
+    6: "top-1/2 right-1 transform -translate-y-1/2",
+    7: "bottom-8 left-8",
+    8: "bottom-8 left-1/2 transform -translate-x-1/2",
+    9: "bottom-8 right-8"
+  }
+
+  let selected = 0; 
+
   return (
     <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px] ">
-      {!completionStatus && (
+      {!completionStatus &&  !isDroped &&(
         <div>
           <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
             Add Watermark ON PDF Pages
@@ -289,72 +377,102 @@ function AddWaterMarkPage() {
               </div>
 
             </div>
-
+            <ToolList />
           </div>
         )}
 
         {isDroped && !isUploading && !isProcessing && !completionStatus && (
-          <div className="max-w-7xl mx-auto p-10">
-            <ul className="mt-6 flex flex-wrap justify-center gap-6">
-              <PDFPageComponent file={files}/>
-            </ul>
-
-            <div className="w-fit mx-auto p-2">
-              <div className="mt-3 flex flex-col justify-center items-center">
+          <div className="mx-auto pt-4  flex justify-between">
+            <div className="flex-1 px-10 max-h-screen overflow-auto " style={scrollbarStyle}>
+              <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
+                <ul className="flex flex-wrap justify-center gap-6">
+                  {
+                    Array.from({length: numPages},(_,index) =>
+                      <div className="rounded-xl bg-gray-50 p-2 relative">
+                        <Page pageNumber={index + 1} width={180} height={360} />
+                        <div className="text-center bg-white">{index + 1}</div>
+                        <p className={`w-5 h-5 rounded-full absolute  bg-blue-400 ${dotPosition[water_mark_position]}`}></p>
+                      </div>
+                    )
+                  }
+                </ul>
+              </Document>
+              <button className="fixed bg-blue-500 px-4 py-2 rounded-md text-white text-xl top-11/12 right-4 z-20">Add watermark</button>
+            </div>
+            <div
+              onClick={() => {setisActiveSetting(prev => !prev)}}
+              className={`w-fit absolute lg:hidden ${isActiveSetting ? "hidden" : "block"} right-1 top-22`}><SidebarOpen  size={30} /></div>
+            <div className={` lg:relative fixed  lg:right-0 w-96 bg-white h-[90vh] operation-panel z-10 ${isActiveSetting ? "right-0" : "right-[-382px]"} transition-all duration-300 ease-in`}>
+              <div 
+                className="lg:hidden block"
+                onClick={() => {setisActiveSetting(prev => !prev)}}
+                ><SidebarClose size={30} /></div>
+              <h3 className="text-2xl font-semibold text-center text-gray-600">Watermark Options</h3>
+              <div className="w-full px-2 mt-6">
+                <label htmlFor="watermarkText" className="text-gray-800">Watermark Text:</label>
+                <input id="watermarkText" type="text" value={water_mark_text}
+                onChange={(e) => setWater_mark_text(e.target.value)}
+                className="w-full border indent-2 rounded-sm h-10 mt-1"
+                />
+              </div>
+              <div className="px-2 mt-6">
+                <label htmlFor="">Position:</label>
                 <div>
-                  <label
-                    htmlFor="watermark-text"
-                    className="text-gray-700 block"
-                  >
-                    Watermark Text:
-                  </label>
-                  <input
-                    type="text"
-                    id="watermark-text"
-                    value={water_mark_text}
-                    onChange={(e) => {
-                      setWater_mark_text(e.target.value);
-                    }}
-                    className="w-60 h-10 focus-within::border-blue-500 indent-2  border-2 border-gray-600 rounded-md"
-                  />
+                  <div className="">
+                      <table>
+                        <tbody>
+                        {
+                          positionArray.map((value,rowIndex) => {
+                            return <tr key={`row-${rowIndex}`}>
+                              {
+                                value.map((_,cellIndex) => {
+                                  selected++;
+                                  return <td key={`cell-${rowIndex}-${cellIndex}`}  className="w-6 cursor-pointer hover:bg-blue-200 h-6 border border-dashed"
+                                  onClick={() => {
+                                    setWater_mark_position(value[cellIndex])}
+                                  }   
+                                  >
+                                    {selected == water_mark_position && <p className="w-5 h-5 rounded-full mx-auto my-auto bg-blue-400"></p>}
+                                  </td>
+                                }
+                                )
+                              }
+                            </tr>
+                          }
+                          )
+                        }
+                        </tbody>
+                      </table>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center justify-center w-fit mx-auto mt-4">
-                <div className="ml-4 md:flex md:justify-center md:items-center md:gap-3 md:flex-wrap">
-                  <label
-                    htmlFor="AddWaterMarkToPage-position"
-                    className="text-gray-700 font-medium "
-                  >
-                    Select watermark Position:
-                  </label>
-
-                  <select
-                    id="AddWaterMarkToPage-position"
-                    name="water_mark_position"
-                    value={water_mark_position}
-                    onChange={(e) => setPage_no_position(e.target.value)}
-                    className="border sm:block sm:mt-4  md:mt-0 border-gray-400 rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                  >
-                    <option value="center">Center</option>
-                    <option value="top-right">Top Right</option>
-                    <option value="top-center">Top Center</option>
-                    <option value="top-left">Top Left</option>
-                    <option value="bottom-right">Bottom Right</option>
-                    <option value="bottom-center">Bottom Center</option>
-                    <option value="bottom-left">Bottom Left</option>
+              <div className="mt-6 p-2">
+                <label htmlFor="t" className="text-gray-800">Transparency:</label>
+                <div>
+                  <select name="transparency" id="t" value={transparency}
+                  onChange={(e) => {setTransparency(e.target.value)}}
+                  className="border w-48 rounded-sm h-10 ">
+                    <option value="0">0%</option>
+                    <option value="25">25%</option>
+                    <option value="50">50%</option>
+                    <option value="75">75%</option>
                   </select>
                 </div>
               </div>
-            </div>
-
-            <div className="flex  items-center justify-center gap-4 mt-6">
-              {/* Merge Button */}
-              <button
-                className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
-                       bg-blue-500  active:bg-blue-400`}
-              >
-                Add Watermark
-              </button>
+              <div className="mt-6 p-2">
+                <label htmlFor="t" className="text-gray-800">Rotation:</label>
+                <div>
+                  <select name="transparency" id="t" value={rotation}
+                  onChange={(e) => {setRotation(e.target.value)}}
+                  className="border w-48 rounded-sm h-10 ">
+                    <option value="0"> 0deg </option>
+                    <option value="45"> 45deg </option>
+                    <option value="90"> 90deg </option>
+                    <option value="180"> 180deg </option>
+                    <option value="270"> 270deg </option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         )}

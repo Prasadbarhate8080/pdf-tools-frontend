@@ -11,6 +11,7 @@ import FileInput from "@/components/FileInput";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import { BadgeCheck, CircleCheck, FileCheck2, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
+import ToolList from "@/components/ToolList";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -223,7 +224,7 @@ function Pdfa() {
               </div>
 
             </div>
-
+            <ToolList />
           </div>
         )}
 
