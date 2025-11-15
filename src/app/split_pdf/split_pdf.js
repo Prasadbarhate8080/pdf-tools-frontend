@@ -64,9 +64,6 @@ function Split() {
         let url = URL.createObjectURL(zipBlob)
         setdownloadFileURL(url)
         setCompletionStatus(true)
-        setTimeout(() => {
-          URL.revokeObjectURL(url)
-        }, 10000);
       } catch (error) {
         console.log(error);
       }
@@ -304,11 +301,11 @@ function Split() {
                     {splitRanges.length == 0 ? (
                       <div className="flex items-center relative border-dotted rounded-md gap-2 border p-2">
                         <li
-                          className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          className="w-[130px] h-[200px] lg:w-[180px]  lg:h-[250px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
                           transition-all duration-300 overflow-hidden"
                           >
                           <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                            <Page pageNumber={1} width={180} />
+                            <Page pageNumber={1} width={110} height={180} />
                           </div>
                           <div className=" px-3 text-center">
                               <p
@@ -320,11 +317,11 @@ function Split() {
                         </li>
                         <div className="text-2xl  p-1">.......</div>
                         <li
-                          className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          className="w-[130px] h-[200px] lg:w-[180px]  lg:h-[250px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
                           transition-all duration-300 overflow-hidden"
                           >
                           <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                            <Page pageNumber={numPages} width={180} />
+                            <Page pageNumber={numPages} width={110} height={180} />
                           </div>
                           <div className=" px-3 text-center">
                               <p
@@ -334,7 +331,7 @@ function Split() {
                               </p>
                             </div>
                         </li>
-                        <div className="p-1.5 absolute top-[-16] left-[246px]  rounded-full bg-red-700 text-white"> <Trash2 size={22}  /> </div>
+                        <div className="p-1.5 absolute top-[-16] lg:left-[200px] left-[150px]  rounded-full bg-red-700 text-white"> <Trash2 size={22}  /> </div>
                       </div>
                     ) :
                     (

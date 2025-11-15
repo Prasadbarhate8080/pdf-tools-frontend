@@ -66,7 +66,7 @@ function Header() {
                   Split PDF
                 </li>
               </Link>
-              <Link href={"/split_pdf"}>
+              <Link href={"/blogs"}>
                 <li className=" hover:cursor-pointer  px-2 py-1 rounded-md">
                   Blogs
                 </li>

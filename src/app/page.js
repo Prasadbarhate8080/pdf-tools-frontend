@@ -8,6 +8,10 @@ import FeaturesCard from "@/components/FeaturesCard";
 import { Clock, CreditCard, Rabbit, ShieldCheck, TreePalm, Users } from "lucide-react";
 import DownloadSoftware from "@/components/DownloadSoftware";
 function Home() {
+  const callback = () => {
+        const el = document.getElementById("homePageTools");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
   return (
     <div className="bg-white">
       <main className="bg-white">
@@ -29,6 +33,7 @@ function Home() {
         buttonText={"Explore  pdf tools"}
         src={"/manage_doc.png"}
         alt={"Manage All Your PDF Tasks In One Place"}
+        callback={callback}
         />
         <h1 className="lg:text-3xl md:text-2xl text-xl mt-10 lg:mt-5 font-semibold text-center text-gray-800">Most Useful tools Provided By PDFtoolify</h1>
         <InfoCard 

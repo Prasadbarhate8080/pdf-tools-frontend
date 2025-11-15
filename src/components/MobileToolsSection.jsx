@@ -51,10 +51,17 @@ function MobileToolsSection({
 
         <ToolName href="/jpg_to_pdf" title="JPG to PDF" iconClassName="text-blue-500" Icon={FileImage}
           setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+
         <ToolName href="/pdf_to_jpg" title="PDF to JPG" iconClassName="text-blue-500" Icon={FileDown}
           setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
 
+        <ToolName href="/create_pdf" title="Create PDF" iconClassName="text-blue-500" Icon={FileDown}
+          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+
         <ToolName href="/compress_pdf" title="Compress PDF" iconClassName="text-blue-500" Icon={Shrink}
+          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+
+        <ToolName href="/png_to_pdf" title="PNG to PDF" iconClassName="text-blue-500" Icon={Shrink}
           setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
 
         <ToolName href="/protect_pdf" title="Protect PDF" iconClassName="text-blue-500" Icon={Shield}
@@ -62,7 +69,11 @@ function MobileToolsSection({
 
         <ToolName href="/remove_pdf_pages" title="Remove Pages" iconClassName="text-blue-500" Icon={Scissors}
           setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+
         <ToolName href="/add_pages_to_pdf" title="Add Pages to PDF" iconClassName="text-blue-500" Icon={FilePlus}
+          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+
+        <ToolName href="/add_pdf_in_pdf" title="Add pdf in pdf" iconClassName="text-blue-500" Icon={Hash}
           setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
 
         <ToolName href="/unlock_pdf" title="Unlock PDF" iconClassName="text-blue-500" Icon={LockOpen}
@@ -78,6 +89,7 @@ function MobileToolsSection({
 
         <ToolName href="/add_page_no" title="Add Page Numbers" iconClassName="text-blue-500" Icon={Hash}
           setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+
       </ul>
     </div>
   );

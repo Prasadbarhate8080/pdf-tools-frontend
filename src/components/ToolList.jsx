@@ -13,7 +13,7 @@ function ToolList() {
         PDFtoolify – All PDF Tools
       </h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-30 w-fit mx-auto text-gray-700">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 sm:gap-30 w-fit mx-auto text-gray-700">
 
         {/* Column 1 */}
         <ul className="flex flex-col gap-10">

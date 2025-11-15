@@ -12,7 +12,6 @@ function PostCard({
           <img src={`${src}`}
             alt={"PDFtoolify"}/>
         </div>
-        <div className={`${styles.date_div}`}>{date}</div>
         <div className={`${styles.post_heading}`}>{heading}</div>
         <div className={`${styles.post_description}`}>{description}</div>
       </div>

@@ -60,6 +60,16 @@
         "desc":"minimize the size of the pdf"
     },
     {
+        "href":"/create_pdf",
+        "src":"/compress_pdf.png",
+        "className":"",
+        "width":35,
+        "height":10,
+        "title":"Create PDF",
+        "alt":"create pdf online",
+        "desc":"create pdf from images"
+    },
+    {
         "href":"/protect_pdf",
         "src":"/protect_pdf.jpg",
         "className":"",
@@ -78,6 +88,16 @@
         "title":"Remove PDF Pages",
         "alt":"remove pdf pages",
         "desc":"Remove the pages from the pdf"
+    },
+    {
+        "href":"/png_to_pdf",
+        "src":"/remove_pages.jpg",
+        "className":"",
+        "width":25,
+        "height":10,
+        "title":"PNG to PDF",
+        "alt":"convert png images to pdf",
+        "desc":"create pdf file from png images"
     },
     {
         "href":"/unlock_pdf",
@@ -138,6 +158,16 @@
         "title":"Add pages to pdf",
         "alt":"add pages to pdf in free",
         "desc":"Add new pages in pdf file "
+    },
+    {
+        "href":"/add_pdf_in_pdf",
+        "src":"/add_pages_to_pdf.jpg",
+        "className":"",
+        "width":33,
+        "height":10,
+        "title":"Add pdf in pdf",
+        "alt":"add pdf inside the pdf",
+        "desc":"Add new pdf in between existing pdf"
     }
     
 ]

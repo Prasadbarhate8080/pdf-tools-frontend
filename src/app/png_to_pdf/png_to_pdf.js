@@ -138,12 +138,12 @@ function PNGToPDF() {
               <div className="flex flex-col gap-2 w-xl text-sm">
                 <div className="flex gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Convert JPG images to PDF in seconds — simple and fast</span>
+                  <span>Convert PNG images to PDF instantly — simple, fast, and accurate</span>
                 </div>
 
                 <div className="flex gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Maintain high-quality output while merging multiple images into a single PDF</span>
+                  <span>Combine multiple PNG files into a single high-quality PDF</span>
                 </div>
               </div>
 
@@ -151,65 +151,67 @@ function PNGToPDF() {
 
                 <div className="flex gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>PDFtoolify works on any device — mobile, PC, tablet</span>
+                  <span>Works on all devices — mobile, tablet, laptop, and desktop</span>
                 </div>
 
                 <div className="flex gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>No signup required — upload your images and get a PDF instantly</span>
+                  <span>No signup or installation needed — convert PNG to PDF online for free</span>
                 </div>
 
                 <div className="flex gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Secure and reliable — your images are deleted automatically after processing</span>
+                  <span>Your uploaded images are auto-deleted after processing for maximum security</span>
                 </div>
 
               </div>
 
             </div>
+
             {/* feature card section */}
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
-              Features of PDFtoolify - create PDF
+              Features of PDFtoolify - PNG to PDF
             </h1>
             <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
 
               <FeaturesCard 
                 Icon={Images} 
-                heading="Convert Images Effortlessly" 
-                paragraph="Upload one or multiple JPG, PNG, or JPEG images and convert them to a clean, high-quality PDF in just a few clicks."
+                heading="Convert PNG Effortlessly" 
+                paragraph="Upload one or multiple PNG images and convert them into a clean, high-quality PDF instantly—simple and fast."
               />
 
               <FeaturesCard 
                 Icon={Gift} 
-                heading="Free & No Login Required" 
-                paragraph="Convert JPG to PDF completely free—no signup, no hidden fees. Just upload your photos and download the PDF instantly."
+                heading="Free & No Login Needed" 
+                paragraph="Convert PNG to PDF absolutely free. No signup, no subscription—just upload your PNG files and download the PDF instantly."
               />
 
               <FeaturesCard 
                 Icon={Layers} 
-                heading="Merge Multiple Images" 
-                paragraph="Combine unlimited images into a single PDF document. Perfect for assignments, forms, scanned pages, and photo collections."
+                heading="Merge Multiple PNG Images" 
+                paragraph="Combine unlimited PNG files into a single PDF document. Ideal for scanned pages, photo bundles, assignments, and documents."
               />
 
               <FeaturesCard 
                 Icon={Scan} 
                 heading="High-Quality PDF Output" 
-                paragraph="Your images are converted with maximum clarity and accurate page alignment—no loss in quality during the conversion."
+                paragraph="Your PNG images are converted with maximum clarity and perfect alignment. Zero quality loss during the conversion process."
               />
 
               <FeaturesCard 
                 Icon={ShieldCheck} 
                 heading="Safe & Secure Conversion" 
-                paragraph="Your images are processed locally and securely. All files are automatically removed after conversion to protect your privacy."
+                paragraph="All PNG images are processed securely, and files are automatically deleted after conversion—keeping your privacy protected."
               />
 
               <FeaturesCard 
                 Icon={Zap} 
-                heading="Fast & Reliable Processing" 
-                paragraph="Experience extremely fast JPG to PDF conversion. Get your final PDF in seconds—optimized for performance and accuracy."
+                heading="Fast & Powerful Converter" 
+                paragraph="Enjoy lightning-fast PNG to PDF conversion. Optimized for speed and accuracy to deliver your final PDF within seconds."
               />
 
             </div>
+
 
             {/* how to section */}
             <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
@@ -224,7 +226,7 @@ function PNGToPDF() {
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
                     <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to convert jpg into pdf?</span>
+                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to convert png into pdf?</span>
                   </div>
                   <p className="whitespace-pre text-sm tracking-tighter">1.     Select images or drag and drop images in the select container</p>
                   <p className="whitespace-pre text-sm tracking-tighter">2.     Convert images into the pdf by pressing create pdf button</p>
@@ -238,65 +240,66 @@ function PNGToPDF() {
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Is PDFtoolify’s JPG to PDF converter free?
+                  Is PDFtoolify’s PNG to PDF converter free?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  Yes, PDFtoolify is completely free. You can convert JPG or PNG images to PDF without creating an account.
+                  Yes, PDFtoolify is completely free. You can convert PNG images to PDF without any signup or charges.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  How can I convert JPG to PDF using PDFtoolify?
+                  How can I convert PNG to PDF using PDFtoolify?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  Just upload your images, arrange them in the order you want, and click "Convert." PDFtoolify will create a high-quality PDF instantly.
+                  Simply upload your PNG images, arrange them in order, and click “Convert.” Your high-quality PDF will be generated instantly.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Will the image quality change after converting to PDF?
+                  Will the image quality change after converting PNG to PDF?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  No. Your images remain sharp and high-quality after conversion. PDFtoolify ensures excellent clarity in the final PDF.
+                  No. Your PNG images retain their clarity and resolution. PDFtoolify ensures sharp and high-quality output every time.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Is it safe to convert JPG to PDF online?
+                  Is it safe to convert PNG to PDF online?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  Yes. All uploaded images are processed securely, and PDFtoolify automatically deletes your files after conversion.
+                  Yes. Your PNG images are processed securely, and all files are automatically deleted after conversion to protect your privacy.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Can I merge multiple images into one PDF?
+                  Can I merge multiple PNG images into one PDF?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  Absolutely. You can add multiple JPG or PNG images and combine them into a single PDF file easily.
+                  Absolutely. You can add as many PNG images as you want and combine them into a single, well-organized PDF.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Do I need to install any software to convert JPG to PDF?
+                  Do I need to install any software to convert PNG to PDF?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  No installation required. PDFtoolify works directly in your browser, allowing you to convert images to PDF instantly online.
+                  No installation needed. PDFtoolify works directly in your browser, allowing fast and smooth PNG to PDF conversion online.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
             </div>
+
             <ToolList />
           </div>
         )}
@@ -343,7 +346,6 @@ function PNGToPDF() {
             </ul>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
-              {/* Merge Button */}
               <button
                 disabled={files.length < 1}
                 className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
@@ -358,13 +360,6 @@ function PNGToPDF() {
             </div>
           </div>
         )}
-
-        {/* {progress > 0 && progress < 100 && <ProgressBar progress={progress}/>}
-        {serverPreparing &&  <div className="flex flex-col items-center mt-8">
-                <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
-                <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-              </div>
-          } */}
         {loading && <Processing />}
       </form>
 

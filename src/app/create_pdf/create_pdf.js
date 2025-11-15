@@ -135,37 +135,40 @@ function CreatePdf() {
             <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
 
               <div className="flex flex-col gap-2 w-xl text-sm">
+
                 <div className="flex gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Convert JPG images to PDF in seconds — simple and fast</span>
+                  <span>Create a new PDF instantly by adding blank pages or importing PDFs</span>
                 </div>
 
                 <div className="flex gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Maintain high-quality output while merging multiple images into a single PDF</span>
+                  <span>Maintain perfect quality while building a multi-page PDF</span>
                 </div>
+
               </div>
 
               <div className="w-xl flex flex-col gap-2 text-sm">
 
                 <div className="flex gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>PDFtoolify works on any device — mobile, PC, tablet</span>
+                  <span>Works on any device — mobile, tablet, Windows, Mac</span>
                 </div>
 
                 <div className="flex gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>No signup required — upload your images and get a PDF instantly</span>
+                  <span>No signup needed — create a PDF instantly with one click</span>
                 </div>
 
                 <div className="flex gap-2">
                   <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Secure and reliable — your images are deleted automatically after processing</span>
+                  <span>Secure and private — your PDFs are deleted automatically after creation</span>
                 </div>
 
               </div>
 
             </div>
+
             {/* feature card section */}
             <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
               Features of PDFtoolify - create PDF
@@ -173,42 +176,43 @@ function CreatePdf() {
             <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
 
               <FeaturesCard 
-                Icon={Images} 
-                heading="Convert Images Effortlessly" 
-                paragraph="Upload one or multiple JPG, PNG, or JPEG images and convert them to a clean, high-quality PDF in just a few clicks."
+                Icon={Plus}
+                heading="Create PDF Easily"
+                paragraph="Add new blank pages or import PDF pages to build a brand-new PDF in just a few clicks."
               />
 
               <FeaturesCard 
-                Icon={Gift} 
-                heading="Free & No Login Required" 
-                paragraph="Convert JPG to PDF completely free—no signup, no hidden fees. Just upload your photos and download the PDF instantly."
+                Icon={Gift}
+                heading="Free & No Login Needed"
+                paragraph="Create new PDFs completely free — no account needed. Just add pages and download instantly."
               />
 
               <FeaturesCard 
-                Icon={Layers} 
-                heading="Merge Multiple Images" 
-                paragraph="Combine unlimited images into a single PDF document. Perfect for assignments, forms, scanned pages, and photo collections."
+                Icon={Layers}
+                heading="Add Unlimited Pages"
+                paragraph="Insert as many pages as you want — before, after, or between existing pages with full flexibility."
               />
 
               <FeaturesCard 
-                Icon={Scan} 
-                heading="High-Quality PDF Output" 
-                paragraph="Your images are converted with maximum clarity and accurate page alignment—no loss in quality during the conversion."
+                Icon={FileType}
+                heading="Perfect Page Alignment"
+                paragraph="Every added page is properly aligned and optimized to maintain the quality and structure of your PDF."
               />
 
               <FeaturesCard 
-                Icon={ShieldCheck} 
-                heading="Safe & Secure Conversion" 
-                paragraph="Your images are processed locally and securely. All files are automatically removed after conversion to protect your privacy."
+                Icon={ShieldCheck}
+                heading="Secure PDF Creation"
+                paragraph="Your files are processed safely, and all uploaded documents are deleted automatically after creating your PDF."
               />
 
               <FeaturesCard 
-                Icon={Zap} 
-                heading="Fast & Reliable Processing" 
-                paragraph="Experience extremely fast JPG to PDF conversion. Get your final PDF in seconds—optimized for performance and accuracy."
+                Icon={Zap}
+                heading="Fast & Efficient"
+                paragraph="Add pages and generate your final PDF in seconds — designed for speed, accuracy, and smooth workflow."
               />
 
             </div>
+
 
             {/* how to section */}
             <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
@@ -223,7 +227,7 @@ function CreatePdf() {
                 <div className="flex flex-col gap-3">
                   <div className="flex gap-4 items-center">
                     <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to convert jpg into pdf?</span>
+                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to create pdf from images?</span>
                   </div>
                   <p className="whitespace-pre text-sm tracking-tighter">1.     Select images or drag and drop images in the select container</p>
                   <p className="whitespace-pre text-sm tracking-tighter">2.     Convert images into the pdf by pressing create pdf button</p>
@@ -237,65 +241,66 @@ function CreatePdf() {
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Is PDFtoolify’s JPG to PDF converter free?
+                  Is PDFtoolify’s Create PDF tool free to use?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  Yes, PDFtoolify is completely free. You can convert JPG or PNG images to PDF without creating an account.
+                  Yes, PDFtoolify is completely free. You can create new PDFs or add pages without any signup or installation.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  How can I convert JPG to PDF using PDFtoolify?
+                  How can I create a PDF using PDFtoolify?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  Just upload your images, arrange them in the order you want, and click "Convert." PDFtoolify will create a high-quality PDF instantly.
+                  Simply upload a PDF or start with a blank document, add pages wherever you want, and download the final PDF instantly.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Will the image quality change after converting to PDF?
+                  Can I insert pages anywhere inside the PDF?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  No. Your images remain sharp and high-quality after conversion. PDFtoolify ensures excellent clarity in the final PDF.
+                  Yes. You can add pages before, after, or between existing pages with full control over the placement.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Is it safe to convert JPG to PDF online?
+                  Is it safe to create PDFs online?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  Yes. All uploaded images are processed securely, and PDFtoolify automatically deletes your files after conversion.
+                  Yes. Your files are processed securely, and PDFtoolify deletes all uploaded documents automatically after processing.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Can I merge multiple images into one PDF?
+                  Can I combine pages from another PDF?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  Absolutely. You can add multiple JPG or PNG images and combine them into a single PDF file easily.
+                  Absolutely. You can upload another PDF and insert its pages at any position inside your current PDF.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Do I need to install any software to convert JPG to PDF?
+                  Do I need any software to create a PDF?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  No installation required. PDFtoolify works directly in your browser, allowing you to convert images to PDF instantly online.
+                  No software required. PDFtoolify works directly in your browser, allowing you to create PDFs instantly online.
                 </p>
                 <hr className="text-gray-800" />
               </div>
 
             </div>
+
             <ToolList />
           </div>
         )}
