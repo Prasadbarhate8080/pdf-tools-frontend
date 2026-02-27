@@ -17,7 +17,7 @@ function page() {
         try {
         setLoading(true);
         const response = await axios.get(`/api/get_post_to_view/${slug}`);
-        setPost(response.data.post);   
+        setPost(response.data.post);
       } catch (error) {
         console.log(error);
       }

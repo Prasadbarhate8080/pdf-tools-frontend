@@ -194,7 +194,7 @@ function Pdfa() {
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">Will PDF/A conversion change my file quality?</p>
                 <p className="text-sm font-medium text-gray-800">
-                  No, the conversion preserves your document's fonts, layout, and formatting while ensuring PDF/A compliance for future readability.
+                  No, the conversion preserves your documents fonts, layout, and formatting while ensuring PDF/A compliance for future readability.
                 </p>
                 <hr className="text-gray-800" />
               </div>
