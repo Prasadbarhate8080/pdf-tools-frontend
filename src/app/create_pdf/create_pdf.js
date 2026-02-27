@@ -8,9 +8,8 @@ import Processing from "@/components/Processing";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
 import {  CircleCheck, Gift, ShieldCheck, Trash2, Zap,
-  Images, 
   Layers, 
-  Scan, 
+  Plus, 
  } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import { PDFDocument } from "pdf-lib";
