@@ -9,13 +9,13 @@ import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
 import {  CircleCheck, Gift, ShieldCheck, Trash2, Zap,
   Layers, 
-  Plus, 
+  Plus,
+  FileType, 
  } from "lucide-react";
 import FeaturesCard from "@/components/FeaturesCard";
 import { PDFDocument } from "pdf-lib";
 import { toast } from "react-toastify";
 import ToolList from "@/components/ToolList";
-
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
