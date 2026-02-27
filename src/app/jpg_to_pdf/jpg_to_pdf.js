@@ -237,7 +237,7 @@ const JpgToPdf = () => {
 
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semibold text-gray-800">
-                  Is PDFtoolify’s JPG to PDF converter free?
+                  Is PDFtoolifys JPG to PDF converter free?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
                   Yes, PDFtoolify is completely free. You can convert JPG or PNG images to PDF without creating an account.
@@ -250,7 +250,7 @@ const JpgToPdf = () => {
                   How can I convert JPG to PDF using PDFtoolify?
                 </p>
                 <p className="text-sm font-medium text-gray-800">
-                  Just upload your images, arrange them in the order you want, and click "Convert." PDFtoolify will create a high-quality PDF instantly.
+                  Just upload your images, arrange them in the order you want, and click Convert. PDFtoolify will create a high-quality PDF instantly.
                 </p>
                 <hr className="text-gray-800" />
               </div>

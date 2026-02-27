@@ -6,7 +6,7 @@ import React, { useEffect } from 'react'
 import Image from 'next/image';
 import parse from 'html-react-parser';
 
-function page() {
+function Page() {
     const [post, setPost] = useState({})
     const [loading, setLoading] = useState(false)
     const params = useParams();
@@ -52,4 +52,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

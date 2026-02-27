@@ -6,11 +6,11 @@ import { useForm } from 'react-hook-form';
 import { useCallback } from 'react';
 import RTE from '@/components/RTE';
 
-function page() {
+function Page() {
   const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title:  "",
-            slug:  "",  
+            slug:  "",
             content:  "",
             description: "",
             imageUrl: "",
@@ -97,4 +97,4 @@ function page() {
     )
 }
 
-export default page
+export default Page
