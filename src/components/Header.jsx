@@ -43,9 +43,9 @@ export const Header = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo of pdftoolify*/}
-          <a href="#" className="flex items-center gap-2.5 group">
+          <a href="/" className="flex items-center gap-2.5 group">
             <div className=" rounded-lg flex items-center justify-center  shadow-md group-hover:shadow-lg transition-shadow">
-              <Image src={"/pdftoolify_logo.svg"} alt="pdftoolify.com" height={40} width={40} />
+              <Image src={"/pdftoolify_logo.png"} alt="pdftoolify.com" height={40} width={40} />
             </div>
             <span className="text-xl font-bold text-foreground">
               PDF<span className="text-primary">toolify</span>
