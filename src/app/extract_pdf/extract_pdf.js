@@ -84,7 +84,7 @@ export default function ExtractPdf() {
   };
 
   return (
-    <div className="p-1 mx-auto bg-[#F7F5FB] min-h-[658px]">
+    <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
         <section className="relative pt-16 pb-6 " style={{ background: 'var(--gradient-hero)' }}>
           <div
