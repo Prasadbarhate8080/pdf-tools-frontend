@@ -1,173 +1,115 @@
-"use client";
-import React from "react";
-import styles from "./Header.module.css";
-import { useRef, useEffect, useState } from "react";
-import home from "@/app/home.module.css";
+"use client"
+import { useState, useEffect } from "react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import MobileToolsSection from "./MobileToolsSection";
-import HeaderToolsSection from "./HeaderToolsSection";
-import Link from "next/link";
-function Header() {
-  const [isActiveTools, setIsActiveTools] = useState(false);
-  const hamBurgerMenu = useRef(null);
-  const hamBurgerIcon = useRef(null);
-  const [isActiveHamBurger, setIsActiveHamBurger] = useState(false);
-  const [isActiveDropdown, setIsActiveDropdown] = useState(false)
 
-  const handleHamBurger = () => {
-    setIsActiveHamBurger((prev) => !prev);
-    setIsActiveTools(false);
-  };
+const navItems = [
+  { name: "Home", href: "#" },
+  {
+    name: "Merge PDF",
+    href: "https://www.pdftoolify.com/merge_pdf",
+    external: true,
+  },
+  {
+    name: "Split PDF",
+    href: "https://www.pdftoolify.com/split_pdf",
+    external: true,
+  },
+  { name: "Blogs", href: "#" },
+  { name: "Tools", href: "#tools" },
+];
 
-  const showTools = () => {
-    setIsActiveTools(true);
-  };
+export const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (hamBurgerIcon.current) {
-      hamBurgerIcon.current.src = isActiveHamBurger
-        ? "/close.png"
-        : "/hamburger.png";
-    }
-    if (isActiveHamBurger) hamBurgerMenu.current.style.display = "block";
-    else hamBurgerMenu.current.style.display = "none";
-  }, [isActiveHamBurger]);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className={`${home.shadow} mb-1 bg-white sticky top-0 z-50`}>
-      <nav className={`${home.nav_bar} lg:max-w-7xl m-auto`}>
-        <div className="flex lg:px-20 px-4 md:px-4 pt-2 items-center justify-between ">
-          <div>
-            <Link href={"/"}>
-              <Image
-                src={"/PDFtoolify_logo.svg"}
-                height={25}
-                width={182}
-                alt="PDFtoolify logo"
-              ></Image>
-            </Link>
-          </div>
-          <div className="hidden md:hidden lg:block">
-            <ul className=" flex gap-8 text-gray-700 list-none text-md font-medium  h-full items-center">
-              <Link href={"/"}>
-                <li
-                  className={`hover:cursor-pointer px-2 py-1 rounded-md `}
-                >
-                  Home
-                </li>
-              </Link>
-              <Link href={"/merge_pdf"}>
-                <li className=" hover:cursor-pointer  px-2 py-1 rounded-md">
-                  Merge PDF
-                </li>
-              </Link>
-              <Link href={"/split_pdf"}>
-                <li className=" hover:cursor-pointer  px-2 py-1 rounded-md">
-                  Split PDF
-                </li>
-              </Link>
-              <Link href={"/blogs"}>
-                <li className=" hover:cursor-pointer  px-2 py-1 rounded-md">
-                  Blogs
-                </li>
-              </Link>
-              <li
-                className={`hover:cursor-pointer  px-2 py-1 rounded-md flex justify-center relative gap-1 items-center ${styles.toolItems}`}
-                onMouseEnter={() => setIsActiveDropdown(true)}
-                onMouseLeave={() => setIsActiveDropdown(false)}
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-2.5 group">
+            <div className=" rounded-lg flex items-center justify-center  shadow-md group-hover:shadow-lg transition-shadow">
+              <Image src={"/pdftoolify_logo.svg"} alt="pdftoolify.com" height={40} width={40} />
+            </div>
+            <span className="text-xl font-bold text-foreground">
+              PDF<span className="text-primary">toolify</span>
+            </span>
+          </a>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-1">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                {...(item.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-all duration-200"
               >
-                <span
-                >Tools</span>
-                <div className="downArrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-4 ${styles.downArrow}`}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                  </svg>
-                </div>
-
-                {/* dropdown section of tools */}
-                <div className={`${styles.dropdownCard} ${isActiveDropdown ? "flex" : "hidden" } z-10 gap-8`}
-                onClick={() => {setIsActiveDropdown(false)}}
-                >
-                  <HeaderToolsSection isActiveTools={isActiveTools} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger}/>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div onClick={handleHamBurger} className="lg:hidden">
-            <img
-              ref={hamBurgerIcon}
-              width={20}
-              height={20}
-              alt="hamburger"
-              src="/hamburger.png"
-              className="w-5 h-5"
-            />
+                {item.name}
+              </a>
+            ))}
           </div>
 
-          {/* Hamburger Menu */}
-          <div
-            ref={hamBurgerMenu}
-            className="absolute z-10 lg:hidden! hidden right-0 top-20"
+          {/* CTA Button */}
+          <div className="hidden md:block">
+            <Button variant="hero" size="default" asChild>
+              <a href="#tools">Explore All Tools</a>
+            </Button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-foreground p-2 rounded-lg hover:bg-muted/50 transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            <ul className=" flex gap-8 py-2 bg-white px-8 shadow flex-col text-gray-700 list-none text-md font-semibold  h-full ">
-              <Link href={"/merge_pdf"}>
-                <li className="flex gap-2 hover:bg-gray-100 px-2 py-1 rounded-md items-center">
-                  <Image
-                    src={"/merge.png"}
-                    width={30}
-                    height={10}
-                    alt="merge pdf"
-                  ></Image>
-                  <span>Merge PDF</span>
-                </li>
-              </Link>
-              <Link href={"/split_pdf"}>
-                <li className="flex gap-2 hover:bg-gray-100 px-2 py-1 rounded-md items-center">
-                  <Image
-                    src={"/split.png"}
-                    width={24}
-                    height={10}
-                    alt="merge pdf"
-                  ></Image>
-                  <span>Split PDF</span>
-                </li>
-              </Link>
-              <Link href={"/extract_pdf"}>
-                <li className="flex gap-2 hover:bg-gray-100 px-2 py-1 rounded-md items-center">
-                  <Image
-                    src={"/extract.png"}
-                    width={22}
-                    height={10}
-                    alt="merge pdf"
-                  ></Image>
-                  <span>Extract Pages</span>
-                </li>
-              </Link>
-              <li
-                onClick={() => {
-                  showTools();
-                }}
-                className="flex gap-2 hover:bg-gray-100 px-2 py-1 rounded-md items-center"
-              >
-                <Image
-                  src={"/down_arrow.png"}
-                  width={22}
-                  height={10}
-                  alt="merge pdf"
-                ></Image>
-                <span>More Tools</span>
-              </li>
-            </ul>
-          </div>
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
-        <MobileToolsSection
-          isActiveTools={isActiveTools}
-          setIsActiveTools={setIsActiveTools}
-          setIsActiveHamBurger={setIsActiveHamBurger}
-        />
-      </nav>
-    </header>
-  );
-}
 
-export default Header;
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden py-4 border-t border-border/50 animate-in slide-in-from-top-2 duration-200">
+            <div className="flex flex-col gap-1">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  {...(item.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
+              <div className="pt-3 px-4">
+                <Button variant="hero" size="lg" className="w-full" asChild>
+                  <a href="#tools">Explore All Tools</a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};

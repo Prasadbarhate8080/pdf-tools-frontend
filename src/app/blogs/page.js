@@ -30,7 +30,7 @@ function BlogsPage() {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <header className="mb-8">
         <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">Blog posts</h1>
-        <p className="mt-2 text-gray-600">Read articles, tutorials and announcements. {posts.length > 0 && `Showing ${posts.length} ${posts.length === 1 ? 'post' : 'posts'}.`}</p>
+        <p className="mt-2 text-gray-600">Read articles {posts.length > 0 && `Showing ${posts.length} ${posts.length === 1 ? 'post' : 'posts'}.`}</p>
       </header>
 
       <section aria-live="polite">

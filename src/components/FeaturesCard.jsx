@@ -1,16 +1,17 @@
-import React from 'react'
-
-function FeaturesCard({Icon,heading,paragraph}) {
+const FeatureCard = ({ icon:Icon, heading, paragraph, delay = 0 }) => {
+  console.log(Icon)
   return (
-    <div className="flex flex-col gap-3 mb-10 w-96">
-      <div className="flex justify-center">{Icon &&<Icon strokeWidth={1} size={40} color={"black"} />}</div>
-        <div><h3 className="text-md font-semibold text-gray-800 text-center">{heading}</h3></div>
-        <div>
-          <p className="text-center text-xs md:text-sm font-medium text-gray-800 px-4">{paragraph}
-          </p>
-        </div>
+    <div
+      className="glass-card p-8 hover:glow-shadow hover:-translate-y-1 transition-all duration-300 group opacity-0 animate-fade-in"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="w-14 h-14 rounded-xl feature-icon-gradient flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+        {Icon && <Icon className="w-6 h-6 text-primary-foreground" />}
+      </div>
+      <h3 className="text-lg font-bold text-foreground mb-2">{heading}</h3>
+      <p className="text-sm text-muted-foreground leading-relaxed">{paragraph}</p>
     </div>
   )
 }
+export default FeatureCard
 
-export default FeaturesCard
