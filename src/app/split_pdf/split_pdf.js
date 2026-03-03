@@ -252,7 +252,7 @@ function Split() {
             {/* Benefits Section */}
             <section className="container py-20">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
-                Merge PDF files online for free
+                split PDF files online for free
               </h2>
               <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
                 {benefits.map((benefit, i) => (
@@ -317,16 +317,13 @@ function Split() {
                 ))}
               </div>
             </section>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
-              Split PDF FAQs
-            </h1>
             <section className="container py-20">
               <div className="text-center mb-12">
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Merge PDF FAQs
+                  Split PDF FAQs
                 </h2>
                 <p className="text-muted-foreground max-w-lg mx-auto">
-                  Common questions about our PDF merger tool
+                  Common questions about our PDF splitter tool
                 </p>
               </div>
               <div className="max-w-3xl mx-auto">
@@ -659,53 +656,23 @@ function Split() {
             </div>
           </div>
           {/* feature card section */}
-          <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
-            Why Choose PDFtoolify
-          </h1>
-          <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-            <FeaturesCard
-              Icon={Scissors}
-              heading={'Split PDFs Instantly'}
-              paragraph={
-                'Easily divide large PDF files into smaller parts in just seconds. Perfect for managing documents efficiently.'
-              }
-            />
-            <FeaturesCard
-              Icon={Settings}
-              heading={'Custom Page Selection'}
-              paragraph={
-                'Choose exactly which pages you want to split and create a new PDF tailored to your needs.'
-              }
-            />
-            <FeaturesCard
-              Icon={FileOutput}
-              heading={'Multiple Splitting Options'}
-              paragraph={
-                'Split PDFs by page range, specific pages, or extract every page into a separate file.'
-              }
-            />
-            <FeaturesCard
-              Icon={ShieldCheck}
-              heading={'Safe and Secure Splitting'}
-              paragraph={
-                'All your files are processed securely, and automatically deleted after splitting for complete privacy.'
-              }
-            />
-            <FeaturesCard
-              Icon={Sparkles}
-              heading={'High Quality Results'}
-              paragraph={
-                'Your split documents maintain the same quality and formatting as the original file—no loss.'
-              }
-            />
-            <FeaturesCard
-              Icon={Smartphone}
-              heading={'Work on Any Device'}
-              paragraph={
-                'Split PDFs directly from your browser on desktop, tablet, or mobile without any installation.'
-              }
-            />
-          </div>
+          <section className="bg-muted/30">
+            <div className="container py-20">
+              <div className="text-center mb-14">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  Features of PDFtoolify
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Everything you need to manage your PDF files with confidence
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                {features.map((feature, i) => (
+                  <FeatureCard key={i} {...feature} delay={200 + i * 100} />
+                ))}
+              </div>
+            </div>
+          </section>
           {/* how to section */}
           <div className="flex max-w-7xl mx-auto mt-24">
             <div className="flex basis-[50%] justify-center items-center">
