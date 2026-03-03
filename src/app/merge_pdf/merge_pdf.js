@@ -32,7 +32,7 @@ import { PDFDocument } from 'pdf-lib'
 import PDFPageComponent from '@/components/PDFPageComponent'
 import ToolList from '@/components/ToolList'
 import PostCard from '@/components/PostCard'
-import FeatureCard from '@/components/FeaturesCard'
+import FeatureCard from '@/components/FeatureCard'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'

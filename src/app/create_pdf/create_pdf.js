@@ -1,25 +1,138 @@
 "use client"; // if you're using Next.js
-import React, {  useState } from "react";
-import Image from "next/image";
-import { Document, Page, pdfjs } from "react-pdf";
+import React, { useState } from "react";
+import { pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import Processing from "@/components/Processing";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
-import {  CircleCheck, Gift, ShieldCheck, Trash2, Zap,
-  Layers, 
+import {
+  CircleCheck,
+  Gift,
+  ShieldCheck,
+  Trash2,
+  Zap,
+  Layers,
   Plus,
-  FileType, 
- } from "lucide-react";
-import FeaturesCard from "@/components/FeaturesCard";
+  FileType,
+  Sparkles,
+  CheckCircle,
+} from "lucide-react";
+import FeaturesCard from "@/components/FeatureCard";
 import { PDFDocument } from "pdf-lib";
 import { toast } from "react-toastify";
 import ToolList from "@/components/ToolList";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
+
+const benefits = [
+  "Create a new PDF instantly from your images",
+  "Maintain perfect quality while building a multi-page PDF",
+  "Works on any device — mobile, tablet, Windows, Mac",
+  "No signup needed — create a PDF instantly with one click",
+  "Secure and private — your PDFs are deleted automatically after creation",
+];
+
+const features = [
+  {
+    icon: Plus,
+    heading: "Create PDF Easily",
+    paragraph:
+      "Add your images and generate a clean, professional PDF in just a few clicks.",
+  },
+  {
+    icon: Gift,
+    heading: "Free & No Login Needed",
+    paragraph:
+      "Create new PDFs completely free — no account needed. Just upload images and download instantly.",
+  },
+  {
+    icon: Layers,
+    heading: "Multi-page PDF Support",
+    paragraph:
+      "Combine multiple images into a single PDF document, perfectly ordered and aligned.",
+  },
+  {
+    icon: FileType,
+    heading: "High-Quality Output",
+    paragraph:
+      "Your images are converted with optimized sizing and alignment to keep the PDF looking sharp.",
+  },
+  {
+    icon: ShieldCheck,
+    heading: "Secure PDF Creation",
+    paragraph:
+      "Your files are processed safely, and all uploaded documents are deleted automatically after creating your PDF.",
+  },
+  {
+    icon: Zap,
+    heading: "Fast & Efficient",
+    paragraph:
+      "Convert images to PDF in seconds — designed for speed, accuracy, and smooth workflow.",
+  },
+];
+
+const steps = [
+  {
+    step: "1",
+    title: "Upload your images",
+    description:
+      "Select JPG, PNG, or WEBP images from your device or drag and drop them into the upload area.",
+  },
+  {
+    step: "2",
+    title: "Create your PDF",
+    description:
+      "Click on “Create PDF” to convert your selected images into a single PDF file.",
+  },
+  {
+    step: "3",
+    title: "Download created PDF",
+    description:
+      "Download your new PDF instantly and use it for sharing, printing, or archiving.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Is PDFtoolify’s Create PDF tool free to use?",
+    answer:
+      "Yes, PDFtoolify is completely free. You can create new PDFs from images without any signup or installation.",
+  },
+  {
+    question: "How can I create a PDF using PDFtoolify?",
+    answer:
+      "Simply upload your images, click on “Create PDF,” and download the generated PDF instantly.",
+  },
+  {
+    question: "Will the quality of my images change after converting to PDF?",
+    answer:
+      "No. Your images are optimized for the PDF page but remain clear and readable, preserving quality as much as possible.",
+  },
+  {
+    question: "Is it safe to create PDFs online?",
+    answer:
+      "Yes. Your files are processed securely, and PDFtoolify deletes all uploaded documents automatically after processing.",
+  },
+  {
+    question: "Can I combine many images into one PDF?",
+    answer:
+      "Absolutely. You can add multiple images and convert them all into a single multi-page PDF.",
+  },
+  {
+    question: "Do I need any software to create a PDF?",
+    answer:
+      "No software required. PDFtoolify works directly in your browser, allowing you to create PDFs instantly online.",
+  },
+];
 
 function CreatePdf() {
   const [loading, setLoading] = useState(false)
@@ -100,16 +213,29 @@ function CreatePdf() {
   };
 
   return (
-    <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px]">
-      {!completionStatus && (
-        <div>
-          <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            Make a PDF from images
-          </h1>
-          <p className="text-center text-gray-500 text-md">
-            Make the PDF from any jpg, png images
-          </p>
-        </div>
+    <div className="min-h-screen bg-background">
+      {!completionStatus && !isDroped && (
+        <section
+          className="relative pt-16 pb-6"
+          style={{ background: "var(--gradient-hero)" }}
+        >
+          <div
+            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
+            style={{ background: "var(--gradient-glow)" }}
+          />
+          <div className="container pt-16 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
+              <Sparkles className="w-4 h-4" />
+              Free Online Image to PDF Creator
+            </div>
+            <h1 className="section-heading text-center">
+              Create <span className="gradient-text">PDF from Images</span>
+            </h1>
+            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
+              Turn your images into a polished PDF document — free, fast, and secure.
+            </p>
+          </div>
+        </section>
       )}
 
       <form
@@ -120,185 +246,120 @@ function CreatePdf() {
       >
         {!isDroped && (
           <div>
-            <FileInput setFiles={setFiles} setisDroped={setisDroped} multiple={true} setImages={setImages} mode="images"
-              accept= {{
+            <FileInput
+              setFiles={setFiles}
+              setisDroped={setisDroped}
+              multiple={true}
+              setImages={setImages}
+              mode="images"
+              accept={{
                 "image/jpeg": [".jpg", ".jpeg"],
                 "image/png": [".png"],
                 "image/webp": [".webp"],
               }}
             />
-            <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">
-            Create PDF from Jpg Png images
-            </h1>
-            {/* points section */}
-            <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
 
-              <div className="flex flex-col gap-2 w-xl text-sm">
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Create a new PDF instantly by adding blank pages or importing PDFs</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Maintain perfect quality while building a multi-page PDF</span>
-                </div>
-
+            {/* Benefits Section */}
+            <section className="container py-20">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
+                Create PDF from JPG, PNG & WEBP images online
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                {benefits.map((benefit, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${400 + i * 80}ms` }}
+                  >
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">{benefit}</span>
+                  </div>
+                ))}
               </div>
-
-              <div className="w-xl flex flex-col gap-2 text-sm">
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Works on any device — mobile, tablet, Windows, Mac</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>No signup needed — create a PDF instantly with one click</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Secure and private — your PDFs are deleted automatically after creation</span>
-                </div>
-
-              </div>
-
-            </div>
+            </section>
 
             {/* feature card section */}
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
-              Features of PDFtoolify - create PDF
-            </h1>
-            <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-
-              <FeaturesCard 
-                Icon={Plus}
-                heading="Create PDF Easily"
-                paragraph="Add new blank pages or import PDF pages to build a brand-new PDF in just a few clicks."
-              />
-
-              <FeaturesCard 
-                Icon={Gift}
-                heading="Free & No Login Needed"
-                paragraph="Create new PDFs completely free — no account needed. Just add pages and download instantly."
-              />
-
-              <FeaturesCard 
-                Icon={Layers}
-                heading="Add Unlimited Pages"
-                paragraph="Insert as many pages as you want — before, after, or between existing pages with full flexibility."
-              />
-
-              <FeaturesCard 
-                Icon={FileType}
-                heading="Perfect Page Alignment"
-                paragraph="Every added page is properly aligned and optimized to maintain the quality and structure of your PDF."
-              />
-
-              <FeaturesCard 
-                Icon={ShieldCheck}
-                heading="Secure PDF Creation"
-                paragraph="Your files are processed safely, and all uploaded documents are deleted automatically after creating your PDF."
-              />
-
-              <FeaturesCard 
-                Icon={Zap}
-                heading="Fast & Efficient"
-                paragraph="Add pages and generate your final PDF in seconds — designed for speed, accuracy, and smooth workflow."
-              />
-
-            </div>
-
-
-            {/* how to section */}
-            <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
-              <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
-                <Image
-                fill
-                src={"/how_to_merge.png"}
-                alt="how to merge pdf online"
-                />
-              </div>
-              <div className="flex justify-center items-center">
-                <div className="flex flex-col gap-3">
-                  <div className="flex gap-4 items-center">
-                    <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to create pdf from images?</span>
-                  </div>
-                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select images or drag and drop images in the select container</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">2.     Convert images into the pdf by pressing create pdf button</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">3.     Download the created pdf by pressing download </p>
+            <section className="bg-muted/30">
+              <div className="container py-20">
+                <div className="text-center mb-14">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                    Features of PDFtoolify - Create PDF
+                  </h2>
+                  <p className="text-muted-foreground max-w-lg mx-auto">
+                    Everything you need to turn your images into professional PDFs
+                  </p>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                  {features.map((feature, i) => (
+                    <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
+                  ))}
                 </div>
               </div>
-            </div>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Create PDF FAQs</h1>
+            </section>
+
+            {/* how to section */}
+            <section className="container py-20">
+              <div className="text-center mb-14">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  How to create a PDF from images?
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Follow these steps to convert your images into a PDF document.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                {steps.map((item, i) => (
+                  <div
+                    key={i}
+                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${200 + i * 150}ms` }}
+                  >
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
+                      {item.step}
+                    </div>
+                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
+                      <Sparkles className="w-7 h-7 text-primary-foreground" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col p-3 mt-12 items-start gap-6">
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Is PDFtoolify’s Create PDF tool free to use?
+            <section className="container py-20">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  Create PDF FAQs
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Common questions about creating PDFs from images
                 </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes, PDFtoolify is completely free. You can create new PDFs or add pages without any signup or installation.
-                </p>
-                <hr className="text-gray-800" />
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  How can I create a PDF using PDFtoolify?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Simply upload a PDF or start with a blank document, add pages wherever you want, and download the final PDF instantly.
-                </p>
-                <hr className="text-gray-800" />
+              <div className="max-w-3xl mx-auto">
+                <Accordion type="single" collapsible className="space-y-3">
+                  {faqs.map((faq, i) => (
+                    <AccordionItem
+                      key={i}
+                      value={`item-${i}`}
+                      className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-300"
+                    >
+                      <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-5">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Can I insert pages anywhere inside the PDF?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes. You can add pages before, after, or between existing pages with full control over the placement.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Is it safe to create PDFs online?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes. Your files are processed securely, and PDFtoolify deletes all uploaded documents automatically after processing.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Can I combine pages from another PDF?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Absolutely. You can upload another PDF and insert its pages at any position inside your current PDF.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Do I need any software to create a PDF?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  No software required. PDFtoolify works directly in your browser, allowing you to create PDFs instantly online.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-            </div>
+            </section>
 
             <ToolList />
           </div>

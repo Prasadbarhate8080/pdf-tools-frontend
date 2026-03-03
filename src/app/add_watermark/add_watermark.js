@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import Image from "next/image";
+import { ToastContainer } from "react-toastify";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -11,24 +9,155 @@ import ProgressBar from "@/components/ProgressBar";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   BadgeCheck,
-  CircleCheck,
+  CheckCircle,
+  Download,
+  Droplet,
   Gift,
-  InfinityIcon,
-  MousePointerClick,
+  Infinity as InfinityIcon,
+  Sparkles,
+  Upload,
   ShieldCheck,
   SidebarClose,
   SidebarOpen,
-  SplitIcon,
   Zap,
+  ArrowRight,
 } from "lucide-react";
-import FeaturesCard from "@/components/FeaturesCard";
+import FeatureCard from "@/components/FeatureCard";
 import { PDFDocument, StandardFonts, rgb, degrees } from "pdf-lib";
 import ToolList from "@/components/ToolList";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
+
+const benefits = [
+  "Our watermark tool works smoothly on any device",
+  "Add custom text watermarks to your PDF in seconds",
+  "PDFtoolify is secure, fast, and simple for watermarking",
+  "No signup required — watermark PDFs instantly for free",
+  "Professional results with zero quality loss",
+];
+
+const steps = [
+  {
+    icon: Upload,
+    step: "1",
+    title: "Upload PDF",
+    description: "Select a PDF file or drag and drop it into the upload area.",
+  },
+  {
+    icon: Droplet,
+    step: "2",
+    title: "Customize Watermark",
+    description: "Set text, opacity, rotation, and position to fit your style.",
+  },
+  {
+    icon: Download,
+    step: "3",
+    title: "Download PDF",
+    description: "Get your watermark-added PDF instantly — fast and free.",
+  },
+];
+
+const features = [
+  {
+    icon: Sparkles,
+    heading: "Easy to Use",
+    paragraph:
+      "Designed to be simple and intuitive. Add watermarks to your PDFs in just a few clicks.",
+  },
+  {
+    icon: Gift,
+    heading: "Free & No Sign Up",
+    paragraph:
+      "Add unlimited text watermarks for free. No account needed — quick, easy, and hassle-free.",
+  },
+  {
+    icon: InfinityIcon,
+    heading: "Watermarks Without Limits",
+    paragraph:
+      "Apply watermarks to any number of pages — from a single page to a full document.",
+  },
+  {
+    icon: BadgeCheck,
+    heading: "Customizable Watermarks",
+    paragraph:
+      "Choose your text, size, opacity, rotation, and placement for a professional look.",
+  },
+  {
+    icon: ShieldCheck,
+    heading: "Secure Online Processing",
+    paragraph:
+      "Your files stay safe. Documents are processed securely and deleted automatically.",
+  },
+  {
+    icon: Zap,
+    heading: "Fast & Powerful",
+    paragraph:
+      "PDFtoolify applies watermarks in seconds — reliable, smooth, and lightning fast.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Is PDFtoolify Really Free?",
+    answer:
+      "Yes, PDFtoolify is completely free. You can add text watermarks to your PDF files without signing up.",
+  },
+  {
+    question: "How can I add a watermark to my PDF?",
+    answer:
+      "Upload your PDF, customize the watermark text and placement, and click “Add Watermark.” Your updated PDF will be ready instantly.",
+  },
+  {
+    question: "Will adding a watermark affect PDF quality?",
+    answer:
+      "No, the PDF quality remains the same. Only the watermark is added — your content stays untouched.",
+  },
+  {
+    question: "Is it safe to upload my PDFs?",
+    answer:
+      "Yes. Files are processed securely and deleted automatically after completion.",
+  },
+  {
+    question: "Can I customize the watermark?",
+    answer:
+      "Absolutely. You can customize text, opacity, rotation, and position for your watermark.",
+  },
+  {
+    question: "Does adding a watermark cost anything?",
+    answer:
+      "No, adding a watermark with PDFtoolify is 100% free and unlimited.",
+  },
+];
+
+const articles = [
+  {
+    image: "https://www.pdftoolify.com/how_to_merge.png",
+    title: "How to Add a Watermark to PDF",
+    description:
+      "Upload your PDF, customize watermark text and placement, then download the updated file instantly.",
+  },
+  {
+    image: "https://www.pdftoolify.com/safe_to_merge.png",
+    title: "Is It Safe to Watermark PDFs Online?",
+    description:
+      "PDFtoolify processes files securely and deletes them automatically after completion.",
+  },
+  {
+    image: "https://www.pdftoolify.com/onine_pdf_merger.jpg",
+    title: "Best Free PDF Watermark Tool",
+    description:
+      "Add professional watermarks without signup, limits, or hidden fees — fast and easy.",
+  },
+];
 
 function AddWaterMarkPage() {
   const [water_mark_position, setWater_mark_position] = useState(5);
@@ -214,16 +343,29 @@ function AddWaterMarkPage() {
   let selected = 0;
 
   return (
-    <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px] ">
+    <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <div>
-          <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            Add Watermark ON PDF Pages
-          </h1>
-          <p className="text-center text-gray-500 md:text-md">
-            Add Watermark As your choice
-          </p>
-        </div>
+        <section
+          className="relative pt-16 pb-6"
+          style={{ background: "var(--gradient-hero)" }}
+        >
+          <div
+            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
+            style={{ background: "var(--gradient-glow)" }}
+          />
+          <div className="container pt-16 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
+              <Sparkles className="w-4 h-4" />
+              Free Online PDF Watermark Tool
+            </div>
+            <h1 className="section-heading text-center">
+              Add <span className="gradient-text">Watermark</span> to PDFs
+            </h1>
+            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
+              Customize text, placement, and opacity to protect your documents in seconds
+            </p>
+          </div>
+        </section>
       )}
       <form
         onSubmit={(e) => {
@@ -231,7 +373,7 @@ function AddWaterMarkPage() {
         }}
         encType="multipart/form-data"
       >
-        {!isDroped && (
+        {!isDroped && !completionStatus && (
           <div>
             <FileInput
               setFiles={setFiles}
@@ -239,232 +381,137 @@ function AddWaterMarkPage() {
               multiple={false}
               accept={{ "application/pdf": [] }}
             />
-            <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">
-              Add watermark to PDF
-            </h1>
-            {/* points section */}
-            <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
-              <div className="flex flex-col gap-2 w-xl text-sm">
-                <div className="flex gap-2">
-                  <CircleCheck
-                    color="green"
-                    className="min-w-6"
-                    strokeWidth={1.5}
-                  />
-                  <span>
-                    Our free watermark tool works smoothly on any device
-                  </span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck
-                    color="green"
-                    className="min-w-6"
-                    strokeWidth={1.5}
-                  />
-                  <span>
-                    Easily add text or image watermarks to your PDF files with
-                    PDFtoolify
-                  </span>
-                </div>
-              </div>
-
-              <div className="w-xl flex flex-col gap-2 text-sm">
-                <div className="flex gap-2">
-                  <CircleCheck
-                    color="green"
-                    className="min-w-6"
-                    strokeWidth={1.5}
-                  />
-                  <span>
-                    PDFtoolify is secure, fast, and simple for watermarking
-                    documents
-                  </span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck
-                    color="green"
-                    className="min-w-6"
-                    strokeWidth={1.5}
-                  />
-                  <span>
-                    No signup required — add watermarks instantly for free
-                  </span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck
-                    color="green"
-                    className="min-w-6"
-                    strokeWidth={1.5}
-                  />
-                  <span>
-                    Add watermarks in seconds — professional, free, and reliable
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* feature card section */}
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
-              Features of PDFtoolify - Add Watermark
-            </h1>
-            <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-              <FeaturesCard
-                Icon={MousePointerClick}
-                heading={"Easy to Use"}
-                paragraph={
-                  "Designed to be simple and intuitive — anyone can easily add watermarks to their PDFs in just a few clicks."
-                }
-              />
-
-              <FeaturesCard
-                Icon={Gift}
-                heading={"Free & No Sign Up"}
-                paragraph={
-                  "Add unlimited text or image watermarks to your PDFs for free. No account needed — fast, easy, and hassle-free."
-                }
-              />
-
-              <FeaturesCard
-                Icon={InfinityIcon}
-                heading={"Add Watermarks Without Limits"}
-                paragraph={
-                  "Insert watermarks on any number of pages — from a single page to an entire PDF. Flexible and powerful watermarking."
-                }
-              />
-
-              <FeaturesCard
-                Icon={BadgeCheck}
-                heading={"Customizable Watermarks"}
-                paragraph={
-                  "Choose your own text, font size, color, opacity, rotation, and placement. Create professional watermarks effortlessly."
-                }
-              />
-
-              <FeaturesCard
-                Icon={ShieldCheck}
-                heading={"Secure Online Processing"}
-                paragraph={
-                  "Your documents stay safe. All files are automatically deleted after processing to ensure maximum privacy."
-                }
-              />
-
-              <FeaturesCard
-                Icon={Zap}
-                heading={"Fast & Powerful"}
-                paragraph={
-                  "Powered by advanced technology, PDFtoolify applies watermarks in seconds — smooth, reliable, and lightning fast."
-                }
-              />
-            </div>
-
-            {/* how to section */}
-            <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
-              <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
-                <Image
-                  fill
-                  src={"/how_to_merge.png"}
-                  alt="how to merge pdf online"
-                />
-              </div>
-              <div className="flex justify-center items-center">
-                <div className="flex flex-col gap-3">
-                  <div className="flex gap-4 items-center">
-                    <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span>
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">
-                      How to add watermark into pdf online?
-                    </span>
+            <section className="container py-20">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
+                Add watermark to PDF online for free
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                {benefits.map((benefit, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${400 + i * 80}ms` }}
+                  >
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">{benefit}</span>
                   </div>
-                  <p className="whitespace-pre text-sm tracking-tighter">
-                    1. Select file or drag and drop file in the select container
-                  </p>
-                  <p className="whitespace-pre text-sm tracking-tighter">
-                    2. Add water mark text and select watermark position
-                  </p>
-                  <p className="whitespace-pre text-sm tracking-tighter">
-                    3. Add watermark by pressing add watermark button
-                  </p>
-                  <p className="whitespace-pre text-sm tracking-tighter">
-                    4. Download the watermark added PDF by pressing Download
-                    button
+                ))}
+              </div>
+            </section>
+            <section className="bg-muted/30">
+              <div className="container py-20">
+                <div className="text-center mb-14">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                    Features of PDFtoolify
+                  </h2>
+                  <p className="text-muted-foreground max-w-lg mx-auto">
+                    Everything you need to watermark PDFs with confidence
                   </p>
                 </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                  {features.map((feature, i) => (
+                    <FeatureCard key={i} {...feature} delay={200 + i * 100} />
+                  ))}
+                </div>
               </div>
-            </div>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
-              Add Watermark FAQs
-            </h1>
-            {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col p-3 mt-12 items-start gap-6">
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Is PDFtoolify Really Free?
+            </section>
+            <section className="container py-20">
+              <div className="text-center mb-14">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  How to add a watermark online?
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Protect your PDF in three simple steps
                 </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes, PDFtoolify is completely free. You can add text or image
-                  watermarks to your PDF files without signing up.
-                </p>
-                <hr className="text-gray-800" />
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  How can I add a watermark to my PDF?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Just upload your PDF, choose between text or image watermark,
-                  customize the style, and click “Apply Watermark.” Your updated
-                  PDF will be ready instantly.
-                </p>
-                <hr className="text-gray-800" />
+              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                {steps.map((item, i) => (
+                  <div
+                    key={i}
+                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${200 + i * 150}ms` }}
+                  >
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
+                      {item.step}
+                    </div>
+                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
+                      <item.icon className="w-7 h-7 text-primary-foreground" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Will adding a watermark affect the PDF quality?
+            </section>
+            <section className="container py-20">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  Add Watermark FAQs
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Common questions about our watermark tool
                 </p>
-                <p className="text-sm font-medium text-gray-800">
-                  No, the PDF quality remains the same. Only the watermark is
-                  added—your pages, text, and images stay untouched.
-                </p>
-                <hr className="text-gray-800" />
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Is it safe to upload my PDFs?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes, your files are processed securely. PDFtoolify deletes all
-                  uploaded and processed files automatically after completion.
-                </p>
-                <hr className="text-gray-800" />
+              <div className="max-w-3xl mx-auto">
+                <Accordion type="single" collapsible className="space-y-3">
+                  {faqs.map((faq, i) => (
+                    <AccordionItem
+                      key={i}
+                      value={`item-${i}`}
+                      className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-300"
+                    >
+                      <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-5">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Can I customize the watermark?
+            </section>
+            <section className="container py-20">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  Add Watermark Blog Articles
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Learn more about watermarking PDFs effectively
                 </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Absolutely. You can customize text, color, opacity, size,
-                  rotation, and position. Image watermarks are also supported.
-                </p>
-                <hr className="text-gray-800" />
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Does adding a watermark cost anything?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  No, adding a watermark with PDFtoolify is 100% free and
-                  unlimited.
-                </p>
-                <hr className="text-gray-800" />
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                {articles.map((article, i) => (
+                  <article
+                    key={i}
+                    className="group rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${200 + i * 120}ms` }}
+                  >
+                    <div className="aspect-video overflow-hidden bg-muted">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                        {article.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                        {article.description}
+                      </p>
+                      <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
+                        Read more <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </article>
+                ))}
               </div>
-            </div>
+            </section>
             <ToolList />
           </div>
         )}

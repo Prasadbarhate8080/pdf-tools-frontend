@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import Image from "next/image";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -9,14 +8,133 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
-import { BadgeCheck, CircleCheck, Gift, InfinityIcon, KeyRound, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
-import FeaturesCard from "@/components/FeaturesCard";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  BadgeCheck,
+  CheckCircle,
+  Download,
+  Gift,
+  InfinityIcon,
+  KeyRound,
+  MousePointerClick,
+  ShieldCheck,
+  Sparkles,
+  Upload,
+  Zap,
+} from "lucide-react";
+import FeaturesCard from "@/components/FeatureCard";
 import PDFPageComponent from "@/components/PDFPageComponent";
 import ToolList from "@/components/ToolList";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
+
+const benefits = [
+  "Unlock PDF files instantly on any device with PDFtoolify",
+  "Remove password protection easily — no technical skills required",
+  "Secure processing with automatic file deletion",
+  "No signup required — unlock PDFs for free",
+  "Fast, reliable, and user-friendly unlocking",
+];
+
+const steps = [
+  {
+    icon: Upload,
+    step: "1",
+    title: "Upload Locked PDF",
+    description: "Select the password-protected PDF or drag and drop it here.",
+  },
+  {
+    icon: KeyRound,
+    step: "2",
+    title: "Unlock the File",
+    description: "Click unlock to remove password protection instantly.",
+  },
+  {
+    icon: Download,
+    step: "3",
+    title: "Download PDF",
+    description: "Get your unlocked PDF file right away — fast and free.",
+  },
+];
+
+const features = [
+  {
+    icon: MousePointerClick,
+    heading: "Simple & User-Friendly",
+    paragraph:
+      "Unlocking a PDF is extremely simple with PDFtoolify — upload your locked file, enter the password, and instantly access the unlocked version.",
+  },
+  {
+    icon: Gift,
+    heading: "Free & No Signup Required",
+    paragraph:
+      "Unlock secured PDF files online for free without creating an account. No hidden fees — just fast and easy PDF unlocking.",
+  },
+  {
+    icon: KeyRound,
+    heading: "Unlock Any PDF",
+    paragraph:
+      "Remove password protection from any PDF — whether it's for reading, copying, or printing — quickly and reliably.",
+  },
+  {
+    icon: BadgeCheck,
+    heading: "High Accuracy Decryption",
+    paragraph:
+      "PDFtoolify ensures accurate unlocking as long as you provide the correct password. Your PDF structure stays unchanged.",
+  },
+  {
+    icon: ShieldCheck,
+    heading: "Secure & Private",
+    paragraph:
+      "We prioritize your privacy. All uploaded documents are automatically deleted after processing to ensure complete security.",
+  },
+  {
+    icon: Zap,
+    heading: "Fast Unlocking",
+    paragraph:
+      "Built with optimized technology, PDFtoolify unlocks secured PDF files within seconds — fast, seamless, and reliable.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Is PDFtoolify Really Free?",
+    answer:
+      "Yes, PDFtoolify is 100% free. You can unlock secured PDFs without signing up or paying anything.",
+  },
+  {
+    question: "How can I unlock a PDF with PDFtoolify?",
+    answer:
+      "Upload your locked PDF file, enter the correct password, and click “Unlock.” PDFtoolify will instantly remove the password protection.",
+  },
+  {
+    question: "Will unlocking my PDF affect its quality?",
+    answer:
+      "No, unlocking a PDF does not change its quality or formatting. Your file remains exactly the same—just without the password.",
+  },
+  {
+    question: "Is it safe to unlock PDFs online?",
+    answer:
+      "Yes. PDFtoolify uses secure processing, and all uploaded files are automatically deleted after completion for maximum privacy.",
+  },
+  {
+    question: "Can I unlock PDFs offline with PDFtoolify?",
+    answer:
+      "Yes. You can download the Windows app and unlock PDFs even without an internet connection.",
+  },
+  {
+    question: "Does unlocking PDFs cost anything?",
+    answer:
+      "No, unlocking PDF files with PDFtoolify is completely free and unlimited.",
+  },
+];
 
 function Unlock() {
 
@@ -34,16 +152,29 @@ function Unlock() {
   };
 
   return (
-    <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px] ">
-      {!completionStatus && (
-        <div>
-          <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            Unlock PDF File
-          </h1>
-          <p className="text-center text-gray-500 md:text-md">
-            Easily unlock the PDF File
-          </p>
-        </div>
+    <div className="min-h-screen bg-background">
+      {!completionStatus && !isDroped && (
+        <section
+          className="relative pt-16 pb-6"
+          style={{ background: "var(--gradient-hero)" }}
+        >
+          <div
+            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
+            style={{ background: "var(--gradient-glow)" }}
+          />
+          <div className="container pt-16 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
+              <Sparkles className="w-4 h-4" />
+              Free Online PDF Unlocker
+            </div>
+            <h1 className="section-heading text-center">
+              Unlock <span className="gradient-text">PDF Files</span> Instantly
+            </h1>
+            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
+              Remove password protection safely and download your PDF in seconds
+            </p>
+          </div>
+        </section>
       )}
       <form
         onSubmit={(e) => {
@@ -51,166 +182,106 @@ function Unlock() {
         }}
         encType="multipart/form-data"
       >
-        {!isDroped && (
+        {!isDroped && !completionStatus && (
           <div>
-            <FileInput setFiles={setFiles} setisDroped={setisDroped} multiple={false} accept={{"application/pdf": []}} />
-            <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">
-            Unlock PDF from a password
-            </h1>
-            {/* points section */}
-            <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
-
-              <div className="flex flex-col gap-2 w-xl text-sm">
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Unlock PDF files instantly on any device with PDFtoolify</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Remove PDF password protection easily — no technical skills required</span>
-                </div>
-              </div>
-
-              <div className="w-xl flex flex-col gap-2 text-sm">
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>PDFtoolify is secure and private — your files are deleted automatically</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>No signup required — unlock your PDF online for free</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Unlock PDFs in seconds — fast, reliable, and user-friendly</span>
-                </div>
-
-              </div>
-
-            </div>
-
-            {/* feature card section */}
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
-              Features of PDFtoolify - unlock PDF
-            </h1>
-            <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-
-              <FeaturesCard 
-                Icon={MousePointerClick} 
-                heading={"Simple & User-Friendly"} 
-                paragraph={"Unlocking a PDF is extremely simple with PDFtoolify — upload your locked file, enter the password, and instantly access the unlocked version."}
-              />
-
-              <FeaturesCard 
-                Icon={Gift} 
-                heading={"Free & No Signup Required"} 
-                paragraph={"Unlock secured PDF files online for free without creating an account. No hidden fees — just fast and easy PDF unlocking."}
-              />
-
-              <FeaturesCard 
-                Icon={KeyRound} 
-                heading={"Unlock Any PDF"} 
-                paragraph={"Remove password protection from any PDF — whether it's for reading, copying, or printing — quickly and reliably."}
-              />
-
-              <FeaturesCard 
-                Icon={BadgeCheck} 
-                heading={"High Accuracy Decryption"} 
-                paragraph={"PDFtoolify ensures accurate unlocking as long as you provide the correct password. Your PDF structure stays unchanged."}
-              />
-
-              <FeaturesCard 
-                Icon={ShieldCheck} 
-                heading={"Secure & Private"} 
-                paragraph={"We prioritize your privacy. All uploaded documents are automatically deleted after processing to ensure complete security."}
-              />
-
-              <FeaturesCard 
-                Icon={Zap} 
-                heading={"Fast Unlocking"} 
-                paragraph={"Built with optimized technology, PDFtoolify unlocks secured PDF files within seconds — fast, seamless, and reliable."}
-              />
-
-            </div>
-
-            {/* how to section */}
-            <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
-              <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
-                <Image
-                fill
-                src={"/how_to_merge.png"}
-                alt="how to merge pdf online"
-                />
-              </div>
-              <div className="flex justify-center items-center">
-                <div className="flex flex-col gap-3">
-                  <div className="flex gap-4 items-center">
-                    <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to unlock pdf online for free?</span>
+            <FileInput
+              setFiles={setFiles}
+              setisDroped={setisDroped}
+              multiple={false}
+              accept={{ "application/pdf": [] }}
+            />
+            <section className="container py-20">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
+                Unlock PDF files online for free
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                {benefits.map((benefit, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${400 + i * 80}ms` }}
+                  >
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">{benefit}</span>
                   </div>
-                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select file or drag and drop file in the select container</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">2.     Unlock PDF file by pressing unlock PDF button</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">3.     Download the unlocked PDF by pressing Download button</p>
+                ))}
+              </div>
+            </section>
+            <section className="bg-muted/30">
+              <div className="container py-20">
+                <div className="text-center mb-14">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                    Features of PDFtoolify
+                  </h2>
+                  <p className="text-muted-foreground max-w-lg mx-auto">
+                    Everything you need to unlock PDFs with confidence
+                  </p>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                  {features.map((feature, i) => (
+                    <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
+                  ))}
                 </div>
               </div>
-            </div>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Unlock PDF FAQs</h1>
-            {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col p-3 mt-12 items-start gap-6">
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Is PDFtoolify Really Free?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes, PDFtoolify is 100% free. You can unlock secured PDFs without signing up or paying anything.
+            </section>
+            <section className="container py-20">
+              <div className="text-center mb-14">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  How to unlock PDFs online?
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Remove password protection in three simple steps
                 </p>
-                <hr className="text-gray-800" />
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">How can I unlock a PDF with PDFtoolify?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Upload your locked PDF file, enter the correct password, and click “Unlock.” PDFtoolify will instantly remove the password protection.
+              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                {steps.map((item, i) => (
+                  <div
+                    key={i}
+                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${200 + i * 150}ms` }}
+                  >
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
+                      {item.step}
+                    </div>
+                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
+                      <item.icon className="w-7 h-7 text-primary-foreground" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+            <section className="container py-20">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  Unlock PDF FAQs
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Common questions about our PDF unlocker
                 </p>
-                <hr className="text-gray-800" />
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Will unlocking my PDF affect its quality?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  No, unlocking a PDF does not change its quality or formatting. Your file remains exactly the same—just without the password.
-                </p>
-                <hr className="text-gray-800" />
+              <div className="max-w-3xl mx-auto">
+                <Accordion type="single" collapsible className="space-y-3">
+                  {faqs.map((faq, i) => (
+                    <AccordionItem
+                      key={i}
+                      value={`item-${i}`}
+                      className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-300"
+                    >
+                      <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-5">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Is it safe to unlock PDFs online?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes. PDFtoolify uses secure processing, and all uploaded files are automatically deleted after completion for maximum privacy.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Can I unlock PDFs offline with PDFtoolify?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes. You can download the Windows app and unlock PDFs even without an internet connection.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Does unlocking PDFs cost anything?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  No, unlocking PDF files with PDFtoolify is completely free and unlimited.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-            </div>
+            </section>
             <ToolList />
           </div>
         )}

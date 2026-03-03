@@ -1,7 +1,6 @@
 "use client"
-import { useState,useRef,useEffect,useCallback } from "react";
-import Image from "next/image";
-import { Document, Page, pdfjs } from "react-pdf";
+import { useState } from "react";
+import { pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import Processing from "@/components/Processing";
@@ -10,15 +9,133 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import FileInput from "@/components/FileInput";
 import { useFileUpload } from "@/hooks/useFileUpload";
-import { BadgeCheck, CircleCheck, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
-import FeaturesCard from "@/components/FeaturesCard";
+import {
+  BadgeCheck,
+  CircleCheck,
+  Gift,
+  InfinityIcon,
+  MousePointerClick,
+  ShieldCheck,
+  SplitIcon,
+  Zap,
+  Sparkles,
+  CheckCircle,
+} from "lucide-react";
+import FeaturesCard from "@/components/FeatureCard";
 import PDFPageComponent from "@/components/PDFPageComponent";
-import { PDFDocument,rgb,StandardFonts } from "pdf-lib";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import ToolList from "@/components/ToolList";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
+
+const benefits = [
+  "Our free page number tool works perfectly on any device",
+  "Easily add page numbers to your PDF with PDFtoolify",
+  "PDFtoolify is secure, fast, and simple for all PDF operations",
+  "No signup required — add page numbers instantly",
+  "Add page numbers to PDFs in seconds — free, reliable, and easy to use",
+];
+
+const features = [
+  {
+    icon: MousePointerClick,
+    heading: "Easy to Use",
+    paragraph:
+      "Adding page numbers to your PDFs is super simple. Just upload your file and apply numbering in one click.",
+  },
+  {
+    icon: Gift,
+    heading: "Free & No Sign Up",
+    paragraph:
+      "Add page numbers to unlimited PDFs online for free. No account or registration required.",
+  },
+  {
+    icon: InfinityIcon,
+    heading: "Customize as You Want",
+    paragraph:
+      "Choose numbering position and alignment to match your document’s needs.",
+  },
+  {
+    icon: BadgeCheck,
+    heading: "Accurate Page Numbering",
+    paragraph:
+      "Clean, precise placement of page numbers on every page without affecting your original layout.",
+  },
+  {
+    icon: ShieldCheck,
+    heading: "Secure Online Processing",
+    paragraph:
+      "Your files are deleted automatically after processing. PDFtoolify keeps your documents private and secure.",
+  },
+  {
+    icon: Zap,
+    heading: "Fast & Powerful",
+    paragraph:
+      "Add page numbers to your PDFs within seconds. Quick processing with high-quality output.",
+  },
+];
+
+const steps = [
+  {
+    step: "1",
+    title: "Upload your PDF",
+    description:
+      "Select a PDF from your device or drag and drop it into the upload area.",
+  },
+  {
+    step: "2",
+    title: "Choose page number position",
+    description:
+      "Select where you want the page numbers to appear (top or bottom, left, center, or right).",
+  },
+  {
+    step: "3",
+    title: "Apply and download",
+    description:
+      "Click on “Add Page Numbers” and download your updated PDF instantly.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Is PDFtoolify really free?",
+    answer:
+      "Yes, PDFtoolify is completely free. You can add page numbers to your PDF files without any signup or hidden charges.",
+  },
+  {
+    question: "How can I add page numbers to my PDF?",
+    answer:
+      "Upload your PDF, choose the page number position, then click “Add Page Numbers.” Your updated PDF will be ready instantly.",
+  },
+  {
+    question: "Will adding page numbers change my PDF quality?",
+    answer:
+      "No, adding page numbers does not affect your PDF content or quality. Only clean and accurate numbering is added.",
+  },
+  {
+    question: "Is it safe to upload my PDFs?",
+    answer:
+      "Yes, your files are processed securely. PDFtoolify automatically deletes your PDFs from the server after processing to ensure privacy.",
+  },
+  {
+    question: "Can I customize the page numbers?",
+    answer:
+      "Yes, you can choose the page number position and alignment to match your document’s requirements.",
+  },
+  {
+    question: "Does adding page numbers cost anything?",
+    answer:
+      "No, adding page numbers using PDFtoolify is completely free and unlimited.",
+  },
+];
 
 function PageNO() {
   
@@ -116,16 +233,29 @@ function PageNO() {
   };
 
   return (
-    <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px] ">
-      {!completionStatus && (
-        <div>
-          <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            Add Page Numbers To PDF
-          </h1>
-          <p className="text-center text-gray-500 md:text-md">
-            Add Page Number To PDF File
-          </p>
-        </div>
+    <div className="min-h-screen bg-background">
+      {!completionStatus && !isDroped && (
+        <section
+          className="relative pt-16 pb-6"
+          style={{ background: "var(--gradient-hero)" }}
+        >
+          <div
+            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
+            style={{ background: "var(--gradient-glow)" }}
+          />
+          <div className="container pt-16 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
+              <Sparkles className="w-4 h-4" />
+              Free Online Page Number Adder
+            </div>
+            <h1 className="section-heading text-center">
+              Add <span className="gradient-text">Page Numbers</span> to PDF
+            </h1>
+            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
+              Quickly add clear, consistent page numbers to your PDF documents — free, fast, and secure.
+            </p>
+          </div>
+        </section>
       )}
       <form
         onSubmit={(e) => {
@@ -135,163 +265,115 @@ function PageNO() {
       >
         {!isDroped && (
           <div>
-            <FileInput setFiles={setFiles} setisDroped={setisDroped} multiple={false} accept= {{ "application/pdf": [] }} />
-            <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">
-            Add page numbers to PDF
-            </h1>
-            {/* points section */}
-            <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
+            <FileInput
+              setFiles={setFiles}
+              setisDroped={setisDroped}
+              multiple={false}
+              accept={{ "application/pdf": [] }}
+            />
 
-              <div className="flex flex-col gap-2 w-xl text-sm">
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Our free page number tool works perfectly on any device</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Easily add page numbers to your PDF with PDFtoolify</span>
-                </div>
+            {/* Benefits Section */}
+            <section className="container py-20">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
+                Add page numbers to your PDF online for free
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                {benefits.map((benefit, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${400 + i * 80}ms` }}
+                  >
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">{benefit}</span>
+                  </div>
+                ))}
               </div>
-
-              <div className="w-xl flex flex-col gap-2 text-sm">
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>PDFtoolify is secure, fast, and simple for all PDF operations</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>No signup required — add page numbers instantly</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} /> 
-                  <span>Add page numbers to PDFs in seconds — free, reliable, and easy to use</span>
-                </div>
-              </div>
-
-            </div>
+            </section>
 
             {/* feature card section */}
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
-              Features of PDFtoolify - Add Page numbers to PDF
-            </h1>
-            <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-
-              <FeaturesCard 
-                Icon={MousePointerClick} 
-                heading={"Easy to Use"} 
-                paragraph={"Adding page numbers to your PDFs is super simple. Just upload your file, choose the style and position, and apply the numbering in one click."}
-              />
-
-              <FeaturesCard 
-                Icon={Gift} 
-                heading={"Free & No Sign Up"} 
-                paragraph={"Add page numbers to unlimited PDFs online for free. No account or registration is required — fast and hassle-free."}
-              />
-
-              <FeaturesCard 
-                Icon={InfinityIcon} 
-                heading={"Customize as You Want"} 
-                paragraph={"Choose numbering style, start number, position, and alignment. Fully flexible options to match your document’s needs."}
-              />
-
-              <FeaturesCard 
-                Icon={BadgeCheck} 
-                heading={"Accurate Page Numbering"} 
-                paragraph={"Our tool ensures clean, precise placement of page numbers on every page, without affecting the original layout or content."}
-              />
-
-              <FeaturesCard 
-                Icon={ShieldCheck} 
-                heading={"Secure Online Processing"} 
-                paragraph={"Your files are deleted automatically after processing. PDFtoolify keeps your documents private and secure at all times."}
-              />
-
-              <FeaturesCard 
-                Icon={Zap} 
-                heading={"Fast & Powerful"} 
-                paragraph={"Add page numbers to your PDFs within seconds. Quick processing with high-quality output — reliable and professional."}
-              />
-
-            </div>
-
-            {/* how to section */}
-            <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
-              <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
-                <Image
-                fill
-                src={"/how_to_merge.png"}
-                alt="how to merge pdf online"
-                />
-              </div>
-              <div className="flex justify-center items-center">
-                <div className="flex flex-col gap-3">
-                  <div className="flex gap-4 items-center">
-                    <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to add page number in pdf online?</span>
-                  </div>
-                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select file or drag and drop file in the select container</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">2.     Select a page number position where you want to add</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">3.     Add page numbers to pdf by pressing add page numbers button</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">4.     Download the page number added PDF by pressing Download button</p>
+            <section className="bg-muted/30">
+              <div className="container py-20">
+                <div className="text-center mb-14">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                    Features of PDFtoolify - Add Page Numbers
+                  </h2>
+                  <p className="text-muted-foreground max-w-lg mx-auto">
+                    Everything you need to add clean, professional page numbers to your PDFs
+                  </p>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                  {features.map((feature, i) => (
+                    <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
+                  ))}
                 </div>
               </div>
-            </div>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Add page numbers FAQs</h1>
+            </section>
+
+            {/* how to section */}
+            <section className="container py-20">
+              <div className="text-center mb-14">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  How to add page numbers in a PDF online?
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Add page numbers to your PDF in just a few simple steps.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                {steps.map((item, i) => (
+                  <div
+                    key={i}
+                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${200 + i * 150}ms` }}
+                  >
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
+                      {item.step}
+                    </div>
+                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
+                      <Sparkles className="w-7 h-7 text-primary-foreground" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col p-3 mt-12 items-start gap-6">
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Is PDFtoolify Really Free?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes, PDFtoolify is completely free. You can add page numbers to your PDF files without any signup or hidden charges.
+            <section className="container py-20">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  Add Page Numbers FAQs
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Common questions about adding page numbers to your PDFs
                 </p>
-                <hr className="text-gray-800" />
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">How can I add page numbers to my PDF?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Upload your PDF, choose the page number position, style, and starting number, then click “Add Page Numbers.” Your updated PDF will be ready instantly.
-                </p>
-                <hr className="text-gray-800" />
+              <div className="max-w-3xl mx-auto">
+                <Accordion type="single" collapsible className="space-y-3">
+                  {faqs.map((faq, i) => (
+                    <AccordionItem
+                      key={i}
+                      value={`item-${i}`}
+                      className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-300"
+                    >
+                      <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-5">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
+            </section>
 
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Will adding page numbers change my PDF quality?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  No, adding page numbers does not affect your PDF content or quality. Only clean and accurate numbering is added.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Is it safe to upload my PDFs?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes, your files are processed securely. PDFtoolify automatically deletes your PDFs from the server after processing to ensure privacy.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Can I customize the page numbers?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes! You can customize numbering style, position, font size, alignment, and starting number to match your document’s requirements.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Does adding page numbers cost anything?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  No, adding page numbers using PDFtoolify is completely free and unlimited.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-            </div>
             <ToolList />
           </div>
         )}

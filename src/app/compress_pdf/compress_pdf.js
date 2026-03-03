@@ -8,8 +8,26 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
-import { BadgeCheck, CircleCheck, CircleDashed, Gift, InfinityIcon, MousePointerClick, ShieldCheck, SplitIcon, Zap } from "lucide-react";
-import FeaturesCard from "@/components/FeaturesCard";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  BadgeCheck,
+  CheckCircle,
+  CircleCheck,
+  CircleDashed,
+  Gift,
+  InfinityIcon,
+  MousePointerClick,
+  ShieldCheck,
+  Sparkles,
+  SplitIcon,
+  Zap,
+} from "lucide-react";
+import FeaturesCard from "@/components/FeatureCard";
 import Image from "next/image";
 import PDFPageConponent from "@/components/PDFPageComponent";
 import ToolList from "@/components/ToolList";
@@ -31,16 +49,29 @@ function Compress() {
   };
 
   return (
-    <div className="mx-auto p-1 bg-[#F7F5FB] min-h-[658px] ">
-      {!completionStatus && (
-        <div>
-          <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            Compress PDF File
-          </h1>
-          <p className="text-center text-gray-500 md:text-md">
-            Minimize the size of the pdf
-          </p>
-        </div>
+    <div className="min-h-screen bg-background">
+      {!completionStatus && !isDroped && (
+        <section
+          className="relative pt-16 pb-6"
+          style={{ background: "var(--gradient-hero)" }}
+        >
+          <div
+            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
+            style={{ background: "var(--gradient-glow)" }}
+          />
+          <div className="container pt-16 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
+              <Sparkles className="w-4 h-4" />
+              Free Online PDF Compressor
+            </div>
+            <h1 className="section-heading text-center">
+              Compress <span className="gradient-text">PDF Files</span> Fast
+            </h1>
+            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
+              Reduce PDF size without sacrificing quality — quick, secure, and free
+            </p>
+          </div>
+        </section>
       )}
       <form
         onSubmit={(e) => {
@@ -48,180 +79,117 @@ function Compress() {
         }}
         encType="multipart/form-data"
       >
-        {!isDroped && (
+        {!isDroped && !completionStatus && (
           <div>
-            <FileInput setFiles={setFiles} setisDroped={setisDroped} multiple={false} accept= {{ "application/pdf": [] }}/>
-            <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">
-            Compress PDF or minimize the size of the pdf
-            </h1>
-            {/* points section */}
-            <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
+            <FileInput
+              setFiles={setFiles}
+              setisDroped={setisDroped}
+              multiple={false}
+              accept={{ "application/pdf": [] }}
+            />
 
-              <div className="flex flex-col gap-2 w-xl text-sm">
-                
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Our free PDF Compressor works smoothly on all devices</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Easily reduce PDF file size without losing important quality</span>
-                </div>
-
+            {/* Benefits Section */}
+            <section className="container py-20">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
+                Compress PDF files online for free
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                {benefits.map((benefit, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${400 + i * 80}ms` }}
+                  >
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">{benefit}</span>
+                  </div>
+                ))}
               </div>
-
-              <div className="w-xl flex flex-col gap-2 text-sm">
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>PDFtoolify uses secure and efficient compression technology</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>No signup needed — compress PDF files instantly online</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Compress PDFs in seconds — fast, free, and reliable with PDFtoolify</span>
-                </div>
-
-              </div>
-
-            </div>
+            </section>
 
             {/* feature card section */}
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
-              Features of PDFtoolify - Compress PDF
-            </h1>
-            <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-
-              <FeaturesCard 
-                Icon={MousePointerClick} 
-                heading="Simple & Easy to Use" 
-                paragraph="Compressing your PDF is extremely simple. Upload your file, choose the compression level, and download a smaller, optimized PDF instantly."
-              />
-
-              <FeaturesCard 
-                Icon={Gift} 
-                heading="Free & No Sign Up Needed" 
-                paragraph="Compress unlimited PDF files for free without creating an account. No hidden charges—just fast and effective PDF compression."
-              />
-
-              <FeaturesCard 
-                Icon={CircleDashed} 
-                heading="Powerful Compression Levels" 
-                paragraph="Choose between standard, strong, or maximum compression to reduce file size the way you need—ideal for sharing, emailing, or uploading."
-              />
-
-              <FeaturesCard 
-                Icon={BadgeCheck} 
-                heading="Quality Preserved" 
-                paragraph="PDFtoolify ensures your PDF retains readable text and clear images even after compression. Get smaller files without losing clarity."
-              />
-
-              <FeaturesCard 
-                Icon={ShieldCheck} 
-                heading="Secure Online Compression" 
-                paragraph="Your privacy is protected. All uploaded PDFs are automatically deleted after processing, ensuring safe and secure compression."
-              />
-
-              <FeaturesCard 
-                Icon={Zap} 
-                heading="Fast & Efficient" 
-                paragraph="Compress PDF files in seconds. Our optimized compression engine delivers fast, smooth, and reliable performance every time."
-              />
-
-            </div>
+            <section className="bg-muted/30">
+              <div className="container py-20">
+                <div className="text-center mb-14">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                    Features of PDFtoolify - Compress PDF
+                  </h2>
+                  <p className="text-muted-foreground max-w-lg mx-auto">
+                    Powerful, safe, and fast tools to reduce your PDF size
+                  </p>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                  {features.map((feature, i) => (
+                    <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
+                  ))}
+                </div>
+              </div>
+            </section>
 
             {/* how to section */}
-              <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
-                <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
-                  <Image
-                  fill
-                  src={"/how_to_merge.png"}
-                  alt="how to merge pdf online"
-                  />
-                </div>
-                <div className="flex justify-center items-center">
-                  <div className="flex flex-col gap-3">
-                    <div className="flex gap-4 items-center">
-                      <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                      <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to compress pdf file onliine?</span>
+            <section className="container py-20">
+              <div className="text-center mb-14">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  How to compress a PDF file online?
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Follow these simple steps to reduce your PDF file size.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                {steps.map((item, i) => (
+                  <div
+                    key={i}
+                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in"
+                    style={{ animationDelay: `${200 + i * 150}ms` }}
+                  >
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
+                      {item.step}
                     </div>
-                    <p className="whitespace-pre text-sm tracking-tighter">1.     Select file or drag and drop file in the select container</p>
-                    <p className="whitespace-pre text-sm tracking-tighter">2.     Compress PDF files by pressing compress PDF button</p>
-                    <p className="whitespace-pre text-sm tracking-tighter">3.     Download the compress PDF by pressing Download button</p>
+                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
+                      <Sparkles className="w-7 h-7 text-primary-foreground" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
                   </div>
-                </div>
+                ))}
               </div>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Compress PDF FAQs</h1>
+            </section>
+
             {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex flex-col p-3 mt-12 items-start gap-6">
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Is PDFtoolify’s PDF Compressor free to use?
+            <section className="container py-20">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  Compress PDF FAQs
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Answers to common questions about reducing PDF file size
                 </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes, PDFtoolify’s Compress PDF tool is completely free. You can reduce the size of unlimited PDF files without creating an account.
-                </p>
-                <hr className="text-gray-800" />
               </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  How can I compress a PDF with PDFtoolify?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Just upload your PDF file, choose your preferred compression level, and click “Compress.” PDFtoolify will reduce your file size instantly.
-                </p>
-                <hr className="text-gray-800" />
+              <div className="max-w-3xl mx-auto">
+                <Accordion type="single" collapsible className="space-y-3">
+                  {faqs.map((faq, i) => (
+                    <AccordionItem
+                      key={i}
+                      value={`item-${i}`}
+                      className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-300"
+                    >
+                      <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-5">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
+            </section>
 
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Will the quality of my PDF reduce after compression?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  No. PDFtoolify maintains text clarity and readable quality while reducing file size. You can also choose stronger compression if needed.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Is it safe to compress PDFs online using PDFtoolify?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes. Your files are processed securely, and PDFtoolify automatically deletes all uploaded PDFs after compression to ensure your privacy.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Can I compress large PDF files?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  Absolutely. PDFtoolify can compress large PDFs and significantly reduce their file size without affecting essential content.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">
-                  Do I need software to compress PDFs?
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  No installation needed. PDFtoolify works completely online, allowing you to compress PDFs directly from your browser.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-            </div>
             <ToolList />
           </div>
         )}

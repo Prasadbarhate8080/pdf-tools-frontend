@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useCallback,useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -7,23 +7,140 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import FileInput from "@/components/FileInput";
 import { useFileUpload } from "@/hooks/useFileUpload";
-import { BadgeCheck, Check, CircleCheck, Gift, InfinityIcon, MousePointerClick, Scissors, ShieldCheck, SplitIcon, Zap } from "lucide-react";
-import FeaturesCard from "@/components/FeaturesCard";
-import Image from "next/image";
-import { toast } from "react-toastify";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  BadgeCheck,
+  Check,
+  CheckCircle,
+  Download,
+  Gift,
+  InfinityIcon,
+  Scissors,
+  ShieldCheck,
+  Sparkles,
+  Upload,
+  Zap,
+} from "lucide-react";
+import FeaturesCard from "@/components/FeatureCard";
 import { PDFDocument } from "pdf-lib";
 import ToolList from "@/components/ToolList";
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
+const benefits = [
+  "Remove unwanted pages from any PDF on any device",
+  "Select exactly the pages you want to delete",
+  "Secure processing with automatic file deletion",
+  "No signup required — remove pages instantly",
+  "Fast, accurate, and free page removal",
+];
+
+const steps = [
+  {
+    icon: Upload,
+    step: "1",
+    title: "Upload PDF",
+    description: "Select a PDF file or drag and drop it into the upload area.",
+  },
+  {
+    icon: Scissors,
+    step: "2",
+    title: "Select Pages",
+    description: "Click the pages you want to remove from the document.",
+  },
+  {
+    icon: Download,
+    step: "3",
+    title: "Download PDF",
+    description: "Get your cleaned PDF instantly — fast and free.",
+  },
+];
+
+const features = [
+  {
+    icon: Scissors,
+    heading: "Remove Pages Easily",
+    paragraph:
+      "Delete unwanted pages from your PDF in just a few clicks. Simple, clean, and designed for everyone to use without complications.",
+  },
+  {
+    icon: Gift,
+    heading: "Free & No Sign Up",
+    paragraph:
+      "Remove unlimited PDF pages online for free without creating an account. No hidden costs, no registration—just fast and easy PDF cleaning.",
+  },
+  {
+    icon: InfinityIcon,
+    heading: "Remove Without Limits",
+    paragraph:
+      "Delete any number of pages—from one page to multiple sections. Our tool handles everything smoothly and efficiently.",
+  },
+  {
+    icon: BadgeCheck,
+    heading: "Accurate Page Removal",
+    paragraph:
+      "Our PDF remover ensures precise results every time. Delete only the pages you want while keeping the rest of the document untouched.",
+  },
+  {
+    icon: ShieldCheck,
+    heading: "Secure Online Processing",
+    paragraph:
+      "Your files stay private. All uploaded PDFs are auto-deleted after processing, ensuring safe and secure page removal.",
+  },
+  {
+    icon: Zap,
+    heading: "Fast & Powerful",
+    paragraph:
+      "Powered by optimized processing, our tool removes pages within seconds. Fast, reliable, and professional for everyday use.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Is PDFtoolify Free to Remove PDF Pages?",
+    answer:
+      "Yes, removing pages from your PDF is completely free on PDFtoolify. No signup or subscription required.",
+  },
+  {
+    question: "How do I remove pages from a PDF using PDFtoolify?",
+    answer:
+      "Upload your PDF, select the pages you want to delete, and click “Remove Pages.” PDFtoolify will instantly generate a new cleaned PDF.",
+  },
+  {
+    question: "Will removing pages change my PDF quality?",
+    answer:
+      "No. Only the selected pages are deleted—your remaining pages stay in the same original quality and format.",
+  },
+  {
+    question: "Is it safe to remove PDF pages online?",
+    answer:
+      "Yes. All files are processed securely, and your PDF is automatically deleted from our servers after completion.",
+  },
+  {
+    question: "Can I remove PDF pages offline?",
+    answer:
+      "Yes. You can download PDFtoolify for Windows and remove pages offline without internet access.",
+  },
+  {
+    question: "Does removing PDF pages cost anything?",
+    answer:
+      "No. PDFtoolify’s page removal tool is 100% free and has no hidden charges.",
+  },
+];
+
 export default function RemovePDFPages() {
   const [numPages, setNumPages] = useState(null);
   const [selectedPages, setSelectedPages] = useState([]);
 
-  let {files,isDroped,isProcessing,completionStatus,isUploading,
-      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi,setdownloadFileURL,setCompletionStatus
-      } = useFileUpload()
+  let { files, isDroped, isProcessing, completionStatus, isUploading,
+    downloadFileURL, serverPreparing, progress, setisDroped, setFiles, callApi, setdownloadFileURL, setCompletionStatus
+  } = useFileUpload()
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -37,10 +154,10 @@ export default function RemovePDFPages() {
     );
   };
 
-  async function removePages(){
+  async function removePages() {
     try {
-      if(!files) throw new Error("no file selected")
-      if(selectedPages.length == 0) throw new Error("please select at least one page")
+      if (!files) throw new Error("no file selected")
+      if (selectedPages.length == 0) throw new Error("please select at least one page")
 
       const arrayBuffer = await files.arrayBuffer();
       const pdfDoc = await PDFDocument.load(arrayBuffer)
@@ -53,16 +170,15 @@ export default function RemovePDFPages() {
           .map(p => p - 1) // Convert to 0-based
       );
 
-      if(removeSet.size == 0) throw new Error("remove set size is zero")
-      
+      if (removeSet.size == 0) throw new Error("remove set size is zero")
+
       const keepPages = [];
-      for(let i = 0; i < totalPages ; i++)
-      {
-        if(!removeSet.has(i))
+      for (let i = 0; i < totalPages; i++) {
+        if (!removeSet.has(i))
           keepPages.push(i);
       }
 
-      if(keepPages.length == 0) throw new Error("all pages selected to remove")
+      if (keepPages.length == 0) throw new Error("all pages selected to remove")
       const newPdfDoc = await PDFDocument.create();
       const copiedPages = await newPdfDoc.copyPages(pdfDoc, keepPages);
       copiedPages.forEach(p => newPdfDoc.addPage(p));
@@ -91,16 +207,29 @@ export default function RemovePDFPages() {
   };
 
   return (
-    <div className="p-1 mx-auto bg-[#F7F5FB] min-h-[658px]">
+    <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <div>
-          <h1 className="text-center mt-4 text-3xl md:text-4xl font-bold text-gray-800">
-            Remove Pages From PDF
-          </h1>
-          <p className="text-center text-gray-500 text-md">
-            select pages as you want to remove
-          </p>
-        </div>
+        <section
+          className="relative pt-16 pb-6"
+          style={{ background: "var(--gradient-hero)" }}
+        >
+          <div
+            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
+            style={{ background: "var(--gradient-glow)" }}
+          />
+          <div className="container pt-16 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
+              <Sparkles className="w-4 h-4" />
+              Free Online PDF Page Remover
+            </div>
+            <h1 className="section-heading text-center">
+              Remove <span className="gradient-text">PDF Pages</span> Easily
+            </h1>
+            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
+              Delete unwanted pages quickly while keeping your PDF quality intact
+            </p>
+          </div>
+        </section>
       )}
 
       {!completionStatus && isDroped && (
@@ -111,168 +240,107 @@ export default function RemovePDFPages() {
         </div>
       )}
 
-      {!isDroped && (
+      {!isDroped && !completionStatus && (
         <div>
-          <FileInput setFiles={setFiles} setisDroped={setisDroped} multiple={false} accept= {{ "application/pdf": [] }}/>
-          <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">
-            Remove Pages From the PDF
-            </h1>
-            {/* points section */}
-            <div className="flex justify-center max-w-7xl mt-6 mx-auto flex-wrap gap-4 text-gray-800">
-              <div className="flex flex-col gap-2 w-xl text-sm">
-                
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Our Remove PDF Pages tool works smoothly on all devices — mobile, tablet, and desktop.</span>
+          <FileInput
+            setFiles={setFiles}
+            setisDroped={setisDroped}
+            multiple={false}
+            accept={{ "application/pdf": [] }}
+          />
+          <section className="container py-20">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
+              Remove PDF pages online for free
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+              {benefits.map((benefit, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200 opacity-0 animate-fade-in"
+                  style={{ animationDelay: `${400 + i * 80}ms` }}
+                >
+                  <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-muted-foreground">{benefit}</span>
                 </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Easily delete unwanted pages from any PDF file using PDFtoolify.</span>
-                </div>
-
+              ))}
+            </div>
+          </section>
+          <section className="bg-muted/30">
+            <div className="container py-20">
+              <div className="text-center mb-14">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  Features of PDFtoolify
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Everything you need to remove PDF pages with confidence
+                </p>
               </div>
-
-              <div className="w-xl flex flex-col gap-2 text-sm">
-                
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>PDFtoolify keeps your files secure — all uploads are automatically deleted after processing.</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>No signup required — remove pages from your PDF instantly.</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <CircleCheck color="green" className="min-w-6" strokeWidth={1.5} />
-                  <span>Remove pages in seconds — fast, accurate, and completely free with PDFtoolify.</span>
-                </div>
-
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                {features.map((feature, i) => (
+                  <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
+                ))}
               </div>
             </div>
-
-            {/* feature card section */}
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">
-              Features of PDFtoolify - Remove PDF pages
-            </h1>
-            <div className="max-w-7xl flex mx-auto mt-24 flex-wrap gap-10 justify-evenly">
-
-              <FeaturesCard 
-                Icon={Scissors} 
-                heading={"Remove Pages Easily"} 
-                paragraph={"Delete unwanted pages from your PDF in just a few clicks. Simple, clean, and designed for everyone to use without complications."}
-              />
-
-              <FeaturesCard 
-                Icon={Gift} 
-                heading={"Free & No Sign Up"} 
-                paragraph={"Remove unlimited PDF pages online for free without creating an account. No hidden costs, no registration—just fast and easy PDF cleaning."}
-              />
-
-              <FeaturesCard 
-                Icon={InfinityIcon} 
-                heading={"Remove Without Limits"} 
-                paragraph={"Delete any number of pages—from one page to multiple sections. Our tool handles everything smoothly and efficiently."}
-              />
-
-              <FeaturesCard 
-                Icon={BadgeCheck} 
-                heading={"Accurate Page Removal"} 
-                paragraph={"Our PDF remover ensures precise results every time. Delete only the pages you want while keeping the rest of the document untouched."}
-              />
-
-              <FeaturesCard 
-                Icon={ShieldCheck} 
-                heading={"Secure Online Processing"} 
-                paragraph={"Your files stay private. All uploaded PDFs are auto-deleted after processing, ensuring safe and secure page removal."}
-              />
-
-              <FeaturesCard 
-                Icon={Zap} 
-                heading={"Fast & Powerful"} 
-                paragraph={"Powered by optimized processing, our tool removes pages within seconds. Fast, reliable, and professional for everyday use."}
-              />
-
+          </section>
+          <section className="container py-20">
+            <div className="text-center mb-14">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                How to remove PDF pages?
+              </h2>
+              <p className="text-muted-foreground max-w-lg mx-auto">
+                Delete pages in three simple steps
+              </p>
             </div>
-
-            {/* how to section */}
-            <div className="flex max-w-7xl justify-center md:gap-20 gap-4 items-center flex-wrap mx-auto mt-24 text-gray-800">
-              <div className="flex relative w-[370px] h-[300px] md:w-[560px] md:h-[360px] justify-center items-center">
-                <Image
-                fill
-                src={"/how_to_merge.png"}
-                alt="how to merge pdf online"
-                />
-              </div>
-              <div className="flex justify-center items-center">
-                <div className="flex flex-col gap-3">
-                  <div className="flex gap-4 items-center">
-                    <span className="md:w-5 md:h-5 w-4 h-4 rounded-md bg-black inline-block"></span> 
-                    <span className="md:text-2xl text-xl text-gray-800 font-semibold ">How to remove pdf pages online?</span>
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              {steps.map((item, i) => (
+                <div
+                  key={i}
+                  className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in"
+                  style={{ animationDelay: `${200 + i * 150}ms` }}
+                >
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
+                    {item.step}
                   </div>
-                  <p className="whitespace-pre text-sm tracking-tighter">1.     Select file or drag and drop file in the select container</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">2.     Select the pages which you want remove</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">3.     Remove the pdf pages by pressing remove pdf pages button</p>
-                  <p className="whitespace-pre text-sm tracking-tighter">4.     Download the pages removed  PDF by pressing download button</p>
+                  <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
+                    <item.icon className="w-7 h-7 text-primary-foreground" />
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-              </div>
+              ))}
             </div>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Remove PDF pages FAQs</h1>
-            {/* FAQs Section */}
-            <div className="max-w-4xl mx-auto flex p-3 flex-col mt-12 items-start gap-6">
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Is PDFtoolify Free to Remove PDF Pages?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes, removing pages from your PDF is completely free on PDFtoolify. No signup or subscription required.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">How do I remove pages from a PDF using PDFtoolify?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Upload your PDF, select the pages you want to delete, and click “Remove Pages.” PDFtoolify will instantly generate a new cleaned PDF.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Will removing pages change my PDF quality?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  No. Only the selected pages are deleted—your remaining pages stay in the same original quality and format.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Is it safe to remove PDF pages online?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes. All files are processed securely, and your PDF is automatically deleted from our servers after completion.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Can I remove PDF pages offline?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  Yes. You can download PDFtoolify for Windows and remove pages offline without internet access.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <p className="text-xl font-semibold text-gray-800">Does removing PDF pages cost anything?</p>
-                <p className="text-sm font-medium text-gray-800">
-                  No. PDFtoolify’s page removal tool is 100% free and has no hidden charges.
-                </p>
-                <hr className="text-gray-800" />
-              </div>
-
+          </section>
+          <section className="container py-20">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                Remove PDF Pages FAQs
+              </h2>
+              <p className="text-muted-foreground max-w-lg mx-auto">
+                Common questions about removing PDF pages
+              </p>
             </div>
-            <ToolList />
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-3">
+                {faqs.map((faq, i) => (
+                  <AccordionItem
+                    key={i}
+                    value={`item-${i}`}
+                    className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-300"
+                  >
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-5">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </section>
+          <ToolList />
         </div>
       )}
 
@@ -289,14 +357,14 @@ export default function RemovePDFPages() {
                     className={`w-fit p-1 bg-white rounded-md border-gray-500 border relative  cursor-pointer transition-transform duration-200 hover:bg-gray-100`}
                     onClick={() => togglePageSelection(pageNum)}
                   >
-                    <Page pageNumber={pageNum} width={200}  />
+                    <Page pageNumber={pageNum} width={200} />
                     <p className="text-center p-1">
-                      Page {pageNum} 
+                      Page {pageNum}
                     </p>
                     <div className={`absolute top-0.5 right-0.5 h-6 w-6 border-1 border-gray-500 rounded-md
                     ${isSelected ? "bg-blue-600" : "bg-white"}`}
-                    > 
-                      <Check color="white" className={`${isSelected ? "block" : "hidden"}`}/> 
+                    >
+                      <Check color="white" className={`${isSelected ? "block" : "hidden"}`} />
                     </div>
                   </div>
                 );
@@ -317,12 +385,12 @@ export default function RemovePDFPages() {
       )}
 
       {/* progress bar and proessing */}
-      {progress > 0 && progress < 100 && <ProgressBar progress={progress}/>}
-      {serverPreparing &&  <div className="flex flex-col items-center mt-8">
+      {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
+      {serverPreparing && <div className="flex flex-col items-center mt-8">
         <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
         <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
       </div>
-          }
+      }
       {progress === 100 && isProcessing && <Processing />}
 
       {/* after task complete button will show */}
@@ -342,7 +410,7 @@ export default function RemovePDFPages() {
           </div>
         </div>
       )}
-      
+
     </div>
   );
 }

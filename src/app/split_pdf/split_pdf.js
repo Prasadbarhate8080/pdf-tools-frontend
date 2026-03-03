@@ -36,7 +36,7 @@ import {
 import { PDFDocument } from 'pdf-lib'
 import JSZip from 'jszip'
 import ToolList from '@/components/ToolList'
-import FeatureCard from '@/components/FeaturesCard'
+import FeatureCard from '@/components/FeatureCard'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
