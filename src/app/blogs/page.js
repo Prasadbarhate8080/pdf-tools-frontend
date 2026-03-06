@@ -1,74 +1,51 @@
-"use client"
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import PostCard from '@/components/PostCard';
-import Link from 'next/link';
+async function Post() {
 
-function BlogsPage() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get('/api/get_posts');
-        setPosts(response.data.posts || []);
-      } catch (error) {
-        // Keep console log for debugging; toast can be re-enabled if desired
-        console.error('Error fetching posts', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchPosts();
-  }, []);
+  const response = await fetch("http://localhost:3000/api/get_posts");
+  const data = await response.json();
+  const articles = data.posts;
+  console.log(data)
+  if (!articles)
+    return <div className="text-center text-foreground text-2xl font-bold">No posts found</div>
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <header className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">Blog posts</h1>
-        <p className="mt-2 text-gray-600">Read articles {posts.length > 0 && `Showing ${posts.length} ${posts.length === 1 ? 'post' : 'posts'}.`}</p>
-      </header>
-
-      <section aria-live="polite">
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <svg className="animate-spin h-10 w-10 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-            </svg>
-          </div>
-        ) : (
-          <div>
-            {posts.length === 0 ? (
-              <div className="text-center py-16">
-                <p className="text-xl font-medium text-gray-800">No posts yet</p>
-                <p className="mt-2 text-gray-500">We dont have any blog posts at the moment. Check back later or add a new post from the admin area.</p>
+    <div className="mt-24">
+      <h1 className="text-3xl font-bold mx-auto container  text-foreground ">Blogs Posts</h1>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto mt-24">
+        {articles.map((article, i) => (
+          <Link href={`/view_blog/${article.slug}`} key={i}>
+            <article
+              key={i}
+              className="group rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 opacity-0 animate-fade-in"
+              style={{ animationDelay: `${200 + i * 120}ms` }}
+            >
+              <div className="aspect-video overflow-hidden bg-muted">
+                <img
+                  src={article.imageUrl}
+                  alt={article.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
               </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start gap-6">
-                {posts.map((post) => (
-                  <div key={post._id} className="flex  justify-center items-center">
-                    <Link href={post.imageUrl}>
-                      <PostCard
-                        src={post.imageUrl}
-                        date={post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}
-                        heading={post.title}
-                        description={post.description}
-                      />
-                    </Link>
-                  </div>
-                ))}
+              <div className="p-6">
+                <h3 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                  {article.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  {article.description}
+                </p>
+                <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
+                  Read more <ArrowRight className="w-4 h-4" />
+                </span>
               </div>
-            )}
-          </div>
-        )}
-      </section>
-    </main>
-  )
+            </article>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default BlogsPage
+export default Post;

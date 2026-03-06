@@ -5,18 +5,16 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 const navItems = [
-  { name: "Home", href: "#" },
+  { name: "Home", href: "/" },
   {
     name: "Merge PDF",
-    href: "https://www.pdftoolify.com/merge_pdf",
-    external: true,
+    href: "/merge_pdf",
   },
   {
     name: "Split PDF",
-    href: "https://www.pdftoolify.com/split_pdf",
-    external: true,
+    href: "/split_pdf",
   },
-  { name: "Blogs", href: "#" },
+  { name: "Blogs", href: "/blogs" },
   { name: "Tools", href: "#tools" },
 ];
 

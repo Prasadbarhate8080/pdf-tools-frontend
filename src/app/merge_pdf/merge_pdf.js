@@ -342,6 +342,7 @@ function Merge() {
                 </Accordion>
               </div>
             </section>
+            {/* blog section */}
             <section className="container py-20">
               <div className="text-center mb-12">
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
