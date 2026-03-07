@@ -2,13 +2,25 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 async function Post() {
+    const baseUrl = "https://pdftoolify.com";
 
-    const response = await fetch("https://pdftoolify.com/api/get_posts");
-    const data = await response.json();
-    const articles = data.posts;
-    console.log(data)
+    let articles = [];
+    try {
+        const response = await fetch(`${baseUrl}/api/get_posts`, {
+            cache: "no-store",
+        });
+        if (!response.ok) {
+            console.error("Failed to fetch posts:", response.statusText);
+        } else {
+            const data = await response.json();
+            articles = data?.posts || [];
+        }
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
+
     if (!articles || articles.length === 0)
-        return <div className="text-center text-foreground text-2xl font-bold">No posts found</div>
+        return <div className="text-center text-foreground text-2xl font-bold py-10">No posts found</div>
 
     return (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto mt-14">
