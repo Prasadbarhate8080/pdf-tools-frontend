@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/third-parties": "^16.1.6",
     "@reduxjs/toolkit": "^2.6.1",
     "@tinymce/tinymce-react": "^6.3.0",
     "axios": "^1.8.4",

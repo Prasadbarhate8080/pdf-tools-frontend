@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/store/StoreProvider";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import { ToastContainer } from "react-toastify";
 import { Header } from "@/components/Header";
@@ -42,6 +43,7 @@ export default function RootLayout({ children }) {
           </StoreProvider>
           <ToastContainer />
         </body>
+        <GoogleAnalytics gaId="G-3X5G3GQHTZ" />
       </html>
   );
 }
