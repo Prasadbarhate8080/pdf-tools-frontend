@@ -3,7 +3,7 @@ import Link from "next/link";
 
 async function Post() {
 
-    const response = await fetch("http://localhost:3000/api/get_posts");
+    const response = await fetch("https://pdftoolify.com/api/get_posts");
     const data = await response.json();
     const articles = data.posts;
     console.log(data)
