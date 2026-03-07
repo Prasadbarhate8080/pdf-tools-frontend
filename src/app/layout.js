@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
       <html lang="en" className="">
        
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased  `}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased  min-h-screen flex flex-col justify-between`}
         >
           <StoreProvider> 
             <Header />

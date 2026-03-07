@@ -7,7 +7,7 @@ async function Post() {
     const data = await response.json();
     const articles = data.posts;
     console.log(data)
-    if (!articles)
+    if (!articles || articles.length === 0)
         return <div className="text-center text-foreground text-2xl font-bold">No posts found</div>
 
     return (
