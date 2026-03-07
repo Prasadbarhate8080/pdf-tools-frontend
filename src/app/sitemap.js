@@ -6,7 +6,6 @@ export const runtime = "nodejs"
 function isPageFile(file) {
   return file === "page.js" || file === "page.jsx" || file === "page.tsx"
 }
-console.log('sitemap.js ran')
 
 function normalizeRoute(dirParts) {
   const parts = []
