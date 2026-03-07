@@ -1,75 +1,65 @@
-import fs from "fs"
-import path from "path"
-
+export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
 
-function isPageFile(file) {
-  return file === "page.js" || file === "page.jsx" || file === "page.tsx"
-}
-
-function normalizeRoute(dirParts) {
-  const parts = []
-  for (const p of dirParts) {
-    if (!p) continue
-    if (p.startsWith("(") && p.endsWith(")")) continue
-    if (p.startsWith("_")) continue
-    if (p === "api") return null
-    if (p.startsWith("[")) return null
-    parts.push(p)
-  }
-  const route = "/" + parts.join("/")
-  return route === "/index" ? "/" : route
-}
-
-function collectStaticRoutes() {
-  const appDir = path.join(process.cwd(), "src", "app")
-  const routes = new Set()
-  const stack = [appDir]
-  while (stack.length) {
-    const current = stack.pop()
-    const items = fs.readdirSync(current, { withFileTypes: true })
-    const hasPage = items.some((d) => d.isFile() && isPageFile(d.name))
-    if (hasPage) {
-      const rel = path.relative(appDir, current).replace(/\\/g, "/")
-      const dirParts = rel.split("/")
-      const route = normalizeRoute(dirParts)
-      if (route) routes.add("/" + rel.replace(/\/?$/, "").split("/").filter(Boolean)[0] ? route : "/")
-    }
-    for (const d of items) {
-      if (d.isDirectory()) stack.push(path.join(current, d.name))
-    }
-  }
-  routes.add("/")
-  return Array.from(routes).sort()
-}
+// Manually define the static routes for reliability in production environments
+// as filesystem access (fs) can be unreliable in compiled serverless environments.
+const staticRoutes = [
+  "/",
+  "/merge_pdf",
+  "/split_pdf",
+  "/word_to_pdf",
+  "/pdf_to_jpg",
+  "/pdf_to_pdfa",
+  "/compress_pdf",
+  "/unlock_pdf",
+  "/remove_pdf_pages",
+  "/add_watermark",
+  "/blogs",
+  "/about",
+  "/contact",
+  "/privacy",
+  "/add_page_no",
+  "/add_pages_to_pdf",
+  "/add_pdf_in_pdf",
+  "/create_pdf",
+  "/extract_pdf",
+  "/jpg_to_pdf",
+  "/png_to_pdf",
+  "/protect_pdf",
+]
 
 async function collectDynamicBlogRoutes(baseUrl) {
   try {
     const res = await fetch(`${baseUrl}/api/get_posts`, { cache: "no-store" })
-    if (!res.ok) return []
+    if (!res.ok) {
+      console.error(`Failed to fetch dynamic routes from ${baseUrl}/api/get_posts:`, res.statusText)
+      return []
+    }
     const data = await res.json()
     const posts = Array.isArray(data?.posts) ? data.posts : []
     return posts
       .filter((p) => typeof p?.slug === "string" && p.slug.length > 0)
       .map((p) => `/view_blog/${p.slug}`)
-  } catch {
+  } catch (error) {
+    console.error("Error fetching dynamic blog routes:", error)
     return []
   }
 }
 
-
 export default async function sitemap() {
   const siteFromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")
   const siteFromVercel = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ""
-  const baseUrl = siteFromEnv || siteFromVercel || "http://localhost:3000"
-  const staticRoutes = collectStaticRoutes()
+  // Defaulting to the production domain for the sitemap if env vars are missing
+  const baseUrl = siteFromEnv || siteFromVercel || "https://pdftoolify.com"
+  
   const dynamicBlogRoutes = await collectDynamicBlogRoutes(baseUrl)
   const allRoutes = new Set([...staticRoutes, ...dynamicBlogRoutes])
   const now = new Date()
+
   return Array.from(allRoutes).map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: now,
-    changeFrequency: "weekly",
-    priority: route === "/" ? 1.0 : 0.8,
+    changeFrequency: route.startsWith("/view_blog") ? "daily" : "weekly",
+    priority: route === "/" ? 1.0 : route.startsWith("/view_blog") ? 0.9 : 0.8,
   }))
 }
