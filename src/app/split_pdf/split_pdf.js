@@ -122,9 +122,9 @@ const features = [
   },
   {
     icon: Sparkles,
-    heading: 'Secure Online PDF Merging',
+    heading: 'Secure Online PDF splitting',
     paragraph:
-      'All your files are processed securely, and automatically deleted after splitting for complete privacy.',
+      'Split PDFs securely without any risk of data leaks.',
   },
   {
     icon: Smartphone,
