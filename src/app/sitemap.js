@@ -47,10 +47,8 @@ async function collectDynamicBlogRoutes(baseUrl) {
 }
 
 export default async function sitemap() {
-  const siteFromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")
-  const siteFromVercel = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ""
-  // Defaulting to the production domain for the sitemap if env vars are missing
-  const baseUrl = siteFromEnv || siteFromVercel || "https://pdftoolify.com"
+  
+  const baseUrl = "https://www.pdftoolify.com"
   
   const dynamicBlogRoutes = await collectDynamicBlogRoutes(baseUrl)
   const allRoutes = new Set([...staticRoutes, ...dynamicBlogRoutes])
