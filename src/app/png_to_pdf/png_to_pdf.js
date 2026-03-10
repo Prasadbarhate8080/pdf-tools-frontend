@@ -392,7 +392,9 @@ function PNGToPDF() {
                   <div>
                     <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
                       <div className="w-[200px] h-[250px] flex justify-center items-center">
-                        <img
+                        <Image
+                        width={200}
+                        height={250}
                         className="object-contain object-center"
                         src={imgObj.preview} alt={`uploaded-${index}`} />
                       </div>
