@@ -111,7 +111,7 @@ const faqs = [
   {
     question: "How can I create a PDF using PDFtoolify?",
     answer:
-      "Simply upload your images, click on “Create PDF,” and download the generated PDF instantly.",
+      "Simply upload your images, click on Create PDF, and download the generated PDF instantly.",
   },
   {
     question: "Will the quality of my images change after converting to PDF?",

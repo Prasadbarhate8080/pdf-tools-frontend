@@ -79,7 +79,7 @@ const steps = [
     icon: GitMerge,
     step: '2',
     title: 'Merge PDF Files',
-    description: 'Arrange them in order and click the "Merge PDF" button to combine.',
+    description: 'Arrange them in order and click the Merge PDF button to combine.',
   },
   {
     icon: Download,

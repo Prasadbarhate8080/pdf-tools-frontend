@@ -112,7 +112,7 @@ const faqs = [
   {
     question: "How can I add pages to a PDF using PDFtoolify?",
     answer:
-      "Simply upload your PDF, insert blank or image pages where you want them, and click “Export PDF.” PDFtoolify will instantly generate your updated document.",
+      "Simply upload your PDF, insert blank or image pages where you want them, and click Export PDF. PDFtoolify will instantly generate your updated document.",
   },
   {
     question: "Will the quality of my PDF change after adding pages?",
@@ -454,88 +454,101 @@ function AddPagesInPdf() {
         <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
           <div data-name="pdf pages rendered panel" className=' max-w-6xl mx-auto mt-2 max-h-screen z-10 overflow-auto scrollbar-hide pt-4'>
             <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
-              <div className="flex gap-8 flex-col sm:flex-row items-center flex-wrap z-0 justify-center">
-                {
-                  pages.map((page,index) => {
-                    if(page.type == "normal") pageno++;
-                    return page.type == "extra" ? (
-                      <div key={index} className='flex gap-8 flex-col sm:flex-row  justify-center items-center'>
-                        <div className='bg-blue-600 p-1 rounded-full'
-                        onClick={() => {
-                          pageNumberOfAddPage.current = index;
-                          setIsPopupActive(true)}}
-                        ><Plus color='white' /></div> {/* plus icon for adding page */}
-                        <div key={index} className='relative'>
-                          {page.blank ? (
-                            <div className=' w-[185px] h-[261px] bg-gray-200 flex justify-center items-center'>blank page</div>
-                          ) : (
-                            <div className=' w-[185px] h-[261px] bg-gray-200 flex justify-center items-center'><img src={`${page.url}`}/></div>
-                          )}
-                          <div className='p-1 text-center'>{index + 1}</div>
-                          <div className='text-md cursor-pointer p-1 rounded-full bg-red-700 text-white absolute top-0 right-0'
-                          onClick={() => {
-                            removePages(index)
-                          }}
-                          >
-                            <Trash2 size={22}/>
-                          </div> 
-                        </div>
-                      </div>
-                    ) : (
-                      <div key={index} className='flex gap-8 flex-col sm:flex-row justify-center items-center'>
-                        <div className='bg-blue-600 p-1 rounded-full'
-                        onClick={() => {
-                          pageNumberOfAddPage.current = index;
-                          setIsPopupActive(true)}}
-                        ><Plus color='white' /></div>  {/* plus icon for adding page */}
-                        <div key={index} className='relative'>
-                          <Page  pageNumber={pageno} width={185} />
-                          <div className='p-1 text-center'>{index + 1}</div>
-                        </div>
-                      </div>
-                      )
-                  }
-                  )
-                }
-                <div className='bg-blue-600 p-1  rounded-full'
-                onClick={() => {
-                  pageNumberOfAddPage.current = pages.length;
-                  setIsPopupActive(true)}}
-                ><Plus color='white' /></div> {/* plus icon for adding page */}
-                <div className={`fixed z-50 inset-0 bg-[rgba(70,70,70,0.4)] ${isPopupActive ? "flex" : "hidden"}   rounded-xl  justify-center items-center`}
-                  onClick={(e) => {
-                      setIsPopupActive(false)
-                  }}
-                >
-                  <div className='bg-white rounded-2xl p-4 w-80 h-36'>
-                    <div className='flex flex-col gap-6 p-4'>
-                      <span
-                      className='cursor-pointer'
-                      onClick={() => {
-                        selectedPageType.current = "blank"
-                        addExtraPage()
-                      }}
-                      >Add a blank page</span>
-                      <span>
-                        <label htmlFor="image_input" className='cursor-pointer'>Tap to select image to add</label>
-                        <input  
-                          className='hidden'
-                          id='image_input' type="file" accept='image/*'
-                          onChange={(e) => {
-                            const file1 = e.currentTarget.files[0]
-                            if (!file1) return;
-                            imageFiles.current.push({file:file1,uniqueId : Date.now() + Math.random().toString(36).substring(2, 9)})
-                            selectedPageType.current = "image";
-                            addExtraPage();
-                            e.currentTarget.value = "";
+              {(() => {
+                let pageno = 0;
+                return (
+                  <div className="flex gap-8 flex-col sm:flex-row items-center flex-wrap z-0 justify-center">
+                    {pages.map((page, index) => {
+                      if (page.type === "normal") pageno++;
+                      return page.type === "extra" ? (
+                        <div key={index} className='flex gap-8 flex-col sm:flex-row  justify-center items-center'>
+                          <div className='bg-blue-600 p-1 rounded-full'
+                            onClick={() => {
+                              pageNumberOfAddPage.current = index;
+                              setIsPopupActive(true)
                             }}
-                        />
-                      </span>
-                    </div>
+                          ><Plus color='white' /></div>
+                          <div key={index} className='relative'>
+                            {page.blank ? (
+                              <div className=' w-[185px] h-[261px] bg-gray-200 flex justify-center items-center'>blank page</div>
+                            ) : (
+                              <div className=' w-[185px] h-[261px] bg-gray-200 flex justify-center items-center'><img src={`${page.url}`} alt="" /></div>
+                            )}
+                            <div className='p-1 text-center'>{index + 1}</div>
+                            <div className='text-md cursor-pointer p-1 rounded-full bg-red-700 text-white absolute top-0 right-0'
+                              onClick={() => {
+                                removePages(index)
+                              }}
+                            >
+                              <Trash2 size={22} />
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div key={index} className='flex gap-8 flex-col sm:flex-row justify-center items-center'>
+                          <div className='bg-blue-600 p-1 rounded-full'
+                            onClick={() => {
+                              pageNumberOfAddPage.current = index;
+                              setIsPopupActive(true)
+                            }}
+                          ><Plus color='white' /></div>
+                          <div key={index} className='relative'>
+                            <Page pageNumber={pageno} width={185} />
+                            <div className='p-1 text-center'>{index + 1}</div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                    <div className='bg-blue-600 p-1  rounded-full'
+                      onClick={() => {
+                        pageNumberOfAddPage.current = pages.length;
+                        setIsPopupActive(true)
+                      }}
+                    ><Plus color='white' /></div>
                   </div>
-                </div>
-              </div>
+                )
+              })()}
             </Document>
+          </div>
+          <div className={`fixed z-50 inset-0 bg-[rgba(70,70,70,0.4)] ${isPopupActive ? "flex" : "hidden"}   rounded-xl  justify-center items-center`}
+            onClick={(e) => {
+              setIsPopupActive(false)
+            }}
+          >
+            <div className='bg-white rounded-2xl p-4 w-80 h-36'>
+              <div className='flex flex-col gap-6 p-4'>
+                <span
+                  className='cursor-pointer'
+                  onClick={() => {
+                    selectedPageType.current = "blank"
+                    addExtraPage()
+                  }}
+                >Add a blank page</span>
+                <span>
+                  <label htmlFor="image_input" className='cursor-pointer'>Tap to select image to add</label>
+                  <input
+                    className='hidden'
+                    id='image_input' type="file" accept='image/*'
+                    onChange={(e) => {
+                      const file1 = e.currentTarget.files[0]
+                      if (!file1) return;
+                      imageFiles.current.push({ file: file1, uniqueId: Date.now() + Math.random().toString(36).substring(2, 9) })
+                      selectedPageType.current = "image";
+                      addExtraPage();
+                      e.currentTarget.value = "";
+                    }}
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {loading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/60 backdrop-blur-sm">
+          <div className="bg-card p-6 rounded-xl shadow-lg border border-border flex flex-col items-center gap-4">
+            <Zap className="w-10 h-10 text-primary animate-pulse" />
+            <p className="text-lg font-semibold text-foreground">Generating PDF...</p>
           </div>
         </div>
       )}

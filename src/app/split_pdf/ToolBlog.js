@@ -26,7 +26,7 @@ const ToolBlog = () => {
 
         <div className="bg-primary/5 border-l-4 border-primary p-6 my-8 rounded-r-xl">
           <p className="italic text-foreground">
-            "PDFtoolify's Split PDF tool is designed to be fast, accurate, and completely secure. Split your files in seconds and take control of your document management."
+            &quot;PDFtoolify&apos;s Split PDF tool is designed to be fast, accurate, and completely secure. Split your files in seconds and take control of your document management.&quot;
           </p>
         </div>
 

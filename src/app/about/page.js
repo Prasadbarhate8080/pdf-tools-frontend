@@ -19,7 +19,7 @@ const Page = () => {
           Welcome to <strong>Your PDF Tools</strong> – your all-in-one solution for smart, fast, and secure PDF tools online.
         </p>
         <p className="text-lg text-gray-700">
-          Whether you need to merge, split, convert, or compress PDFs, we’ve got you covered – no signup required, and completely free to use.
+          Whether you need to merge, split, convert, or compress PDFs, we have got you covered – no signup required, and completely free to use.
         </p>
       </section>
 

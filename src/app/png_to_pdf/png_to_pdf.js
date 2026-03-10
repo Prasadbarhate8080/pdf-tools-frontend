@@ -94,7 +94,7 @@ const steps = [
     step: "2",
     title: "Convert to PDF",
     description:
-      "Click on the “Create PDF” button to convert your PNG images into a single PDF file.",
+      "Click on the Create PDF button to convert your PNG images into a single PDF file.",
   },
   {
     step: "3",

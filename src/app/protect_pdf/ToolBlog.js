@@ -11,7 +11,7 @@ const ToolBlog = () => {
         
         <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">1. Enhanced Security and Confidentiality</h3>
         <p className="text-muted-foreground leading-relaxed mb-4">
-          When you protect a PDF document with a password, the document's content is kept secure and confidential. This ensures that only authorized individuals can access or edit your document.
+          When you protect a PDF document with a password, the document&apos;s content is kept secure and confidential. This ensures that only authorized individuals can access or edit your document.
         </p>
 
         <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">2. Improved Access Control and Compliance</h3>
@@ -26,7 +26,7 @@ const ToolBlog = () => {
 
         <div className="bg-primary/5 border-l-4 border-primary p-6 my-8 rounded-r-xl">
           <p className="italic text-foreground">
-            "PDFtoolify's Protect PDF tool is designed to be fast, accurate, and completely secure. Protect your documents in seconds and experience the benefits of digital document management."
+            &quot;PDFtoolify&apos;s Protect PDF tool is designed to be fast, accurate, and completely secure. Protect your documents in seconds and experience the benefits of digital document management.&quot;
           </p>
         </div>
 

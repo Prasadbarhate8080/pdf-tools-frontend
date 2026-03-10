@@ -52,7 +52,7 @@ const faqs = [
   {
     question: 'How can I split a PDF using PDFtoolify?',
     answer:
-      "Simply upload your PDF file, select the pages or page ranges you want to extract, and click on 'Split PDF'. The tool will instantly generate separate PDF files for download.",
+      "Simply upload your PDF file, select the pages or page ranges you want to extract, and click on Split PDF. The tool will instantly generate separate PDF files for download.",
   },
   {
     question: 'Can I extract specific pages from a PDF?',

@@ -94,7 +94,7 @@ const steps = [
     step: "2",
     title: "Arrange & create PDF",
     description:
-      "Review your images, then click on the “Create PDF” button to convert them into a single PDF file.",
+      "Review your images, then click on the Create PDF button to convert them into a single PDF file.",
   },
   {
     step: "3",
