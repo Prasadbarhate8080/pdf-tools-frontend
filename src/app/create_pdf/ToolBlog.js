@@ -11,7 +11,7 @@ const ToolBlog = () => {
         
         <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">1. Improved Document Universality and Clarity</h3>
         <p className="text-muted-foreground leading-relaxed mb-4">
-          When you create a PDF document, the document's content is more universal and easier to follow. This ensures that the formatting is preserved across all devices and software.
+          When you create a PDF document, the document&apos;s content is more universal and easier to follow. This ensures that the formatting is preserved across all devices and software.
         </p>
 
         <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">2. Simplified Sharing and Collaboration</h3>
@@ -26,7 +26,7 @@ const ToolBlog = () => {
 
         <div className="bg-primary/5 border-l-4 border-primary p-6 my-8 rounded-r-xl">
           <p className="italic text-foreground">
-            "PDFtoolify's Create PDF tool is designed to be fast, accurate, and completely secure. Create your PDFs in seconds and experience the benefits of digital document management."
+            &quot;PDFtoolify&apos;s Create PDF tool is designed to be fast, accurate, and completely secure. Create your PDFs in seconds and experience the benefits of digital document management.&quot;
           </p>
         </div>
 
