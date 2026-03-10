@@ -33,6 +33,7 @@ import FeatureCard from "@/components/FeatureCard";
 import { PDFDocument, StandardFonts, rgb, degrees } from "pdf-lib";
 import ToolList from "@/components/ToolList";
 import FadeIn from "@/components/FadeIn";
+import BlogCard from "@/components/BlogCard";
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
