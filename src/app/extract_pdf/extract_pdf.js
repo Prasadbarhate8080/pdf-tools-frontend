@@ -35,6 +35,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import FeatureCard from "@/components/FeatureCard";
+import FadeIn from "@/components/FadeIn";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -206,11 +207,11 @@ export default function ExtractPdf() {
             className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
             style={{ background: 'var(--gradient-glow)' }}
           />
-          <div className="container pt-16  text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
+          <div className="container pt-16 text-center">
+            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
               <Sparkles className="w-4 h-4" />
-              Free Online Pdf Page Extracter
-            </div>
+              Free Online PDF Page Extractor
+            </FadeIn>
 
             <h1 className="section-heading text-center">
               Extract <span className="gradient-text">PDF Pages</span> Instantly
@@ -244,17 +245,17 @@ export default function ExtractPdf() {
               Extract PDF pages online for free
             </h2>
             <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-              {benefits.map((benefit, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200 opacity-0 animate-fade-in"
-                  style={{ animationDelay: `${400 + i * 80}ms` }}
-                >
-                  <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-muted-foreground">{benefit}</span>
-                </div>
-              ))}
-            </div>
+                {benefits.map((benefit, i) => (
+                  <FadeIn
+                    key={i}
+                    delay={400 + i * 80}
+                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200"
+                  >
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">{benefit}</span>
+                  </FadeIn>
+                ))}
+              </div>
           </section>
           {/* feature card section */}
           <section className="bg-muted/30">
@@ -285,25 +286,25 @@ export default function ExtractPdf() {
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              {steps.map((item, i) => (
-                <div
-                  key={i}
-                  className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in"
-                  style={{ animationDelay: `${200 + i * 150}ms` }}
-                >
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
-                    {item.step}
-                  </div>
-                  <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
-                    <Sparkles className="w-7 h-7 text-primary-foreground" />
-                  </div>
-                  <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+                {steps.map((item, i) => (
+                  <FadeIn
+                    key={i}
+                    delay={200 + i * 150}
+                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
+                      {item.step}
+                    </div>
+                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
+                      <Sparkles className="w-7 h-7 text-primary-foreground" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </FadeIn>
+                ))}
+              </div>
           </section>
           {/* FAQs Section */}
           <section className="container py-20">

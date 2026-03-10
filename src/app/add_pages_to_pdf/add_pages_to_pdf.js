@@ -23,6 +23,7 @@ import {
 import FeaturesCard from '@/components/FeatureCard';
 import { PDFDocument } from 'pdf-lib';
 import ToolList from '@/components/ToolList';
+import FadeIn from "@/components/FadeIn";
 import {
   Accordion,
   AccordionContent,
@@ -321,10 +322,10 @@ function AddPagesInPdf() {
             style={{ background: "var(--gradient-glow)" }}
           />
           <div className="container pt-16 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
+            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
               <Sparkles className="w-4 h-4" />
-              Free Online Add Pages to PDF
-            </div>
+              Free Online PDF Page Adder
+            </FadeIn>
             <h1 className="section-heading text-center">
               Add <span className="gradient-text">Pages to PDF</span> Easily
             </h1>
@@ -351,14 +352,14 @@ function AddPagesInPdf() {
               </h2>
               <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
                 {benefits.map((benefit, i) => (
-                  <div
+                  <FadeIn
                     key={i}
-                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200 opacity-0 animate-fade-in"
-                    style={{ animationDelay: `${400 + i * 80}ms` }}
+                    delay={400 + i * 80}
+                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200"
                   >
                     <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                     <span className="text-muted-foreground">{benefit}</span>
-                  </div>
+                  </FadeIn>
                 ))}
               </div>
             </section>
@@ -394,10 +395,10 @@ function AddPagesInPdf() {
               </div>
               <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                 {steps.map((item, i) => (
-                  <div
+                  <FadeIn
                     key={i}
-                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in"
-                    style={{ animationDelay: `${200 + i * 150}ms` }}
+                    delay={200 + i * 150}
+                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
                   >
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
                       {item.step}
@@ -411,7 +412,7 @@ function AddPagesInPdf() {
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {item.description}
                     </p>
-                  </div>
+                  </FadeIn>
                 ))}
               </div>
             </section>
