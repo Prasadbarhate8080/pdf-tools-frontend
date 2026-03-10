@@ -43,7 +43,7 @@ async function collectDynamicBlogRoutes(baseUrl) {
   } catch (error) {
     console.error("Error fetching dynamic blog routes:", error)
     return []
-  }
+  } 
 }
 
 export default async function sitemap() {

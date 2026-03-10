@@ -5,7 +5,8 @@ import { NextResponse } from "next/server";
 export async function GET(request){
     try {
         await   dbConnect();
-        let blogPosts = await blogModel.find();
+        let blogPosts = await blogModel.find().select("-content");
+        console.log("blog posts:",blogPosts)
         if(!blogPosts)
             return NextResponse.json({message:"no posts found",status:404})
         return NextResponse.json({posts:blogPosts,status:200})

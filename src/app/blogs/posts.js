@@ -1,20 +1,27 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-async function Post() {
-    const baseUrl = "https://pdftoolify.com";
+async function Posts({ toolName }) {
+    const siteFromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+    const siteFromVercel = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "";
+    const baseUrl = siteFromEnv || siteFromVercel || "http://localhost:3000";
 
     let articles = [];
     try {
-        const response = await fetch(`${baseUrl}/api/get_posts`, {
-            cache: "no-store",
-        });
+        let response;
+        if (!toolName) {
+            response = await fetch(`${baseUrl}/api/get_posts`);
+        }
+        else{
+            response = await fetch(`${baseUrl}/api/get_tool_posts/?toolName=${toolName}`);
+        }
         if (!response.ok) {
             console.error("Failed to fetch posts:", response.statusText);
         } else {
             const data = await response.json();
             articles = data?.posts || [];
         }
+        console.log(articles)
     } catch (error) {
         console.error("Error fetching posts:", error);
     }
@@ -57,4 +64,4 @@ async function Post() {
     );
 }
 
-export { Post };
+export { Posts };

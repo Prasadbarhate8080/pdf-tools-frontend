@@ -1,7 +1,7 @@
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
 import ToolName from "./ToolName";
+import { X } from 'lucide-react';
+
 import {
   Merge,
   Split,
@@ -17,7 +17,10 @@ import {
   FileCheck,
   Brush,
   Hash,
+  FileStack,
+  FileInput,
 } from "lucide-react";
+
 function MobileToolsSection({
   isActiveTools,
   setIsActiveTools,
@@ -27,70 +30,50 @@ function MobileToolsSection({
     <div
       className={`fixed min-h-screen ${
         isActiveTools ? "block" : "hidden"
-      } p-10 bg-white w-full overflow-auto h-screen  top-0 left-[50%] md:hidden! translate-x-[-50%] z-10`}
+      } p-6 bg-background w-full overflow-auto h-screen top-0 left-0 md:hidden z-50 animate-in slide-in-from-top-2 duration-300`}
     >
-      <div
-      onClick={() => {setIsActiveTools(false); setIsActiveHamBurger(false) }}
-      className="absolute top-4 right-4">
-        <Image
-          src={"/close.png"}
-          width={20}
-          height={20}
-          alt="close"
-        />
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-lg font-semibold text-foreground">All Tools</h2>
+        <button
+          onClick={() => { setIsActiveTools(false); setIsActiveHamBurger(false) }}
+          className="p-2 rounded-lg hover:bg-muted/50 transition-colors"
+        >
+          <X size={22} />
+        </button>
       </div>
-      <ul className="list-none flex flex-col text-md text-gray-700 gap-5">
-        <ToolName href="/merge_pdf" title="Merge PDF" iconClassName="text-blue-500" Icon={Merge}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+      <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+        <div className="flex flex-col gap-2">
+          <h3 className="text-xs font-semibold text-muted-foreground tracking-wider uppercase mb-1">CONVERT FROM PDF</h3>
+          <ToolName href="/merge_pdf" title="Merge PDF" Icon={Merge} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/split_pdf" title="Split PDF" Icon={Split} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/remove_pdf_pages" title="Remove Pages" Icon={Scissors} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/extract_pdf" title="Extract Pages" Icon={FileOutput} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+        </div>
 
-        <ToolName href="/split_pdf" title="Split PDF" iconClassName="text-blue-500" Icon={Split}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+        <div className="flex flex-col gap-2">
+          <h3 className="text-xs font-semibold text-muted-foreground tracking-wider uppercase mb-1">CONVERT TO PDF</h3>
+          <ToolName href="/pdf_to_jpg" title="PDF to JPG" Icon={FileDown} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/jpg_to_pdf" title="JPG to PDF" Icon={FileImage} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/compress_pdf" title="Compress PDF" Icon={Shrink} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/word_to_pdf" title="Word to PDF" Icon={FileType} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+        </div>
 
-        <ToolName href="/extract_pdf" title="Extract Pages" iconClassName="text-blue-500" Icon={FileOutput}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+        <div className="flex flex-col gap-2 mt-4">
+          <h3 className="text-xs font-semibold text-muted-foreground tracking-wider uppercase mb-1">EDIT & ORGANIZE</h3>
+          <ToolName href="/add_pages_to_pdf" title="Add Pages" Icon={FilePlus} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/add_pdf_in_pdf" title="Insert PDF" Icon={FileStack} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/create_pdf" title="Create PDF" Icon={FileInput} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/pdf_to_pdfa" title="PDF to PDF/A" Icon={FileCheck} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+        </div>
 
-        <ToolName href="/jpg_to_pdf" title="JPG to PDF" iconClassName="text-blue-500" Icon={FileImage}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/pdf_to_jpg" title="PDF to JPG" iconClassName="text-blue-500" Icon={FileDown}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/create_pdf" title="Create PDF" iconClassName="text-blue-500" Icon={FileDown}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/compress_pdf" title="Compress PDF" iconClassName="text-blue-500" Icon={Shrink}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/png_to_pdf" title="PNG to PDF" iconClassName="text-blue-500" Icon={Shrink}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/protect_pdf" title="Protect PDF" iconClassName="text-blue-500" Icon={Shield}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/remove_pdf_pages" title="Remove Pages" iconClassName="text-blue-500" Icon={Scissors}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/add_pages_to_pdf" title="Add Pages to PDF" iconClassName="text-blue-500" Icon={FilePlus}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/add_pdf_in_pdf" title="Add pdf in pdf" iconClassName="text-blue-500" Icon={Hash}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/unlock_pdf" title="Unlock PDF" iconClassName="text-blue-500" Icon={LockOpen}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/word_to_pdf" title="Word to PDF" iconClassName="text-blue-500" Icon={FileType}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/pdf_to_pdfa" title="PDF to PDFA" iconClassName="text-blue-500" Icon={FileCheck}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-        <ToolName href="/add_watermark" title="Add Watermark" iconClassName="text-blue-500" Icon={Brush}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-        <ToolName href="/add_page_no" title="Add Page Numbers" iconClassName="text-blue-500" Icon={Hash}
-          setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-
-      </ul>
+        <div className="flex flex-col gap-2 mt-4">
+          <h3 className="text-xs font-semibold text-muted-foreground tracking-wider uppercase mb-1">OPTIMIZE & SECURE</h3>
+          <ToolName href="/protect_pdf" title="Protect PDF" Icon={Shield} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/unlock_pdf" title="Unlock PDF" Icon={LockOpen} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/add_watermark" title="Add Watermark" Icon={Brush} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+          <ToolName href="/add_page_no" title="Page Numbers" Icon={Hash} setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
+        </div>
+      </div>
     </div>
   );
 }

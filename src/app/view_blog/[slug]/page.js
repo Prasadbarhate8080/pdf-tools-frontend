@@ -3,16 +3,21 @@ import Image from 'next/image';
 import parse from 'html-react-parser';
 
 async function Page({ params }) {
+  const siteFromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+  const siteFromVercel = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "";
+  const baseUrl = siteFromEnv || siteFromVercel || "http://localhost:3000";
+
   try {
     const { slug } = await params;
-    let response = await fetch(`https://pdftoolify.com/api/get_post_to_view/${slug}`)
+    console.log(slug)
+    let response = await fetch(`${baseUrl}/api/get_post_to_view/${slug}`)
     let data = await response.json();
     let post = data.post;
     return (
-      <div className='w-6xl mx-auto p-4 mt-10'>
+      <div className='w-6xl mx-auto p-4 mt-20'>
         <div className='flex items-center justify-center'>
           {post && <Image
-            src={"/close.png"}
+            src={post.imageUrl}
             width={250}
             height={250}
             alt={"alt"}

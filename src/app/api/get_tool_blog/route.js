@@ -7,7 +7,7 @@ export async function GET(request){
         await dbConnect()
         let searchParams = request.nextUrl.searchParams.get('toolName')
         let toolName = searchParams.get("toolName")
-        let blogPosts = await blogModel.find({toolName:toolName})
+        let blogPosts = await blogModel.find({toolName:toolName}).select("-content")
         if(!blogPosts)
             return NextResponse.json({Message:"No posts found",status:404})
         return NextResponse.json({posts:blogPosts,status:200})

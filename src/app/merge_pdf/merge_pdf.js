@@ -31,32 +31,11 @@ import Image from 'next/image'
 import { PDFDocument } from 'pdf-lib'
 import PDFPageComponent from '@/components/PDFPageComponent'
 import ToolList from '@/components/ToolList'
-import PostCard from '@/components/PostCard'
 import FeatureCard from '@/components/FeatureCard'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
-const articles = [
-  {
-    image: 'https://www.pdftoolify.com/how_to_merge.png',
-    title: 'How to Merge PDF Online',
-    description:
-      'Select the PDF files, arrange them as needed, click Merge PDF, and download the result once the task is completed.',
-  },
-  {
-    image: 'https://www.pdftoolify.com/safe_to_merge.png',
-    title: 'Is it Safe to Merge PDFs Online?',
-    description:
-      "Yes, it's safe to merge PDFs online. Merging PDFs online saves your time and resources with secure processing.",
-  },
-  {
-    image: 'https://www.pdftoolify.com/onine_pdf_merger.jpg',
-    title: 'Best Free Online PDF Merger',
-    description:
-      'Quickly combine multiple PDFs into a single document with our free online PDF merger. No signup, no hidden charges.',
-  },
-]
 const faqs = [
   {
     question: 'Is PDFtoolify Really Free?',
@@ -343,45 +322,6 @@ function Merge() {
               </div>
             </section>
             {/* blog section */}
-            <section className="container py-20">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Merge PDF Blog Articles
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Learn more about merging PDFs efficiently
-                </p>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                {articles.map((article, i) => (
-                  <article
-                    key={i}
-                    className="group rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 opacity-0 animate-fade-in"
-                    style={{ animationDelay: `${200 + i * 120}ms` }}
-                  >
-                    <div className="aspect-video overflow-hidden bg-muted">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                        {article.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                        {article.description}
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                        Read more <ArrowRight className="w-4 h-4" />
-                      </span>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </section>
             <ToolList />
           </div>
         )}
