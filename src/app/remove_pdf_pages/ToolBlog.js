@@ -11,7 +11,7 @@ const ToolBlog = () => {
         
         <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">1. Improved Document Organization and Clarity</h3>
         <p className="text-muted-foreground leading-relaxed mb-4">
-          When you remove unwanted pages from a PDF document, the document&apos;s content is more organized and easier to follow. This ensures that only relevant information is presented to the reader.
+          When you remove unwanted pages from a PDF document, the document's content is more organized and easier to follow. This ensures that only relevant information is presented to the reader.
         </p>
 
         <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">2. Simplified Sharing and Collaboration</h3>
@@ -26,7 +26,7 @@ const ToolBlog = () => {
 
         <div className="bg-primary/5 border-l-4 border-primary p-6 my-8 rounded-r-xl">
           <p className="italic text-foreground">
-            &quot;PDFtoolify&apos;s Remove PDF Pages tool is designed to be fast, accurate, and completely secure. Remove your unwanted pages in seconds and experience the benefits of digital document management.&quot;
+            "PDFtoolify's Remove PDF Pages tool is designed to be fast, accurate, and completely secure. Remove your unwanted pages in seconds and experience the benefits of digital document management."
           </p>
         </div>
 

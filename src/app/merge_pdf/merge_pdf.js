@@ -194,7 +194,7 @@ function Merge() {
 
   return (
     <div className="min-h-screen bg-background ">
-      {!completionStatus && (
+      {!completionStatus && !isDroped && (
         <section className="relative pt-16 pb-6 " style={{ background: 'var(--gradient-hero)' }}>
           <div
             className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
@@ -327,7 +327,7 @@ function Merge() {
           </div>
         )}
         {isDroped && !completionStatus && !isProcessing && !isUploading && (
-          <div className="max-w-7xl mx-auto bg-gray-100 p-10">
+          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
             <ul className="mt-6 flex flex-wrap justify-center  p-5 gap-6">
               {files.map((file, index) => (
                 <PDFPageComponent file={file} key={index} />
@@ -391,7 +391,7 @@ function Merge() {
         {progress === 100 && isProcessing && <Processing />}
       </form>
       {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-10">
+        <div className="max-w-5xl text-center mx-auto mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">Download Merged PDF</h1>
           <div className="mt-3 w-fit mx-auto">
             <a

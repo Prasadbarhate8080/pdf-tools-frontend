@@ -6,7 +6,7 @@ const ToolBlog = () => {
       <div className="prose prose-blue max-w-none">
         <h2 className="text-3xl font-bold mb-6 text-foreground">Why Merging PDF Files is Essential for Productivity</h2>
         <p className="text-muted-foreground leading-relaxed mb-4">
-          In today&apos;s digital workflow, managing multiple documents can quickly become overwhelming. Whether you&apos;re a student compiling research papers, a professional organizing business reports, or an individual managing personal records, the ability to merge PDF files into a single, cohesive document is a game-changer.
+          In today's digital workflow, managing multiple documents can quickly become overwhelming. Whether you're a student compiling research papers, a professional organizing business reports, or an individual managing personal records, the ability to merge PDF files into a single, cohesive document is a game-changer.
         </p>
         
         <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">1. Streamlined Document Organization</h3>
@@ -26,7 +26,7 @@ const ToolBlog = () => {
 
         <div className="bg-primary/5 border-l-4 border-primary p-6 my-8 rounded-r-xl">
           <p className="italic text-foreground">
-            &quot;PDFtoolify makes the merging process simple, secure, and fast. No need for complex software installations—just upload and combine.&quot;
+            "PDFtoolify makes the merging process simple, secure, and fast. No need for complex software installations—just upload and combine."
           </p>
         </div>
 

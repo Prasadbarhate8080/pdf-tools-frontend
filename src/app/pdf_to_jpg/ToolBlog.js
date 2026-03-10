@@ -26,7 +26,7 @@ const ToolBlog = () => {
 
         <div className="bg-primary/5 border-l-4 border-primary p-6 my-8 rounded-r-xl">
           <p className="italic text-foreground">
-            &quot;PDFtoolify&apos;s PDF to JPG tool is designed to be fast, accurate, and completely secure. Convert your documents in seconds and experience the benefits of high-quality image content.&quot;
+            "PDFtoolify's PDF to JPG tool is designed to be fast, accurate, and completely secure. Convert your documents in seconds and experience the benefits of high-quality image content."
           </p>
         </div>
 

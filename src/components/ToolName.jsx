@@ -19,7 +19,7 @@ function ToolName(
     <Link href={href} className={`${className} block`}>
       <li
         onClick={() => { setIsActiveTools(false); setIsActiveHamBurger(false) }}
-        className="flex gap-2 px-3 py-2 rounded-lg items-center transition-all duration-200 hover:bg-muted/50 cursor-pointer">
+        className="flex gap-2 px-3 py-2 rounded-lg items-center transition-all duration-200 hover:bg-gray-50 cursor-pointer">
         {Icon && <Icon strokeWidth={strokeWidth} size={16} className={`text-blue-400  ${iconClassName}`} />}
         <span className='text-sm text-gray-600 hover:text-gray-800 transition-colors'>{title}</span>
       </li>

@@ -13,9 +13,12 @@ const FeatureCard = ({ icon: Icon, heading, paragraph, delay = 0 }) => {
         {Icon && <Icon className="w-6 h-6 text-primary-foreground" />}
       </div>
       <h3 className="text-lg font-bold text-foreground mb-2">{heading}</h3>
-      <p className="text-sm text-muted-foreground leading-relaxed">{paragraph}</p>
+      <p className="text-sm text-muted-foreground leading-relaxed">
+        {paragraph}
+      </p>
     </motion.div>
-  )
-}
-export default FeatureCard
+  );
+};
+export default FeatureCard;
+
 

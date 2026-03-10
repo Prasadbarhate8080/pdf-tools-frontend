@@ -23,13 +23,13 @@ import FeaturesCard from "@/components/FeatureCard";
 import { PDFDocument } from "pdf-lib";
 import { toast } from "react-toastify";
 import ToolList from "@/components/ToolList";
+import FadeIn from "@/components/FadeIn";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import FadeIn from "@/components/FadeIn";
 
 
 if (typeof window !== "undefined") {
@@ -380,7 +380,7 @@ const JpgToPdf = () => {
           </div>
         )}
         {isDroped && !isUploading && !completionStatus && (
-          <div className="max-w-7xl mx-auto p-10">
+          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
             <ul className="mt-6 flex flex-wrap justify-center gap-6">
               {images.map((imgObj, index) => (
                 <li
@@ -448,7 +448,7 @@ const JpgToPdf = () => {
       </form>
 
       {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-10">
+        <div className="max-w-5xl text-center mx-auto  mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download created PDF
           </h1>

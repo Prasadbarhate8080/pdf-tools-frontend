@@ -345,10 +345,10 @@ function AddWaterMarkPage() {
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <section
-          className="relative pt-16 pb-6"
-          style={{ background: "var(--gradient-hero)" }}
-        >
+          <section
+            className="relative pt-16 pb-6"
+            style={{ background: "var(--gradient-hero)" }}
+          >
           <div
             className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
             style={{ background: "var(--gradient-glow)" }}
@@ -473,12 +473,35 @@ function AddWaterMarkPage() {
                 </Accordion>
               </div>
             </section>
+            <section className="container py-20">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  Add Watermark Blog Articles
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Learn more about watermarking PDFs effectively
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                {articles.map((article, i) => (
+                  <BlogCard
+                    key={i}
+                    post={{
+                      ...article,
+                      imageUrl: article.image,
+                      slug: article.title.toLowerCase().replace(/ /g, "-"),
+                    }}
+                    index={i}
+                  />
+                ))}
+              </div>
+            </section>
             <ToolList />
           </div>
         )}
 
         {isDroped && !isUploading && !isProcessing && !completionStatus && (
-          <div className="mx-auto pt-4  flex justify-between">
+          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24 flex justify-between">
             <div
               className="flex-1 px-10 max-h-screen overflow-auto "
               style={scrollbarStyle}
@@ -629,7 +652,7 @@ function AddWaterMarkPage() {
       </form>
 
       {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-10">
+        <div className="max-w-5xl text-center mx-auto  mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download watermark Added PDF
           </h1>

@@ -28,6 +28,7 @@ import Image from "next/image";
 import { error, PDFDocument } from "pdf-lib";
 import { toast } from "react-toastify";
 import ToolList from "@/components/ToolList";
+import FadeIn from "@/components/FadeIn";
 import {
   Accordion,
   AccordionContent,
@@ -35,7 +36,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import FeatureCard from "@/components/FeatureCard";
-import FadeIn from "@/components/FadeIn";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -340,7 +340,7 @@ export default function ExtractPdf() {
       )}
 
       {files && isDroped && !isUploading && !completionStatus && (
-        <>
+        <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
           <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
             <div className="flex flex-wrap max-w-7xl justify-center mx-auto gap-8 mt-6">
               {Array.from(new Array(numPages), (el, index) => {
@@ -375,7 +375,7 @@ export default function ExtractPdf() {
               Extract {selectedPages.length > 0 && selectedPages.length} Selected Pages
             </button>
           </div>
-        </>
+        </div>
       )}
 
       {/* progress bar and proessing */}
@@ -390,7 +390,7 @@ export default function ExtractPdf() {
 
       {/* after task complete button will show */}
       {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-10">
+        <div className="max-w-5xl text-center mx-auto  mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download Extracted PDF
           </h1>

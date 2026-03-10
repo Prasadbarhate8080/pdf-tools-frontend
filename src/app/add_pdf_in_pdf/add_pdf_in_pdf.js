@@ -93,18 +93,21 @@ const features = [
 const steps = [
   {
     step: "1",
+    icon: FilePlus,
     title: "Upload your main PDF",
     description:
       "Select the primary PDF where you want to insert additional pages.",
   },
   {
     step: "2",
+    icon: MousePointerClick,
     title: "Choose insert position",
     description:
       "Pick the page number where the new PDF should be inserted.",
   },
   {
     step: "3",
+    icon: Zap,
     title: "Select and insert PDF",
     description:
       "Upload the second PDF, insert it, and download your final merged document.",
@@ -216,15 +219,15 @@ async function addPdfIntoPdf() {
           className="relative pt-16 pb-6"
           style={{ background: "var(--gradient-hero)" }}
         >
-          <div
-            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-            style={{ background: "var(--gradient-glow)" }}
-          />
-          <div className="container pt-16 text-center">
-            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              Free Online PDF Inserter
-            </FadeIn>
+            <div
+              className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
+              style={{ background: "var(--gradient-glow)" }}
+            />
+            <div className="container pt-16 text-center">
+              <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
+                <Sparkles className="w-4 h-4" />
+                Free Online PDF Inserter
+              </FadeIn>
             <h1 className="section-heading text-center">
               Insert <span className="gradient-text">PDF into PDF</span> Easily
             </h1>
@@ -293,25 +296,27 @@ async function addPdfIntoPdf() {
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              {steps.map((item, i) => (
-                <FadeIn
-                  key={i}
-                  delay={200 + i * 150}
-                  className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
-                >
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
-                    {item.step}
-                  </div>
-                  <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
-                    <Sparkles className="w-7 h-7 text-primary-foreground" />
-                  </div>
-                  <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {item.description}
-                  </p>
-                </FadeIn>
-              ))}
-            </div>
+                {steps.map((item, i) => (
+                  <FadeIn
+                    key={i}
+                    delay={200 + i * 150}
+                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
+                      {item.step}
+                    </div>
+                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
+                      <item.icon className="w-7 h-7 text-primary-foreground" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </FadeIn>
+                ))}
+              </div>
           </section>
 
           {/* FAQs Section */}
@@ -347,7 +352,8 @@ async function addPdfIntoPdf() {
           <ToolList />
         </div>
       )}
-      {isDroped && !isUploading && !completionStatus && <div className=''>
+      {isDroped && !isUploading && !completionStatus && (
+        <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
         <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
           <ul className="flex flex-wrap justify-center  items-center gap-6">
             {
@@ -390,9 +396,10 @@ async function addPdfIntoPdf() {
              }}/>
           </div>
         </div>
-      </div>}
+      </div>
+      )}
       {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-10">
+        <div className="max-w-5xl text-center mx-auto  mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download PDF Inserted PDF
           </h1>

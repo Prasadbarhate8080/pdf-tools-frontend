@@ -4,7 +4,6 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import HeaderToolsSection from "./HeaderToolsSection";
-import MobileToolsSection from "./MobileToolsSection";
 const navItems = [
   { name: "Home", href: "/" },
   {
@@ -23,7 +22,6 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isToolsHovered, setIsToolsHovered] = useState(false);
-  const [isActiveTools, setIsActiveTools] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -37,8 +35,7 @@ export const Header = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled || isMobileMenuOpen
         ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm"
         : "bg-transparent"
-        }`}
-    >
+        }`}    >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo of pdftoolify*/}
@@ -114,34 +111,19 @@ export const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-border/50 animate-in slide-in-from-top-2 duration-200">
             <div className="flex flex-col gap-1">
-              {navItems.map((item) => {
-                if (item.name === "Tools") {
-                  return (
-                    <div
-                      key={item.name}
-                      onClick={() => {
-                        setIsActiveTools(true);
-                      }}
-                      className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-colors"
-                    >
-                      {item.name}
-                    </div>
-                  );
-                }
-                return (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    {...(item.external
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                    className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                );
-              })}
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  {...(item.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
               <div className="pt-3 px-4">
                 <Button variant="hero" size="lg" className="w-full" asChild>
                   <a href="#tools">Explore All Tools</a>
@@ -151,11 +133,6 @@ export const Header = () => {
           </div>
         )}
       </div>
-      <MobileToolsSection
-        isActiveTools={isActiveTools}
-        setIsActiveTools={setIsActiveTools}
-        setIsActiveHamBurger={setIsMobileMenuOpen}
-      />
     </nav>
   );
 };

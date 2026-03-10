@@ -324,7 +324,7 @@ function AddPagesInPdf() {
           <div className="container pt-16 text-center">
             <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
               <Sparkles className="w-4 h-4" />
-              Free Online PDF Page Adder
+              Free Online Add Pages to PDF
             </FadeIn>
             <h1 className="section-heading text-center">
               Add <span className="gradient-text">Pages to PDF</span> Easily
@@ -450,7 +450,8 @@ function AddPagesInPdf() {
             <ToolList />
         </div>
       )}
-      {isDroped && !isUploading && !completionStatus && <div className='flex'>
+      {isDroped && !isUploading && !completionStatus && (
+        <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
           <div data-name="pdf pages rendered panel" className=' max-w-6xl mx-auto mt-2 max-h-screen z-10 overflow-auto scrollbar-hide pt-4'>
             <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
               <div className="flex gap-8 flex-col sm:flex-row items-center flex-wrap z-0 justify-center">
@@ -536,13 +537,14 @@ function AddPagesInPdf() {
               </div>
             </Document>
           </div>
-        </div>}
+        </div>
+      )}
         {isDroped && !completionStatus && !loading && <button
           className='bg-blue-600 fixed top-20  right-4 z-20 text-white font-semibold text-xl rounded-md px-4 py-2'
           onClick={handleSubmit}
           >Export PDF</button>}
         {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-10">
+          <div className="max-w-5xl text-center mx-auto  mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download modified PDF
           </h1>

@@ -28,9 +28,9 @@ import {
 } from "lucide-react";
 import FeaturesCard from "@/components/FeatureCard";
 import { PDFDocument } from "pdf-lib";
-import ToolList from '@/components/ToolList'
-import FadeIn from '@/components/FadeIn'
-if (typeof window !== 'undefined') {
+import ToolList from "@/components/ToolList";
+import FadeIn from "@/components/FadeIn";
+if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
 
@@ -346,12 +346,12 @@ export default function RemovePDFPages() {
       )}
 
       {files && isDroped && !isUploading && !completionStatus && (
-        <>
+        <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
           <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
             <div className="flex flex-wrap max-w-7xl justify-center mx-auto gap-8 mt-6">
               {Array.from(new Array(numPages), (el, index) => {
-                const pageNum = index + 1;
-                const isSelected = selectedPages.includes(pageNum);
+                const pageNum = index + 1
+                const isSelected = selectedPages.includes(pageNum)
                 return (
                   <div
                     key={pageNum}
@@ -359,30 +359,29 @@ export default function RemovePDFPages() {
                     onClick={() => togglePageSelection(pageNum)}
                   >
                     <Page pageNumber={pageNum} width={200} />
-                    <p className="text-center p-1">
-                      Page {pageNum}
-                    </p>
-                    <div className={`absolute top-0.5 right-0.5 h-6 w-6 border-1 border-gray-500 rounded-md
-                    ${isSelected ? "bg-blue-600" : "bg-white"}`}
+                    <p className="text-center p-1">Page {pageNum}</p>
+                    <div
+                      className={`absolute top-0.5 right-0.5 h-6 w-6 border-1 border-gray-500 rounded-md
+                    ${isSelected ? 'bg-blue-600' : 'bg-white'}`}
                     >
-                      <Check color="white" className={`${isSelected ? "block" : "hidden"}`} />
+                      <Check color="white" className={`${isSelected ? 'block' : 'hidden'}`} />
                     </div>
                   </div>
-                );
+                )
               })}
             </div>
           </Document>
 
-          {/* button for removing pages */}
+          {/* button for extracting pages */}
           <div className="mt-6 text-center">
             <button
-              onClick={handleRemove}
+              onClick={handleExtract}
               className="bg-blue-500 text-white px-8 py-4 text-2xl rounded-md "
             >
               Remove {selectedPages.length > 0 && selectedPages.length} Selected Pages
             </button>
           </div>
-        </>
+        </div>
       )}
 
       {/* progress bar and proessing */}
@@ -396,7 +395,7 @@ export default function RemovePDFPages() {
 
       {/* after task complete button will show */}
       {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-10">
+        <div className="max-w-5xl text-center mx-auto  mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download Pages Removed PDF
           </h1>

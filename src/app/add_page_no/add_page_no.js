@@ -247,7 +247,7 @@ function PageNO() {
           <div className="container pt-16 text-center">
             <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
               <Sparkles className="w-4 h-4" />
-              Free Online PDF Page Numbering
+              Free Online Page Number Adder
             </FadeIn>
             <h1 className="section-heading text-center">
               Add <span className="gradient-text">Page Numbers</span> to PDF
@@ -380,7 +380,7 @@ function PageNO() {
         )}
 
         {isDroped && !isUploading && !isProcessing && !completionStatus && (
-          <div className="max-w-7xl mx-auto p-10">
+          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
             <ul className="mt-6 flex flex-wrap justify-center gap-6">
               <PDFPageComponent file={files} />
             </ul>
@@ -431,7 +431,7 @@ function PageNO() {
       </form>
 
       {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-10">
+        <div className="max-w-5xl text-center mx-auto  mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download Page Number Added PDF
           </h1>

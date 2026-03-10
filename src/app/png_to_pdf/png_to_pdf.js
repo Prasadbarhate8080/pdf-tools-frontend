@@ -382,7 +382,7 @@ function PNGToPDF() {
           </div>
         )}
         {isDroped && !isUploading && !completionStatus && (
-          <div className="max-w-7xl mx-auto p-10">
+          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
             <ul className="mt-6 flex flex-wrap justify-center gap-6">
               {images.map((imgObj, index) => (
                 <li
@@ -393,9 +393,7 @@ function PNGToPDF() {
                   <div>
                     <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
                       <div className="w-[200px] h-[250px] flex justify-center items-center">
-                        <Image
-                        width={200}
-                        height={250}
+                        <img
                         className="object-contain object-center"
                         src={imgObj.preview} alt={`uploaded-${index}`} />
                       </div>
@@ -444,7 +442,7 @@ function PNGToPDF() {
       </form>
 
       {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-10">
+        <div className="max-w-5xl text-center mx-auto  mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download created PDF
           </h1>

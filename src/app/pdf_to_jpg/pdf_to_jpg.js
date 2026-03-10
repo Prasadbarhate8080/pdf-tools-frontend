@@ -181,19 +181,19 @@ function PDFToJPG() {
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <section
-          className="relative pt-16 pb-6"
-          style={{ background: "var(--gradient-hero)" }}
-        >
-          <div
-            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-            style={{ background: "var(--gradient-glow)" }}
-          />
-          <div className="container pt-16 text-center">
-            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              Free Online PDF to JPG Converter
-            </FadeIn>
+          <section
+            className="relative pt-16 pb-6"
+            style={{ background: "var(--gradient-hero)" }}
+          >
+            <div
+              className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
+              style={{ background: "var(--gradient-glow)" }}
+            />
+            <div className="container pt-16 text-center">
+              <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
+                <Sparkles className="w-4 h-4" />
+                Free Online PDF to JPG Converter
+              </FadeIn>
             <h1 className="section-heading text-center">
               Convert <span className="gradient-text">PDF to JPG</span> Instantly
             </h1>
@@ -326,7 +326,7 @@ function PDFToJPG() {
         )}
 
         {isDroped && !isUploading && !isProcessing && !completionStatus && (
-          <div className="max-w-7xl mx-auto p-10">
+          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
             <ul className="mt-6 flex flex-wrap justify-center gap-6">
               <PDFPageComponent file={files} />
             </ul>
@@ -354,7 +354,7 @@ function PDFToJPG() {
       </form>
 
       {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-10">
+        <div className="max-w-5xl text-center mx-auto  mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
             Download JPG Images 
           </h1>

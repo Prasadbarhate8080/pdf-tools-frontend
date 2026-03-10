@@ -31,7 +31,7 @@ async function Posts({ toolName }) {
     return (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto mt-14">
             {articles.map((article, i) => (
-                <BlogCard key={i} article={article} index={i} />
+                <BlogCard key={i} post={article} index={i} />
             ))}
         </div>
     );

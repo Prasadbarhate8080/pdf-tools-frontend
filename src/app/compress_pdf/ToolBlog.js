@@ -26,7 +26,7 @@ const ToolBlog = () => {
 
         <div className="bg-primary/5 border-l-4 border-primary p-6 my-8 rounded-r-xl">
           <p className="italic text-foreground">
-            &quot;PDFtoolify&apos;s Compress PDF tool is designed to be fast, efficient, and completely secure. Compress your files in seconds and experience the benefits of smaller file sizes.&quot;
+            "PDFtoolify's Compress PDF tool is designed to be fast, efficient, and completely secure. Compress your files in seconds and experience the benefits of smaller file sizes."
           </p>
         </div>
 

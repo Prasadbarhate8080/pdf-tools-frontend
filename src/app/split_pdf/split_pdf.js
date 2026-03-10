@@ -221,16 +221,16 @@ function Split() {
     <div className="min-h-screen bg-background ">
       <ToastContainer />
       {!completionStatus && !isDroped && (
-        <section className="relative pt-16 pb-6 " style={{ background: 'var(--gradient-hero)' }}>
-          <div
-            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-            style={{ background: 'var(--gradient-glow)' }}
-          />
-          <div className="container pt-16 text-center">
-            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              Free Online PDF Splitter
-            </FadeIn>
+          <section className="relative pt-16 pb-6 " style={{ background: 'var(--gradient-hero)' }}>
+            <div
+              className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
+              style={{ background: 'var(--gradient-glow)' }}
+            />
+            <div className="container pt-16 text-center">
+              <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
+                <Sparkles className="w-4 h-4" />
+                Free Online PDF Splitter
+              </FadeIn>
 
             <h1 className="section-heading text-center">
               Split <span className="gradient-text">PDF File</span> Instantly
@@ -372,7 +372,7 @@ function Split() {
           </div>
         )}
         {isDroped && !isUploading && !completionStatus && !isProcessing && (
-          <div className="mx-auto bg-gray-100 p-1">
+          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
             <div className="flex justify-center  gap-20">
               <div className="w-5xl">
                 <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
@@ -614,7 +614,7 @@ function Split() {
       </form>
       {downloadFileURL && (
         <>
-          <div className="max-w-5xl text-center mx-auto  mt-10">
+          <div className="max-w-5xl text-center mx-auto  mt-24">
             <h1 className="text-center text-gray-700 text-3xl font-semibold">Download Split PDF</h1>
             <div className="mt-3 w-fit mx-auto">
               <a
