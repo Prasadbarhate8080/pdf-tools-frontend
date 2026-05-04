@@ -27,7 +27,6 @@ import {
   Upload,
   Zap,
 } from 'lucide-react'
-import Image from 'next/image'
 import { PDFDocument } from 'pdf-lib'
 import PDFPageComponent from '@/components/PDFPageComponent'
 import ToolList from '@/components/ToolList'
