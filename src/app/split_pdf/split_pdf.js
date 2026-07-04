@@ -10,6 +10,7 @@ import ProgressBar from '@/components/ProgressBar'
 import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import { motion } from 'framer-motion'
+import Faqs from '@/components/Faqs';
 import {
   Accordion,
   AccordionContent,
@@ -327,24 +328,7 @@ function Split() {
                   Common questions about our PDF splitter tool
                 </p>
               </div>
-              <div className="max-w-3xl mx-auto">
-                <Accordion type="single" collapsible className="space-y-3">
-                  {faqs.map((faq, i) => (
-                    <AccordionItem
-                      key={i}
-                      value={`item-${i}`}
-                      className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-300"
-                    >
-                      <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-5">
-                        {faq.question}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                        {faq.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
+              <Faqs faqs={faqs} />
             </section>
             <ToolList />
             {/* <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Split PDF Blog Articles </h1> */}

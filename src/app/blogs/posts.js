@@ -20,7 +20,6 @@ async function Posts({ toolName }) {
             const data = await response.json();
             articles = data?.posts || [];
         }
-        console.log(articles)
     } catch (error) {
         console.error("Error fetching posts:", error);
     }

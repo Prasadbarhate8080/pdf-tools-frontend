@@ -1,18 +1,18 @@
-"use client";
-import { useState, useRef, useCallback, useEffect } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
-import Processing from "@/components/Processing";
-import ProgressBar from "@/components/ProgressBar";
-import FileInput from "@/components/FileInput";
-import { useFileUpload } from "@/hooks/useFileUpload";
+'use client'
+import { useState, useRef, useCallback, useEffect } from 'react'
+import { Document, Page, pdfjs } from 'react-pdf'
+import 'react-pdf/dist/Page/AnnotationLayer.css'
+import 'react-pdf/dist/Page/TextLayer.css'
+import Processing from '@/components/Processing'
+import ProgressBar from '@/components/ProgressBar'
+import FileInput from '@/components/FileInput'
+import { useFileUpload } from '@/hooks/useFileUpload'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from '@/components/ui/accordion'
 import {
   BadgeCheck,
   Check,
@@ -25,172 +25,183 @@ import {
   Sparkles,
   Upload,
   Zap,
-} from "lucide-react";
-import FeaturesCard from "@/components/FeatureCard";
-import { PDFDocument } from "pdf-lib";
-import ToolList from "@/components/ToolList";
-import FadeIn from "@/components/FadeIn";
-if (typeof window !== "undefined") {
-  pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+} from 'lucide-react'
+import FeaturesCard from '@/components/FeatureCard'
+import { PDFDocument } from 'pdf-lib'
+import ToolList from '@/components/ToolList'
+import FadeIn from '@/components/FadeIn'
+import Faqs from '@/components/Faqs'
+if (typeof window !== 'undefined') {
+  pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
 const benefits = [
-  "Remove unwanted pages from any PDF on any device",
-  "Select exactly the pages you want to delete",
-  "Secure processing with automatic file deletion",
-  "No signup required — remove pages instantly",
-  "Fast, accurate, and free page removal",
-];
+  'Remove unwanted pages from any PDF on any device',
+  'Select exactly the pages you want to delete',
+  'Secure processing with automatic file deletion',
+  'No signup required — remove pages instantly',
+  'Fast, accurate, and free page removal',
+]
 
 const steps = [
   {
     icon: Upload,
-    step: "1",
-    title: "Upload PDF",
-    description: "Select a PDF file or drag and drop it into the upload area.",
+    step: '1',
+    title: 'Upload PDF',
+    description: 'Select a PDF file or drag and drop it into the upload area.',
   },
   {
     icon: Scissors,
-    step: "2",
-    title: "Select Pages",
-    description: "Click the pages you want to remove from the document.",
+    step: '2',
+    title: 'Select Pages',
+    description: 'Click the pages you want to remove from the document.',
   },
   {
     icon: Download,
-    step: "3",
-    title: "Download PDF",
-    description: "Get your cleaned PDF instantly — fast and free.",
+    step: '3',
+    title: 'Download PDF',
+    description: 'Get your cleaned PDF instantly — fast and free.',
   },
-];
+]
 
 const features = [
   {
     icon: Scissors,
-    heading: "Remove Pages Easily",
+    heading: 'Remove Pages Easily',
     paragraph:
-      "Delete unwanted pages from your PDF in just a few clicks. Simple, clean, and designed for everyone to use without complications.",
+      'Delete unwanted pages from your PDF in just a few clicks. Simple, clean, and designed for everyone to use without complications.',
   },
   {
     icon: Gift,
-    heading: "Free & No Sign Up",
+    heading: 'Free & No Sign Up',
     paragraph:
-      "Remove unlimited PDF pages online for free without creating an account. No hidden costs, no registration—just fast and easy PDF cleaning.",
+      'Remove unlimited PDF pages online for free without creating an account. No hidden costs, no registration—just fast and easy PDF cleaning.',
   },
   {
     icon: InfinityIcon,
-    heading: "Remove Without Limits",
+    heading: 'Remove Without Limits',
     paragraph:
-      "Delete any number of pages—from one page to multiple sections. Our tool handles everything smoothly and efficiently.",
+      'Delete any number of pages—from one page to multiple sections. Our tool handles everything smoothly and efficiently.',
   },
   {
     icon: BadgeCheck,
-    heading: "Accurate Page Removal",
+    heading: 'Accurate Page Removal',
     paragraph:
-      "Our PDF remover ensures precise results every time. Delete only the pages you want while keeping the rest of the document untouched.",
+      'Our PDF remover ensures precise results every time. Delete only the pages you want while keeping the rest of the document untouched.',
   },
   {
     icon: ShieldCheck,
-    heading: "Secure Online Processing",
+    heading: 'Secure Online Processing',
     paragraph:
-      "Your files stay private. All uploaded PDFs are auto-deleted after processing, ensuring safe and secure page removal.",
+      'Your files stay private. All uploaded PDFs are auto-deleted after processing, ensuring safe and secure page removal.',
   },
   {
     icon: Zap,
-    heading: "Fast & Powerful",
+    heading: 'Fast & Powerful',
     paragraph:
-      "Powered by optimized processing, our tool removes pages within seconds. Fast, reliable, and professional for everyday use.",
+      'Powered by optimized processing, our tool removes pages within seconds. Fast, reliable, and professional for everyday use.',
   },
-];
+]
 
 const faqs = [
   {
-    question: "Is PDFtoolify Free to Remove PDF Pages?",
+    question: 'Is PDFtoolify Free to Remove PDF Pages?',
     answer:
-      "Yes, removing pages from your PDF is completely free on PDFtoolify. No signup or subscription required.",
+      'Yes, removing pages from your PDF is completely free on PDFtoolify. No signup or subscription required.',
   },
   {
-    question: "How do I remove pages from a PDF using PDFtoolify?",
+    question: 'How do I remove pages from a PDF using PDFtoolify?',
     answer:
-      "Upload your PDF, select the pages you want to delete, and click “Remove Pages.” PDFtoolify will instantly generate a new cleaned PDF.",
+      'Upload your PDF, select the pages you want to delete, and click “Remove Pages.” PDFtoolify will instantly generate a new cleaned PDF.',
   },
   {
-    question: "Will removing pages change my PDF quality?",
+    question: 'Will removing pages change my PDF quality?',
     answer:
-      "No. Only the selected pages are deleted—your remaining pages stay in the same original quality and format.",
+      'No. Only the selected pages are deleted—your remaining pages stay in the same original quality and format.',
   },
   {
-    question: "Is it safe to remove PDF pages online?",
+    question: 'Is it safe to remove PDF pages online?',
     answer:
-      "Yes. All files are processed securely, and your PDF is automatically deleted from our servers after completion.",
+      'Yes. All files are processed securely, and your PDF is automatically deleted from our servers after completion.',
   },
   {
-    question: "Can I remove PDF pages offline?",
+    question: 'Can I remove PDF pages offline?',
     answer:
-      "Yes. You can download PDFtoolify for Windows and remove pages offline without internet access.",
+      'Yes. You can download PDFtoolify for Windows and remove pages offline without internet access.',
   },
   {
-    question: "Does removing PDF pages cost anything?",
-    answer:
-      "No. PDFtoolify’s page removal tool is 100% free and has no hidden charges.",
+    question: 'Does removing PDF pages cost anything?',
+    answer: 'No. PDFtoolify’s page removal tool is 100% free and has no hidden charges.',
   },
-];
+]
 
 export default function RemovePDFPages() {
-  const [numPages, setNumPages] = useState(null);
-  const [selectedPages, setSelectedPages] = useState([]);
+  const [numPages, setNumPages] = useState(null)
+  const [selectedPages, setSelectedPages] = useState([])
 
-  let { files, isDroped, isProcessing, completionStatus, isUploading,
-    downloadFileURL, serverPreparing, progress, setisDroped, setFiles, callApi, setdownloadFileURL, setCompletionStatus
+  let {
+    files,
+    isDroped,
+    isProcessing,
+    completionStatus,
+    isUploading,
+    downloadFileURL,
+    serverPreparing,
+    progress,
+    setisDroped,
+    setFiles,
+    callApi,
+    setdownloadFileURL,
+    setCompletionStatus,
   } = useFileUpload()
 
   const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-  };
+    setNumPages(numPages)
+  }
 
   const togglePageSelection = (pageNum) => {
     setSelectedPages((prevSelected) =>
       prevSelected.includes(pageNum)
         ? prevSelected.filter((n) => n !== pageNum)
         : [...prevSelected, pageNum]
-    );
-  };
+    )
+  }
 
   async function removePages() {
     try {
-      if (!files) throw new Error("no file selected")
-      if (selectedPages.length == 0) throw new Error("please select at least one page")
+      if (!files) throw new Error('no file selected')
+      if (selectedPages.length == 0) throw new Error('please select at least one page')
 
-      const arrayBuffer = await files.arrayBuffer();
+      const arrayBuffer = await files.arrayBuffer()
       const pdfDoc = await PDFDocument.load(arrayBuffer)
 
-      const totalPages = pdfDoc.getPageCount();
+      const totalPages = pdfDoc.getPageCount()
       // Step 3: Prepare remove set
       const removeSet = new Set(
         selectedPages
-          .filter(p => typeof p === "number" && p > 0 && p <= totalPages)
-          .map(p => p - 1) // Convert to 0-based
-      );
+          .filter((p) => typeof p === 'number' && p > 0 && p <= totalPages)
+          .map((p) => p - 1) // Convert to 0-based
+      )
 
-      if (removeSet.size == 0) throw new Error("remove set size is zero")
+      if (removeSet.size == 0) throw new Error('remove set size is zero')
 
-      const keepPages = [];
+      const keepPages = []
       for (let i = 0; i < totalPages; i++) {
-        if (!removeSet.has(i))
-          keepPages.push(i);
+        if (!removeSet.has(i)) keepPages.push(i)
       }
 
-      if (keepPages.length == 0) throw new Error("all pages selected to remove")
-      const newPdfDoc = await PDFDocument.create();
-      const copiedPages = await newPdfDoc.copyPages(pdfDoc, keepPages);
-      copiedPages.forEach(p => newPdfDoc.addPage(p));
-      const newPdfBytes = await newPdfDoc.save();
-      const blob = new Blob([newPdfBytes], { type: "application/pdf" });
+      if (keepPages.length == 0) throw new Error('all pages selected to remove')
+      const newPdfDoc = await PDFDocument.create()
+      const copiedPages = await newPdfDoc.copyPages(pdfDoc, keepPages)
+      copiedPages.forEach((p) => newPdfDoc.addPage(p))
+      const newPdfBytes = await newPdfDoc.save()
+      const blob = new Blob([newPdfBytes], { type: 'application/pdf' })
       let url = URL.createObjectURL(blob)
       setdownloadFileURL(url)
       setCompletionStatus(true)
       setTimeout(() => {
         URL.revokeObjectURL(url)
-      }, 10000);
+      }, 10000)
     } catch (error) {
       // toast.error(error.message)
       console.log(error)
@@ -198,25 +209,21 @@ export default function RemovePDFPages() {
   }
 
   const handleRemove = async () => {
-    if (!files || selectedPages.length === 0)
-      return alert("Select at least one page.");
-    removePages();
+    if (!files || selectedPages.length === 0) return alert('Select at least one page.')
+    removePages()
     // const formData = new FormData();
     // formData.append("pdf_file", files);
     // formData.append("pages", JSON.stringify(selectedPages));
     // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/remove_pdf_pages",formData);
-  };
+  }
 
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <section
-          className="relative pt-16 pb-6"
-          style={{ background: "var(--gradient-hero)" }}
-        >
+        <section className="relative pt-16 pb-6" style={{ background: 'var(--gradient-hero)' }}>
           <div
             className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-            style={{ background: "var(--gradient-glow)" }}
+            style={{ background: 'var(--gradient-glow)' }}
           />
           <div className="container pt-16 text-center">
             <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
@@ -247,7 +254,7 @@ export default function RemovePDFPages() {
             setFiles={setFiles}
             setisDroped={setisDroped}
             multiple={false}
-            accept={{ "application/pdf": [] }}
+            accept={{ 'application/pdf': [] }}
           />
           <section className="container py-20">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
@@ -322,24 +329,7 @@ export default function RemovePDFPages() {
                 Common questions about removing PDF pages
               </p>
             </div>
-            <div className="max-w-3xl mx-auto">
-              <Accordion type="single" collapsible className="space-y-3">
-                {faqs.map((faq, i) => (
-                  <AccordionItem
-                    key={i}
-                    value={`item-${i}`}
-                    className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-300"
-                  >
-                    <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-5">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
+            <Faqs faqs={faqs} />
           </section>
           <ToolList />
         </div>
@@ -375,7 +365,7 @@ export default function RemovePDFPages() {
           {/* button for extracting pages */}
           <div className="mt-6 text-center">
             <button
-              onClick={handleExtract}
+              onClick={handleRemove}
               className="bg-blue-500 text-white px-8 py-4 text-2xl rounded-md "
             >
               Remove {selectedPages.length > 0 && selectedPages.length} Selected Pages
@@ -386,11 +376,12 @@ export default function RemovePDFPages() {
 
       {/* progress bar and proessing */}
       {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
-      {serverPreparing && <div className="flex flex-col items-center mt-8">
-        <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
-        <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-      }
+      {serverPreparing && (
+        <div className="flex flex-col items-center mt-8">
+          <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
+          <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
       {progress === 100 && isProcessing && <Processing />}
 
       {/* after task complete button will show */}
@@ -410,7 +401,6 @@ export default function RemovePDFPages() {
           </div>
         </div>
       )}
-
     </div>
-  );
+  )
 }

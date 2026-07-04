@@ -9,6 +9,7 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import FileInput from "@/components/FileInput";
 import { useFileUpload } from "@/hooks/useFileUpload";
+import Faqs from '@/components/Faqs';
 import {
   Accordion,
   AccordionContent,
@@ -264,24 +265,7 @@ function Pdfa() {
                   Common questions about PDF/A conversion
                 </p>
               </div>
-              <div className="max-w-3xl mx-auto">
-                <Accordion type="single" collapsible className="space-y-3">
-                  {faqs.map((faq, i) => (
-                    <AccordionItem
-                      key={i}
-                      value={`item-${i}`}
-                      className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-300"
-                    >
-                      <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-5">
-                        {faq.question}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                        {faq.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
+              <Faqs faqs={faqs} />
             </section>
             <ToolList />
           </div>

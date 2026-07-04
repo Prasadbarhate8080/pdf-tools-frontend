@@ -8,11 +8,12 @@ import Processing from '@/components/Processing'
 import ProgressBar from '@/components/ProgressBar'
 import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
+import Faqs from '@/components/Faqs';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,  
+  AccordionTrigger,
 } from '@/components/ui/accordion'
 import {
   ArrowRight,
@@ -32,6 +33,8 @@ import PDFPageComponent from '@/components/PDFPageComponent'
 import ToolList from '@/components/ToolList'
 import FeatureCard from '@/components/FeatureCard'
 import FadeIn from '@/components/FadeIn'
+import { Posts } from '../blogs/posts'
+import ToolBlog from './ToolBlog'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -302,31 +305,26 @@ function Merge() {
                   Common questions about our PDF merger tool
                 </p>
               </div>
-              <div className="max-w-3xl mx-auto">
-                <Accordion type="single" collapsible className="space-y-3">
-                  {faqs.map((faq, i) => (
-                    <AccordionItem
-                      key={i}
-                      value={`item-${i}`}
-                      className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-300"
-                    >
-                      <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-5">
-                        {faq.question}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                        {faq.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
+              <Faqs faqs={faqs} />
             </section>
             {/* blog section */}
+            <div className="container py-20 mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                  Merge PDF Blog Articles
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">
+                  Learn more about merging PDFs efficiently
+                </p>
+              </div>
+              {/* <Posts toolName={'MERGE_PDF'} /> */}
+            </div>
+            <ToolBlog />
             <ToolList />
           </div>
         )}
         {isDroped && !completionStatus && !isProcessing && !isUploading && (
-          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
+          <div className="max-w-7xl h-[90vh] mx-auto bg-gray-100 rounded-sm p-10 mt-16  ">
             <ul className="mt-6 flex flex-wrap justify-center  p-5 gap-6">
               {files.map((file, index) => (
                 <PDFPageComponent file={file} key={index} />
