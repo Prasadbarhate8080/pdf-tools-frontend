@@ -17,6 +17,18 @@ function page() {
   return (
     <div>
       <Merge />
+      <div className="container py-20 mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+            Merge PDF Blog Articles
+          </h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            Learn more about watermarking and protecting PDFs
+          </p>
+        </div>
+        <Posts toolName={"MERGE_PDF"} />
+        <ToolBlog/>
+      </div>
     </div>
   )
 }

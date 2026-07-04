@@ -140,26 +140,6 @@ const faqs = [
   },
 ];
 
-const articles = [
-  {
-    image: "https://www.pdftoolify.com/how_to_merge.png",
-    title: "How to Add a Watermark to PDF",
-    description:
-      "Upload your PDF, customize watermark text and placement, then download the updated file instantly.",
-  },
-  {
-    image: "https://www.pdftoolify.com/safe_to_merge.png",
-    title: "Is It Safe to Watermark PDFs Online?",
-    description:
-      "PDFtoolify processes files securely and deletes them automatically after completion.",
-  },
-  {
-    image: "https://www.pdftoolify.com/onine_pdf_merger.jpg",
-    title: "Best Free PDF Watermark Tool",
-    description:
-      "Add professional watermarks without signup, limits, or hidden fees — fast and easy.",
-  },
-];
 
 function AddWaterMarkPage() {
   const [water_mark_position, setWater_mark_position] = useState(5);
@@ -457,29 +437,6 @@ function AddWaterMarkPage() {
                 </p>
               </div>
               <Faqs faqs={faqs} />
-            </section>
-            <section className="container py-20">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Add Watermark Blog Articles
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Learn more about watermarking PDFs effectively
-                </p>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                {articles.map((article, i) => (
-                  <BlogCard
-                    key={i}
-                    post={{
-                      ...article,
-                      imageUrl: article.image,
-                      slug: article.title.toLowerCase().replace(/ /g, "-"),
-                    }}
-                    index={i}
-                  />
-                ))}
-              </div>
             </section>
             <ToolList />
           </div>
