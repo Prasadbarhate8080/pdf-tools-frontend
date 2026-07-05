@@ -1,10 +1,8 @@
-"use client"
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     progress: 0
 }
-
 
 const progressBarSlice = createSlice({
     name: "fileProgress",

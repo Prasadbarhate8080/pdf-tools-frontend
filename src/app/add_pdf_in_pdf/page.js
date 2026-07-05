@@ -2,6 +2,7 @@ import React from 'react'
 import AddPdfInPdf from './add_pdf_in_pdf';
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
+import HideContent from '@/components/HideContent';
 export const metadata = {
   title: "Insert PDF into PDF Online - Merge PDFs Anywhere",
   description: "Insert a PDF file into another PDF document at any position. Fast, secure, and free online tool with PDFtoolify.",
@@ -19,7 +20,8 @@ function page() {
     <div>
       <AddPdfInPdf />
       <div className="container py-20 mx-auto">
-        <div className="text-center mb-12">
+        <HideContent>
+          <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
             Insert PDF into PDF Blog Articles
           </h2>
@@ -28,8 +30,9 @@ function page() {
           </p>
         </div>
         <Posts toolName={"ADD_PDF_IN_PDF"} />
+        <ToolBlog />
+        </HideContent>
       </div>
-      <ToolBlog />
     </div>
   )
 }

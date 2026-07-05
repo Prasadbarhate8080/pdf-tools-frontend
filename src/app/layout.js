@@ -5,6 +5,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 import { ToastContainer } from "react-toastify";
 import { Header } from "@/components/Header";
+import HideContent from "@/components/HideContent";
 import { Footer } from "@/components/Footer";
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -110,7 +111,9 @@ export default function RootLayout({ children }) {
           <StoreProvider> 
             <Header />
             {children}
-            <Footer />  
+            <HideContent>
+              <Footer />
+            </HideContent>
           </StoreProvider>
           <ToastContainer />
         </body>

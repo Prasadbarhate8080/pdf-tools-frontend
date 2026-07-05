@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
@@ -8,13 +8,7 @@ import Processing from '@/components/Processing'
 import ProgressBar from '@/components/ProgressBar'
 import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
-import Faqs from '@/components/Faqs';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
+import Faqs from '@/components/Faqs'
 import {
   ArrowRight,
   CheckCircle,
@@ -33,8 +27,8 @@ import PDFPageComponent from '@/components/PDFPageComponent'
 import ToolList from '@/components/ToolList'
 import FeatureCard from '@/components/FeatureCard'
 import FadeIn from '@/components/FadeIn'
-import { Posts } from '../blogs/posts'
-import ToolBlog from './ToolBlog'
+import { useDispatch } from 'react-redux'
+import { hideContent } from '@/store/hideContentSlice'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -138,6 +132,7 @@ const features = [
 
 function Merge() {
   const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch();
   let {
     files,
     isDroped,
@@ -153,7 +148,7 @@ function Merge() {
     callApi,
     setdownloadFileURL,
   } = useFileUpload()
-
+  
   let mergePdf = async () => {
     try {
       setLoading(true)
@@ -194,6 +189,7 @@ function Merge() {
     // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/merge",formData);
   }
 
+
   return (
     <div className="min-h-screen bg-background ">
       {!completionStatus && !isDroped && (
@@ -207,7 +203,6 @@ function Merge() {
               <Sparkles className="w-4 h-4" />
               Free Online PDF Merger
             </FadeIn>
-
             <h1 className="section-heading text-center">
               Merge <span className="gradient-text">PDF Files</span> Instantly
             </h1>

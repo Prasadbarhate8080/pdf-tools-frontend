@@ -2,6 +2,7 @@ import React from 'react'
 import PNGToPDF from './png_to_pdf';
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
+import HideContent from '@/components/HideContent';
 export const metadata = {
   title: "PNG to PDF Converter Online - Free and Fast",
   description: "Easily convert PNG images into a high-quality PDF document online. Free to use, secure, and no sign-up required.",
@@ -18,7 +19,8 @@ function page() {
     <div>
       <PNGToPDF />
       <div className="container py-20 mx-auto">
-        <div className="text-center mb-12">
+        <HideContent>
+          <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
             PNG to PDF Blog Articles
           </h2>
@@ -27,8 +29,10 @@ function page() {
           </p>
         </div>
         <Posts toolName={"PNG_TO_PDF"} />
+        <ToolBlog />
+
+        </HideContent>
       </div>
-      <ToolBlog />
     </div>
   )
 }

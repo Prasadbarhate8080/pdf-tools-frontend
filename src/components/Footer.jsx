@@ -36,95 +36,126 @@ const socialLinks = [
 ]
 
 export const Footer = () => {
-  return (
-    <footer className="border-t border-border bg-card/50 mt-10">
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
-          {/* Brand */}
-          <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <a href="#" className="flex items-center gap-2.5 mb-5">
-              <div className=" rounded-lg flex items-center justify-center "><Image  src={"/pdftoolify_logo.svg"} alt='pdftoolify.com' height={36} width={36}/></div>
-              <span className="text-xl font-bold text-foreground">
-                PDF<span className="text-primary">toolify</span>
-              </span>
-            </a>
-            <p className="text-muted-foreground mb-6 max-w-sm leading-relaxed">All the PDF tools you need in one place. Manage your documents smarter and faster with PDFtoolify.</p>
-            <div className="flex gap-3">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-4 h-4" />
-                </a>
-              ))}
+    return (
+      <footer className="border-t border-border bg-card/50 mt-10">
+        <div className="container mx-auto px-6 py-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
+            {/* Brand */}
+            <div className="col-span-2 md:col-span-3 lg:col-span-2">
+              <a href="#" className="flex items-center gap-2.5 mb-5">
+                <div className=" rounded-lg flex items-center justify-center ">
+                  <Image src={'/pdftoolify_logo.svg'} alt="pdftoolify.com" height={36} width={36} />
+                </div>
+                <span className="text-xl font-bold text-foreground">
+                  PDF<span className="text-primary">toolify</span>
+                </span>
+              </a>
+              <p className="text-muted-foreground mb-6 max-w-sm leading-relaxed">
+                All the PDF tools you need in one place. Manage your documents smarter and faster
+                with PDFtoolify.
+              </p>
+              <div className="flex gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
+                    aria-label={social.label}
+                  >
+                    <social.icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Tools */}
+            <div>
+              <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wider">
+                Tools
+              </h4>
+              <ul className="space-y-2.5">
+                {footerLinks.tools.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* More Tools */}
+            <div>
+              <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wider">
+                More Tools
+              </h4>
+              <ul className="space-y-2.5">
+                {footerLinks.moreTools.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wider">
+                Resources
+              </h4>
+              <ul className="space-y-2.5">
+                {footerLinks.resources.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wider">
+                Legal
+              </h4>
+              <ul className="space-y-2.5">
+                {footerLinks.legal.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          {/* Tools */}
-          <div>
-            <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wider">Tools</h4>
-            <ul className="space-y-2.5">
-              {footerLinks.tools.map((link) => (
-                <li key={link.name}>
-                  <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* More Tools */}
-          <div>
-            <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wider">More Tools</h4>
-            <ul className="space-y-2.5">
-              {footerLinks.moreTools.map((link) => (
-                <li key={link.name}>
-                  <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wider">Resources</h4>
-            <ul className="space-y-2.5">
-              {footerLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <a href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="font-semibold text-foreground mb-4 text-sm uppercase tracking-wider">Legal</h4>
-            <ul className="space-y-2.5">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <a href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          <div className="mt-14 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} PDFtoolify. All rights reserved.
+            </p>
+            <p className="text-sm text-muted-foreground">Work Smarter with Easy PDF Tools ✨</p>
           </div>
         </div>
-
-        <div className="mt-14 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} PDFtoolify. All rights reserved.</p>
-          <p className="text-sm text-muted-foreground">Work Smarter with Easy PDF Tools ✨</p>
-        </div>
-      </div>
-    </footer>
-  )
+      </footer>
+    )
 }
