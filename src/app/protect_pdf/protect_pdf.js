@@ -8,22 +8,12 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
-import Faqs from '@/components/Faqs';
+import FaqSection from '@/components/FaqSection';
+import HowToSection from '@/components/HowToSection';
 import {
-  BadgeCheck,
-  CircleCheck,
-  Gift,
-  InfinityIcon,
-  Lock,
-  MousePointerClick,
-  ShieldCheck,
-  ShieldHalf,
-  SplitIcon,
-  Zap,
   Sparkles,
-  CheckCircle,
 } from "lucide-react";
-import FeaturesCard from "@/components/FeatureCard";
+import FeatureCardSection from "@/components/FeatureCardSection";
 import Image from "next/image";
 import PDFPageComponent from "@/components/PDFPageComponent";
 import ToolList from "@/components/ToolList";
@@ -34,111 +24,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import ToolHeader from "@/components/ToolHeader";
+import BenefitsSection from "@/components/BenefitsSection";
+import { protectPdfBenefits } from "@/data/benefits";
+import { protectPdfFeatures } from "@/data/features";
+import { protectPdfFaqs } from "@/data/faqs";
+import { protectPdfHowToSteps } from "@/data/howTo";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
-
-const benefits = [
-  "Our free Protect PDF tool works on any device, including mobile and desktop",
-  "Easily add a password to your PDF and secure your important documents",
-  "PDFtoolify uses strong encryption to protect your PDF from unauthorized access",
-  "No signup required — lock your PDF files instantly online",
-  "Protect PDFs in seconds with PDFtoolify — fast, secure, and reliable",
-];
-
-const features = [
-  {
-    icon: Lock,
-    heading: "Easy to Protect",
-    paragraph:
-      "Protecting your PDF is simple and intuitive. Upload your file, set a password, and secure your document instantly.",
-  },
-  {
-    icon: Gift,
-    heading: "Free & No Sign Up",
-    paragraph:
-      "Add password protection to unlimited PDF files for free. No registration, no hidden fees—just quick and secure PDF locking.",
-  },
-  {
-    icon: ShieldHalf,
-    heading: "Strong Encryption",
-    paragraph:
-      "Your PDF is encrypted using strong security standards, ensuring your private documents stay safe from unauthorized access.",
-  },
-  {
-    icon: BadgeCheck,
-    heading: "Accurate & Reliable Protection",
-    paragraph:
-      "PDFtoolify locks your PDF without altering its content. Your formatting and layout remain exactly the same after protection.",
-  },
-  {
-    icon: ShieldCheck,
-    heading: "Secure Online Processing",
-    paragraph:
-      "All uploaded files are processed securely and deleted automatically after encryption to maintain your privacy.",
-  },
-  {
-    icon: Zap,
-    heading: "Fast & Powerful",
-    paragraph:
-      "Protect your PDF in just seconds. Our optimized engine encrypts files quickly while ensuring top-level security.",
-  },
-];
-
-const steps = [
-  {
-    step: "1",
-    title: "Upload your PDF file",
-    description:
-      "Select a PDF from your device or drag and drop it into the upload area.",
-  },
-  {
-    step: "2",
-    title: "Set a strong password",
-    description:
-      "Enter a secure password to lock your PDF and prevent unauthorized access.",
-  },
-  {
-    step: "3",
-    title: "Protect & download PDF",
-    description:
-      "Click on “Protect PDF” and download your newly encrypted, password-protected file.",
-  },
-];
-
-const faqs = [
-  {
-    question: "Is PDFtoolify really free for protecting PDFs?",
-    answer:
-      "Yes. PDFtoolify is completely free to use. You can lock your PDF files with a password without any signup or charges.",
-  },
-  {
-    question: "How can I protect my PDF using PDFtoolify?",
-    answer:
-      "Simply upload your PDF, enter a password, and click “Protect PDF.” Your file will instantly be encrypted with strong security.",
-  },
-  {
-    question: "Will protecting a PDF reduce its quality?",
-    answer:
-      "No. Protecting your PDF only adds encryption. Your content, layout, text, and images remain unchanged.",
-  },
-  {
-    question: "Is it safe to protect my PDF online?",
-    answer:
-      "Yes. PDFtoolify uses secure processing, and your files are automatically deleted after encryption to ensure complete privacy.",
-  },
-  {
-    question: "Can I protect PDF files offline with PDFtoolify?",
-    answer:
-      "Yes. You can download PDFtoolify for Windows and protect your files offline without needing internet access.",
-  },
-  {
-    question: "Does protecting a PDF cost anything?",
-    answer:
-      "No. Adding a password to your PDF using PDFtoolify is completely free.",
-  },
-];
 
 function Protect() {
   const [password, setPassword] = useState(null);
@@ -170,28 +65,7 @@ function Protect() {
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <section
-          className="relative pt-16 pb-6"
-          style={{ background: "var(--gradient-hero)" }}
-        >
-          <div
-            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-            style={{ background: "var(--gradient-glow)" }}
-          />
-          <div className="container pt-16 text-center">
-            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              Free Online PDF Protector
-            </FadeIn>
-            <h1 className="section-heading text-center">
-              Protect <span className="gradient-text">PDF Files</span> with
-              Password
-            </h1>
-            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-              Add strong password protection to your PDF files — fast, secure, and completely free.
-            </p>
-          </div>
-        </section>
+        <ToolHeader sparklesText={"Free Online PDF Protector"} headings={["Protect","PDF Files","with Password"]} text={"Add strong password protection to your PDF files — fast, secure, and completely free."} />
       )}
       <form
         onSubmit={(e) => {
@@ -208,90 +82,29 @@ function Protect() {
               accept={{ "application/pdf": [] }}
             />
 
-            {/* Benefits Section */}
-            <section className="container py-20">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
-                Protect PDF files with a strong password
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                {benefits.map((benefit, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={400 + i * 80}
-                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200"
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{benefit}</span>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
+            <BenefitsSection
+              heading={"Protect PDF files with a strong password"}
+              benefits={protectPdfBenefits}
+            />
 
-            {/* feature card section */}
-            <section className="bg-muted/30">
-              <div className="container py-20">
-                <div className="text-center mb-14">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                    Features of PDFtoolify - Protect PDF
-                  </h2>
-                  <p className="text-muted-foreground max-w-lg mx-auto">
-                    Secure your important PDF documents with powerful, easy-to-use protection tools
-                  </p>
-                </div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                  {features.map((feature, i) => (
-                    <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
-                  ))}
-                </div>
-              </div>
-            </section>
+            <FeatureCardSection
+              tool={"Protect PDF"}
+              text="Secure your important PDF documents with powerful, easy-to-use protection tools"
+              features={protectPdfFeatures}
+            />
 
-            {/* how to section */}
-            <section className="container py-20">
-              <div className="text-center mb-14">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  How to protect a PDF online for free?
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Lock your PDF with a password in three quick steps.
-                </p>
-              </div>
-              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {steps.map((item, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={200 + i * 150}
-                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
-                      {item.step}
-                    </div>
-                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
-                      <Sparkles className="w-7 h-7 text-primary-foreground" />
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
+            <HowToSection
+              heading={"How to protect a PDF online for free?"}
+              text={"Lock your PDF with a password in three quick steps."}
+              steps={protectPdfHowToSteps}
+            />
 
             {/* FAQs Section */}
-            <section className="container py-20">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Protect PDF FAQs
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Common questions about locking your PDF files with a password
-                </p>
-              </div>
-              <Faqs faqs={faqs} />
-            </section>
+            <FaqSection
+              heading={"Protect PDF FAQs"}
+              text={"Common questions about locking your PDF files with a password"}
+              faqs={protectPdfFaqs}
+            />
 
             <ToolList />
           </div>

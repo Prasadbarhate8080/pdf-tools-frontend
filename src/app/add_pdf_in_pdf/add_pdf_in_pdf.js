@@ -4,149 +4,30 @@ import { ToastContainer } from "react-toastify";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
-import Processing from "@/components/Processing";
-import ProgressBar from "@/components/ProgressBar";
 import FileInput from "@/components/FileInput";
 import { useFileUpload } from "@/hooks/useFileUpload";
-import Faqs from '@/components/Faqs';
 import {
-  BadgeCheck,
-  CircleCheck,
-  Gift,
-  InfinityIcon,
   MousePointerClick,
-  ShieldCheck,
-  SplitIcon,
   Zap,
-  CheckCircle2,
-  CheckSquare,
-  Check,
   Plus,
   FilePlus,
-  Files,
-  Layers,
-  Sparkles,
-  CheckCircle,
 } from "lucide-react";
-import FeaturesCard from "@/components/FeatureCard";
-import { error, PDFDocument } from "pdf-lib";
+import FeatureCardSection from "@/components/FeatureCardSection";
+import { PDFDocument } from "pdf-lib";
 import { toast } from "react-toastify";
 import ToolList from "@/components/ToolList";
-import FadeIn from "@/components/FadeIn";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import ToolHeader from "@/components/ToolHeader";
+import BenefitsSection from "@/components/BenefitsSection";
+import FaqSection from "@/components/FaqSection";
+import HowToSection from "@/components/HowToSection";
+import { addPdfInPdfBenefits } from "@/data/benefits";
+import { addPdfInPdfFeatures } from "@/data/features";
+import { addPdfInPdfFaqs } from "@/data/faqs";
+import { addPdfInPdfHowToSteps } from "@/data/howTo";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
-
-const benefits = [
-  "Add any PDF inside another PDF at any page position",
-  "Easily insert multiple pages or entire PDFs in one click",
-  "Works on all devices — mobile, tablet, and PC",
-  "No signup required — upload and insert PDFs instantly",
-  "Fast and secure — files auto-delete after processing",
-];
-
-const features = [
-  {
-    icon: FilePlus,
-    heading: "Insert PDFs Easily",
-    paragraph:
-      "Add one PDF inside another without complications. Simply choose the page where you want to insert and you're done.",
-  },
-  {
-    icon: Gift,
-    heading: "Free & No Sign Up Required",
-    paragraph:
-      "Insert PDFs into any page position completely free. No signup, no limits—just upload your files and merge instantly.",
-  },
-  {
-    icon: Layers,
-    heading: "Insert Multiple Pages",
-    paragraph:
-      "Add single pages or entire PDFs smoothly. Perfect for combining scanned pages, assignments, forms, and documents.",
-  },
-  {
-    icon: Files,
-    heading: "Precise Page Placement",
-    paragraph:
-      "Choose the exact page number where the new PDF should be inserted. Full control over your document structure.",
-  },
-  {
-    icon: ShieldCheck,
-    heading: "Secure PDF Processing",
-    paragraph:
-      "Your PDFs are processed safely and automatically deleted after merging. 100% privacy—no files stored.",
-  },
-  {
-    icon: Zap,
-    heading: "Fast & Efficient",
-    paragraph:
-      "Experience lightning-fast PDF insertion with optimized performance and high-quality output.",
-  },
-];
-
-const steps = [
-  {
-    step: "1",
-    icon: FilePlus,
-    title: "Upload your main PDF",
-    description:
-      "Select the primary PDF where you want to insert additional pages.",
-  },
-  {
-    step: "2",
-    icon: MousePointerClick,
-    title: "Choose insert position",
-    description:
-      "Pick the page number where the new PDF should be inserted.",
-  },
-  {
-    step: "3",
-    icon: Zap,
-    title: "Select and insert PDF",
-    description:
-      "Upload the second PDF, insert it, and download your final merged document.",
-  },
-];
-
-const faqs = [
-  {
-    question: "Is PDFtoolify’s Add PDF in PDF tool free?",
-    answer:
-      "Yes, PDFtoolify is completely free. You can insert one PDF into another without any signup or hidden charges.",
-  },
-  {
-    question: "How can I add a PDF inside another PDF?",
-    answer:
-      "Upload your main PDF, choose the page number where you want to insert the new PDF, select the second file, and PDFtoolify will insert it instantly.",
-  },
-  {
-    question: "Will adding a PDF affect the quality of my document?",
-    answer:
-      "No, the quality remains the same. PDFtoolify preserves original text, images, and formatting while adding pages.",
-  },
-  {
-    question: "Is it safe to upload my PDFs online?",
-    answer:
-      "Yes, your files are processed securely. PDFtoolify automatically deletes your PDFs after completion to ensure privacy.",
-  },
-  {
-    question: "Can I insert multiple pages or entire PDFs?",
-    answer:
-      "Absolutely. You can add a full PDF or selected pages, and place them exactly where you want in the main document.",
-  },
-  {
-    question: "Is there any limit on how many PDFs I can add?",
-    answer:
-      "No limits. You can insert as many PDFs as you want—PDFtoolify is completely free and unlimited.",
-  },
-];
 
 function AddPdfInPdf() {
   let pdfFile = useRef(null)
@@ -155,8 +36,16 @@ function AddPdfInPdf() {
   const [pdfFilePageno, setPdfFilePageno] = useState(1)
 
 
-  let {files,isDroped,isProcessing,completionStatus,isUploading,setCompletionStatus,setdownloadFileURL,
-  downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi
+  let {
+    files,
+    isDroped,
+    completionStatus,
+    isUploading,
+    downloadFileURL,
+    setisDroped,
+    setFiles,
+    setCompletionStatus,
+    setdownloadFileURL,
   } = useFileUpload()
 
   useEffect(() => {
@@ -216,27 +105,8 @@ async function addPdfIntoPdf() {
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <section
-          className="relative pt-16 pb-6"
-          style={{ background: "var(--gradient-hero)" }}
-        >
-            <div
-              className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-              style={{ background: "var(--gradient-glow)" }}
-            />
-            <div className="container pt-16 text-center">
-              <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-                <Sparkles className="w-4 h-4" />
-                Free Online PDF Inserter
-              </FadeIn>
-            <h1 className="section-heading text-center">
-              Insert <span className="gradient-text">PDF into PDF</span> Easily
-            </h1>
-            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-              Add one PDF inside another at any page position — free, fast, and secure.
-            </p>
-          </div>
-        </section>
+                <ToolHeader sparklesText={"Free Online PDF Inserter"} headings={["Insert","PDF into PDF","Easily"]} text={"Add one PDF inside another at any page position — free, fast, and secure."} />
+
       )}
       {!isDroped && (
         <div>
@@ -248,90 +118,27 @@ async function addPdfIntoPdf() {
             accept={{ "application/pdf": [] }}
           />
 
-          {/* Benefits Section */}
-          <section className="container py-20">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
-              Add a PDF inside another PDF online for free
-            </h2>
-            <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                {benefits.map((benefit, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={400 + i * 80}
-                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200"
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{benefit}</span>
-                  </FadeIn>
-                ))}
-              </div>
-          </section>
+          <BenefitsSection
+            heading={"Add a PDF inside another PDF online for free"}
+            benefits={addPdfInPdfBenefits}
+          />
+          <FeatureCardSection
+            tool={"Add PDF in PDF"}
+            text="Powerful tools to insert entire PDFs exactly where you need them"
+            features={addPdfInPdfFeatures}
+          />
 
-          {/* feature card section */}
-          <section className="bg-muted/30">
-            <div className="container py-20">
-              <div className="text-center mb-14">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Features of PDFtoolify - Add PDF in PDF
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Powerful tools to insert entire PDFs exactly where you need them
-                </p>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                {features.map((feature, i) => (
-                  <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
-                ))}
-              </div>
-            </div>
-          </section>
+          <HowToSection
+            heading={"How to add a PDF inside another PDF?"}
+            text={"Insert one PDF into another in three quick steps."}
+            steps={addPdfInPdfHowToSteps}
+          />
 
-          {/* how to section */}
-          <section className="container py-20">
-            <div className="text-center mb-14">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                How to add a PDF inside another PDF?
-              </h2>
-              <p className="text-muted-foreground max-w-lg mx-auto">
-                Insert one PDF into another in three quick steps.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {steps.map((item, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={200 + i * 150}
-                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
-                      {item.step}
-                    </div>
-                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
-                      <item.icon className="w-7 h-7 text-primary-foreground" />
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </FadeIn>
-                ))}
-              </div>
-          </section>
-
-          {/* FAQs Section */}
-          <section className="container py-20">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                Add PDF in PDF FAQs
-              </h2>
-              <p className="text-muted-foreground max-w-lg mx-auto">
-                Common questions about inserting a PDF into another PDF
-              </p>
-            </div>
-            <Faqs faqs={faqs} />
-          </section>
+          <FaqSection
+            heading={"Add PDF in PDF FAQs"}
+            text={"Common questions about inserting a PDF into another PDF"}
+            faqs={addPdfInPdfFaqs}
+          />
           <ToolList />
         </div>
       )}
@@ -397,6 +204,7 @@ async function addPdfIntoPdf() {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   )
 }

@@ -6,20 +6,14 @@ import "react-pdf/dist/Page/TextLayer.css";
 import Processing from "@/components/Processing";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
-import Faqs from '@/components/Faqs';
+import FaqSection from '@/components/FaqSection';
+import HowToSection from '@/components/HowToSection';
 import {
   CircleCheck,
-  Gift,
-  ShieldCheck,
   Trash2,
-  Zap,
-  Layers,
-  Plus,
-  FileType,
   Sparkles,
-  CheckCircle,
 } from "lucide-react";
-import FeaturesCard from "@/components/FeatureCard";
+import FeatureCardSection from "@/components/FeatureCardSection";
 import { PDFDocument } from "pdf-lib";
 import { toast } from "react-toastify";
 import ToolList from "@/components/ToolList";
@@ -30,111 +24,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import ToolHeader from "@/components/ToolHeader";
+import BenefitsSection from "@/components/BenefitsSection";
+import { createPdfBenefits } from "@/data/benefits";
+import { createPdfFeatures } from "@/data/features";
+import { createPdfFaqs } from "@/data/faqs";
+import { createPdfHowToSteps } from "@/data/howTo";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
-
-const benefits = [
-  "Create a new PDF instantly from your images",
-  "Maintain perfect quality while building a multi-page PDF",
-  "Works on any device — mobile, tablet, Windows, Mac",
-  "No signup needed — create a PDF instantly with one click",
-  "Secure and private — your PDFs are deleted automatically after creation",
-];
-
-const features = [
-  {
-    icon: Plus,
-    heading: "Create PDF Easily",
-    paragraph:
-      "Add your images and generate a clean, professional PDF in just a few clicks.",
-  },
-  {
-    icon: Gift,
-    heading: "Free & No Login Needed",
-    paragraph:
-      "Create new PDFs completely free — no account needed. Just upload images and download instantly.",
-  },
-  {
-    icon: Layers,
-    heading: "Multi-page PDF Support",
-    paragraph:
-      "Combine multiple images into a single PDF document, perfectly ordered and aligned.",
-  },
-  {
-    icon: FileType,
-    heading: "High-Quality Output",
-    paragraph:
-      "Your images are converted with optimized sizing and alignment to keep the PDF looking sharp.",
-  },
-  {
-    icon: ShieldCheck,
-    heading: "Secure PDF Creation",
-    paragraph:
-      "Your files are processed safely, and all uploaded documents are deleted automatically after creating your PDF.",
-  },
-  {
-    icon: Zap,
-    heading: "Fast & Efficient",
-    paragraph:
-      "Convert images to PDF in seconds — designed for speed, accuracy, and smooth workflow.",
-  },
-];
-
-const steps = [
-  {
-    step: "1",
-    title: "Upload your images",
-    description:
-      "Select JPG, PNG, or WEBP images from your device or drag and drop them into the upload area.",
-  },
-  {
-    step: "2",
-    title: "Create your PDF",
-    description:
-      "Click on “Create PDF” to convert your selected images into a single PDF file.",
-  },
-  {
-    step: "3",
-    title: "Download created PDF",
-    description:
-      "Download your new PDF instantly and use it for sharing, printing, or archiving.",
-  },
-];
-
-const faqs = [
-  {
-    question: "Is PDFtoolify’s Create PDF tool free to use?",
-    answer:
-      "Yes, PDFtoolify is completely free. You can create new PDFs from images without any signup or installation.",
-  },
-  {
-    question: "How can I create a PDF using PDFtoolify?",
-    answer:
-      "Simply upload your images, click on Create PDF, and download the generated PDF instantly.",
-  },
-  {
-    question: "Will the quality of my images change after converting to PDF?",
-    answer:
-      "No. Your images are optimized for the PDF page but remain clear and readable, preserving quality as much as possible.",
-  },
-  {
-    question: "Is it safe to create PDFs online?",
-    answer:
-      "Yes. Your files are processed securely, and PDFtoolify deletes all uploaded documents automatically after processing.",
-  },
-  {
-    question: "Can I combine many images into one PDF?",
-    answer:
-      "Absolutely. You can add multiple images and convert them all into a single multi-page PDF.",
-  },
-  {
-    question: "Do I need any software to create a PDF?",
-    answer:
-      "No software required. PDFtoolify works directly in your browser, allowing you to create PDFs instantly online.",
-  },
-];
 
 function CreatePdf() {
   const [loading, setLoading] = useState(false)
@@ -217,27 +116,7 @@ function CreatePdf() {
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <section
-          className="relative pt-16 pb-6"
-          style={{ background: "var(--gradient-hero)" }}
-        >
-          <div
-            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-            style={{ background: "var(--gradient-glow)" }}
-          />
-          <div className="container pt-16 text-center">
-            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              Free Online Image to PDF Creator
-            </FadeIn>
-            <h1 className="section-heading text-center">
-              Create <span className="gradient-text">PDF from Images</span>
-            </h1>
-            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-              Turn your images into a polished PDF document — free, fast, and secure.
-            </p>
-          </div>
-        </section>
+        <ToolHeader sparklesText={"Free Online Image to PDF Creator"} headings={["Create","PDF from Images",""]} text={"Turn your images into a polished PDF document — free, fast, and secure."} />
       )}
 
       <form
@@ -261,90 +140,28 @@ function CreatePdf() {
               }}
             />
 
-            {/* Benefits Section */}
-            <section className="container py-20">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
-                Create PDF from JPG, PNG & WEBP images online
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                {benefits.map((benefit, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={400 + i * 80}
-                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200"
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{benefit}</span>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
+            <BenefitsSection
+              heading={"Create PDF from JPG, PNG & WEBP images online"}
+              benefits={createPdfBenefits}
+            />
 
-            {/* feature card section */}
-            <section className="bg-muted/30">
-              <div className="container py-20">
-                <div className="text-center mb-14">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                    Features of PDFtoolify - Create PDF
-                  </h2>
-                  <p className="text-muted-foreground max-w-lg mx-auto">
-                    Everything you need to turn your images into professional PDFs
-                  </p>
-                </div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                  {features.map((feature, i) => (
-                    <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
-                  ))}
-                </div>
-              </div>
-            </section>
+            <FeatureCardSection
+              tool={"Create PDF"}
+              text="Everything you need to turn your images into professional PDFs"
+              features={createPdfFeatures}
+            />
 
-            {/* how to section */}
-            <section className="container py-20">
-              <div className="text-center mb-14">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  How to create a PDF from images?
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Follow these steps to convert your images into a PDF document.
-                </p>
-              </div>
-              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {steps.map((item, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={200 + i * 150}
-                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
-                      {item.step}
-                    </div>
-                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
-                      <Sparkles className="w-7 h-7 text-primary-foreground" />
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
+            <HowToSection
+              heading={"How to create a PDF from images?"}
+              text={"Follow these steps to convert your images into a PDF document."}
+              steps={createPdfHowToSteps}
+            />
 
-            {/* FAQs Section */}
-            <section className="container py-20">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Create PDF FAQs
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Common questions about creating PDFs from images
-                </p>
-              </div>
-              <Faqs faqs={faqs} />
-            </section>
+            <FaqSection
+              heading={"Create PDF FAQs"}
+              text={"Common questions about creating PDFs from images"}
+              faqs={createPdfFaqs}
+            />
 
             <ToolList />
           </div>

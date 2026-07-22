@@ -10,7 +10,6 @@ import ProgressBar from '@/components/ProgressBar'
 import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import { motion } from 'framer-motion'
-import Faqs from '@/components/Faqs';
 import {
   Accordion,
   AccordionContent,
@@ -18,11 +17,9 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import {
-  CircleCheck,
   FileOutput,
   Scissors,
   Settings,
-  ShieldCheck,
   Smartphone,
   Sparkles,
   SplitIcon,
@@ -30,119 +27,26 @@ import {
   Trash2,
   SidebarClose,
   SidebarOpen,
-  CheckCircle,
   Download,
   Upload,
 } from 'lucide-react'
 import { PDFDocument } from 'pdf-lib'
 import JSZip from 'jszip'
 import ToolList from '@/components/ToolList'
-import FeatureCard from '@/components/FeatureCard'
+import FeatureCardSection from '@/components/FeatureCardSection'
 import FadeIn from '@/components/FadeIn'
+import ToolHeader from '@/components/ToolHeader'
+import BenefitsSection from '@/components/BenefitsSection'
+import { splitPdfBenefits } from '@/data/benefits'
+import { splitPdfFeatures } from '@/data/features'
+import FaqSection from '@/components/FaqSection'
+import HowToSection from '@/components/HowToSection'
+import { splitPdfFaqs } from '@/data/faqs'
+import { splitPdfHowToSteps } from '@/data/howTo'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
-
-const faqs = [
-  {
-    question: 'Is the Split PDF tool on PDFtoolify free?',
-    answer:
-      'Yes, the Split PDF tool on PDFtoolify is completely free. You can split or extract PDF pages without any signup or hidden charges.',
-  },
-  {
-    question: 'How can I split a PDF using PDFtoolify?',
-    answer:
-      "Simply upload your PDF file, select the pages or page ranges you want to extract, and click on Split PDF. The tool will instantly generate separate PDF files for download.",
-  },
-  {
-    question: 'Can I extract specific pages from a PDF?',
-    answer:
-      'Yes, PDFtoolify allows you to select specific pages or page ranges. You can extract only the pages you need and download them as a new PDF file.',
-  },
-  {
-    question: 'Will splitting a PDF reduce its quality?',
-    answer:
-      'No, splitting a PDF does not affect the quality. The extracted pages keep the same formatting and resolution as the original file.',
-  },
-  {
-    question: 'Is it safe to split my PDFs online?',
-    answer:
-      'Yes. Your files are processed securely, and all uploaded PDFs are automatically deleted from our servers after processing to protect your privacy.',
-  },
-  {
-    question: 'Do I need to install any software to split PDFs?',
-    answer:
-      'No installation is required. You can split PDF files directly in your browser using PDFtoolify on any device.',
-  },
-]
-const steps = [
-  {
-    step: 1,
-    title: 'Upload your PDF',
-    description: 'Select or drag and drop the PDF file you want to split.',
-    icon: Upload,
-  },
-  {
-    step: 2,
-    title: 'Choose pages to split',
-    description: 'Select specific pages or page ranges that you want to extract.',
-    icon: Scissors,
-  },
-  {
-    step: 3,
-    title: 'Download split files',
-    description: 'Download the extracted pages or separated PDF files instantly.',
-    icon: Download,
-  },
-]
-
-const features = [
-  {
-    icon: Scissors,
-    heading: 'Split PDFs Instantly',
-    paragraph:
-      'Easily divide large PDF files into smaller parts in just seconds. Perfect for managing documents efficiently.',
-  },
-  {
-    icon: Settings,
-    heading: 'Custom Page Selection',
-    paragraph:
-      'Choose exactly which pages you want to split and create a new PDF tailored to your needs.',
-  },
-  {
-    icon: FileOutput,
-    heading: 'Multiple Splitting Options',
-    paragraph:
-      'Split PDFs by page range, specific pages, or extract every page into a separate file.',
-  },
-  {
-    icon: ShieldCheck,
-    heading: 'Safe and Secure Splitting',
-    paragraph:
-      'All your files are processed securely, and automatically deleted after splitting for complete privacy.',
-  },
-  {
-    icon: Sparkles,
-    heading: 'Secure Online PDF splitting',
-    paragraph:
-      'Split PDFs securely without any risk of data leaks.',
-  },
-  {
-    icon: Smartphone,
-    heading: 'High Quality Results',
-    paragraph:
-      'Your split documents maintain the same quality and formatting as the original file—no loss.',
-  },
-]
-
-const benefits = [
-  'split PDFs in seconds with PDFtoolify — free, fast, and secure.',
-  'No SignUp require to split PDF onlines',
-  'PDFtoolify is secure and easy to use tool for PDF related operations',
-  'Using PDFtoolify split tool you can easily split PDF files',
-  'Our free PDF Splitter can be work on any device',
-]
 
 function Split() {
   const [loading, setLoading] = useState(false)
@@ -222,25 +126,7 @@ function Split() {
     <div className="min-h-screen bg-background ">
       <ToastContainer />
       {!completionStatus && !isDroped && (
-          <section className="relative pt-16 pb-6 " style={{ background: 'var(--gradient-hero)' }}>
-            <div
-              className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-              style={{ background: 'var(--gradient-glow)' }}
-            />
-            <div className="container pt-16 text-center">
-              <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-                <Sparkles className="w-4 h-4" />
-                Free Online PDF Splitter
-              </FadeIn>
-
-            <h1 className="section-heading text-center">
-              Split <span className="gradient-text">PDF File</span> Instantly
-            </h1>
-            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-              Free to split PDF Files into smaller PDFs online
-            </p>
-          </div>
-        </section>
+        <ToolHeader sparklesText={"Free Online PDF Splitter"} headings={["Split","PDF File","Instantly"]} text={"Free to split PDF Files into smaller PDFs online"} />
       )}
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {!isDroped && !completionStatus && (
@@ -251,85 +137,25 @@ function Split() {
               multiple={false}
               accept={{ 'application/pdf': [] }}
             />
-            {/* Benefits Section */}
-            <section className="container py-20">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
-                split PDF files online for free
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                {benefits.map((benefit, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={400 + i * 80}
-                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200"
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{benefit}</span>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
-            {/* feature card section */}
-            <section className="bg-muted/30">
-              <div className="container py-20">
-                <div className="text-center mb-14">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                    Features of PDFtoolify
-                  </h2>
-                  <p className="text-muted-foreground max-w-lg mx-auto">
-                    Everything you need to manage your PDF files with confidence
-                  </p>
-                </div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                  {features.map((feature, i) => (
-                    <FeatureCard key={i} {...feature} delay={200 + i * 100} />
-                  ))}
-                </div>
-              </div>
-            </section>
-            {/* how to section */}
-            {/* how to section */}
-            <section className="container py-20">
-              <div className="text-center mb-14">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  How to split PDFs online for free?
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Spilt your PDF documents in three simple steps
-                </p>
-              </div>
-              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {steps.map((item, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={200 + i * 150}
-                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
-                      {item.step}
-                    </div>
-                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
-                      <item.icon className="w-7 h-7 text-primary-foreground" />
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
-            <section className="container py-20">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Split PDF FAQs
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Common questions about our PDF splitter tool
-                </p>
-              </div>
-              <Faqs faqs={faqs} />
-            </section>
+            <BenefitsSection
+              heading={'Split PDF files online for free'}
+              benefits={splitPdfBenefits}
+            />
+            <FeatureCardSection
+              tool={'Split PDF'}
+              text='Everything you need to manage your PDF files with confidence'
+              features={splitPdfFeatures}
+            />
+            <HowToSection
+              heading={'How to split PDFs online for free?'}
+              text={'Spilt your PDF documents in three simple steps'}
+              steps={splitPdfHowToSteps}
+            />
+            <FaqSection
+              heading={'Split PDF FAQs'}
+              text={'Common questions about our PDF splitter tool'}
+              faqs={splitPdfFaqs}
+            />
             <ToolList />
             {/* <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Split PDF Blog Articles </h1> */}
             {/* PostCard section */}

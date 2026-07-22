@@ -15,125 +15,27 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-  BadgeCheck,
-  CheckCircle,
   CircleCheck,
   CircleDashed,
-  Gift,
-  InfinityIcon,
-  MousePointerClick,
-  ShieldCheck,
   Sparkles,
   SplitIcon,
-  Zap,
 } from "lucide-react";
-import FeaturesCard from "@/components/FeatureCard";
-import Faqs from '@/components/Faqs';
+import FeatureCardSection from "@/components/FeatureCardSection";
+import FaqSection from '@/components/FaqSection';
+import HowToSection from '@/components/HowToSection';
 import Image from "next/image";
 import PDFPageConponent from "@/components/PDFPageComponent";
 import ToolList from "@/components/ToolList";
 import FadeIn from "@/components/FadeIn";
+import ToolHeader from "@/components/ToolHeader";
+import BenefitsSection from "@/components/BenefitsSection";
+import { compressPdfBenefits } from "@/data/benefits";
+import { compressPdfFeatures } from "@/data/features";
+import { compressPdfFaqs } from "@/data/faqs";
+import { compressPdfHowToSteps } from "@/data/howTo";
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
-
-const benefits = [
-  "Compress PDF files quickly on any device",
-  "Reduce file size while preserving document quality",
-  "Secure processing with automatic file deletion",
-  "No signup required — compress PDFs instantly",
-  "Fast, reliable, and free PDF compression",
-];
-
-const features = [
-  {
-    icon: MousePointerClick,
-    heading: "Easy to Use",
-    paragraph:
-      "Compress PDFs in just a few clicks with a clean, intuitive interface.",
-  },
-  {
-    icon: Gift,
-    heading: "Free & No Sign Up",
-    paragraph:
-      "Compress unlimited PDFs for free — no account, no hidden fees.",
-  },
-  {
-    icon: InfinityIcon,
-    heading: "Compress Without Limits",
-    paragraph:
-      "Reduce file size for single or multiple PDFs with consistent results.",
-  },
-  {
-    icon: BadgeCheck,
-    heading: "Quality Preserved",
-    paragraph:
-      "Maintain text clarity and layout while shrinking your PDF size.",
-  },
-  {
-    icon: ShieldCheck,
-    heading: "Secure Compression",
-    paragraph:
-      "Files are processed securely and deleted automatically after completion.",
-  },
-  {
-    icon: Zap,
-    heading: "Fast & Efficient",
-    paragraph:
-      "Optimized compression for quick results and smooth downloads.",
-  },
-];
-
-const steps = [
-  {
-    step: "1",
-    title: "Upload PDF",
-    description: "Select a PDF file or drag and drop it into the upload area.",
-  },
-  {
-    step: "2",
-    title: "Compress File",
-    description: "Click the compress button to reduce file size instantly.",
-  },
-  {
-    step: "3",
-    title: "Download PDF",
-    description: "Download the compressed PDF right away — fast and free.",
-  },
-];
-
-const faqs = [
-  {
-    question: "Is PDFtoolify’s compressor free?",
-    answer:
-      "Yes, PDFtoolify is completely free to use. You can compress PDFs without signing up.",
-  },
-  {
-    question: "Will compression affect PDF quality?",
-    answer:
-      "No, your PDF remains clear and readable. We optimize size while preserving quality.",
-  },
-  {
-    question: "Is it safe to compress PDFs online?",
-    answer:
-      "Yes. Files are processed securely and deleted automatically after completion.",
-  },
-  {
-    question: "Can I compress large PDF files?",
-    answer:
-      "Absolutely. PDFtoolify handles large files quickly and reliably.",
-  },
-  {
-    question: "Do I need to install anything?",
-    answer:
-      "No. The compressor works in your browser with no downloads required.",
-  },
-  {
-    question: "Does compression cost anything?",
-    answer:
-      "No, PDF compression with PDFtoolify is 100% free and unlimited.",
-  },
-];
 
 function Compress() {
   let {files,isDroped,isProcessing,completionStatus,isUploading,
@@ -151,27 +53,7 @@ function Compress() {
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <section
-          className="relative pt-16 pb-6"
-          style={{ background: "var(--gradient-hero)" }}
-        >
-          <div
-            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-            style={{ background: "var(--gradient-glow)" }}
-          />
-          <div className="container pt-16 text-center">
-            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              Free Online PDF Compressor
-            </FadeIn>
-            <h1 className="section-heading text-center">
-              Compress <span className="gradient-text">PDF Files</span> Fast
-            </h1>
-            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-              Reduce PDF size without sacrificing quality — quick, secure, and free
-            </p>
-          </div>
-        </section>
+        <ToolHeader sparklesText={"Free Online PDF Compressor"} headings={["Compress","PDF Files","Fast"]} text={"Reduce PDF size without sacrificing quality — quick, secure, and free"} />
       )}
       <form
         onSubmit={(e) => {
@@ -188,90 +70,28 @@ function Compress() {
               accept={{ "application/pdf": [] }}
             />
 
-            {/* Benefits Section */}
-            <section className="container py-20">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
-                Compress PDF files online for free
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                {benefits.map((benefit, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={400 + i * 80}
-                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200"
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{benefit}</span>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
+            <BenefitsSection
+              heading={"Compress PDF files online for free"}
+              benefits={compressPdfBenefits}
+            />
 
-            {/* feature card section */}
-            <section className="bg-muted/30">
-              <div className="container py-20">
-                <div className="text-center mb-14">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                    Features of PDFtoolify - Compress PDF
-                  </h2>
-                  <p className="text-muted-foreground max-w-lg mx-auto">
-                    Powerful, safe, and fast tools to reduce your PDF size
-                  </p>
-                </div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                  {features.map((feature, i) => (
-                    <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
-                  ))}
-                </div>
-              </div>
-            </section>
+            <FeatureCardSection
+              tool={"Compress PDF"}
+              text="Powerful, safe, and fast tools to reduce your PDF size"
+              features={compressPdfFeatures}
+            />
 
-            {/* how to section */}
-            <section className="container py-20">
-              <div className="text-center mb-14">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  How to compress a PDF file online?
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Follow these simple steps to reduce your PDF file size.
-                </p>
-              </div>
-              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {steps.map((item, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={200 + i * 150}
-                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
-                      {item.step}
-                    </div>
-                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
-                      <Sparkles className="w-7 h-7 text-primary-foreground" />
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
+            <HowToSection
+              heading={"How to compress a PDF file online?"}
+              text={"Follow these simple steps to reduce your PDF file size."}
+              steps={compressPdfHowToSteps}
+            />
 
-            {/* FAQs Section */}
-            <section className="container py-20">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Compress PDF FAQs
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Answers to common questions about reducing PDF file size
-                </p>
-              </div>
-              <Faqs faqs={faqs} />
-            </section>
+            <FaqSection
+              heading={"Compress PDF FAQs"}
+              text={"Answers to common questions about reducing PDF file size"}
+              faqs={compressPdfFaqs}
+            />
 
             <ToolList />
           </div>

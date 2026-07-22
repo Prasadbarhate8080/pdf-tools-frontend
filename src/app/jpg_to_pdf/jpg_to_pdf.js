@@ -7,20 +7,13 @@ import "react-pdf/dist/Page/TextLayer.css";
 import Processing from "@/components/Processing";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import FileInput from "@/components/FileInput";
-import Faqs from '@/components/Faqs';
+import FaqSection from '@/components/FaqSection';
+import HowToSection from '@/components/HowToSection';
 import {
-  CircleCheck,
-  Gift,
-  ShieldCheck,
   Trash2,
-  Zap,
-  Images,
-  Layers,
-  Scan,
   Sparkles,
-  CheckCircle,
 } from "lucide-react";
-import FeaturesCard from "@/components/FeatureCard";
+import FeatureCardSection from "@/components/FeatureCardSection";
 import { PDFDocument } from "pdf-lib";
 import { toast } from "react-toastify";
 import ToolList from "@/components/ToolList";
@@ -31,112 +24,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
+import ToolHeader from "@/components/ToolHeader";
+import BenefitsSection from "@/components/BenefitsSection";
+import { jpgToPdfBenefits } from "@/data/benefits";
+import { jpgToPdfFeatures } from "@/data/features";
+import { jpgToPdfFaqs } from "@/data/faqs";
+import { jpgToPdfHowToSteps } from "@/data/howTo";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
-
-const benefits = [
-  "Convert JPG images to PDF in seconds — simple and fast",
-  "Maintain high-quality output while merging multiple images into a single PDF",
-  "PDFtoolify works on any device — mobile, PC, tablet",
-  "No signup required — upload your images and get a PDF instantly",
-  "Secure and reliable — your images are deleted automatically after processing",
-];
-
-const features = [
-  {
-    icon: Images,
-    heading: "Convert Images Effortlessly",
-    paragraph:
-      "Upload one or multiple JPG, PNG, or JPEG images and convert them to a clean, high-quality PDF in just a few clicks.",
-  },
-  {
-    icon: Gift,
-    heading: "Free & No Login Required",
-    paragraph:
-      "Convert JPG to PDF completely free—no signup, no hidden fees. Just upload your photos and download the PDF instantly.",
-  },
-  {
-    icon: Layers,
-    heading: "Merge Multiple Images",
-    paragraph:
-      "Combine unlimited images into a single PDF document. Perfect for assignments, forms, scanned pages, and photo collections.",
-  },
-  {
-    icon: Scan,
-    heading: "High-Quality PDF Output",
-    paragraph:
-      "Your images are converted with maximum clarity and accurate page alignment—no loss in quality during the conversion.",
-  },
-  {
-    icon: ShieldCheck,
-    heading: "Safe & Secure Conversion",
-    paragraph:
-      "Your images are processed securely. All files are automatically removed after conversion to protect your privacy.",
-  },
-  {
-    icon: Zap,
-    heading: "Fast & Reliable Processing",
-    paragraph:
-      "Experience extremely fast JPG to PDF conversion. Get your final PDF in seconds—optimized for performance and accuracy.",
-  },
-];
-
-const steps = [
-  {
-    step: "1",
-    title: "Upload your images",
-    description:
-      "Select JPG, PNG, or JPEG images from your device or drag and drop them into the upload area.",
-  },
-  {
-    step: "2",
-    title: "Arrange & create PDF",
-    description:
-      "Review your images, then click on the Create PDF button to convert them into a single PDF file.",
-  },
-  {
-    step: "3",
-    title: "Download your PDF",
-    description:
-      "Download the generated PDF instantly and share or store it anywhere you like.",
-  },
-];
-
-const faqs = [
-  {
-    question: "Is PDFtoolify’s JPG to PDF converter free?",
-    answer:
-      "Yes, PDFtoolify is completely free. You can convert JPG or PNG images to PDF without creating an account.",
-  },
-  {
-    question: "How can I convert JPG to PDF using PDFtoolify?",
-    answer:
-      "Upload your images, arrange them in the order you want, and click Convert. PDFtoolify will create a high-quality PDF instantly.",
-  },
-  {
-    question: "Will the image quality change after converting to PDF?",
-    answer:
-      "No. Your images remain sharp and high-quality after conversion. PDFtoolify ensures excellent clarity in the final PDF.",
-  },
-  {
-    question: "Is it safe to convert JPG to PDF online?",
-    answer:
-      "Yes. All uploaded images are processed securely, and PDFtoolify automatically deletes your files after conversion.",
-  },
-  {
-    question: "Can I merge multiple images into one PDF?",
-    answer:
-      "Absolutely. You can add multiple JPG or PNG images and combine them into a single PDF file easily.",
-  },
-  {
-    question: "Do I need to install any software to convert JPG to PDF?",
-    answer:
-      "No installation required. PDFtoolify works directly in your browser, allowing you to convert images to PDF instantly online.",
-  },
-];
 
 const JpgToPdf = () => {
   const [loading, setLoading] = useState(false);
@@ -231,28 +128,7 @@ const JpgToPdf = () => {
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && (
-        <section
-          className="relative pt-16 pb-6"
-          style={{ background: "var(--gradient-hero)" }}
-        >
-          <div
-            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-            style={{ background: "var(--gradient-glow)" }}
-          />
-          <div className="container pt-16 text-center">
-            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              Free Online JPG to PDF Converter
-            </FadeIn>
-            <h1 className="section-heading text-center">
-              Create <span className="gradient-text">PDF from Images</span>{" "}
-              Instantly
-            </h1>
-            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-              Convert JPG, PNG, and JPEG images into a single high-quality PDF — free, fast, and secure.
-            </p>
-          </div>
-        </section>
+        <ToolHeader sparklesText={"Free Online JPG to PDF Converter"} headings={["Create","PDF from Images"," "]} text={"Convert JPG, PNG, and JPEG images into a single high-quality PDF — free, fast, and secure."} />
       )}
 
       <form
@@ -276,90 +152,28 @@ const JpgToPdf = () => {
               }}
             />
 
-            {/* Benefits Section */}
-            <section className="container py-20">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
-                Create PDF from JPG & PNG images online for free
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                {benefits.map((benefit, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={400 + i * 80}
-                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200"
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{benefit}</span>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
+            <BenefitsSection
+              heading={"Create PDF from JPG & PNG images online for free"}
+              benefits={jpgToPdfBenefits}
+            />
 
-            {/* feature card section */}
-            <section className="bg-muted/30">
-              <div className="container py-20">
-                <div className="text-center mb-14">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                    Features of PDFtoolify - Create PDF
-                  </h2>
-                  <p className="text-muted-foreground max-w-lg mx-auto">
-                    Everything you need to turn your images into professional PDFs
-                  </p>
-                </div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                  {features.map((feature, i) => (
-                    <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
-                  ))}
-                </div>
-              </div>
-            </section>
+            <FeatureCardSection
+              tool={"Create PDF"}
+              text="Everything you need to turn your images into professional PDFs"
+              features={jpgToPdfFeatures}
+            />
 
-            {/* how to section */}
-            <section className="container py-20">
-              <div className="text-center mb-14">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  How to convert JPG to PDF online?
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Follow these simple steps to create a PDF from your images.
-                </p>
-              </div>
-              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {steps.map((item, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={200 + i * 150}
-                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
-                      {item.step}
-                    </div>
-                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
-                      <Sparkles className="w-7 h-7 text-primary-foreground" />
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
+            <HowToSection
+              heading={"How to convert JPG to PDF online?"}
+              text={"Follow these simple steps to create a PDF from your images."}
+              steps={jpgToPdfHowToSteps}
+            />
 
-            {/* FAQs Section */}
-            <section className="container py-20">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Create PDF FAQs
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Common questions about creating PDFs from images
-                </p>
-              </div>
-              <Faqs faqs={faqs} />
-            </section>
+            <FaqSection
+              heading={"Create PDF FAQs"}
+              text={"Common questions about creating PDFs from images"}
+              faqs={jpgToPdfFaqs}
+            />
             <ToolList />
           </div>
         )}

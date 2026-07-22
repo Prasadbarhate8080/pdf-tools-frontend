@@ -8,22 +8,13 @@ import Processing from "@/components/Processing";
 import ProgressBar from "@/components/ProgressBar";
 import FileInput from "@/components/FileInput";
 import { useFileUpload } from "@/hooks/useFileUpload";
-import Faqs from '@/components/Faqs';
+import FaqSection from '@/components/FaqSection';
+import HowToSection from '@/components/HowToSection';
 import {
-  BadgeCheck,
-  CircleCheck,
-  Gift,
-  InfinityIcon,
-  MousePointerClick,
-  ShieldCheck,
-  SplitIcon,
-  Zap,
   CheckCircle2,
   CheckSquare,
   Check,
   Sparkles,
-  CheckCircle,
-  MousePointerClickIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { error, PDFDocument } from "pdf-lib";
@@ -36,7 +27,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import FeatureCard from "@/components/FeatureCard";
+import FeatureCardSection from "@/components/FeatureCardSection";
+import ToolHeader from "@/components/ToolHeader";
+import BenefitsSection from "@/components/BenefitsSection";
+import { extractPdfBenefits } from "@/data/benefits";
+import { extractPdfFeatures } from "@/data/features";
+import { extractPdfFaqs } from "@/data/faqs";
+import { extractPdfHowToSteps } from "@/data/howTo";
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -46,101 +43,6 @@ export default function ExtractPdf() {
   const [loading, setLoading] = useState(false)
   const [numPages, setNumPages] = useState(null);
   const [selectedPages, setSelectedPages] = useState([]);
-  const benefits = [
-    "Our free PDF extractor works on any device seamlessly",
-    "Easily extract specific pages from your PDF files with PDFtoolify",
-    "PDFtoolify is secure and simple to use for all PDF operations",
-    "No signup required — extract PDF pages instantly",
-    "Extract PDF pages in seconds — free, fast, and reliable.",
-  ]
-  const steps = [
-    {
-      step: "1",
-      title: "Upload your PDF file",
-      description: "Select a PDF from your device or drag and drop it into the upload area.",
-    },
-    {
-      step: "2",
-      title: "Select pages to extract",
-      description: "Click on the pages you want to extract. You can choose one or multiple pages.",
-    },
-    {
-      step: "3",
-      title: "Extract & download pages",
-      description: "Click on “Extract pages” and instantly download your new PDF with selected pages.",
-    },
-  ]
-  const faqs = [
-    {
-      question: "What is the Extract PDF tool?",
-      answer:
-        "Extract PDF allows you to select specific pages from your PDF and download them as a new PDF file.",
-    },
-    {
-      question: "How do I extract pages from a PDF?",
-      answer:
-        "Upload your PDF, select the pages you need, and click on “Extract pages”. Your new PDF will be ready instantly.",
-    },
-    {
-      question: "Is there any quality loss after extracting pages?",
-      answer:
-        "No. The extracted PDF maintains the exact same quality as the original pages.",
-    },
-    {
-      question: "Is it safe to upload my PDF for extraction?",
-      answer:
-        "Yes. Your files are processed securely, and they are removed automatically after extraction is completed.",
-    },
-    {
-      question: "Can I extract multiple pages at once?",
-      answer:
-        "Yes. You can select multiple pages at the same time and extract them together into a single PDF.",
-    },
-    {
-      question: "Is the Extract PDF tool free?",
-      answer:
-        "Yes, PDFtoolify’s Extract PDF tool is completely free to use without signup.",
-    },
-  ]
-  const features = [
-    {
-      icon: MousePointerClickIcon,
-      heading: 'Easy to Use',
-      paragraph:
-        'Designed to be simple and intuitive so anyone can easily use this tool and make their work easier.',
-    },
-    {
-      icon: Gift,
-      heading: 'Free & No Sign Up',
-      paragraph:
-        'Extract unlimited pages from PDFs online for free without creating an account. No hidden costs, no registration—just fast and easy page extraction.',
-    },
-    {
-      icon: InfinityIcon,
-      heading: 'Extract Without Limits',
-      paragraph:
-        "Choose and extract as many pages as you want. Whether it's a single page or multiple sections, our tool handles it smoothly and efficiently.",
-    },
-    {
-      icon: BadgeCheck,
-      heading: 'Accurate Page Extraction',
-      paragraph:
-        'Our PDF extractor ensures accurate results every time. Get the exact pages you need without affecting the rest of your document.',
-    },
-    {
-      icon: ShieldCheck,
-      heading: 'Secure Online Extraction',
-      paragraph:
-        'Your privacy is our priority. All uploaded files are automatically deleted after processing, ensuring safe and secure PDF extraction online.',
-    },
-    {
-      icon: Zap,
-      heading: 'Fast & Powerful',
-      paragraph:
-        'Built with advanced technology, our extractor processes files quickly. Get your selected pages in just seconds—fast, reliable, and professional.',
-    },
-  ]
-
   let { files, isDroped, isProcessing, completionStatus, isUploading,
     downloadFileURL, serverPreparing, progress, setisDroped, setFiles, callApi, setdownloadFileURL, setCompletionStatus
   } = useFileUpload()
@@ -203,25 +105,7 @@ export default function ExtractPdf() {
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <section className="relative pt-16 pb-6 " style={{ background: 'var(--gradient-hero)' }}>
-          <div
-            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-            style={{ background: 'var(--gradient-glow)' }}
-          />
-          <div className="container pt-16 text-center">
-            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              Free Online PDF Page Extractor
-            </FadeIn>
-
-            <h1 className="section-heading text-center">
-              Extract <span className="gradient-text">PDF Pages</span> Instantly
-            </h1>
-            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-              Combine multiple PDF documents into one — free, fast, and without quality loss
-            </p>
-          </div>
-        </section>
+        <ToolHeader sparklesText={"Free Online PDF Page Extractor"} headings={["Extract","PDF Pages","Instantly"]} text={"Combine multiple PDF documents into one — free, fast, and without quality loss"} />
       )}
 
       {!completionStatus && isDroped && (
@@ -240,85 +124,25 @@ export default function ExtractPdf() {
             multiple={false}
             accept={{ 'application/pdf': [] }}
           />
-          {/* Benefits Section */}
-          <section className="container py-20">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
-              Extract PDF pages online for free
-            </h2>
-            <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                {benefits.map((benefit, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={400 + i * 80}
-                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200"
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{benefit}</span>
-                  </FadeIn>
-                ))}
-              </div>
-          </section>
-          {/* feature card section */}
-          <section className="bg-muted/30">
-            <div className="container py-20">
-              <div className="text-center mb-14">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Features of PDFtoolify - Extract PDF Pages
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Powerful tools to help you extract exactly the PDF pages you need
-                </p>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                {features.map((feature, i) => (
-                  <FeatureCard key={i} {...feature} delay={200 + i * 100} />
-                ))}
-              </div>
-            </div>
-          </section>
-          {/* how to section */}
-          <section className="container py-20">
-            <div className="text-center mb-14">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                How to extract PDF pages online?
-              </h2>
-              <p className="text-muted-foreground max-w-lg mx-auto">
-                Extract the pages you need from your PDF in just a few simple steps.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {steps.map((item, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={200 + i * 150}
-                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
-                      {item.step}
-                    </div>
-                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
-                      <Sparkles className="w-7 h-7 text-primary-foreground" />
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </FadeIn>
-                ))}
-              </div>
-          </section>
-          {/* FAQs Section */}
-          <section className="container py-20">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                Extract PDF Pages FAQs
-              </h2>
-              <p className="text-muted-foreground max-w-lg mx-auto">
-                Common questions about extracting pages from your PDFs
-              </p>
-            </div>
-            <Faqs faqs={faqs} />
-          </section>
+          <BenefitsSection
+            heading={"Extract PDF pages online for free"}
+            benefits={extractPdfBenefits}
+          />
+          <FeatureCardSection
+            tool={"Extract PDF Pages"}
+            text="Powerful tools to help you extract exactly the PDF pages you need"
+            features={extractPdfFeatures}
+          />
+          <HowToSection
+              heading={"How to extract PDF pages online?"}
+              text={"Extract the pages you need from your PDF in just a few simple steps."}
+              steps={extractPdfHowToSteps}
+            />
+          <FaqSection
+            heading={"Extract PDF Pages FAQs"}
+            text={"Common questions about extracting pages from your PDFs"}
+            faqs={extractPdfFaqs}
+          />
           <ToolList />
         </div>
       )}

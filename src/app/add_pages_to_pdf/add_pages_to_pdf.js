@@ -6,136 +6,25 @@ import "react-pdf/dist/Page/TextLayer.css";
 import { useFileUpload } from '@/hooks/useFileUpload';
 import FileInput from '@/components/FileInput';
 import {
-  BadgeCheck,
-  CircleCheck,
-  FilePlus,
-  Gift,
-  InfinityIcon,
-  MousePointerClick,
   Plus,
-  PlusCircle,
-  ShieldCheck,
   Trash2,
   Zap,
-  Sparkles,
-  CheckCircle,
 } from "lucide-react";
-import FeaturesCard from '@/components/FeatureCard';
 import { PDFDocument } from 'pdf-lib';
 import ToolList from '@/components/ToolList';
-import FadeIn from "@/components/FadeIn";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import Faqs from '@/components/Faqs';
+import ToolHeader from '@/components/ToolHeader';
+import BenefitsSection from '@/components/BenefitsSection';
+import { addPagesBenefits } from '@/data/benefits';
+import FeatureCardSection from '@/components/FeatureCardSection';
+import { addPagesFeatures } from '@/data/features';
+import HowToSection from '@/components/HowToSection';
+import { addPagesHowToSteps } from '@/data/howTo';
+import FaqSection from '@/components/FaqSection';
+import { addPagesFaqs } from '@/data/faqs';
 
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
-
-const benefits = [
-  "Add new pages to any PDF easily using PDFtoolify",
-  "Upload images and insert them anywhere in your document",
-  "Simple and secure tool for editing and updating PDFs online",
-  "No signup needed — add pages to your PDF instantly",
-  "Add pages in seconds — fast, free, and reliable experience",
-];
-
-const features = [
-  {
-    icon: MousePointerClick,
-    heading: "Easy to Use",
-    paragraph:
-      "Designed to be simple and intuitive so anyone can easily add new pages to a PDF without technical knowledge.",
-  },
-  {
-    icon: Gift,
-    heading: "Free & No Sign Up",
-    paragraph:
-      "Add pages to your PDF files online for free—no account required. No hidden charges, no limits.",
-  },
-  {
-    icon: FilePlus,
-    heading: "Add Unlimited Pages",
-    paragraph:
-      "Insert as many pages as you want—images or blank pages. Organize them easily before downloading.",
-  },
-  {
-    icon: BadgeCheck,
-    heading: "Accurate Page Insertion",
-    paragraph:
-      "Add your new pages exactly where you want them. Our tool maintains original formatting and quality.",
-  },
-  {
-    icon: ShieldCheck,
-    heading: "Secure & Private",
-    paragraph:
-      "Your files stay safe. All uploaded documents are automatically deleted after processing to protect your privacy.",
-  },
-  {
-    icon: Zap,
-    heading: "Fast & Powerful",
-    paragraph:
-      "Add pages to your PDF in seconds with high processing speed. Reliable, fast, and built for performance.",
-  },
-];
-
-const steps = [
-  {
-    step: "1",
-    title: "Upload your PDF",
-    description:
-      "Select a PDF from your device or drag and drop it into the upload area.",
-  },
-  {
-    step: "2",
-    title: "Insert new pages",
-    description:
-      "Use the plus buttons to insert blank pages or image pages exactly where you need them.",
-  },
-  {
-    step: "3",
-    title: "Export and download",
-    description:
-      "Click on “Export PDF” to generate your updated file and download it instantly.",
-  },
-];
-
-const faqs = [
-  {
-    question: "Is PDFtoolify really free?",
-    answer:
-      "Yes, PDFtoolify is completely free. You can add pages to your PDF files without creating an account.",
-  },
-  {
-    question: "How can I add pages to a PDF using PDFtoolify?",
-    answer:
-      "Simply upload your PDF, insert blank or image pages where you want them, and click Export PDF. PDFtoolify will instantly generate your updated document.",
-  },
-  {
-    question: "Will the quality of my PDF change after adding pages?",
-    answer:
-      "No, the original quality and formatting of your PDF remain unchanged. New pages are inserted without distortion.",
-  },
-  {
-    question: "Is it safe to add pages to my PDF online?",
-    answer:
-      "Yes. PDFtoolify uses secure processing, and all uploaded files are automatically deleted after completion to protect your privacy.",
-  },
-  {
-    question: "Can I add pages offline using PDFtoolify?",
-    answer:
-      "Yes. Download the Windows version of PDFtoolify to add pages to your PDF even without internet access.",
-  },
-  {
-    question: "Does adding pages to a PDF cost anything?",
-    answer:
-      "No, adding pages with PDFtoolify is 100% free with no hidden fees.",
-  },
-];
 
 function AddPagesInPdf() {
     const [loading, setLoading] = useState(false)
@@ -314,27 +203,8 @@ function AddPagesInPdf() {
   return (
     <div className='min-h-screen bg-background'>
       {!completionStatus && !isDroped && (
-        <section
-          className="relative pt-16 pb-6"
-          style={{ background: "var(--gradient-hero)" }}
-        >
-          <div
-            className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
-            style={{ background: "var(--gradient-glow)" }}
-          />
-          <div className="container pt-16 text-center">
-            <FadeIn className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              Free Online Add Pages to PDF
-            </FadeIn>
-            <h1 className="section-heading text-center">
-              Add <span className="gradient-text">Pages to PDF</span> Easily
-            </h1>
-            <p className="text-center text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-              Insert blank or image pages anywhere in your PDF — free, fast, and secure.
-            </p>
-          </div>
-        </section>
+        <ToolHeader sparklesText={"Free Online Add Pages to PDF"} headings={["Add","Pages to PDF","Easily"]} text={" Insert blank or image pages anywhere in your PDF — free, fast, and secure."} />
+
       )}
         {!isDroped && (
           <div>
@@ -345,92 +215,10 @@ function AddPagesInPdf() {
               multiple={false}
               accept={{ "application/pdf": [] }}
             />
-
-            {/* Benefits Section */}
-            <section className="container py-20">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-10">
-                Add pages to your PDF online for free
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                {benefits.map((benefit, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={400 + i * 80}
-                    className="flex items-start gap-3 p-4 rounded-xl hover:bg-card border border-transparent hover:border-border/50 transition-all duration-200"
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{benefit}</span>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
-
-            {/* feature card section */}
-            <section className="bg-muted/30">
-              <div className="container py-20">
-                <div className="text-center mb-14">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                    Features of PDFtoolify - Add Pages to PDF
-                  </h2>
-                  <p className="text-muted-foreground max-w-lg mx-auto">
-                    Powerful tools to insert new pages exactly where you need them
-                  </p>
-                </div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                  {features.map((feature, i) => (
-                    <FeaturesCard key={i} {...feature} delay={200 + i * 100} />
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* how to section */}
-            <section className="container py-20">
-              <div className="text-center mb-14">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  How to add pages in a PDF online?
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Follow these quick steps to insert new pages into your PDF.
-                </p>
-              </div>
-              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {steps.map((item, i) => (
-                  <FadeIn
-                    key={i}
-                    delay={200 + i * 150}
-                    className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-md">
-                      {item.step}
-                    </div>
-                    <div className="w-16 h-16 rounded-2xl feature-icon-gradient flex items-center justify-center mb-5 mt-2">
-                      <Sparkles className="w-7 h-7 text-primary-foreground" />
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.description}
-                    </p>
-                  </FadeIn>
-                ))}
-              </div>
-            </section>
-
-            {/* FAQs Section */}
-            <section className="container py-20">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Add Pages to PDF FAQs
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Common questions about inserting new pages into your PDFs
-                </p>
-              </div>
-              <Faqs faqs={faqs} />
-            </section>
-
+            <BenefitsSection heading={"Add pages to your PDF online for free"} benefits={addPagesBenefits} />
+            <FeatureCardSection tool={"Add Pages to PDF"} text='Powerful tools to insert new pages exactly where you need them' features={addPagesFeatures} />
+            <HowToSection heading={"How to add pages in a PDF online?"} text={"Follow these quick steps to insert new pages into your PDF."} steps={addPagesHowToSteps}/>
+            <FaqSection heading={" Add Pages to PDF FAQs"} text={"Common questions about inserting new pages into your PDFs"} faqs={addPagesFaqs}/>
             <ToolList />
         </div>
       )}
