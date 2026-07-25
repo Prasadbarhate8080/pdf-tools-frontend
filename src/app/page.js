@@ -24,7 +24,6 @@ export const metadata = {
 
 function Home() {
   return (
-    <div className="">
       <main className="">
         <div className="">
           <HeroSection />
@@ -39,7 +38,6 @@ function Home() {
         <PDFFeatures />
         <DownloadSoftware />
       </main>
-    </div>
   );
 }
 

@@ -3,13 +3,15 @@ import {configureStore} from '@reduxjs/toolkit';
 import pdfFilesSlice from './pdfFilesSlice.js'
 import ProgressBarSlice from './progressBarSlice.js'
 import hideContentSlice from "./hideContentSlice.js"
+import blurHeaderSlice from "./blurHeaderSlice.js"
 
 const store = configureStore({
     reducer: {
         pdfFiles: pdfFilesSlice,
         fileProgress: ProgressBarSlice,
-        hideContent: hideContentSlice
-    }
+        hideContent: hideContentSlice,
+        blurHeader: blurHeaderSlice,
+    },
 });
 
 

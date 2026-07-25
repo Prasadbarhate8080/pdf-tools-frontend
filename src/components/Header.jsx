@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import HeaderToolsSection from "./HeaderToolsSection";
+import { useSelector } from "react-redux";
 const navItems = [
   { name: "Home", href: "/" },
   {
@@ -29,15 +30,18 @@ export const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  const blurHeader = useSelector((state) => state.blurHeader.blurHeader);
+  useEffect(() => {
+    console.log(blurHeader)
+  }, [blurHeader]);
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled || isMobileMenuOpen
-        ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled || isMobileMenuOpen || blurHeader
+        ? "bg-background/80 backdrop-blur-xl  border-b border-border/50 shadow-sm"
         : "bg-transparent"
         }`}    >
       <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-14 md:h-16">
+        <div className={`flex items-center justify-between ${blurHeader ? 'h-10 md:h-12' : 'h-12 md:h-14'}`}>
           {/* Logo of pdftoolify*/}
           <a href="/" className="flex items-center gap-2.5 group">
             <div className=" rounded-lg flex items-center justify-center  shadow-md group-hover:shadow-lg transition-shadow">

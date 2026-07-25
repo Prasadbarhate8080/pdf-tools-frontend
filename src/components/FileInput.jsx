@@ -5,6 +5,7 @@ import { useDropzone } from 'react-dropzone'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { hideContent } from '@/store/hideContentSlice'
+import { showBlurHeader } from '@/store/blurHeaderSlice'
 
 function FileInput({ setFiles, setisDroped, multiple, accept, setImages, mode = 'pdf' }) {
   const dispatch = useDispatch()
@@ -36,6 +37,7 @@ function FileInput({ setFiles, setisDroped, multiple, accept, setImages, mode = 
       setImages((prev) => [...prev, ...imagePreviews])
     }
     dispatch(hideContent())
+    dispatch(showBlurHeader())
     setisDroped(true)
   }, [])
 

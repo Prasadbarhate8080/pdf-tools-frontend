@@ -22,6 +22,8 @@ import { mergePDFHowTosteps } from '@/data/howTo'
 import FaqSection from '@/components/FaqSection'
 import { mergePDFFaqs } from '@/data/faqs'
 import ServerPreparingLoader from '@/components/ServerPreparingLoader'
+import DownloadComponent from '@/components/DownloadComponent'
+import { Button } from '@/components/ui/button'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -78,7 +80,7 @@ function Merge() {
     mergePdf()
   }
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       {!completionStatus && !isDroped && (
         <ToolHeader sparklesText={"Free Online PDF Merger"} headings={["Merge","PDF Files","Instantly"]} />
       )}
@@ -86,13 +88,7 @@ function Merge() {
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {!isDroped && !completionStatus && (
           <div>
-            <FileInput
-              files={files}
-              setFiles={setFiles}
-              setisDroped={setisDroped}
-              multiple={true}
-              accept={{ 'application/pdf': [] }}
-            />
+            <FileInput files={files} setFiles={setFiles} setisDroped={setisDroped} multiple={true} accept={{ 'application/pdf': [] }}/>
             <BenefitsSection heading={" Merge PDF files online for free"} benefits={mergePDFBenefits} />
             <FeatureCardSection features={mergePDFFeatures} tool={"Merge PDF"} text='' />
             <HowToSection heading={"How to merge PDFs online for free?"} text={"Combine your PDF documents in three simple steps"} steps={mergePDFHowTosteps} />
@@ -101,7 +97,7 @@ function Merge() {
           </div>
         )}
         {isDroped && !completionStatus && !isProcessing && !isUploading && (
-          <div className="max-w-7xl h-[90vh] mx-auto bg-gray-100 rounded-sm p-10 mt-16  ">
+          <div className=" mx-auto bg-gray-100 rounded-sm p-10 h-screen ">
             <ul className="mt-6 flex flex-wrap justify-center  p-5 gap-6">
               {files.map((file, index) => (
                 <PDFPageComponent file={file} key={index} />
@@ -109,21 +105,9 @@ function Merge() {
             </ul>
             <div className="flex items-center justify-center gap-4 mt-6">
               {/* Merge Button */}
-              <button
-                disabled={files.length < 2}
-                className={`px-6 py-3 rounded-md font-semibold text-xl text-white transition-all duration-300
-                ${
-                  files.length < 2
-                    ? 'bg-blue-300 cursor-not-allowed'
-                    : 'bg-blue-500 active:bg-blue-400'
-                }`}
-              >
-                Merge PDF Files
-              </button>
-
+               <Button  size="xl" disabled={files.length < 2}> Merge PDF Files </Button>
               {/* Add More Files Button */}
-              <label
-                htmlFor="addFile"
+              <label htmlFor="addFile"
                 className="w-11 h-11 flex items-center justify-center text-2xl font-bold 
                bg-blue-500 text-white rounded-full shadow-md
                active:bg-blue-400 transition-all duration-300"
@@ -131,14 +115,8 @@ function Merge() {
               >
                 +
               </label>
-
               {/* Hidden File Input */}
-              <input
-                type="file"
-                id="addFile"
-                accept=".pdf"
-                multiple
-                style={{ display: 'none' }}
+              <input type="file" id="addFile" accept=".pdf" multiple style={{ display: 'none' }}
                 onChange={(e) => {
                   const newFiles = Array.from(e.target.files)
                   const pdfFiles = newFiles.filter((file) => file.type === 'application/pdf')
@@ -147,34 +125,14 @@ function Merge() {
               />
             </div>
             {/* Error Text */}
-            {files.length < 2 && (
-              <p className="text-red-500 text-sm text-center mt-2">
-                Please select at least two PDF files.
-              </p>
-            )}
+            {files.length < 2 && <p className="text-red-500 text-sm text-center mt-2">Please select at least two PDF files.</p>}
           </div>
         )}
         {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
-
-        {serverPreparing && (
-          <ServerPreparingLoader/>
-        )}
+        {serverPreparing && <ServerPreparingLoader/> }
         {progress === 100 && isProcessing && <Processing />}
       </form>
-      {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto mt-24">
-          <h1 className="text-center text-gray-700 text-3xl font-semibold">Download Merged PDF</h1>
-          <div className="mt-3 w-fit mx-auto">
-            <a
-              href={downloadFileURL}
-              download
-              className="bg-blue-500  active:bg-blue-400 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
-            >
-              Download Merged PDF
-            </a>      
-          </div>
-        </div>
-      )}
+      {downloadFileURL && <DownloadComponent headingText={"Download Merged PDF"} buttonText={"Download Merged PDF"} downloadFileURL={downloadFileURL}/>}
       <ToastContainer />
     </div>
   )
