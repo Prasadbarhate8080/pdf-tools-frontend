@@ -97,13 +97,13 @@ function Merge() {
           </div>
         )}
         {isDroped && !completionStatus && !isProcessing && !isUploading && (
-          <div className=" mx-auto bg-gray-100 rounded-sm p-10 h-screen ">
+          <div className=" mx-auto bg-gray-100 rounded-sm p-10 h-screen overflow-auto">
             <ul className="mt-6 flex flex-wrap justify-center  p-5 gap-6">
               {files.map((file, index) => (
                 <PDFPageComponent file={file} key={index} />
               ))}
             </ul>
-            <div className="flex items-center justify-center gap-4 mt-6">
+            <div className="flex items-center justify-center gap-4 mt-6 ">
               {/* Merge Button */}
                <Button  size="xl" disabled={files.length < 2}> Merge PDF Files </Button>
               {/* Add More Files Button */}

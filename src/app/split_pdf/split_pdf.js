@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { Document, Page, pdfjs } from 'react-pdf'
-import Image from 'next/image'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import Processing from '@/components/Processing'
@@ -29,12 +28,12 @@ import {
   SidebarOpen,
   Download,
   Upload,
+  CircleCheck,
 } from 'lucide-react'
 import { PDFDocument } from 'pdf-lib'
 import JSZip from 'jszip'
 import ToolList from '@/components/ToolList'
 import FeatureCardSection from '@/components/FeatureCardSection'
-import FadeIn from '@/components/FadeIn'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
 import { splitPdfBenefits } from '@/data/benefits'
