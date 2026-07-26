@@ -42,6 +42,7 @@ import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
 import { splitPdfFaqs } from '@/data/faqs'
 import { splitPdfHowToSteps } from '@/data/howTo'
+import FeatureCard from '@/components/FeatureCard'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
