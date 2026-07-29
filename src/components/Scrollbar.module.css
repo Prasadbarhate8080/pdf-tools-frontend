@@ -1,0 +1,21 @@
+.customScrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.customScrollbar::-webkit-scrollbar-track {
+  background: #e5e7eb; /* gray-200 */
+}
+
+.customScrollbar::-webkit-scrollbar-thumb {
+  background: #3b82f6; /* blue-500 */
+  border-radius: 10px;
+}
+
+.customScrollbar::-webkit-scrollbar-thumb:hover {
+  background: #2563eb; /* blue-600 */
+}
+
+/* Hide scrollbar arrows (tips) */
+.customScrollbar::-webkit-scrollbar-button {
+  display: none;
+}

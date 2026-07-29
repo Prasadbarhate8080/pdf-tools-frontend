@@ -31,7 +31,8 @@
     "react-pdf": "^9.2.1",
     "react-redux": "^9.2.0",
     "react-toastify": "^11.0.5",
-    "tailwind-merge": "^3.5.0"
+    "tailwind-merge": "^3.5.0",
+    "tailwind-scrollbar": "^4.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
