@@ -126,7 +126,7 @@ function Merge() {
         {isDroped && !completionStatus && !isProcessing && !isUploading && (
           <OperationBox>
               <OperationMain>
-                <ul className=" flex flex-wrap p-5 gap-6">
+                <ul className="flex flex-wrap justify-center p-5 gap-6">
                   {files.map((file, index) => (
                     <PDFPageComponent file={file} key={index} />
                   ))}
