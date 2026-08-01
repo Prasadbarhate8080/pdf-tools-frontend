@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import HeaderToolsSection from "./HeaderToolsSection";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 const navItems = [
   { name: "Home", href: "/" },
   {
@@ -63,12 +64,12 @@ export const Header = () => {
                     onMouseEnter={() => setIsToolsHovered(true)}
                     onMouseLeave={() => setIsToolsHovered(false)}
                   >
-                    <a
+                    <Link
                       href={item.href}
                       className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-all duration-200 flex items-center gap-1"
                     >
                       {item.name} <ChevronDown size={14} className={`transition-transform duration-200 ${isToolsHovered ? 'rotate-180' : ''}`} />
-                    </a>
+                    </Link>
 
                     {/* Mega Menu Dropdown */}
                     {isToolsHovered && (
@@ -81,7 +82,7 @@ export const Header = () => {
               }
 
               return (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
                   {...(item.external
@@ -90,7 +91,7 @@ export const Header = () => {
                   className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-all duration-200"
                 >
                   {item.name}
-                </a>
+                </Link>
               );
             })}
           </div>
