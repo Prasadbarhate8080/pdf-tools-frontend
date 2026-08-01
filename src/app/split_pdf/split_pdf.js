@@ -43,6 +43,9 @@ import HowToSection from '@/components/HowToSection'
 import { splitPdfFaqs } from '@/data/faqs'
 import { splitPdfHowToSteps } from '@/data/howTo'
 import FeatureCard from '@/components/FeatureCard'
+import OperationMain from '@/components/OperationMain'
+import OperationSidebar from '@/components/OperationSidebar'
+import OperationBox from '@/components/OperationBox'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -126,7 +129,11 @@ function Split() {
     <div className="min-h-screen bg-background ">
       <ToastContainer />
       {!completionStatus && !isDroped && (
-        <ToolHeader sparklesText={"Free Online PDF Splitter"} headings={["Split","PDF File","Instantly"]} text={"Free to split PDF Files into smaller PDFs online"} />
+        <ToolHeader
+          sparklesText={'Free Online PDF Splitter'}
+          headings={['Split', 'PDF File', 'Instantly']}
+          text={'Free to split PDF Files into smaller PDFs online'}
+        />
       )}
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {!isDroped && !completionStatus && (
@@ -143,7 +150,7 @@ function Split() {
             />
             <FeatureCardSection
               tool={'Split PDF'}
-              text='Everything you need to manage your PDF files with confidence'
+              text="Everything you need to manage your PDF files with confidence"
               features={splitPdfFeatures}
             />
             <HowToSection
@@ -157,34 +164,12 @@ function Split() {
               faqs={splitPdfFaqs}
             />
             <ToolList />
-            {/* <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Split PDF Blog Articles </h1> */}
-            {/* PostCard section */}
-            {/* <div className="max-w-6xl p-4 bg-[#fcf8f8] mx-auto mt-20 flex flex-wrap justify-evenly">
-             <PostCard
-                src={"https://www.google.com/imgres?q=split%20pdf%20images&imgurl=https%3A%2F%2Fwww.jotform.com%2Fblog%2Fwp-content%2Fuploads%2F2018%2F12%2FHow-to-split-PDF-files-00cec9.png&imgrefurl=https%3A%2F%2Fwww.jotform.com%2Fblog%2Fhow-to-split-pdf%2F&docid=77fWbPAi3IAUeM&tbnid=9VL9vFjHKFZ5fM&vet=12ahUKEwih7eHvlfmPAxWId2wGHXKcHZkQM3oECBgQAA..i&w=825&h=500&hcb=2&ved=2ahUKEwih7eHvlfmPAxWId2wGHXKcHZkQM3oECBgQAA  "}
-                date={"15-9-2025"}
-                heading={"How to Split PDF Files Online for Free in Seconds"}
-                description={"Learn the easiest way to split PDF files online without downloading any software. Step-by-step guide to separate pages quickly and securely."}
-              />
-              <PostCard
-                src={"/safe_to_merge.png"}
-                date={"11-8-2025"}
-                heading={"Best Free Online Tool to Split PDF Pages Instantly"}
-                description={"Discover the fastest and most reliable tool to split PDF pages online. No sign-up, no hidden charges — just upload, split, and download."}
-              />
-              <PostCard
-                src={"/onine_pdf_merger.jpg"}
-                date={"23-8-2025"}
-                heading={"Split Large PDF Files into Smaller Parts Easily"}
-                description={"Need to manage big PDFs? Use our free Split PDF tool to break large documents into smaller, manageable files without losing quality."}
-              />
-            </div> */}
           </div>
         )}
         {isDroped && !isUploading && !completionStatus && !isProcessing && (
-          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
-            <div className="flex justify-center  gap-20">
-              <div className="w-5xl">
+          <OperationBox>
+            <OperationMain>
+              <div className="">
                 <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
                   <ul className="mt-6 p-5 flex flex-wrap justify-center gap-8">
                     {Array.from(new Array(0), (value, index) => {
@@ -330,25 +315,11 @@ function Split() {
                   Split PDF
                 </button>
               </div>
+            </OperationMain>
+            <OperationSidebar>
               <div
-                onClick={() => {
-                  setisActiveSetting((prev) => !prev)
-                }}
-                className={`w-fit absolute lg:hidden ${isActiveSetting ? 'hidden' : 'block'} right-1 top-20`}
+                className={`p-2 flex flex-col gap-4`}
               >
-                <SidebarOpen size={30} />
-              </div>
-              <div
-                className={`${isActiveSetting ? 'right-0' : 'right-[-380px]'} transition-all duration-300 ease-in w-[380px] lg:relative fixed  lg:right-0  bg-gray-200 p-2 flex flex-col gap-4 h-[658px]`}
-              >
-                <div
-                  className="lg:hidden block"
-                  onClick={() => {
-                    setisActiveSetting((prev) => !prev)
-                  }}
-                >
-                  <SidebarClose size={30} />
-                </div>
                 <h4 className="font-semibold  text-gray-800">Add Range:</h4>
                 <div className="flex gap-4">
                   <label htmlFor="from" className="w-10">
@@ -408,8 +379,8 @@ function Split() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </OperationSidebar>
+          </OperationBox>
         )}
         {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
 
@@ -434,228 +405,6 @@ function Split() {
               >
                 Download Split PDF
               </a>
-            </div>
-          </div>
-          <h1 className="text-xl font-semibold text-center mt-10 text-gray-800">
-            Split PDF files online for free
-          </h1>
-          {/* points section */}
-          <div className="flex justify-center max-w-7xl mt-6 mx-auto gap-4">
-            <div className="flex flex-col gap-2 w-xl text-sm">
-              <div className="flex gap-2">
-                <CircleCheck color="green" strokeWidth={1.5} />
-                <span>Our free PDF Splitter can be work on any device </span>
-              </div>
-              <div className="flex gap-2">
-                <CircleCheck color="green" strokeWidth={1.5} />
-                <span>Using PDFtoolify split tool you can easily split PDF files</span>
-              </div>
-            </div>
-            <div className="w-xl flex flex-col gap-2 text-sm">
-              <div className="flex gap-2">
-                <CircleCheck color="green" strokeWidth={1.5} />
-                <span>PDFtoolify is secure and easy to use tool for PDF related operations</span>
-              </div>
-              <div className="flex gap-2">
-                <CircleCheck color="green" strokeWidth={1.5} />
-                <span>No SignUp require to split PDF online</span>
-              </div>
-              <div className="flex gap-2">
-                <CircleCheck color="green" strokeWidth={1.5} />
-                <span>split PDFs in seconds with PDFtoolify — free, fast, and secure.</span>
-              </div>
-            </div>
-          </div>
-          {/* feature card section */}
-          <section className="bg-muted/30">
-            <div className="container py-20">
-              <div className="text-center mb-14">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-                  Features of PDFtoolify
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">
-                  Everything you need to manage your PDF files with confidence
-                </p>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                {features.map((feature, i) => (
-                  <FeatureCard key={i} {...feature} delay={200 + i * 100} />
-                ))}
-              </div>
-            </div>
-          </section>
-          {/* how to section */}
-          <div className="flex max-w-7xl mx-auto mt-24">
-            <div className="flex basis-[50%] justify-center items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="560"
-                height="360"
-                viewBox="0 0 560 360"
-                fill="none"
-              >
-                <rect width="560" height="360" rx="20" fill="#E6F0FF" />
-                <rect
-                  x="100"
-                  y="100"
-                  width="80"
-                  height="100"
-                  rx="8"
-                  fill="white"
-                  stroke="#1E40AF"
-                  strokeWidth="2"
-                />
-                <text
-                  x="140"
-                  y="160"
-                  textAnchor="middle"
-                  fontSize="18"
-                  fill="#1E40AF"
-                  fontFamily="Arial"
-                >
-                  PDF
-                </text>
-                <rect
-                  x="380"
-                  y="100"
-                  width="80"
-                  height="100"
-                  rx="8"
-                  fill="white"
-                  stroke="#1E40AF"
-                  strokeWidth="2"
-                />
-                <text
-                  x="420"
-                  y="160"
-                  textAnchor="middle"
-                  fontSize="18"
-                  fill="#1E40AF"
-                  fontFamily="Arial"
-                >
-                  PDF
-                </text>
-                <path
-                  d="M220 150 H340"
-                  stroke="#1E3A8A"
-                  strokeWidth="4"
-                  markerEnd="url(#arrowhead)"
-                />
-                <defs>
-                  <marker
-                    id="arrowhead"
-                    markerWidth="10"
-                    markerHeight="7"
-                    refX="10"
-                    refY="3.5"
-                    orient="auto"
-                  >
-                    <polygon points="0 0, 10 3.5, 0 7" fill="#1E3A8A" />
-                  </marker>
-                </defs>
-                <rect
-                  x="240"
-                  y="220"
-                  width="80"
-                  height="100"
-                  rx="8"
-                  fill="white"
-                  stroke="#059669"
-                  strokeWidth="2"
-                />
-                <text
-                  x="280"
-                  y="280"
-                  textAnchor="middle"
-                  fontSize="18"
-                  fill="#059669"
-                  fontFamily="Arial"
-                >
-                  PDF
-                </text>
-              </svg>
-            </div>
-            <div className="flex basis-[50%] justify-center items-center">
-              <div className="flex flex-col gap-3">
-                <div className="flex gap-4 items-center">
-                  <span className="w-5 h-5 rounded-md bg-black inline-block"></span>
-                  <span className="text-2xl text-gray-800 font-semibold">
-                    How to split PDFs online for free?
-                  </span>
-                </div>
-                <p className="whitespace-pre">
-                  1. Select files or drag and drop files in the select container
-                </p>
-                <p className="whitespace-pre">
-                  2. Enter start and end page to split PDF and press split pdf button
-                </p>
-                <p className="whitespace-pre">
-                  3. Download the split PDFs by pressing Download button
-                </p>
-              </div>
-            </div>
-          </div>
-          <h1 className="text-3xl font-semibold text-center text-gray-800 mt-24">Split PDF FAQs</h1>
-          {/* FAQs Section */}
-          <div className="max-w-4xl mx-auto flex flex-col mt-12 items-start gap-6">
-            <div className="flex flex-col gap-3">
-              <p className="text-xl font-semibold text-gray-800 ">
-                Is PDFtoolify really free to split PDFs?
-              </p>
-              <p className="text-sm font-medium text-gray-800">
-                Yes, splitting PDFs with PDFtoolify is 100% free. You can separate pages without any
-                sign-up or hidden charges.
-              </p>
-              <hr className="text-gray-300" />
-            </div>
-            <div className="flex flex-col gap-3">
-              <p className="text-xl font-semibold text-gray-800 ">
-                How can I split PDF files online?
-              </p>
-              <p className="text-sm font-medium text-gray-800">
-                Simply upload your PDF, select the pages you want to extract or split, and click on
-                “Split PDF.” Your file will be ready to download instantly.
-              </p>
-              <hr className="text-gray-300" />
-            </div>
-            <div className="flex flex-col gap-3">
-              <p className="text-xl font-semibold text-gray-800 ">
-                Will my PDF quality change after splitting?
-              </p>
-              <p className="text-sm font-medium text-gray-800">
-                No. PDFtoolify keeps the original formatting and quality of your PDF files after
-                splitting.
-              </p>
-              <hr className="text-gray-300" />
-            </div>
-            <div className="flex flex-col gap-3">
-              <p className="text-xl font-semibold text-gray-800 ">
-                Is it safe to split PDFs online?
-              </p>
-              <p className="text-sm font-medium text-gray-800">
-                Yes. Your files are processed securely, and they are automatically deleted after the
-                task is completed.
-              </p>
-              <hr className="text-gray-300" />
-            </div>
-            <div className="flex flex-col gap-3">
-              <p className="text-xl font-semibold text-gray-800 ">
-                Can I split large PDFs with many pages?
-              </p>
-              <p className="text-sm font-medium text-gray-800">
-                Absolutely. PDFtoolify supports splitting large PDF files quickly and efficiently
-                without any page limit.
-              </p>
-              <hr className="text-gray-300" />
-            </div>
-            <div className="flex flex-col gap-3">
-              <p className="text-xl font-semibold text-gray-800 ">
-                Does splitting PDFs cost anything?
-              </p>
-              <p className="text-sm font-medium text-gray-800">
-                No, splitting PDFs is completely free on PDFtoolify. There are no hidden fees.
-              </p>
-              <hr className="text-gray-300" />
             </div>
           </div>
         </>

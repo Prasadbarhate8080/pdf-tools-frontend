@@ -27,6 +27,7 @@ import OperationBox from '@/components/OperationBox'
 import OperationSidebar from '@/components/OperationSidebar'
 import AddMoreFilesComponent from '@/components/AddMoreFilesComponent'
 import OperationMain from '@/components/OperationMain'
+import { Dot } from 'lucide-react'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -125,29 +126,39 @@ function Merge() {
         )}
         {isDroped && !completionStatus && !isProcessing && !isUploading && (
           <OperationBox>
-              <OperationMain>
-                <ul className="flex flex-wrap justify-center p-5 gap-6">
-                  {files.map((file, index) => (
-                    <PDFPageComponent file={file} key={index} />
-                  ))}
-                  <AddMoreFilesComponent addFiles={addFiles} />
-                </ul>
-              </OperationMain>
-              <OperationSidebar>
-                <div className="flex flex-wrap items-center justify-center gap-4 mt-3">
-                  {/* Merge Button */}
-                  <Button size="xl" disabled={files.length < 2}>
-                    {' '}
-                    Merge PDF Files{' '}
-                  </Button>
-                  {/* Error Text */}
-                  {files.length < 2 && (
-                    <p className="text-red-500 text-sm text-center mt-2">
-                      Please select at least two PDF files.
-                    </p>
-                  )}
-                </div>
-              </OperationSidebar>
+            <OperationMain>
+              <ul className="flex flex-wrap justify-center p-5 gap-6">
+                {files.map((file, index) => (
+                  <PDFPageComponent file={file} key={index} />
+                ))}
+                <AddMoreFilesComponent addFiles={addFiles} />
+              </ul>
+              <Button className="absolute bottom-10 lg:hidden z-10 right-10" size="xl" disabled={files.length < 2}>
+                  {' '}
+                  Merge PDF Files{' '}
+                </Button>
+            </OperationMain>
+            <OperationSidebar>
+              <div className="p-2 bg-blue-50 border-1">
+                <h1 className="flex text-gray-600 text-sm items-center">
+                  {' '}
+                  <Dot /> Click on the merge PDF files button to merge the pdf files.
+                </h1>
+              </div>
+              <div className="=flex-wrap items-center justify-center gap-4 mt-3 lg:flex hidden">
+                {/* Merge Button */}
+                <Button size="xl" disabled={files.length < 2}>
+                  {' '}
+                  Merge PDF Files{' '}
+                </Button>
+                {/* Error Text */}
+                {files.length < 2 && (
+                  <p className="text-red-500 text-sm text-center mt-2">
+                    Please select at least two PDF files.
+                  </p>
+                )}
+              </div>
+            </OperationSidebar>
           </OperationBox>
         )}
         {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
@@ -155,11 +166,15 @@ function Merge() {
         {progress === 100 && isProcessing && <Processing />}
       </form>
       {downloadFileURL && (
-        <DownloadComponent
-          headingText={'Download Merged PDF'}
-          buttonText={'Download Merged PDF'}
-          downloadFileURL={downloadFileURL}
-        />
+        <OperationBox>
+          <OperationMain>
+            <DownloadComponent
+              headingText={'Download Merged PDF'}
+              buttonText={'Download Merged PDF'}
+              downloadFileURL={downloadFileURL}
+            />
+          </OperationMain>
+        </OperationBox>
       )}
       <ToastContainer />
     </div>

@@ -44,7 +44,7 @@ export const Footer = () => {
             <div className="col-span-2 md:col-span-3 lg:col-span-2">
               <a href="#" className="flex items-center gap-2.5 mb-5">
                 <div className=" rounded-lg flex items-center justify-center ">
-                  <Image src={'/pdftoolify_logo.svg'} alt="pdftoolify.com" height={36} width={36} />
+                  <Image src={'/PDFtoolify_logo.svg'} alt="pdftoolify.com" height={36} width={36} />
                 </div>
                 <span className="text-xl font-bold text-foreground">
                   PDF<span className="text-primary">toolify</span>

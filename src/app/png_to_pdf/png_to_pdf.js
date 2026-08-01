@@ -128,7 +128,7 @@ function PNGToPDF() {
 
   return (
     <div className="min-h-screen bg-background">
-      {!completionStatus && (
+      {!completionStatus && !isDroped && (
         <ToolHeader  sparklesText={"Free Online PNG to PDF Converter"} headings={["Convert","PNG to PDF", " Instantly"]}
         text={"Turn your PNG images into a single high-quality PDF — fast, secure, and completely free."}
         />
@@ -241,7 +241,6 @@ function PNGToPDF() {
         )}
         {loading && <Processing />}
       </form>
-
       {downloadFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-24">
           <h1 className="text-center text-gray-700 text-3xl font-semibold">
@@ -258,8 +257,6 @@ function PNGToPDF() {
           </div>
         </div>
       )}
-
-     
     </div>
   );
 }
