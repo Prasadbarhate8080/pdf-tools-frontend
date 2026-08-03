@@ -1,5 +1,6 @@
 "use client"
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { Merge, Split, FileDown, FileUp, Scissors, Lock, Unlock, Droplet, Image, FileText, FilePlus, FileX, Hash, Shield, Layers, ArrowUpRight } from 'lucide-react'
 const tools = [
   {
@@ -149,11 +150,10 @@ export const HomePageToolsSection = () => {
 
         <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {tools.map((tool) => (
-            <motion.a
+            <Link href={tool.href} rel='noopener noreferrer'>
+            <motion.span
               key={tool.name}
               variants={itemVariants}
-              href={tool.href}
-              rel="noopener noreferrer"
               className={`group relative flex items-start gap-4 p-5 rounded-2xl border bg-gradient-to-br ${tool.color} transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer`}
             >
               <div className="w-12 h-12 rounded-xl bg-card shadow-sm flex items-center justify-center shrink-0 group-hover:shadow-md transition-shadow">
@@ -166,7 +166,8 @@ export const HomePageToolsSection = () => {
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{tool.description}</p>
               </div>
-            </motion.a>
+            </motion.span>
+            </Link>
           ))}
         </motion.div>
       </div>

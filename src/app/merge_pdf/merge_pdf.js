@@ -145,7 +145,7 @@ function Merge() {
                   <Dot /> Click on the merge PDF files button to merge the pdf files.
                 </h1>
               </div>
-              <div className="=flex-wrap items-center justify-center gap-4 mt-3 lg:flex hidden">
+              <div className="flex-wrap items-center justify-center gap-4 mt-3 lg:flex hidden">
                 {/* Merge Button */}
                 <Button size="xl" disabled={files.length < 2}>
                   {' '}

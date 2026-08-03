@@ -35,6 +35,8 @@ import { addWatermarkBenefits } from "@/data/benefits";
 import { addWatermarkFeatures } from "@/data/features";
 import { addWatermarkFaqs } from "@/data/faqs";
 import { addWatermarkHowToSteps } from "@/data/howTo";
+import OperationBox from "@/components/OperationBox";
+import OperationMain from "@/components/OperationMain";
 if (typeof window !== "undefined") {
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 }
@@ -265,10 +267,8 @@ function AddWaterMarkPage() {
         )}
 
         {isDroped && !isUploading && !isProcessing && !completionStatus && (
-          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24 flex justify-between">
-            <div
-              className="flex-1 px-10 max-h-screen overflow-auto "
-              style={scrollbarStyle}
+          <OperationBox>
+            <OperationMain
             >
               <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
                 <ul className="flex flex-wrap justify-center gap-6">
@@ -288,7 +288,7 @@ function AddWaterMarkPage() {
               <button className="fixed bg-blue-500 px-4 py-2 rounded-md text-white text-xl top-11/12 right-4 z-20">
                 Add watermark
               </button>
-            </div>
+            </OperationMain>
             <div
               onClick={() => {
                 setisActiveSetting((prev) => !prev);
@@ -400,7 +400,7 @@ function AddWaterMarkPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </OperationBox>
         )}
 
         {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
