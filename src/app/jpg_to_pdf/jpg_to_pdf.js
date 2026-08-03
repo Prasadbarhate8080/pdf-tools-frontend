@@ -1,43 +1,44 @@
-"use client"; // if you're using Next.js
-import React, { useState } from "react";
-import Image from "next/image";
-import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
-import Processing from "@/components/Processing";
-import { useFileUpload } from "@/hooks/useFileUpload";
-import FileInput from "@/components/FileInput";
-import FaqSection from '@/components/FaqSection';
-import HowToSection from '@/components/HowToSection';
-import {
-  Trash2,
-  Sparkles,
-} from "lucide-react";
-import FeatureCardSection from "@/components/FeatureCardSection";
-import { PDFDocument } from "pdf-lib";
-import { toast } from "react-toastify";
-import ToolList from "@/components/ToolList";
-import FadeIn from "@/components/FadeIn";
+'use client' // if you're using Next.js
+import React, { useState } from 'react'
+import Image from 'next/image'
+import { Document, Page, pdfjs } from 'react-pdf'
+import 'react-pdf/dist/Page/AnnotationLayer.css'
+import 'react-pdf/dist/Page/TextLayer.css'
+import Processing from '@/components/Processing'
+import { useFileUpload } from '@/hooks/useFileUpload'
+import FileInput from '@/components/FileInput'
+import FaqSection from '@/components/FaqSection'
+import HowToSection from '@/components/HowToSection'
+import { Trash2, Sparkles, Dot } from 'lucide-react'
+import FeatureCardSection from '@/components/FeatureCardSection'
+import { PDFDocument } from 'pdf-lib'
+import { toast } from 'react-toastify'
+import ToolList from '@/components/ToolList'
+import FadeIn from '@/components/FadeIn'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import ToolHeader from "@/components/ToolHeader";
-import BenefitsSection from "@/components/BenefitsSection";
-import { jpgToPdfBenefits } from "@/data/benefits";
-import { jpgToPdfFeatures } from "@/data/features";
-import { jpgToPdfFaqs } from "@/data/faqs";
-import { jpgToPdfHowToSteps } from "@/data/howTo";
+} from '@/components/ui/accordion'
+import ToolHeader from '@/components/ToolHeader'
+import BenefitsSection from '@/components/BenefitsSection'
+import { jpgToPdfBenefits } from '@/data/benefits'
+import { jpgToPdfFeatures } from '@/data/features'
+import { jpgToPdfFaqs } from '@/data/faqs'
+import { jpgToPdfHowToSteps } from '@/data/howTo'
+import { Button } from '@/components/ui/button'
+import OperationBox from '@/components/OperationBox'
+import OperationMain from '@/components/OperationMain'
+import OperationSidebar from '@/components/OperationSidebar'
 
-if (typeof window !== "undefined") {
-  pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+if (typeof window !== 'undefined') {
+  pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
 const JpgToPdf = () => {
-  const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(false)
+  const [images, setImages] = useState([])
   let {
     files,
     isDroped,
@@ -52,88 +53,87 @@ const JpgToPdf = () => {
     callApi,
     setCompletionStatus,
     setdownloadFileURL,
-  } = useFileUpload();
+  } = useFileUpload()
 
   async function jpgToPdf() {
     try {
-      setLoading(true);
-      let pdfDoc = await PDFDocument.create();
-      const PAGE_WIDTH = 595.28;
-      const PAGE_HEIGHT = 841.89;
+      setLoading(true)
+      let pdfDoc = await PDFDocument.create()
+      const PAGE_WIDTH = 595.28
+      const PAGE_HEIGHT = 841.89
 
       for (let img of files) {
-        let ext = img.name.split(".").pop().toLowerCase();
-        let imageBytes = await img.arrayBuffer();
-        let image;
-        if (ext == "jpg" || ext == "jpeg")
-          image = await pdfDoc.embedJpg(imageBytes);
-        else if (ext == "png")
-          image = await pdfDoc.embedPng(imageBytes);
+        let ext = img.name.split('.').pop().toLowerCase()
+        let imageBytes = await img.arrayBuffer()
+        let image
+        if (ext == 'jpg' || ext == 'jpeg') image = await pdfDoc.embedJpg(imageBytes)
+        else if (ext == 'png') image = await pdfDoc.embedPng(imageBytes)
 
         if (!image) {
-          toast.error("unsupported file");
-          setFiles([]);
-          return;
+          toast.error('unsupported file')
+          setFiles([])
+          return
         }
 
-        const { width: imgWidth, height: imgHeight } = image.scale(1);
-        const scale = Math.min(
-          PAGE_WIDTH / imgWidth,
-          PAGE_HEIGHT / imgHeight,
-          1
-        );
-        const drawWidth = imgWidth * scale;
-        const drawHeight = imgHeight * scale;
+        const { width: imgWidth, height: imgHeight } = image.scale(1)
+        const scale = Math.min(PAGE_WIDTH / imgWidth, PAGE_HEIGHT / imgHeight, 1)
+        const drawWidth = imgWidth * scale
+        const drawHeight = imgHeight * scale
 
-        const x = (PAGE_WIDTH - drawWidth) / 2;
-        const y = (PAGE_HEIGHT - drawHeight) / 2;
+        const x = (PAGE_WIDTH - drawWidth) / 2
+        const y = (PAGE_HEIGHT - drawHeight) / 2
 
-        const page = pdfDoc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
+        const page = pdfDoc.addPage([PAGE_WIDTH, PAGE_HEIGHT])
         page.drawImage(image, {
           x,
           y,
           width: drawWidth,
           height: drawHeight,
-        });
+        })
       }
-      const extractedPDF = await pdfDoc.save();
-      const blob = new Blob([extractedPDF], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
+      const extractedPDF = await pdfDoc.save()
+      const blob = new Blob([extractedPDF], { type: 'application/pdf' })
+      const url = URL.createObjectURL(blob)
 
-      setdownloadFileURL(url);
-      setCompletionStatus(true);
+      setdownloadFileURL(url)
+      setCompletionStatus(true)
       setTimeout(() => {
-        URL.revokeObjectURL(url);
-      }, 10000);
+        URL.revokeObjectURL(url)
+      }, 10000)
     } catch (error) {
-      console.log(error);
+      console.log(error)
+    } finally {
+      setLoading(false)
     }
-    finally {
-      setLoading(false);
-    }
-  } 
-  
+  }
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (files.length === 0) {
-      alert("Please upload images");
-      return;
+      alert('Please upload images')
+      return
     }
-    jpgToPdf();
+    jpgToPdf()
     // const formData = new FormData();
     // files.forEach((file) => formData.append("images", file));
     // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/jpg_to_pdf",formData)
-  };
+  }
 
   return (
     <div className="min-h-screen bg-background">
-      {!completionStatus && (
-        <ToolHeader sparklesText={"Free Online JPG to PDF Converter"} headings={["Create","PDF from Images"," "]} text={"Convert JPG, PNG, and JPEG images into a single high-quality PDF — free, fast, and secure."} />
+      {!completionStatus && !isDroped && (
+        <ToolHeader
+          sparklesText={'Free Online JPG to PDF Converter'}
+          headings={['Create', 'PDF from Images', ' ']}
+          text={
+            'Convert JPG, PNG, and JPEG images into a single high-quality PDF — free, fast, and secure.'
+          }
+        />
       )}
 
       <form
         onSubmit={(e) => {
-          handleSubmit(e);
+          handleSubmit(e)
         }}
         encType="multipart/form-data"
       >
@@ -146,94 +146,101 @@ const JpgToPdf = () => {
               setImages={setImages}
               mode="images"
               accept={{
-                "image/jpeg": [".jpg", ".jpeg"],
-                "image/png": [".png"],
-                "image/webp": [".webp"],
+                'image/jpeg': ['.jpg', '.jpeg'],
+                'image/png': ['.png'],
+                'image/webp': ['.webp'],
               }}
             />
 
             <BenefitsSection
-              heading={"Create PDF from JPG & PNG images online for free"}
+              heading={'Create PDF from JPG & PNG images online for free'}
               benefits={jpgToPdfBenefits}
             />
 
             <FeatureCardSection
-              tool={"Create PDF"}
+              tool={'Create PDF'}
               text="Everything you need to turn your images into professional PDFs"
               features={jpgToPdfFeatures}
             />
 
             <HowToSection
-              heading={"How to convert JPG to PDF online?"}
-              text={"Follow these simple steps to create a PDF from your images."}
+              heading={'How to convert JPG to PDF online?'}
+              text={'Follow these simple steps to create a PDF from your images.'}
               steps={jpgToPdfHowToSteps}
             />
 
             <FaqSection
-              heading={"Create PDF FAQs"}
-              text={"Common questions about creating PDFs from images"}
+              heading={'Create PDF FAQs'}
+              text={'Common questions about creating PDFs from images'}
               faqs={jpgToPdfFaqs}
             />
             <ToolList />
           </div>
         )}
         {isDroped && !isUploading && !completionStatus && (
-          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
-            <ul className="mt-6 flex flex-wrap justify-center gap-6">
-              {images.map((imgObj, index) => (
-                <li
-                  key={index}
-                  className="w-[220px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+          <OperationBox>
+            <OperationMain>
+              <ul className="mt-6 flex flex-wrap justify-center gap-6">
+                {images.map((imgObj, index) => (
+                  <li
+                    key={index}
+                    className="w-[220px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
                    transition-all duration-300 overflow-hidden relative"
-                >
-                  <div>
-                    <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                      <div className="w-[200px] h-[250px] flex justify-center items-center">
-                        <img
-                        className="object-contain object-center"
-                        src={imgObj.preview} alt={`uploaded-${index}`} />
+                  >
+                    <div>
+                      <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                        <div className="w-[200px] h-[250px] flex justify-center items-center">
+                          <img
+                            className="object-contain object-center"
+                            src={imgObj.preview}
+                            alt={`uploaded-${index}`}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* File name */}
-                  <div className=" py-2 px-3 text-center">
-                    <p
-                      className="text-sm font-medium  truncate"
-                      title={`/${imgObj.file.name}`}
+                    {/* File name */}
+                    <div className=" py-2 px-3 text-center">
+                      <p className="text-sm font-medium  truncate" title={`/${imgObj.file.name}`}>
+                        {imgObj.file.name}
+                      </p>
+                    </div>
+                    <div
+                      className="p-1.5 absolute top-1 right-1 bg-red-500 cursor-pointer rounded-full "
+                      onClick={(e) => {
+                        setImages((prev) => {
+                          let array = [...prev]
+                          URL.revokeObjectURL(array[index].preview)
+                          array.splice(index, 1)
+                          return array
+                        })
+                      }}
                     >
-                      {imgObj.file.name}
-                    </p>
-                  </div>
-                  <div className="p-1.5 absolute top-1 right-1 bg-red-500 cursor-pointer rounded-full "
-                    onClick={(e) => {
-                      setImages((prev) => {
-                        let array = [...prev];
-                        URL.revokeObjectURL(array[index].preview);
-                        array.splice(index,1);
-                        return array;
-                      })
-                    }}
-                  > <Trash2 size={22} color="white"/></div>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
-              {/* Merge Button */}
-              <button
-                disabled={files.length < 1}
-                className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
-                ${
-                  files.length < 1
-                    ? "bg-blue-300 cursor-not-allowed"
-                    : "bg-blue-500  active:bg-blue-400"
-                }`}
-              >
-                Create PDF
-              </button>
-            </div>
-          </div>
+                      {' '}
+                      <Trash2 size={22} color="white" />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
+                {' '}
+                Create PDF{' '}
+              </Button>
+            </OperationMain>
+            <OperationSidebar>
+              <div className="p-2 bg-blue-50 border-1">
+                <h1 className="flex text-gray-600 text-sm items-center">
+                  {' '}
+                  <Dot /> Click on a create pdf button to create a PDF.
+                </h1>
+              </div>
+              <div className="mt-3 p-3">
+                <Button disabled={files.length < 1} size="xl" className="lg:block hidden">
+                  Create PDF
+                </Button>
+              </div>
+            </OperationSidebar>
+          </OperationBox>
         )}
 
         {/* {progress > 0 && progress < 100 && <ProgressBar progress={progress}/>}
@@ -247,9 +254,7 @@ const JpgToPdf = () => {
 
       {downloadFileURL && (
         <div className="max-w-5xl text-center mx-auto  mt-24">
-          <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download created PDF
-          </h1>
+          <h1 className="text-center text-gray-700 text-3xl font-semibold">Download created PDF</h1>
           <div className="mt-3 w-fit mx-auto">
             <a
               href={downloadFileURL}
@@ -261,10 +266,8 @@ const JpgToPdf = () => {
           </div>
         </div>
       )}
-
-     
     </div>
-  );
-};
+  )
+}
 
-export default JpgToPdf;
+export default JpgToPdf

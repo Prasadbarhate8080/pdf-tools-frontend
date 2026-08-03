@@ -1,119 +1,124 @@
-"use client";
-import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
-import Processing from "@/components/Processing";
-import ProgressBar from "@/components/ProgressBar";
-import FileInput from "@/components/FileInput";
-import { useFileUpload } from "@/hooks/useFileUpload";
-import FaqSection from '@/components/FaqSection';
-import HowToSection from '@/components/HowToSection';
-import {
-  CheckCircle2,
-  CheckSquare,
-  Check,
-  Sparkles,
-} from "lucide-react";
-import Image from "next/image";
-import { error, PDFDocument } from "pdf-lib";
-import { toast } from "react-toastify";
-import ToolList from "@/components/ToolList";
-import FadeIn from "@/components/FadeIn";
+'use client'
+import { useState } from 'react'
+import { ToastContainer } from 'react-toastify'
+import { Document, Page, pdfjs } from 'react-pdf'
+import 'react-pdf/dist/Page/AnnotationLayer.css'
+import 'react-pdf/dist/Page/TextLayer.css'
+import Processing from '@/components/Processing'
+import ProgressBar from '@/components/ProgressBar'
+import FileInput from '@/components/FileInput'
+import { useFileUpload } from '@/hooks/useFileUpload'
+import FaqSection from '@/components/FaqSection'
+import HowToSection from '@/components/HowToSection'
+import { CheckCircle2, CheckSquare, Check, Sparkles, Dot } from 'lucide-react'
+import Image from 'next/image'
+import { error, PDFDocument } from 'pdf-lib'
+import { toast } from 'react-toastify'
+import ToolList from '@/components/ToolList'
+import FadeIn from '@/components/FadeIn'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import FeatureCardSection from "@/components/FeatureCardSection";
-import ToolHeader from "@/components/ToolHeader";
-import BenefitsSection from "@/components/BenefitsSection";
-import { extractPdfBenefits } from "@/data/benefits";
-import { extractPdfFeatures } from "@/data/features";
-import { extractPdfFaqs } from "@/data/faqs";
-import { extractPdfHowToSteps } from "@/data/howTo";
+} from '@/components/ui/accordion'
+import FeatureCardSection from '@/components/FeatureCardSection'
+import ToolHeader from '@/components/ToolHeader'
+import BenefitsSection from '@/components/BenefitsSection'
+import { extractPdfBenefits } from '@/data/benefits'
+import { extractPdfFeatures } from '@/data/features'
+import { extractPdfFaqs } from '@/data/faqs'
+import { extractPdfHowToSteps } from '@/data/howTo'
+import OperationBox from '@/components/OperationBox'
+import OperationMain from '@/components/OperationMain'
+import OperationSidebar from '@/components/OperationSidebar'
+import { Button } from '@/components/ui/button'
 
-if (typeof window !== "undefined") {
-  pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+if (typeof window !== 'undefined') {
+  pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
 export default function ExtractPdf() {
   const [loading, setLoading] = useState(false)
-  const [numPages, setNumPages] = useState(null);
-  const [selectedPages, setSelectedPages] = useState([]);
-  let { files, isDroped, isProcessing, completionStatus, isUploading,
-    downloadFileURL, serverPreparing, progress, setisDroped, setFiles, callApi, setdownloadFileURL, setCompletionStatus
+  const [numPages, setNumPages] = useState(null)
+  const [selectedPages, setSelectedPages] = useState([])
+  let {
+    files,
+    isDroped,
+    isProcessing,
+    completionStatus,
+    isUploading,
+    downloadFileURL,
+    serverPreparing,
+    progress,
+    setisDroped,
+    setFiles,
+    callApi,
+    setdownloadFileURL,
+    setCompletionStatus,
   } = useFileUpload()
 
   const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-  };
+    setNumPages(numPages)
+  }
 
   const togglePageSelection = (pageNum) => {
     setSelectedPages((prevSelected) =>
       prevSelected.includes(pageNum)
         ? prevSelected.filter((n) => n !== pageNum)
         : [...prevSelected, pageNum]
-    );
-  };
+    )
+  }
 
   async function extractPDF() {
     try {
       setLoading(true)
-      if (!files) throw new Error("no file selected")
-      let arrayBuffer = await files.arrayBuffer();
+      if (!files) throw new Error('no file selected')
+      let arrayBuffer = await files.arrayBuffer()
       let pdf = await PDFDocument.load(arrayBuffer)
-      let totalPages = pdf.getPageCount();
-      let extractedPDF = await PDFDocument.create();
-      if (selectedPages.length == 0) throw new Error("please select at least one page")
+      let totalPages = pdf.getPageCount()
+      let extractedPDF = await PDFDocument.create()
+      if (selectedPages.length == 0) throw new Error('please select at least one page')
 
       let isInvalidPages = selectedPages.some((page) => page < 0 || page > totalPages)
-      if (isInvalidPages) throw new Error("invalid pages")
+      if (isInvalidPages) throw new Error('invalid pages')
 
-      let zeroBasedSelectedPages = selectedPages.map(page => page - 1)
-      let pages = await extractedPDF.copyPages(pdf, zeroBasedSelectedPages);
-      pages.forEach(page => extractedPDF.addPage(page));
-      const extractedPdfBytes = await extractedPDF.save();
-      const blob = new Blob([extractedPdfBytes], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
-      setdownloadFileURL(url);
+      let zeroBasedSelectedPages = selectedPages.map((page) => page - 1)
+      let pages = await extractedPDF.copyPages(pdf, zeroBasedSelectedPages)
+      pages.forEach((page) => extractedPDF.addPage(page))
+      const extractedPdfBytes = await extractedPDF.save()
+      const blob = new Blob([extractedPdfBytes], { type: 'application/pdf' })
+      const url = URL.createObjectURL(blob)
+      setdownloadFileURL(url)
       setCompletionStatus(true)
       setTimeout(() => {
         URL.revokeObjectURL(url)
-      }, 10000);
+      }, 10000)
     } catch (error) {
       toast.error(error.message)
       setisDroped(false)
-    }
-    finally {
+    } finally {
       setLoading(false)
     }
   }
 
   const handleExtract = async () => {
-    if (!files || selectedPages.length === 0)
-      return alert("Select at least one page.");
-    extractPDF();
+    if (!files || selectedPages.length === 0) return alert('Select at least one page.')
+    extractPDF()
     // const formData = new FormData();
     // formData.append("file", files);
     // formData.append("pages", JSON.stringify(selectedPages));
     // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/extract_pdf",formData);
-  };
+  }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       {!completionStatus && !isDroped && (
-        <ToolHeader sparklesText={"Free Online PDF Page Extractor"} headings={["Extract","PDF Pages","Instantly"]} text={"Combine multiple PDF documents into one — free, fast, and without quality loss"} />
-      )}
-
-      {!completionStatus && isDroped && (
-        <div>
-          <p className="text-center text-gray-500 text-">
-            Select The Pages which you want to extract
-          </p>
-        </div>
+        <ToolHeader
+          sparklesText={'Free Online PDF Page Extractor'}
+          headings={['Extract', 'PDF Pages', 'Instantly']}
+          text={'Combine multiple PDF documents into one — free, fast, and without quality loss'}
+        />
       )}
 
       {!isDroped && (
@@ -125,22 +130,22 @@ export default function ExtractPdf() {
             accept={{ 'application/pdf': [] }}
           />
           <BenefitsSection
-            heading={"Extract PDF pages online for free"}
+            heading={'Extract PDF pages online for free'}
             benefits={extractPdfBenefits}
           />
           <FeatureCardSection
-            tool={"Extract PDF Pages"}
+            tool={'Extract PDF Pages'}
             text="Powerful tools to help you extract exactly the PDF pages you need"
             features={extractPdfFeatures}
           />
           <HowToSection
-              heading={"How to extract PDF pages online?"}
-              text={"Extract the pages you need from your PDF in just a few simple steps."}
-              steps={extractPdfHowToSteps}
-            />
+            heading={'How to extract PDF pages online?'}
+            text={'Extract the pages you need from your PDF in just a few simple steps.'}
+            steps={extractPdfHowToSteps}
+          />
           <FaqSection
-            heading={"Extract PDF Pages FAQs"}
-            text={"Common questions about extracting pages from your PDFs"}
+            heading={'Extract PDF Pages FAQs'}
+            text={'Common questions about extracting pages from your PDFs'}
             faqs={extractPdfFaqs}
           />
           <ToolList />
@@ -148,42 +153,53 @@ export default function ExtractPdf() {
       )}
 
       {files && isDroped && !isUploading && !completionStatus && (
-        <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
-          <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
-            <div className="flex flex-wrap max-w-7xl justify-center mx-auto gap-8 mt-6">
-              {Array.from(new Array(numPages), (el, index) => {
-                const pageNum = index + 1
-                const isSelected = selectedPages.includes(pageNum)
-                return (
-                  <div
-                    key={pageNum}
-                    className={`w-fit p-1 bg-white rounded-md border-gray-500 border relative  cursor-pointer transition-transform duration-200 hover:bg-gray-100`}
-                    onClick={() => togglePageSelection(pageNum)}
-                  >
-                    <Page pageNumber={pageNum} width={200} />
-                    <p className="text-center p-1">Page {pageNum}</p>
-                    <div
-                      className={`absolute top-0.5 right-0.5 h-6 w-6 border-1 border-gray-500 rounded-md
+        <OperationBox>
+          <OperationMain>
+            <div className="flex flex-wrap items-center justify-center py-3">
+              <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
+                <div className="flex flex-wrap justify-center mx-auto gap-8">
+                  {Array.from(new Array(numPages), (el, index) => {
+                    const pageNum = index + 1
+                    const isSelected = selectedPages.includes(pageNum)
+                    return (
+                      <div
+                        key={pageNum}
+                        className={`w-fit p-1 bg-white rounded-md border-gray-500 border relative  cursor-pointer transition-transform duration-200 hover:bg-gray-100`}
+                        onClick={() => togglePageSelection(pageNum)}
+                      >
+                        <Page pageNumber={pageNum} width={200} />
+                        <p className="text-center p-1">Page {pageNum}</p>
+                        <div
+                          className={`absolute top-0.5 right-0.5 h-6 w-6 border-1 border-gray-500 rounded-sm
                     ${isSelected ? 'bg-blue-600' : 'bg-white'}`}
-                    >
-                      <Check color="white" className={`${isSelected ? 'block' : 'hidden'}`} />
-                    </div>
-                  </div>
-                )
-              })}
+                        >
+                          <Check color="white" className={`${isSelected ? 'block' : 'hidden'}`} />
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </Document>
             </div>
-          </Document>
-
-          {/* button for extracting pages */}
-          <div className="mt-6 text-center">
-            <button
-              onClick={handleExtract}
-              className="bg-blue-500 text-white px-8 py-4 text-2xl rounded-md "
-            >
-              Extract {selectedPages.length > 0 && selectedPages.length} Selected Pages
-            </button>
-          </div>
-        </div>
+            <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl" onClick={handleExtract}>
+              {' '}
+              Extract {selectedPages.length > 0 && selectedPages.length} Selected Pages{' '}
+            </Button>
+          </OperationMain>
+          <OperationSidebar>
+            <div className="p-2 bg-blue-50 border-1">
+              <h1 className="flex text-gray-600 text-sm items-center">
+                {' '}
+                <Dot /> Select The Pages which you want to extract.
+              </h1>
+            </div>
+            <div className="mt-3 p-3">
+              <Button size="xl" className="lg:block hidden" onClick={handleExtract}>
+                Extract {selectedPages.length > 0 && selectedPages.length} Selected Pages
+              </Button>
+            </div>
+          </OperationSidebar>
+        </OperationBox>
       )}
 
       {/* progress bar and proessing */}

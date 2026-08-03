@@ -13,13 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import {
-  Check,
-  Download,
-  Scissors,
-  Sparkles,
-  Upload,
-} from 'lucide-react'
+import { Check, Dot, Download, Scissors, Sparkles, Upload } from 'lucide-react'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import { PDFDocument } from 'pdf-lib'
 import ToolList from '@/components/ToolList'
@@ -32,6 +26,10 @@ import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
 import { removePdfPagesFaqs } from '@/data/faqs'
 import { removePdfPagesHowToSteps } from '@/data/howTo'
+import OperationBox from '@/components/OperationBox'
+import OperationMain from '@/components/OperationMain'
+import OperationSidebar from '@/components/OperationSidebar'
+import { Button } from '@/components/ui/button'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -121,17 +119,12 @@ export default function RemovePDFPages() {
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <ToolHeader sparklesText={"Free Online PDF Page Remover"} headings={["Remove","PDF Pages","Easily"]} text={"Delete unwanted pages quickly while keeping your PDF quality intact"} />
+        <ToolHeader
+          sparklesText={'Free Online PDF Page Remover'}
+          headings={['Remove', 'PDF Pages', 'Easily']}
+          text={'Delete unwanted pages quickly while keeping your PDF quality intact'}
+        />
       )}
-
-      {!completionStatus && isDroped && (
-        <div>
-          <p className="text-center text-gray-500 text-">
-            Select The Pages which you want to remove
-          </p>
-        </div>
-      )}
-
       {!isDroped && !completionStatus && (
         <div>
           <FileInput
@@ -146,7 +139,7 @@ export default function RemovePDFPages() {
           />
           <FeatureCardSection
             tool={'Remove PDF Pages'}
-            text='Everything you need to remove PDF pages with confidence'
+            text="Everything you need to remove PDF pages with confidence"
             features={removePdfPagesFeatures}
           />
           <HowToSection
@@ -164,42 +157,51 @@ export default function RemovePDFPages() {
       )}
 
       {files && isDroped && !isUploading && !completionStatus && (
-        <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
-          <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
-            <div className="flex flex-wrap max-w-7xl justify-center mx-auto gap-8 mt-6">
-              {Array.from(new Array(numPages), (el, index) => {
-                const pageNum = index + 1
-                const isSelected = selectedPages.includes(pageNum)
-                return (
-                  <div
-                    key={pageNum}
-                    className={`w-fit p-1 bg-white rounded-md border-gray-500 border relative  cursor-pointer transition-transform duration-200 hover:bg-gray-100`}
-                    onClick={() => togglePageSelection(pageNum)}
-                  >
-                    <Page pageNumber={pageNum} width={200} />
-                    <p className="text-center p-1">Page {pageNum}</p>
+        <OperationBox>
+          <OperationMain>
+            <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
+              <div className="flex flex-wrap max-w-7xl justify-center mx-auto gap-8 mt-6">
+                {Array.from(new Array(numPages), (el, index) => {
+                  const pageNum = index + 1
+                  const isSelected = selectedPages.includes(pageNum)
+                  return (
                     <div
-                      className={`absolute top-0.5 right-0.5 h-6 w-6 border-1 border-gray-500 rounded-md
-                    ${isSelected ? 'bg-blue-600' : 'bg-white'}`}
+                      key={pageNum}
+                      className={`w-fit p-1 bg-white rounded-md border-gray-500 border relative  cursor-pointer transition-transform duration-200 hover:bg-gray-100`}
+                      onClick={() => togglePageSelection(pageNum)}
                     >
-                      <Check color="white" className={`${isSelected ? 'block' : 'hidden'}`} />
+                      <Page pageNumber={pageNum} width={200} />
+                      <p className="text-center p-1">Page {pageNum}</p>
+                      <div
+                        className={`absolute top-0.5 right-0.5 h-6 w-6 border-1 border-gray-500 rounded-sm
+                    ${isSelected ? 'bg-blue-600' : 'bg-white'}`}
+                      >
+                        <Check color="white" className={`${isSelected ? 'block' : 'hidden'}`} />
+                      </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </div>
+            </Document>
+            <Button onClick={handleRemove} className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
+              {' '}
+              Remove {selectedPages.length > 0 && selectedPages.length} Selected Pages{' '}
+            </Button>
+          </OperationMain>
+          <OperationSidebar>
+            <div className="p-2 bg-blue-50 border-1">
+              <h1 className="flex text-gray-600 text-sm items-center">
+                {' '}
+                <Dot /> Select the pages which you want to remove.
+              </h1>
             </div>
-          </Document>
-
-          {/* button for extracting pages */}
-          <div className="mt-6 text-center">
-            <button
-              onClick={handleRemove}
-              className="bg-blue-500 text-white px-8 py-4 text-2xl rounded-md "
-            >
-              Remove {selectedPages.length > 0 && selectedPages.length} Selected Pages
-            </button>
-          </div>
-        </div>
+            <div  className="mt-3 p-3">
+              <Button onClick={handleRemove} disabled={files.length < 1} size="xl" className="lg:block hidden">
+                Remove {selectedPages.length > 0 && selectedPages.length} Selected Pages
+              </Button>
+            </div>
+          </OperationSidebar>
+        </OperationBox>
       )}
 
       {/* progress bar and proessing */}

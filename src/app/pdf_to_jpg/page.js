@@ -20,8 +20,8 @@ function page() {
   return (
     <div>
       <PDFToJPG />
-      <div className="container py-20 mx-auto">
-        <HideContent>
+      <HideContent>
+        <div className="container py-20 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
               PDF to JPG Blog Articles
@@ -32,8 +32,8 @@ function page() {
           </div>
           <Posts toolName={'PDF_TO_JPG'} />
           <ToolBlog />
-        </HideContent>
-      </div>
+        </div>
+      </HideContent>
     </div>
   )
 }

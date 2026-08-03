@@ -124,10 +124,10 @@ function Compress() {
               <div className="p-2 bg-blue-50 border-1">
                 <h1 className="flex text-gray-600 text-sm items-center">
                   {' '}
-                  <Dot /> Click on the Compress PDF button to compress the pdf:
+                  <Dot /> Click on the Compress PDF button to compress the pdf.
                 </h1>
               </div>
-              <div className="flex  items-center justify-center gap-4 mt-6">
+              <div className="mt-3 p-3">
                 <Button size="xl" className="lg:block hidden">
                   Compress PDF
                 </Button>

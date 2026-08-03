@@ -1,73 +1,68 @@
-"use client";
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import Link from "next/link";
-import { useDropzone } from "react-dropzone";
-import Image from "next/image";
-import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
-import Processing from "@/components/Processing";
-import ProgressBar from "@/components/ProgressBar";
-import { useFileUpload } from "@/hooks/useFileUpload";
-import FileInput from "@/components/FileInput";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
-  BadgeCheck,
-  Download,
-  FileType2,
-  Gift,
-  InfinityIcon,
-  MousePointerClick,
-  ShieldCheck,
-  Sparkles,
-  Upload,
-  Zap,
-} from "lucide-react";
-import FaqSection from '@/components/FaqSection';
-import HowToSection from '@/components/HowToSection';
-import ToolList from "@/components/ToolList";
-import FadeIn from "@/components/FadeIn";
-import ToolHeader from "@/components/ToolHeader";
-import BenefitsSection from "@/components/BenefitsSection";
-import FeatureCardSection from "@/components/FeatureCardSection";
-import { wordToPdfBenefits } from "@/data/benefits";
-import { wordToPdfFeatures } from "@/data/features";
-import { wordToPdfFaqs } from "@/data/faqs";
-import { wordToPdfHowToSteps } from "@/data/howTo";
+'use client'
+import React from 'react'
+import { ToastContainer } from 'react-toastify'
+import { pdfjs } from 'react-pdf'
+import 'react-pdf/dist/Page/AnnotationLayer.css'
+import 'react-pdf/dist/Page/TextLayer.css'
+import Processing from '@/components/Processing'
+import ProgressBar from '@/components/ProgressBar'
+import { useFileUpload } from '@/hooks/useFileUpload'
+import FileInput from '@/components/FileInput'
+import PDFPageComponent from '@/components/PDFPageComponent'
+import { Dot } from 'lucide-react'
+import FaqSection from '@/components/FaqSection'
+import HowToSection from '@/components/HowToSection'
+import ToolList from '@/components/ToolList'
+import ToolHeader from '@/components/ToolHeader'
+import BenefitsSection from '@/components/BenefitsSection'
+import FeatureCardSection from '@/components/FeatureCardSection'
+import { wordToPdfBenefits } from '@/data/benefits'
+import { wordToPdfFeatures } from '@/data/features'
+import { wordToPdfFaqs } from '@/data/faqs'
+import { wordToPdfHowToSteps } from '@/data/howTo'
+import OperationBox from '@/components/OperationBox'
+import OperationMain from '@/components/OperationMain'
+import OperationSidebar from '@/components/OperationSidebar'
+import { Button } from '@/components/ui/button'
 
-if (typeof window !== "undefined") {
-  pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+if (typeof window !== 'undefined') {
+  pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
 function WordToPdf() {
+  let {
+    files,
+    isDroped,
+    isProcessing,
+    completionStatus,
+    isUploading,
+    downloadFileURL,
+    serverPreparing,
+    progress,
+    setisDroped,
+    setFiles,
+    callApi,
+  } = useFileUpload()
 
-
-  let {files,isDroped,isProcessing,completionStatus,isUploading,
-      downloadFileURL,serverPreparing,progress,setisDroped,setFiles,callApi
-      } = useFileUpload()
-  
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("pdf_file", files);
-    callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/word_to_pdf", formData);
-  };
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('pdf_file', files)
+    callApi('https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/word_to_pdf', formData)
+  }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       {!completionStatus && !isDroped && (
-        <ToolHeader sparklesText={"Free Online Word to PDF Converter"} headings={["Convert","Word to PDF","Instantly"]} text={"Keep your formatting intact while converting DOC/DOCX to PDF — fast and free"} />
+        <ToolHeader
+          sparklesText={'Free Online Word to PDF Converter'}
+          headings={['Convert', 'Word to PDF', 'Instantly']}
+          text={'Keep your formatting intact while converting DOC/DOCX to PDF — fast and free'}
+        />
       )}
       <form
         onSubmit={(e) => {
-          handleSubmit(e);
+          handleSubmit(e)
         }}
         encType="multipart/form-data"
       >
@@ -78,30 +73,30 @@ function WordToPdf() {
               setisDroped={setisDroped}
               multiple={false}
               accept={{
-                "application/msword": [".doc"],
-                "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [
-                  ".docx",
+                'application/msword': ['.doc'],
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document': [
+                  '.docx',
                 ],
               }}
               mode="wordFile"
             />
             <BenefitsSection
-              heading={"Convert Word files to PDF online"}
+              heading={'Convert Word files to PDF online'}
               benefits={wordToPdfBenefits}
             />
             <FeatureCardSection
-              tool={"Word to PDF"}
+              tool={'Word to PDF'}
               text="Everything you need for reliable Word to PDF conversion"
               features={wordToPdfFeatures}
             />
             <HowToSection
-              heading={"How to convert Word to PDF?"}
-              text={"Convert your DOC/DOCX file in three quick steps"}
+              heading={'How to convert Word to PDF?'}
+              text={'Convert your DOC/DOCX file in three quick steps'}
               steps={wordToPdfHowToSteps}
             />
             <FaqSection
-              heading={"Word to PDF FAQs"}
-              text={"Common questions about Word to PDF conversion"}
+              heading={'Word to PDF FAQs'}
+              text={'Common questions about Word to PDF conversion'}
               faqs={wordToPdfFaqs}
             />
             <ToolList />
@@ -109,57 +104,39 @@ function WordToPdf() {
         )}
 
         {isDroped && !isUploading && !isProcessing && !completionStatus && (
-          <div className="max-w-7xl mx-auto bg-gray-100 p-10 mt-24">
-            <ul className="mt-6 flex flex-wrap justify-center gap-6">
-              <li
-                className="w-[220px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
-                         transition-all duration-300 overflow-hidden"
-              >
-                <div>
-                  <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                    <div className="w-[180px] h-[250px] flex flex-col items-center justify-center">
-                    <Image
-                      className="object-contain"
-                      src="/word_logo.jpg"
-                      width={130}
-                      height={130}
-                      alt="Picture of the author"
-                    />
-                    </div>
-                  </div>
-                </div>
-
-                {/* File name */}
-                <div className=" py-2 px-3 text-center">
-                  <p
-                    className="text-sm font-medium  truncate"
-                    title={files.name}
-                  >
-                    {files.name}
-                  </p>
-                </div>
-              </li>
-            </ul>
-
-            <div className="flex  items-center justify-center gap-4 mt-6">
-              {/* Merge Button */}
-              <button
-                className={`px-6 py-3 rounded-md font-semibold text-white transition-all duration-300
-                       bg-blue-500  active:bg-blue-400`}
-              >
+          <OperationBox>
+            <OperationMain>
+              <ul className="mt-6 flex flex-wrap justify-center gap-6">
+                <PDFPageComponent file={files} />
+              </ul>
+              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
+                {' '}
                 Convert To PDF
-              </button>
-            </div>
-          </div>
+              </Button>
+            </OperationMain>
+            <OperationSidebar>
+              <div className="p-2 bg-blue-50 border-1">
+                <h1 className="flex text-gray-600 text-sm items-center">
+                  {' '}
+                  <Dot /> Click on convert to pdf button to convert the word file into the pdf.
+                </h1>
+              </div>
+              <div className="mt-3 p-3">
+                <Button disabled={files.length < 1} size="xl" className="lg:block hidden">
+                  Convert To PDF
+                </Button>
+              </div>
+            </OperationSidebar>
+          </OperationBox>
         )}
 
-        
-        {progress > 0 && progress < 100 && <ProgressBar progress={progress}/>}
-        {serverPreparing &&  <div className="flex flex-col items-center mt-8">
-                <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
-                <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-              </div>
-          }
+        {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
+        {serverPreparing && (
+          <div className="flex flex-col items-center mt-8">
+            <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
+            <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
         {progress === 100 && isProcessing && <Processing />}
       </form>
 
@@ -182,7 +159,7 @@ function WordToPdf() {
 
       <ToastContainer />
     </div>
-  );
+  )
 }
 
-export default WordToPdf;
+export default WordToPdf

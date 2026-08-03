@@ -20,8 +20,8 @@ function page() {
   return (
     <div>
       <ExtractPdf />
-      <div className="container py-20 mx-auto">
-        <HideContent>
+      <HideContent>
+        <div className="container py-20 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
               Extract PDF Blog Articles
@@ -32,8 +32,8 @@ function page() {
           </div>
           <Posts toolName={'EXTRACT_PDF'} />
           <ToolBlog />
-        </HideContent>
-      </div>
+        </div>
+      </HideContent>
     </div>
   )
 }
