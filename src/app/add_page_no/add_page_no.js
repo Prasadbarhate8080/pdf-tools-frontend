@@ -195,7 +195,7 @@ function PageNO() {
               <ul className="mt-6 flex flex-wrap justify-center gap-6">
                 <PDFPageComponent file={files} />
               </ul>
-              <Button className="absolute bottom-10 lg:hidden z-10 right-10" size="xl">
+              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
                 {' '}
                 Add Page Numbers{' '}
               </Button>

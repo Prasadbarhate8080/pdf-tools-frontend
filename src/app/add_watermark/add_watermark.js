@@ -1,53 +1,48 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
-import Processing from "@/components/Processing";
-import ProgressBar from "@/components/ProgressBar";
-import { useFileUpload } from "@/hooks/useFileUpload";
-import FileInput from "@/components/FileInput";
+'use client'
+import React, { useEffect, useState } from 'react'
+import { ToastContainer } from 'react-toastify'
+import { Document, Page, pdfjs } from 'react-pdf'
+import 'react-pdf/dist/Page/AnnotationLayer.css'
+import 'react-pdf/dist/Page/TextLayer.css'
+import Processing from '@/components/Processing'
+import ProgressBar from '@/components/ProgressBar'
+import { useFileUpload } from '@/hooks/useFileUpload'
+import FileInput from '@/components/FileInput'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
-  Download,
-  Droplet,
-  Upload,
-  SidebarClose,
-  SidebarOpen,
-  ArrowRight,
-} from "lucide-react";
-import FeatureCardSection from "@/components/FeatureCardSection";
-import FaqSection from '@/components/FaqSection';
-import HowToSection from '@/components/HowToSection';
-import { PDFDocument, StandardFonts, rgb, degrees } from "pdf-lib";
-import ToolList from "@/components/ToolList";
-import FadeIn from "@/components/FadeIn";
-import BlogCard from "@/components/BlogCard";
-import ToolHeader from "@/components/ToolHeader";
-import BenefitsSection from "@/components/BenefitsSection";
-import { addWatermarkBenefits } from "@/data/benefits";
-import { addWatermarkFeatures } from "@/data/features";
-import { addWatermarkFaqs } from "@/data/faqs";
-import { addWatermarkHowToSteps } from "@/data/howTo";
-import OperationBox from "@/components/OperationBox";
-import OperationMain from "@/components/OperationMain";
-if (typeof window !== "undefined") {
-  pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+} from '@/components/ui/accordion'
+import { Download, Droplet, Upload, SidebarClose, SidebarOpen, ArrowRight } from 'lucide-react'
+import FeatureCardSection from '@/components/FeatureCardSection'
+import FaqSection from '@/components/FaqSection'
+import HowToSection from '@/components/HowToSection'
+import { PDFDocument, StandardFonts, rgb, degrees } from 'pdf-lib'
+import ToolList from '@/components/ToolList'
+import FadeIn from '@/components/FadeIn'
+import BlogCard from '@/components/BlogCard'
+import ToolHeader from '@/components/ToolHeader'
+import BenefitsSection from '@/components/BenefitsSection'
+import { addWatermarkBenefits } from '@/data/benefits'
+import { addWatermarkFeatures } from '@/data/features'
+import { addWatermarkFaqs } from '@/data/faqs'
+import { addWatermarkHowToSteps } from '@/data/howTo'
+import OperationBox from '@/components/OperationBox'
+import OperationMain from '@/components/OperationMain'
+import OperationSidebar from '@/components/OperationSidebar'
+import { Button } from '@/components/ui/button'
+if (typeof window !== 'undefined') {
+  pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
 function AddWaterMarkPage() {
-  const [water_mark_position, setWater_mark_position] = useState(5);
-  const [water_mark_text, setWater_mark_text] = useState("PdfToolify");
-  const [numPages, setnumPages] = useState(0);
-  const [transparency, setTransparency] = useState(0);
-  const [rotation, setRotation] = useState(45);
-  const [isActiveSetting, setisActiveSetting] = useState(true);
+  const [water_mark_position, setWater_mark_position] = useState(5)
+  const [water_mark_text, setWater_mark_text] = useState('PdfToolify')
+  const [numPages, setnumPages] = useState(0)
+  const [transparency, setTransparency] = useState(0)
+  const [rotation, setRotation] = useState(45)
+  const [isActiveSetting, setisActiveSetting] = useState(true)
 
   let {
     files,
@@ -63,97 +58,97 @@ function AddWaterMarkPage() {
     callApi,
     setdownloadFileURL,
     setCompletionStatus,
-  } = useFileUpload();
+  } = useFileUpload()
 
   function onDocumentLoadSuccess({ numPages }) {
-    setnumPages(numPages);
+    setnumPages(numPages)
   }
 
   function hexToRgb(hex) {
-    hex = hex.replace(/^#/, "");
-    const bigint = parseInt(hex, 16);
+    hex = hex.replace(/^#/, '')
+    const bigint = parseInt(hex, 16)
     return {
       r: ((bigint >> 16) & 255) / 255,
       g: ((bigint >> 8) & 255) / 255,
       b: (bigint & 255) / 255,
-    };
+    }
   }
   async function addWatermark() {
     try {
-      if (!files) throw new Error("no file selected");
+      if (!files) throw new Error('no file selected')
 
-      const arrayBuffer = await files.arrayBuffer();
-      const pdfDoc = await PDFDocument.load(arrayBuffer);
+      const arrayBuffer = await files.arrayBuffer()
+      const pdfDoc = await PDFDocument.load(arrayBuffer)
 
-      const pages = pdfDoc.getPages();
-      const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-      const fontSize = 36;
+      const pages = pdfDoc.getPages()
+      const font = await pdfDoc.embedFont(StandardFonts.Helvetica)
+      const fontSize = 36
 
-      const { r, g, b } = hexToRgb("#cccccc");
+      const { r, g, b } = hexToRgb('#cccccc')
 
-      const transparencyValue = 1 - Number(transparency) / 100;
-      const rotationValue = Number(rotation);
+      const transparencyValue = 1 - Number(transparency) / 100
+      const rotationValue = Number(rotation)
 
       pages.forEach((page) => {
-        const { width, height } = page.getSize();
+        const { width, height } = page.getSize()
 
-        const textWidth = font.widthOfTextAtSize(water_mark_text, fontSize);
-        const textHeight = font.heightAtSize(fontSize);
+        const textWidth = font.widthOfTextAtSize(water_mark_text, fontSize)
+        const textHeight = font.heightAtSize(fontSize)
 
-        let x = 0;
-        let y = 0;
+        let x = 0
+        let y = 0
 
-        const padding = 90;
+        const padding = 90
 
         switch (water_mark_position) {
           case 1: // top-left
-            x = padding;
-            y = height - padding - fontSize;
-            break;
+            x = padding
+            y = height - padding - fontSize
+            break
 
           case 2: // top-center
-            x = (width - textWidth) / 2;
-            y = height - padding - fontSize;
-            break;
+            x = (width - textWidth) / 2
+            y = height - padding - fontSize
+            break
 
           case 3: // top-right
-            x = width - textWidth - padding;
-            y = height - padding - fontSize;
-            break;
+            x = width - textWidth - padding
+            y = height - padding - fontSize
+            break
 
           case 4: // center-left
-            x = padding;
-            y = height / 2 - fontSize / 2;
-            break;
+            x = padding
+            y = height / 2 - fontSize / 2
+            break
 
           case 5: // center
-            x = (width - textWidth) / 2;
-            y = height / 2;
-            break;
+            x = (width - textWidth) / 2
+            y = height / 2
+            break
 
           case 6: // center-right
-            x = width - textWidth - padding;
-            y = height / 2;
-            break;
+            x = width - textWidth - padding
+            y = height / 2
+            break
 
           case 7: // bottom-left
-            x = padding;
-            y = padding;
-            break;
+            x = padding
+            y = padding
+            break
 
           case 8: // bottom-center
-            x = (width - textWidth) / 2;
-            y = padding;
-            break;
+            x = (width - textWidth) / 2
+            y = padding
+            break
 
           case 9: // bottom-right
-            x = width - textWidth - padding;
-            y = padding;
-            break;
+            x = width - textWidth - padding
+            y = padding
+            break
 
           default:
-            x = (width - textWidth) / 2;
-            y = height / 2;
+            x = (width - textWidth) / 2
+            y = height / 2
         }
 
         page.drawText(water_mark_text, {
@@ -164,25 +159,25 @@ function AddWaterMarkPage() {
           color: rgb(r, g, b),
           rotate: degrees(rotationValue),
           opacity: transparencyValue,
-        });
-      });
+        })
+      })
 
-      const newPdfBytes = await pdfDoc.save();
-      const blob = new Blob([newPdfBytes], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
+      const newPdfBytes = await pdfDoc.save()
+      const blob = new Blob([newPdfBytes], { type: 'application/pdf' })
+      const url = URL.createObjectURL(blob)
 
-      setdownloadFileURL(url);
-      setCompletionStatus(true);
+      setdownloadFileURL(url)
+      setCompletionStatus(true)
 
-      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      setTimeout(() => URL.revokeObjectURL(url), 10000)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    addWatermark();
+    e.preventDefault()
+    addWatermark()
     // const formData = new FormData();
     // formData.append("pdf_file", files);
     // formData.append("water_mark_position", water_mark_position);
@@ -191,47 +186,51 @@ function AddWaterMarkPage() {
     //   if (serverPreparing) toast.info("Please refresh the page and try again");
     // }, 12000);
     // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/add_water_mark",formData);
-  };
+  }
 
   let scrollbarStyle = {
-    scrollbarWidth: "thin",
-  };
+    scrollbarWidth: 'thin',
+  }
 
   let positionArray = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
-  ];
+  ]
 
   useEffect(() => {
-    console.log("transparency", transparency);
-    console.log("rotation", rotation);
-    console.log("water_mark_text", water_mark_text);
-    console.log("water_mark_position", water_mark_position);
-  }, [transparency]);
+    console.log('transparency', transparency)
+    console.log('rotation', rotation)
+    console.log('water_mark_text', water_mark_text)
+    console.log('water_mark_position', water_mark_position)
+  }, [transparency])
 
   let dotPosition = {
-    1: "top-8 left-8",
-    2: "top-8 left-1/2 transform -translate-x-1/2",
-    3: "top-8 right-8",
-    4: "top-1/2 left-1 transform -translate-y-1/2",
-    5: "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
-    6: "top-1/2 right-1 transform -translate-y-1/2",
-    7: "bottom-8 left-8",
-    8: "bottom-8 left-1/2 transform -translate-x-1/2",
-    9: "bottom-8 right-8",
-  };
+    1: 'top-8 left-8',
+    2: 'top-8 left-1/2 transform -translate-x-1/2',
+    3: 'top-8 right-8',
+    4: 'top-1/2 left-1 transform -translate-y-1/2',
+    5: 'top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
+    6: 'top-1/2 right-1 transform -translate-y-1/2',
+    7: 'bottom-8 left-8',
+    8: 'bottom-8 left-1/2 transform -translate-x-1/2',
+    9: 'bottom-8 right-8',
+  }
 
-  let selected = 0;
+  let selected = 0
 
   return (
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
-        <ToolHeader sparklesText={" Free Online PDF Watermarker"} headings={["Add","Watermark","to PDFs"]} text={"Customize text, placement, and opacity to protect your documents in seconds"} />
+        <ToolHeader
+          sparklesText={' Free Online PDF Watermarker'}
+          headings={['Add', 'Watermark', 'to PDFs']}
+          text={'Customize text, placement, and opacity to protect your documents in seconds'}
+        />
       )}
       <form
         onSubmit={(e) => {
-          handleSubmit(e);
+          handleSubmit(e)
         }}
         encType="multipart/form-data"
       >
@@ -241,25 +240,25 @@ function AddWaterMarkPage() {
               setFiles={setFiles}
               setisDroped={setisDroped}
               multiple={false}
-              accept={{ "application/pdf": [] }}
+              accept={{ 'application/pdf': [] }}
             />
             <BenefitsSection
-              heading={"Add watermark to PDF online for free"}
+              heading={'Add watermark to PDF online for free'}
               benefits={addWatermarkBenefits}
             />
             <FeatureCardSection
-              tool={"Add Watermark to PDF"}
+              tool={'Add Watermark to PDF'}
               text="Everything you need to watermark PDFs with confidence"
               features={addWatermarkFeatures}
             />
             <HowToSection
-              heading={"How to add a watermark online?"}
-              text={"Protect your PDF in three simple steps"}
+              heading={'How to add a watermark online?'}
+              text={'Protect your PDF in three simple steps'}
               steps={addWatermarkHowToSteps}
             />
             <FaqSection
-              heading={"Add Watermark FAQs"}
-              text={"Common questions about our watermark tool"}
+              heading={'Add Watermark FAQs'}
+              text={'Common questions about our watermark tool'}
               faqs={addWatermarkFaqs}
             />
             <ToolList />
@@ -268,14 +267,11 @@ function AddWaterMarkPage() {
 
         {isDroped && !isUploading && !isProcessing && !completionStatus && (
           <OperationBox>
-            <OperationMain
-            >
+            <OperationMain>
               <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
                 <ul className="flex flex-wrap justify-center gap-6">
                   {Array.from({ length: numPages }, (_, index) => (
-                    <div className="rounded-xl bg-gray-50 p-2 relative"
-                    key={index}
-                    >
+                    <div className="rounded-xl bg-gray-50 p-2 relative" key={index}>
                       <Page pageNumber={index + 1} width={180} height={360} />
                       <div className="text-center bg-white">{index + 1}</div>
                       <p
@@ -285,29 +281,12 @@ function AddWaterMarkPage() {
                   ))}
                 </ul>
               </Document>
-              <button className="fixed bg-blue-500 px-4 py-2 rounded-md text-white text-xl top-11/12 right-4 z-20">
-                Add watermark
-              </button>
+              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
+                {' '}
+                Export PDF{' '}
+              </Button>
             </OperationMain>
-            <div
-              onClick={() => {
-                setisActiveSetting((prev) => !prev);
-              }}
-              className={`w-fit absolute lg:hidden ${isActiveSetting ? "hidden" : "block"} right-1 top-22`}
-            >
-              <SidebarOpen size={30} />
-            </div>
-            <div
-              className={` lg:relative fixed  lg:right-0 w-96 bg-white h-[90vh] operation-panel z-10 ${isActiveSetting ? "right-0" : "right-[-382px]"} transition-all duration-300 ease-in`}
-            >
-              <div
-                className="lg:hidden block"
-                onClick={() => {
-                  setisActiveSetting((prev) => !prev);
-                }}
-              >
-                <SidebarClose size={30} />
-              </div>
+            <OperationSidebar>
               <h3 className="text-2xl font-semibold text-center text-gray-600">
                 Watermark Options
               </h3>
@@ -333,23 +312,23 @@ function AddWaterMarkPage() {
                           return (
                             <tr key={`row-${rowIndex}`}>
                               {value.map((_, cellIndex) => {
-                                selected++;
+                                selected++
                                 return (
                                   <td
                                     key={`cell-${rowIndex}-${cellIndex}`}
                                     className="w-6 cursor-pointer hover:bg-blue-200 h-6 border border-dashed"
                                     onClick={() => {
-                                      setWater_mark_position(value[cellIndex]);
+                                      setWater_mark_position(value[cellIndex])
                                     }}
                                   >
                                     {selected == water_mark_position && (
                                       <p className="w-5 h-5 rounded-full mx-auto my-auto bg-blue-400"></p>
                                     )}
                                   </td>
-                                );
+                                )
                               })}
                             </tr>
-                          );
+                          )
                         })}
                       </tbody>
                     </table>
@@ -366,7 +345,7 @@ function AddWaterMarkPage() {
                     id="t"
                     value={transparency}
                     onChange={(e) => {
-                      setTransparency(e.target.value);
+                      setTransparency(e.target.value)
                     }}
                     className="border w-48 rounded-sm h-10 "
                   >
@@ -387,7 +366,7 @@ function AddWaterMarkPage() {
                     id="t"
                     value={rotation}
                     onChange={(e) => {
-                      setRotation(e.target.value);
+                      setRotation(e.target.value)
                     }}
                     className="border w-48 rounded-sm h-10 "
                   >
@@ -399,16 +378,19 @@ function AddWaterMarkPage() {
                   </select>
                 </div>
               </div>
-            </div>
+              <div className="mt-3 p-3">
+                <Button size="xl" className="lg:block hidden">
+                  Export PDF
+                </Button>
+              </div>
+            </OperationSidebar>
           </OperationBox>
         )}
 
         {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
         {serverPreparing && isDroped && (
           <div className="flex flex-col items-center mt-8">
-            <p className="text-gray-700 text-md mb-2">
-              Preparing Server... Please wait
-            </p>
+            <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
             <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
@@ -434,7 +416,7 @@ function AddWaterMarkPage() {
 
       <ToastContainer />
     </div>
-  );
+  )
 }
 
-export default AddWaterMarkPage;
+export default AddWaterMarkPage

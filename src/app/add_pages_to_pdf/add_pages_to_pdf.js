@@ -322,8 +322,9 @@ function AddPagesInPdf() {
               })()}
             </Document>
             <Button
-              className="absolute bottom-10 lg:hidden z-10 right-10"
+              className="absolute bottom-10 lg:hidden z-30 right-10"
               size="xl"
+              onClick={handleSubmit}
             >
               {' '}
               Export PDF{' '}

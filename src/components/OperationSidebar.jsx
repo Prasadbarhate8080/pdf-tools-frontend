@@ -8,7 +8,7 @@ function OperationSidebar({ children }) {
   let dispatch = useDispatch()
   return (
     <div
-      className={`lg:static fixed top-0 lg:translate-x-0 pt-10 md:pt-12 right-0 w-80 lg:w-96 h-screen 
+      className={`lg:static fixed top-0 z-20 lg:translate-x-0 pt-10 md:pt-12 right-0 w-80 lg:w-96 h-screen 
         transition-transform duration-300
         ${isOpenSidebar ? 'translate-x-0' : 'translate-x-[288px]'}
     `}

@@ -150,9 +150,8 @@ export const HomePageToolsSection = () => {
 
         <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {tools.map((tool) => (
-            <Link href={tool.href} rel='noopener noreferrer'>
+            <Link href={tool.href} rel='noopener noreferrer' key={tool.name}>
             <motion.span
-              key={tool.name}
               variants={itemVariants}
               className={`group relative flex items-start gap-4 p-5 rounded-2xl border bg-gradient-to-br ${tool.color} transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer`}
             >
