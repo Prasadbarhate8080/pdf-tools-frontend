@@ -122,7 +122,7 @@ function CreatePdf() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       {!completionStatus && !isDroped && (
         <ToolHeader
           sparklesText={'Free Online Image to PDF Creator'}
