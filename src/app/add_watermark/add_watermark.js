@@ -32,6 +32,8 @@ import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
+import MainOperationButton from '@/components/MainOperationButton'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -281,10 +283,7 @@ function AddWaterMarkPage() {
                   ))}
                 </ul>
               </Document>
-              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
-                {' '}
-                Export PDF{' '}
-              </Button>
+              <MainOperationButton buttonText={"Export PDF"} disabled={files.length < 1}/>
             </OperationMain>
             <OperationSidebar>
               <h3 className="text-2xl font-semibold text-center text-gray-600">
@@ -379,9 +378,7 @@ function AddWaterMarkPage() {
                 </div>
               </div>
               <div className="mt-3 p-3">
-                <Button size="xl" className="lg:block hidden">
-                  Export PDF
-                </Button>
+                <SidebarOperationButton buttonText={"Export PDF"} disabled={files.length < 1}/>
               </div>
             </OperationSidebar>
           </OperationBox>

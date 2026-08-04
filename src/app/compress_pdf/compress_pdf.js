@@ -32,6 +32,8 @@ import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
+import MainOperationButton from '@/components/MainOperationButton'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -115,10 +117,7 @@ function Compress() {
               <ul className="mt-6 flex flex-wrap justify-center gap-6">
                 <PDFPageConponent file={files} />
               </ul>
-              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
-                {' '}
-                Compress PDF{' '}
-              </Button>
+              <MainOperationButton buttonText={'Compress PDF'} disabled={files.length < 1}/>
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
@@ -128,9 +127,7 @@ function Compress() {
                 </h1>
               </div>
               <div className="mt-3 p-3">
-                <Button size="xl" className="lg:block hidden">
-                  Compress PDF
-                </Button>
+                <SidebarOperationButton buttonText={"Compress PDF"} disabled={files.length < 1}/>
               </div>
             </OperationSidebar>
           </OperationBox>

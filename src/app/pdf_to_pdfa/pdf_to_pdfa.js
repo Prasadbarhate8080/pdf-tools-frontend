@@ -26,6 +26,8 @@ import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import { Dot } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import MainOperationButton from '@/components/MainOperationButton'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -106,10 +108,7 @@ function Pdfa() {
               <ul className="mt-6 flex flex-wrap justify-center gap-6">
                 <PDFPageComponent file={files} />
               </ul>
-              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
-                {' '}
-                Convert To PDFA{' '}
-              </Button>
+              <MainOperationButton buttonText={"Convert To PDFA"} disabled={files.length < 1}/>
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
@@ -119,9 +118,7 @@ function Pdfa() {
                 </h1>
               </div>
               <div className="mt-3 p-3">
-                <Button disabled={files.length < 1} size="xl" className="lg:block hidden">
-                  Convert To pdfa
-                </Button>
+                <SidebarOperationButton buttonText={"Convert To pdfa"} disabled={files.length < 1} />
               </div>
             </OperationSidebar>
           </OperationBox>

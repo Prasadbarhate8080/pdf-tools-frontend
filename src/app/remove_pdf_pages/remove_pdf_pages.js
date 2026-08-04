@@ -30,6 +30,8 @@ import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
+import MainOperationButton from '@/components/MainOperationButton'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -183,10 +185,8 @@ export default function RemovePDFPages() {
                 })}
               </div>
             </Document>
-            <Button onClick={handleRemove} className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
-              {' '}
-              Remove {selectedPages.length > 0 && selectedPages.length} Selected Pages{' '}
-            </Button>
+              <MainOperationButton buttonText={`Remove ${selectedPages.length > 0 ? selectedPages.length : ""} Selected Pages`} onClick={handleRemove} disabled={files.length < 1} />
+
           </OperationMain>
           <OperationSidebar>
             <div className="p-2 bg-blue-50 border-1">
@@ -196,9 +196,7 @@ export default function RemovePDFPages() {
               </h1>
             </div>
             <div  className="mt-3 p-3">
-              <Button onClick={handleRemove} disabled={files.length < 1} size="xl" className="lg:block hidden">
-                Remove {selectedPages.length > 0 && selectedPages.length} Selected Pages
-              </Button>
+              <SidebarOperationButton buttonText={`Remove ${selectedPages.length > 0 ? selectedPages.length : ""} Selected Pages`} onClick={handleRemove} disabled={files.length < 1} />
             </div>
           </OperationSidebar>
         </OperationBox>

@@ -32,6 +32,8 @@ import OperationBox from '@/components/OperationBox'
 import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
 import OperationMain from '@/components/OperationMain'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
+import MainOperationButton from '@/components/MainOperationButton'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -121,10 +123,7 @@ function Protect() {
               <ul className="mt-6 flex flex-wrap justify-center gap-6">
                 <PDFPageComponent file={files} />
               </ul>
-              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
-                {' '}
-                 Protect The PDF File{' '}
-              </Button>
+              <MainOperationButton buttonText={"Protect The PDF File"} disabled={files.length < 1}/>
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
@@ -148,9 +147,7 @@ function Protect() {
                 />
               </div>
               <div className="mt-3 p-3">
-                <Button disabled={files.length < 1} size="xl" className="lg:block hidden">
-                  Protect The PDF File
-                </Button>
+                <SidebarOperationButton buttonText={"Protect The PDF File"} disabled={files.length < 1}/>
               </div>
             </OperationSidebar>
           </OperationBox>

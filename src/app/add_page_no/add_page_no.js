@@ -26,6 +26,8 @@ import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
 import { Dot } from 'lucide-react'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
+import MainOperationButton from '@/components/MainOperationButton'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -195,10 +197,7 @@ function PageNO() {
               <ul className="mt-6 flex flex-wrap justify-center gap-6">
                 <PDFPageComponent file={files} />
               </ul>
-              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
-                {' '}
-                Add Page Numbers{' '}
-              </Button>
+              <MainOperationButton buttonText={"Add Page Numbers"} disabled={files.length < 1}/>
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
@@ -223,10 +222,7 @@ function PageNO() {
                   <option value="bottom-left">Bottom Left</option>
                 </select>
               </div>
-              <Button size="xl" className="mx-auto w-fit  mt-2 hidden  lg:block">
-                {' '}
-                Add Page Numbers{' '}
-              </Button>
+              <SidebarOperationButton buttonText={"Add Page Numbers"} disabled={files.length < 1}/>
             </OperationSidebar>
           </OperationBox>
         )}

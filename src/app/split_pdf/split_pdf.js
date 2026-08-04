@@ -48,6 +48,8 @@ import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import OperationBox from '@/components/OperationBox'
 import { Button } from '@/components/ui/button'
+import MainOperationButton from '@/components/MainOperationButton'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -303,14 +305,7 @@ function Split() {
                   )}
                 </ul>
               </Document>
-              <Button
-                disabled={splitRanges.length <= 0}
-                className="absolute bottom-10 lg:hidden z-30 right-10"
-                size="xl"
-              >
-                {' '}
-                Split PDF
-              </Button>
+              <MainOperationButton buttonText={'Split PDF'} disabled={splitRanges.length <= 0} />
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
@@ -381,9 +376,10 @@ function Split() {
                 </div>
               </div>
               <div className="mt-3 p-3">
-                <Button disabled={splitRanges.length <= 0} size="xl" className="lg:block hidden">
-                  Split PDF
-                </Button>
+                <SidebarOperationButton
+                  buttonText={'Split PDF'}
+                  disabled={splitRanges.length <= 0}
+                />
               </div>
             </OperationSidebar>
           </OperationBox>

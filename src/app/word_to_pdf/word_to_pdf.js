@@ -24,6 +24,8 @@ import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
+import MainOperationButton from '@/components/MainOperationButton'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -109,10 +111,7 @@ function WordToPdf() {
               <ul className="mt-6 flex flex-wrap justify-center gap-6">
                 <PDFPageComponent file={files} />
               </ul>
-              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
-                {' '}
-                Convert To PDF
-              </Button>
+              <MainOperationButton buttonText={"Convert To PDF"} disabled={files.length < 1}/>
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
@@ -122,9 +121,7 @@ function WordToPdf() {
                 </h1>
               </div>
               <div className="mt-3 p-3">
-                <Button disabled={files.length < 1} size="xl" className="lg:block hidden">
-                  Convert To PDF
-                </Button>
+                <SidebarOperationButton buttonText={"Convert To PDF"} disabled={files.length < 1}/>
               </div>
             </OperationSidebar>
           </OperationBox>

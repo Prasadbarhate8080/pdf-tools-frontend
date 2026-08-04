@@ -21,6 +21,8 @@ import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
+import MainOperationButton from '@/components/MainOperationButton'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -321,14 +323,7 @@ function AddPagesInPdf() {
                 )
               })()}
             </Document>
-            <Button
-              className="absolute bottom-10 lg:hidden z-30 right-10"
-              size="xl"
-              onClick={handleSubmit}
-            >
-              {' '}
-              Export PDF{' '}
-            </Button>
+            <MainOperationButton buttonText={"Export PDF"} onClick={handleSubmit} disabled={files.length < 1}/>
           </OperationMain>
           <OperationSidebar>
             <div className="p-2 bg-blue-50 border-1">
@@ -338,13 +333,7 @@ function AddPagesInPdf() {
               </h1>
             </div>
             <div className="mt-3 p-3">
-              <Button
-              size="xl"
-                className="lg:block hidden"
-                onClick={handleSubmit}
-              >
-                Export PDF
-              </Button>
+              <SidebarOperationButton buttonText={"Export PDF"} onClick={handleSubmit} disabled={files.length < 1}/>
             </div>
           </OperationSidebar>
           <div

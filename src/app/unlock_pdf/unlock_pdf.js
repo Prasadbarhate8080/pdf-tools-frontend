@@ -43,6 +43,8 @@ import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
+import MainOperationButton from '@/components/MainOperationButton'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -122,10 +124,7 @@ function Unlock() {
               <ul className="mt-6 flex flex-wrap justify-center gap-6">
                 <PDFPageComponent file={files} />
               </ul>
-              <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl">
-                {' '}
-                Unlock The PDF File
-              </Button>
+              <MainOperationButton buttonText={"Unlock The PDF File"} disabled={files.length < 1}/>
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
@@ -135,13 +134,7 @@ function Unlock() {
                 </h1>
               </div>
               <div className="mt-3 p-3">
-                <Button
-                  disabled={files.length < 1}
-                  size="xl"
-                  className="lg:block hidden"
-                >
-                  Unlock The PDF File
-                </Button>
+                <SidebarOperationButton buttonText={"Unlock The PDF File"} disabled={files.length < 1}/>
               </div>
             </OperationSidebar>
           </OperationBox>

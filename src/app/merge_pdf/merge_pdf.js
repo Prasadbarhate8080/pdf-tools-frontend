@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
@@ -28,6 +28,8 @@ import OperationSidebar from '@/components/OperationSidebar'
 import AddMoreFilesComponent from '@/components/AddMoreFilesComponent'
 import OperationMain from '@/components/OperationMain'
 import { Dot } from 'lucide-react'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
+import MainOperationButton from '@/components/MainOperationButton'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -53,6 +55,8 @@ function Merge() {
     setFiles,
     setdownloadFileURL,
   } = useFileUpload()
+
+  useEffect(() => {console.log("files length :",files.length)},[files])
 
   let mergePdf = async () => {
     try {
@@ -133,10 +137,7 @@ function Merge() {
                 ))}
                 <AddMoreFilesComponent addFiles={addFiles} />
               </ul>
-              <Button className="absolute bottom-10 lg:hidden z-10 right-10" size="xl" disabled={files.length < 2}>
-                  {' '}
-                  Merge PDF Files{' '}
-                </Button>
+                <MainOperationButton buttonText={"Merge PDF Files"} disabled={files.length <= 1}/>
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
@@ -146,11 +147,7 @@ function Merge() {
                 </h1>
               </div>
               <div className="flex-wrap items-center justify-center gap-4 mt-3 lg:flex hidden">
-                {/* Merge Button */}
-                <Button size="xl" disabled={files.length < 2}>
-                  {' '}
-                  Merge PDF Files{' '}
-                </Button>
+                <SidebarOperationButton buttonText={"Merge PDF Files"} disabled={files.length <= 1}/>
                 {/* Error Text */}
                 {files.length < 2 && (
                   <p className="text-red-500 text-sm text-center mt-2">

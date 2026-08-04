@@ -33,6 +33,8 @@ import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
+import SidebarOperationButton from '@/components/SidebarOperationButton'
+import MainOperationButton from '@/components/MainOperationButton'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -181,10 +183,7 @@ export default function ExtractPdf() {
                 </div>
               </Document>
             </div>
-            <Button className="absolute bottom-10 lg:hidden z-30 right-10" size="xl" onClick={handleExtract}>
-              {' '}
-              Extract {selectedPages.length > 0 && selectedPages.length} Selected Pages{' '}
-            </Button>
+            <MainOperationButton buttonText={`Extract ${selectedPages.length > 0 ? selectedPages.length : ""} Selected Pages`} onClick={handleExtract} disabled={files.length < 1}/>
           </OperationMain>
           <OperationSidebar>
             <div className="p-2 bg-blue-50 border-1">
@@ -194,9 +193,7 @@ export default function ExtractPdf() {
               </h1>
             </div>
             <div className="mt-3 p-3">
-              <Button size="xl" className="lg:block hidden" onClick={handleExtract}>
-                Extract {selectedPages.length > 0 && selectedPages.length} Selected Pages
-              </Button>
+              <SidebarOperationButton buttonText={`Extract ${selectedPages.length > 0 ? selectedPages.length : ""} Selected Pages`} onClick={handleExtract} disabled={files.length < 1}/>
             </div>
           </OperationSidebar>
         </OperationBox>
