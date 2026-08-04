@@ -29,6 +29,7 @@ import {
   Download,
   Upload,
   CircleCheck,
+  Dot,
 } from 'lucide-react'
 import { PDFDocument } from 'pdf-lib'
 import JSZip from 'jszip'
@@ -46,6 +47,7 @@ import FeatureCard from '@/components/FeatureCard'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import OperationBox from '@/components/OperationBox'
+import { Button } from '@/components/ui/button'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -169,157 +171,155 @@ function Split() {
         {isDroped && !isUploading && !completionStatus && !isProcessing && (
           <OperationBox>
             <OperationMain>
-              <div className="">
-                <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
-                  <ul className="mt-6 p-5 flex flex-wrap justify-center gap-8">
-                    {Array.from(new Array(0), (value, index) => {
-                      let pageNumber = index + 1
-                      return (
-                        <div className="flex items-center gap-6 " key={index}>
-                          <li
-                            className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+              <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
+                <ul className="mt-6 p-5 flex flex-wrap justify-center gap-8">
+                  {Array.from(new Array(0), (value, index) => {
+                    let pageNumber = index + 1
+                    return (
+                      <div className="flex items-center gap-6 " key={index}>
+                        <li
+                          className="w-[220px] h-[300px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
                           transition-all duration-300 overflow-hidden"
-                            key={index}
-                          >
-                            <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                              <Page pageNumber={pageNumber} width={180} />
-                            </div>
-                            {/* page number */}
-                            <div className=" px-3 text-center">
-                              <p className="text-sm font-medium truncate">{index + 1}</p>
-                            </div>
-                          </li>
+                          key={index}
+                        >
+                          <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                            <Page pageNumber={pageNumber} width={180} />
+                          </div>
+                          <div className=" px-3 text-center">
+                            <p className="text-sm font-medium truncate">{index + 1}</p>
+                          </div>
+                        </li>
+                        <div
+                          className="h-full flex flex-col items-center justify-center"
+                          onClick={(e) => {
+                            setSplitIndexes((prev) => {
+                              let array = [...prev]
+                              if (array.includes(index + 1)) {
+                                let elementIndex = array.indexOf(index + 1)
+                                array.splice(elementIndex, 1)
+                              } else {
+                                array.push(index + 1)
+                              }
+                              return array
+                            })
+                            showSplitPDFs()
+                          }}
+                        >
                           <div
-                            className="h-full flex flex-col items-center justify-center"
-                            onClick={(e) => {
-                              setSplitIndexes((prev) => {
-                                let array = [...prev]
-                                if (array.includes(index + 1)) {
-                                  let elementIndex = array.indexOf(index + 1)
-                                  array.splice(elementIndex, 1)
-                                } else {
-                                  array.push(index + 1)
-                                }
-                                return array
-                              })
-                              showSplitPDFs()
-                            }}
+                            className={`border-1 border-dashed border-blue-500 w-0 h-30  ${splitIndexes.includes(index + 1) ? 'block' : 'hidden'}`}
+                          ></div>
+                          <div
+                            className={`h-10 w-10 flex justify-center items-center hover:bg-blue-500 hover:cursor-pointer rounded-full ${splitIndexes.includes(index + 1) ? 'bg-blue-500' : 'bg-blue-400'}`}
                           >
-                            <div
-                              className={`border-1 border-dashed border-blue-500 w-0 h-30  ${splitIndexes.includes(index + 1) ? 'block' : 'hidden'}`}
-                            ></div>
-                            <div
-                              className={`h-10 w-10 flex justify-center items-center hover:bg-blue-500 hover:cursor-pointer rounded-full ${splitIndexes.includes(index + 1) ? 'bg-blue-500' : 'bg-blue-400'}`}
-                            >
-                              <LucideScissorsLineDashed
-                                color="white"
-                                size={22}
-                                className="rotate-270"
-                              />
-                            </div>
-                            <div
-                              className={` border-1 w-0 h-30  border-dashed border-blue-500 ${splitIndexes.includes(index + 1) ? 'block' : 'hidden'}`}
-                            ></div>
+                            <LucideScissorsLineDashed
+                              color="white"
+                              size={22}
+                              className="rotate-270"
+                            />
                           </div>
-                        </div>
-                      )
-                    })}
-                    {splitRanges.length == 0 ? (
-                      <div className="flex items-center relative border-dotted rounded-md gap-2 border p-2">
-                        <li
-                          className="w-[130px] h-[200px] lg:w-[180px]  lg:h-[250px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
-                          transition-all duration-300 overflow-hidden"
-                        >
-                          <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                            <Page pageNumber={1} width={110} height={180} />
-                          </div>
-                          <div className=" px-3 text-center">
-                            <p className="text-sm font-medium truncate">{1}</p>
-                          </div>
-                        </li>
-                        <div className="text-2xl  p-1">.......</div>
-                        <li
-                          className="w-[130px] h-[200px] lg:w-[180px]  lg:h-[250px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
-                          transition-all duration-300 overflow-hidden"
-                        >
-                          <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                            <Page pageNumber={numPages} width={110} height={180} />
-                          </div>
-                          <div className=" px-3 text-center">
-                            <p className="text-sm font-medium truncate">{numPages}</p>
-                          </div>
-                        </li>
-                        <div className="p-1.5 absolute top-[-16] lg:left-[200px] left-[150px]  rounded-full bg-red-700 text-white">
-                          {' '}
-                          <Trash2 size={22} />{' '}
+                          <div
+                            className={` border-1 w-0 h-30  border-dashed border-blue-500 ${splitIndexes.includes(index + 1) ? 'block' : 'hidden'}`}
+                          ></div>
                         </div>
                       </div>
-                    ) : (
-                      splitRanges.map((array, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center relative border-dotted rounded-md gap-2 border p-2"
-                        >
-                          <li
-                            className="lg:w-[180px] lg:h-[250px] w-[130px] h-[200px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                    )
+                  })}
+                  {splitRanges.length == 0 ? (
+                    <div className="flex items-center relative border-dotted rounded-md gap-2 border p-2">
+                      <li
+                        className="w-[130px] h-[200px] lg:w-[180px]  lg:h-[250px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
                           transition-all duration-300 overflow-hidden"
-                          >
-                            <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                              <Page pageNumber={array[0]} width={110} height={180} />
-                            </div>
-                            {/* PageNumber */}
-                            <div className=" px-3 text-center">
-                              <p className="text-sm font-medium truncate">{array[0]}</p>
-                            </div>
-                          </li>
-                          <div className="text-2xl p-1">.....</div>
-                          <li
-                            className="w-[130px] h-[200px] lg:w-[180px]  lg:h-[250px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
-                          transition-all duration-300 overflow-hidden"
-                          >
-                            <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
-                              <Page pageNumber={array[1]} width={110} height={180} />
-                            </div>
-                            {/* PageNumber */}
-                            <div className=" px-3 text-center">
-                              <p className="text-sm font-medium truncate">{array[1]}</p>
-                            </div>
-                          </li>
-                          <div
-                            className="p-1.5 absolute top-[-16] lg:left-[200px] left-[150px]   rounded-full bg-red-700 text-white"
-                            onClick={(e) => {
-                              setSplitRanges((prev) => {
-                                let array = [...prev]
-                                array.splice(index, 1)
-                                return array
-                              })
-                            }}
-                          >
-                            {' '}
-                            <Trash2 size={22} color="white" />{' '}
-                          </div>
+                      >
+                        <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                          <Page pageNumber={1} width={110} height={180} />
                         </div>
-                      ))
-                    )}
-                  </ul>
-                </Document>
-                <button
-                  disabled={splitRanges.length <= 0}
-                  className={`px-6 py-3 rounded-md fixed top-[600px] right-5 z-10  font-semibold text-white transition-all duration-300 mx-auto block 
-                  ${
-                    splitRanges.length <= 0
-                      ? 'bg-[#90CAF9] cursor-not-allowed'
-                      : 'bg-blue-500  active:bg-[#90CAF9]'
-                  }`}
-                >
-                  Split PDF
-                </button>
-              </div>
+                        <div className=" px-3 text-center">
+                          <p className="text-sm font-medium truncate">{1}</p>
+                        </div>
+                      </li>
+                      <div className="text-2xl  p-1">.......</div>
+                      <li
+                        className="w-[130px] h-[200px] lg:w-[180px]  lg:h-[250px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          transition-all duration-300 overflow-hidden"
+                      >
+                        <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                          <Page pageNumber={numPages} width={110} height={180} />
+                        </div>
+                        <div className=" px-3 text-center">
+                          <p className="text-sm font-medium truncate">{numPages}</p>
+                        </div>
+                      </li>
+                      <div className="p-1.5 absolute top-[-16] lg:left-[200px] left-[150px]  rounded-full bg-red-700 text-white">
+                        {' '}
+                        <Trash2 size={22} />{' '}
+                      </div>
+                    </div>
+                  ) : (
+                    splitRanges.map((array, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center relative border-dotted rounded-md gap-2 border p-2"
+                      >
+                        <li
+                          className="lg:w-[180px] lg:h-[250px] w-[130px] h-[200px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          transition-all duration-300 overflow-hidden"
+                        >
+                          <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                            <Page pageNumber={array[0]} width={110} height={180} />
+                          </div>
+                          {/* PageNumber */}
+                          <div className=" px-3 text-center">
+                            <p className="text-sm font-medium truncate">{array[0]}</p>
+                          </div>
+                        </li>
+                        <div className="text-2xl p-1">.....</div>
+                        <li
+                          className="w-[130px] h-[200px] lg:w-[180px]  lg:h-[250px] bg-white rounded-xl flex flex-col justify-between shadow-md hover:shadow-lg
+                          transition-all duration-300 overflow-hidden"
+                        >
+                          <div className="px-4 pt-4 pb-1 flex flex-col items-center justify-center">
+                            <Page pageNumber={array[1]} width={110} height={180} />
+                          </div>
+                          {/* PageNumber */}
+                          <div className=" px-3 text-center">
+                            <p className="text-sm font-medium truncate">{array[1]}</p>
+                          </div>
+                        </li>
+                        <div
+                          className="p-1.5 absolute top-[-16] lg:left-[200px] left-[150px]   rounded-full bg-red-700 text-white"
+                          onClick={(e) => {
+                            setSplitRanges((prev) => {
+                              let array = [...prev]
+                              array.splice(index, 1)
+                              return array
+                            })
+                          }}
+                        >
+                          {' '}
+                          <Trash2 size={22} color="white" />{' '}
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </ul>
+              </Document>
+              <Button
+                disabled={splitRanges.length <= 0}
+                className="absolute bottom-10 lg:hidden z-30 right-10"
+                size="xl"
+              >
+                {' '}
+                Split PDF
+              </Button>
             </OperationMain>
             <OperationSidebar>
-              <div
-                className={`p-2 flex flex-col gap-4`}
-              >
+              <div className="p-2 bg-blue-50 border-1">
+                <h1 className="flex text-gray-600 text-sm items-center">
+                  {' '}
+                  <Dot /> Enter the starting and ending point where you want to split the pdf.
+                </h1>
+              </div>
+              <div className={`p-2 flex flex-col gap-4`}>
                 <h4 className="font-semibold  text-gray-800">Add Range:</h4>
                 <div className="flex gap-4">
                   <label htmlFor="from" className="w-10">
@@ -349,8 +349,9 @@ function Split() {
                     }}
                   />
                 </div>
-                <button
-                  className="bg-blue-600 rounded-md font-semibold w-80 h-9 mx-auto text-white px-2 py-1"
+                <Button
+                  size="xl"
+                  className="w-fit"
                   onClick={(e) => {
                     e.preventDefault()
                     setSplitRanges((prev) => {
@@ -369,7 +370,7 @@ function Split() {
                   }}
                 >
                   Add Range
-                </button>
+                </Button>
                 <div className="">
                   <span className="font-semibold text-gray-800">Ranges:</span>
                   <div className="w-90 min-h-14 bg-white rounded-md border">
@@ -378,6 +379,11 @@ function Split() {
                     })}
                   </div>
                 </div>
+              </div>
+              <div className="mt-3 p-3">
+                <Button disabled={splitRanges.length <= 0} size="xl" className="lg:block hidden">
+                  Split PDF
+                </Button>
               </div>
             </OperationSidebar>
           </OperationBox>
