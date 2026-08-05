@@ -44,6 +44,7 @@ export default function ExtractPdf() {
   const [loading, setLoading] = useState(false)
   const [numPages, setNumPages] = useState(null)
   const [selectedPages, setSelectedPages] = useState([])
+  let dispatch = useDispatch()
   let {
     files,
     isDroped,
@@ -99,8 +100,10 @@ export default function ExtractPdf() {
     } catch (error) {
       toast.error(error.message)
       setisDroped(false)
+      dispatch(showContent())
     } finally {
       setLoading(false)
+      dispatch(showContent())
     }
   }
 

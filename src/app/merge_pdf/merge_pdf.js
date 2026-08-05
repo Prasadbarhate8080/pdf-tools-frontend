@@ -30,11 +30,14 @@ import OperationMain from '@/components/OperationMain'
 import { Dot } from 'lucide-react'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
+import { showContent } from '@/store/hideContentSlice'
+import { useDispatch } from 'react-redux'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 function Merge() {
+  let dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const addFiles = (e) => {
     const newFiles = Array.from(e.target.files)
@@ -81,10 +84,13 @@ function Merge() {
     } catch (error) {
       toast.error(error)
       setisDroped(false)
+      dispatch(showContent())
       setFiles([])
     } finally {
       setLoading(false)
       setFiles([])
+      setisDroped(false)
+      dispatch(showContent())
     }
   }
   const handleSubmit = async (e) => {

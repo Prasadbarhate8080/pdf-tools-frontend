@@ -23,6 +23,7 @@ import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
 import MainOperationButton from '@/components/MainOperationButton'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
+import { useDispatch } from 'react-redux'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -36,6 +37,7 @@ function AddPagesInPdf() {
   let arrayLength = useRef(null)
   let imageFiles = useRef([])
   let selectedPageType = useRef('blank')
+  let dispatch = useDispatch()
 
   let {
     files,
@@ -106,8 +108,10 @@ function AddPagesInPdf() {
       setdownloadFileURL(url)
       setCompletionStatus(true)
     } catch (error) {
+      dispatch(showContent())
     } finally {
       setLoading(false)
+      dispatch(showContent())
     }
   }
 

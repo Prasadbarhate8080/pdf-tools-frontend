@@ -34,6 +34,7 @@ import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
+import { useDispatch } from 'react-redux'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -45,7 +46,7 @@ function AddWaterMarkPage() {
   const [transparency, setTransparency] = useState(0)
   const [rotation, setRotation] = useState(45)
   const [isActiveSetting, setisActiveSetting] = useState(true)
-
+  let dispatch = useDispatch()
   let {
     files,
     isDroped,
@@ -174,6 +175,9 @@ function AddWaterMarkPage() {
       setTimeout(() => URL.revokeObjectURL(url), 10000)
     } catch (error) {
       console.log(error)
+      dispatch(showContent())
+    }finally{
+      dispatch(showContent())
     }
   }
 
@@ -283,7 +287,7 @@ function AddWaterMarkPage() {
                   ))}
                 </ul>
               </Document>
-              <MainOperationButton buttonText={"Export PDF"} disabled={files.length < 1}/>
+              <MainOperationButton buttonText={'Export PDF'} disabled={files.length < 1} />
             </OperationMain>
             <OperationSidebar>
               <h3 className="text-2xl font-semibold text-center text-gray-600">
@@ -378,7 +382,7 @@ function AddWaterMarkPage() {
                 </div>
               </div>
               <div className="mt-3 p-3">
-                <SidebarOperationButton buttonText={"Export PDF"} disabled={files.length < 1}/>
+                <SidebarOperationButton buttonText={'Export PDF'} disabled={files.length < 1} />
               </div>
             </OperationSidebar>
           </OperationBox>

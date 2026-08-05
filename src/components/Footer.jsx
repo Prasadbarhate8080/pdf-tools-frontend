@@ -1,5 +1,6 @@
 import { FileText, Twitter, Linkedin, Youtube } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const footerLinks = {
   tools: [
@@ -56,14 +57,14 @@ export const Footer = () => {
               </p>
               <div className="flex gap-3">
                 {socialLinks.map((social) => (
-                  <a
+                  <Link
                     key={social.label}
                     href={social.href}
                     className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
                     aria-label={social.label}
                   >
                     <social.icon className="w-4 h-4" />
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -76,14 +77,14 @@ export const Footer = () => {
               <ul className="space-y-2.5">
                 {footerLinks.tools.map((link) => (
                   <li key={link.name}>
-                    <a
+                    <Link
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -97,14 +98,14 @@ export const Footer = () => {
               <ul className="space-y-2.5">
                 {footerLinks.moreTools.map((link) => (
                   <li key={link.name}>
-                    <a
+                    <Link
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -118,12 +119,12 @@ export const Footer = () => {
               <ul className="space-y-2.5">
                 {footerLinks.resources.map((link) => (
                   <li key={link.name}>
-                    <a
+                    <Link
                       href={link.href}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -137,12 +138,12 @@ export const Footer = () => {
               <ul className="space-y-2.5">
                 {footerLinks.legal.map((link) => (
                   <li key={link.name}>
-                    <a
+                    <Link
                       href={link.href}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

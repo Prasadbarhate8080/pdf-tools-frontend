@@ -41,6 +41,7 @@ if (typeof window !== 'undefined') {
 const JpgToPdf = () => {
   const [loading, setLoading] = useState(false)
   const [images, setImages] = useState([])
+  let dispatch = useDispatch()
   let {
     files,
     isDroped,
@@ -104,7 +105,9 @@ const JpgToPdf = () => {
       }, 10000)
     } catch (error) {
       console.log(error)
+      dispatch(showContent())
     } finally {
+      dispatch(showContent())
       setLoading(false)
     }
   }

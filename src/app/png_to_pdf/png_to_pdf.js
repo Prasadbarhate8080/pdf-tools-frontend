@@ -32,6 +32,7 @@ import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import MainOperationButton from '@/components/MainOperationButton'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
+import { useDispatch } from 'react-redux'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -40,6 +41,7 @@ if (typeof window !== 'undefined') {
 function PNGToPDF() {
   const [loading, setLoading] = useState(false)
   const [images, setImages] = useState([])
+  let dispatch = useDispatch()
   let {
     files,
     isDroped,
@@ -103,8 +105,10 @@ function PNGToPDF() {
       }, 10000)
     } catch (error) {
       console.log(error)
+      dispatch(showContent())
     } finally {
       setLoading(false)
+      dispatch(showContent())
     }
   }
 

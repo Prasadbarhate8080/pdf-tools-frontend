@@ -62,6 +62,7 @@ function Split() {
   const [splitRanges, setSplitRanges] = useState([])
   const [from, setFrom] = useState(1)
   const [to, setTo] = useState(numPages)
+  let dispatch = useDispatch()
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages)
     setFrom(1)
@@ -112,10 +113,12 @@ function Split() {
       setCompletionStatus(true)
     } catch (error) {
       console.log(error)
+      dispatch(showContent())
     } finally {
       setLoading(false)
       setisDroped(false)
       setFiles([])
+      dispatch(showContent())
     }
   }
 

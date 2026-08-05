@@ -1,14 +1,15 @@
 import { CloudUpload } from 'lucide-react'
-import Image from 'next/image'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
-import { hideContent } from '@/store/hideContentSlice'
+import { hideContent, showContent } from '@/store/hideContentSlice'
 import { showBlurHeader } from '@/store/blurHeaderSlice'
+import { useSelector } from 'react-redux'
 
-function FileInput({ setFiles, setisDroped, multiple, accept, setImages, mode = 'pdf' }) {
+function FileInput({setFiles, setisDroped, multiple, accept, setImages, mode = 'pdf' }) {
   const dispatch = useDispatch()
+  const hideContentState = useSelector((state) => state.hideContent.hideContent)
   const onDrop = useCallback((acceptedFiles) => {
     if (mode == 'pdf') {
       const pdfFiles = acceptedFiles.filter((file) => file.type === 'application/pdf')
@@ -36,9 +37,9 @@ function FileInput({ setFiles, setisDroped, multiple, accept, setImages, mode = 
 
       setImages((prev) => [...prev, ...imagePreviews])
     }
-    dispatch(hideContent())
     dispatch(showBlurHeader())
     setisDroped(true)
+    dispatch(hideContent())
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

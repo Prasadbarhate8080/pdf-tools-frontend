@@ -32,6 +32,7 @@ import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
+import { useDispatch } from 'react-redux'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -40,6 +41,7 @@ if (typeof window !== 'undefined') {
 function CreatePdf() {
   const [loading, setLoading] = useState(false)
   const [images, setImages] = useState([])
+  let dispatch = useDispatch()
   let {
     files,
     isDroped,
@@ -103,9 +105,11 @@ function CreatePdf() {
         URL.revokeObjectURL(url)
       }, 10000)
     } catch (error) {
+      dispatch(showContent())
       console.log(error)
     } finally {
       setLoading(false)
+      dispatch(showContent())
     }
   }
 

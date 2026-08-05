@@ -39,7 +39,7 @@ if (typeof window !== 'undefined') {
 export default function RemovePDFPages() {
   const [numPages, setNumPages] = useState(null)
   const [selectedPages, setSelectedPages] = useState([])
-
+  let dispatch = useDispatch()
   let {
     files,
     isDroped,
@@ -104,8 +104,11 @@ export default function RemovePDFPages() {
         URL.revokeObjectURL(url)
       }, 10000)
     } catch (error) {
+      dispatch(showContent())
       // toast.error(error.message)
       console.log(error)
+    }finally{
+      dispatch(showContent())
     }
   }
 

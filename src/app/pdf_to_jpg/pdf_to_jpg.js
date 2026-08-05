@@ -41,6 +41,7 @@ if (typeof window !== 'undefined') {
 function PDFToJPG() {
   const [numPages, setnumPages] = useState(0)
   const [loading, setLoading] = useState(false)
+  let dispatch = useDispatch()
   let {
     files,
     isDroped,
@@ -80,6 +81,9 @@ function PDFToJPG() {
       setTimeout(() => URL.revokeObjectURL(url), 10000)
     } catch (error) {
       console.log(error)
+      dispatch(showContent())
+    }finally{
+      dispatch(showContent())
     }
   }
 

@@ -22,6 +22,7 @@ import { addPdfInPdfHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
+import { useDispatch } from 'react-redux'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -32,6 +33,7 @@ function AddPdfInPdf() {
   const [numPages, setnumPages] = useState(0)
   const [isPopupActive, setIsPopupActive] = useState(false)
   const [pdfFilePageno, setPdfFilePageno] = useState(1)
+  let dispatch = useDispatch()
 
   let {
     files,
@@ -87,6 +89,9 @@ function AddPdfInPdf() {
       setCompletionStatus(true)
     } catch (error) {
       toast.error('error in inserting pdf')
+      dispatch(showContent())
+    }finally{
+      dispatch(showContent())
     }
   }
 

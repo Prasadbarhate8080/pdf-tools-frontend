@@ -45,11 +45,13 @@ import OperationSidebar from '@/components/OperationSidebar'
 import { Button } from '@/components/ui/button'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
+import { useDispatch } from 'react-redux'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
 function Unlock() {
+  let dispatch = useDispatch()
   let {
     files,
     isDroped,
@@ -68,8 +70,8 @@ function Unlock() {
     e.preventDefault()
     const formData = new FormData()
     formData.append('pdf_file', files)
-
-    callApi('https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/unlock_pdf', formData)
+    await callApi('https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/unlock_pdf', formData)
+    dispatch(showContent())
   }
 
   return (

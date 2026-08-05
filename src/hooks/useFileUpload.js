@@ -14,7 +14,6 @@ function useFileUpload (){
 
   const callApi = async (url,formData) => {
     try {
-      console.log("call api called");
       setServerPreparing(true);
       setisUploading(true);
       const response = await axios

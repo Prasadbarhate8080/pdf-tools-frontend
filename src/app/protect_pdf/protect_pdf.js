@@ -41,6 +41,7 @@ if (typeof window !== 'undefined') {
 
 function Protect() {
   const [password, setPassword] = useState(null)
+  let dispatch = useDispatch()
   let {
     files,
     isDroped,
@@ -60,7 +61,8 @@ function Protect() {
     const formData = new FormData()
     formData.append('pdf_file', files)
     formData.append('password', password)
-    callApi('https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/protect_pdf', formData)
+    await callApi('https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/protect_pdf', formData)
+    dispatch(showContent())
   }
 
   return (

@@ -28,6 +28,7 @@ import { Button } from '@/components/ui/button'
 import { Dot } from 'lucide-react'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
+import { useDispatch } from 'react-redux'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -35,6 +36,7 @@ if (typeof window !== 'undefined') {
 
 function PageNO() {
   const [page_no_position, setPage_no_position] = useState('bottom-right')
+  let dispatch = useDispatch()
   let {
     files,
     isDroped,
@@ -126,7 +128,10 @@ function PageNO() {
         URL.revokeObjectURL(url)
       }, 10000)
     } catch (error) {
+      dispatch(showContent())
       console.log(error)
+    }finally{
+      dispatch(showContent())
     }
   }
   const handleSubmit = async (e) => {
