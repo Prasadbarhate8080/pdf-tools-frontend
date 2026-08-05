@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Merge, Split, FileDown, FileUp, Scissors, Lock, Unlock, Droplet, Image, FileText, FilePlus, FileX, Hash, Shield, Layers, ArrowUpRight } from 'lucide-react'
-const tools = [
+export const tools = [
   {
     name: 'Merge PDF',
     description: 'Combine multiple PDF files into one in the order you want with the pdfToolify merge tool.',
