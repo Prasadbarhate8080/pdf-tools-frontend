@@ -22,11 +22,12 @@ const footerLinks = {
   resources: [
     { name: 'Blogs', href: '/blogs' },
     { name: 'About Us', href: '/about-us' },
-    { name: 'Contact Us', href: 'contact-us' },
+    { name: 'Contact Us', href: '/contact-us' },
+    { name: 'Sitemap', href: '/sitemap.xml' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy-policy' },
-    { name: 'Terms of Condition', href: '/terms-and-condition' },
+    { name: 'Terms of Condition', href: '/terms-and-conditions' },
     { name: 'Disclaimer', href: '/disclaimer' },
   ],
 }
