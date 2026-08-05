@@ -20,20 +20,21 @@ const footerLinks = {
     { name: 'PNG to PDF', href: 'https://www.pdftoolify.com/png_to_pdf' },
   ],
   resources: [
-    { name: 'Blogs', href: '#' },
-    { name: 'Help Center', href: '#' },
-    { name: 'Contact', href: '#' },
+    { name: 'Blogs', href: '/blogs' },
+    { name: 'About Us', href: '/about-us' },
+    { name: 'Contact Us', href: 'contact-us' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy-policy' },
     { name: 'Terms of Condition', href: '/terms-and-condition' },
+    { name: 'Disclaimer', href: '/disclaimer' },
   ],
 }
 
 const socialLinks = [
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Youtube, href: '#', label: 'YouTube' },
+  { icon: Twitter, href: 'https://x.com/prasad_dev25', label: 'Twitter' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/prasadbarhate/', label: 'LinkedIn' },
+  { icon: Youtube, href: 'https://www.youtube.com/channel/UC4Eayd1T5nXaoR_yOrKtbmg', label: 'YouTube' },
 ]
 
 export const Footer = () => {
@@ -62,6 +63,7 @@ export const Footer = () => {
                     href={social.href}
                     className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
                     aria-label={social.label}
+                    target='_blank'
                   >
                     <social.icon className="w-4 h-4" />
                   </Link>
