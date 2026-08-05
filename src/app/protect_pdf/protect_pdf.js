@@ -35,6 +35,7 @@ import { Button } from '@/components/ui/button'
 import OperationMain from '@/components/OperationMain'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
+import { useDispatch } from 'react-redux'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
