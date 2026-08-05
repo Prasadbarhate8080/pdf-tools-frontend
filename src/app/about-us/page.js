@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = {
   title: "About Us — PDFtoolify | Free Online PDF Tools",
   description:
@@ -84,18 +86,18 @@ export default function AboutPage() {
           No accounts, no install, np cost
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
-          <a
+          <Link
             href="/#tools"
             className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
           >
             Explore All PDF Tools
-          </a>
-          <a
+          </Link>
+          <Link
             href="/"
             className="rounded-lg border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-50"
           >
             Back to Home
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -196,12 +198,12 @@ export default function AboutPage() {
             Pick a tool and get your document sorted in seconds — free, secure and with no
             sign-up.
           </p>
-          <a
+          <Link
             href="/#tools"
             className="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-semibold text-blue-600 transition-colors hover:bg-slate-100"
           >
             Start Using PDFtoolify
-          </a>
+          </Link>
         </div>
       </section>
     </main>

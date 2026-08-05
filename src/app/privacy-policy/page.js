@@ -115,12 +115,12 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900">10. Contact us</h2>
             <p className="mt-3">
               If you have questions about this Privacy Policy or how we handle your data, please contact us at{" "}
-              <a
+              <Link
                 href="mailto:support@pdftoolify.com"
                 className="font-medium text-blue-600 hover:underline"
               >
                 support@pdftoolify.com
-              </a>
+              </Link>
               .
             </p>
           </section>

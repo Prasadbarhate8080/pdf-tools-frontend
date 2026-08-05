@@ -141,12 +141,12 @@ export default function TermsAndConditionsPage() {
             <p className="mt-3">
               If you have questions about these Terms and Conditions, please
               contact us at{" "}
-              <a
+              <Link
                 href="mailto:support@pdftoolify.com"
                 className="font-medium text-blue-600 hover:underline"
               >
                 support@pdftoolify.com
-              </a>
+              </Link>
               .
             </p>
           </section>

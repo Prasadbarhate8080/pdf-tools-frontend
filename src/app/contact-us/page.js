@@ -1,4 +1,5 @@
 import ContactForm from "@/components/ContactForm";
+import Link from "next/link";
 
 export const metadata = {
   title: "Contact Us — PDFtoolify | Free Online PDF Tools",
@@ -88,12 +89,12 @@ export default function ContactPage() {
               <p className="mt-2 text-sm text-slate-600">
                 Prefer email? Write to us directly:
               </p>
-              <a
+              <Link
                 href="mailto:support@pdftoolify.com"
                 className="mt-3 inline-block text-sm font-semibold text-blue-600 hover:underline"
               >
                 support@pdftoolify.com
-              </a>
+              </Link>
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
@@ -112,12 +113,12 @@ export default function ContactPage() {
               <p className="mt-2 text-sm text-white/80">
                 Browse all 17+ free PDF tools before you write in.
               </p>
-              <a
+              <Link
                 href="/#tools"
                 className="mt-4 inline-block rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-blue-600 transition-colors hover:bg-slate-100"
               >
                 Explore Tools
-              </a>
+              </Link>
             </div>
           </div>
         </div>
