@@ -9,6 +9,7 @@ import ProgressBar from '@/components/ProgressBar'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import FileInput from '@/components/FileInput'
 import FaqSection from '@/components/FaqSection'
+import { showContent } from '@/store/hideContentSlice'
 import HowToSection from '@/components/HowToSection'
 import {
   Accordion,

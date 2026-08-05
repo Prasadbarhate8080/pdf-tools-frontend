@@ -8,13 +8,7 @@ import Processing from '@/components/Processing'
 import ProgressBar from '@/components/ProgressBar'
 import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
-import { motion } from 'framer-motion'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
+import { showContent } from '@/store/hideContentSlice'
 import {
   FileOutput,
   Scissors,
@@ -50,6 +44,7 @@ import OperationBox from '@/components/OperationBox'
 import { Button } from '@/components/ui/button'
 import MainOperationButton from '@/components/MainOperationButton'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
+import { useDispatch } from 'react-redux'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'

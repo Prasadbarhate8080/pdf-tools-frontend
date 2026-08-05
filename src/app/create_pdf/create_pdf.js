@@ -14,6 +14,7 @@ import { PDFDocument } from 'pdf-lib'
 import { toast } from 'react-toastify'
 import ToolList from '@/components/ToolList'
 import FadeIn from '@/components/FadeIn'
+import { showContent } from '@/store/hideContentSlice'
 import {
   Accordion,
   AccordionContent,

@@ -1,7 +1,7 @@
 import React from "react";
 
 export const metadata = {
-    title: "Privacy",
+    title: "PDFToolify Privacy Policy",
     description: "Privacy",
     robots: {
     index: false,
@@ -12,8 +12,6 @@ export const metadata = {
   },
   };
   
-
-
 const PrivacyPolicy = () => {
   return (
     <div className="bg-white min-h-screen">

@@ -11,7 +11,7 @@ import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
-
+import { showContent } from '@/store/hideContentSlice'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import ToolList from '@/components/ToolList'
 import PDFPageComponent from '@/components/PDFPageComponent'

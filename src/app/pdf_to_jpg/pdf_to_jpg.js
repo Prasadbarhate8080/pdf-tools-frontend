@@ -10,6 +10,7 @@ import { useFileUpload } from '@/hooks/useFileUpload'
 import FileInput from '@/components/FileInput'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
+import { showContent } from '@/store/hideContentSlice'
 import {
   Accordion,
   AccordionContent,

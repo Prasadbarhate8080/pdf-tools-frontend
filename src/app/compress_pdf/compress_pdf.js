@@ -8,6 +8,7 @@ import Processing from '@/components/Processing'
 import ProgressBar from '@/components/ProgressBar'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import FileInput from '@/components/FileInput'
+import { showContent } from '@/store/hideContentSlice'
 import {
   Accordion,
   AccordionContent,

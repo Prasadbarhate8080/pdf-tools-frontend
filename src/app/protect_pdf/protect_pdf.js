@@ -16,6 +16,7 @@ import Image from 'next/image'
 import PDFPageComponent from '@/components/PDFPageComponent'
 import ToolList from '@/components/ToolList'
 import FadeIn from '@/components/FadeIn'
+import { showContent } from '@/store/hideContentSlice'
 import {
   Accordion,
   AccordionContent,
