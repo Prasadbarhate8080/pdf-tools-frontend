@@ -45,6 +45,7 @@ import { Button } from '@/components/ui/button'
 import MainOperationButton from '@/components/MainOperationButton'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import { useDispatch } from 'react-redux'
+import DownloadComponent from '@/components/DownloadComponent'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -393,21 +394,18 @@ function Split() {
 
         {progress === 100 && isProcessing && <Processing />}
       </form>
-      {downloadFileURL && (
-        <>
-          <div className="max-w-5xl text-center mx-auto  mt-24">
-            <h1 className="text-center text-gray-700 text-3xl font-semibold">Download Split PDF</h1>
-            <div className="mt-3 w-fit mx-auto">
-              <a
-                href={downloadFileURL}
-                download
-                className="bg-blue-500 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
-              >
-                Download Split PDF
-              </a>
-            </div>
-          </div>
-        </>
+      {downloadFileURL && completionStatus && (
+        <div className="pt-10">
+          <DownloadComponents
+            headingText={'Download Split PDF'}
+            buttonText={'Download Split PDF'}
+            downloadFileURL={downloadFileURL}
+            setCompletionStatus={setCompletionStatus}
+            setisDroped={setisDroped}
+            setFiles={setFiles}
+            setdownloadFileURL={setdownloadFileURL}
+          />
+        </div>
       )}
     </div>
   )

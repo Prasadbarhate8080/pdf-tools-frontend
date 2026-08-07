@@ -15,8 +15,8 @@ const platforms = [
     icon: Smartphone,
     name: 'Android',
     description: 'Download PDFtoolify app free for Android. Use read, merge, split and more PDF related features for free.',
-    href: '#',
-    cta: 'Coming Soon',
+    href: 'https://www.pdftoolify.com/download_page/android',
+    cta: 'Download Now',
   },
 ]
 

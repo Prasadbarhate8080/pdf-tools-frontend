@@ -30,6 +30,7 @@ import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
 import { useDispatch } from 'react-redux'
 import { showContent } from '@/store/hideContentSlice'
+import DownloadComponent from '@/components/DownloadComponent'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -49,7 +50,6 @@ function PageNO() {
     progress,
     setisDroped,
     setFiles,
-    callApi,
     setdownloadFileURL,
     setCompletionStatus,
   } = useFileUpload()
@@ -131,7 +131,7 @@ function PageNO() {
     } catch (error) {
       dispatch(showContent())
       console.log(error)
-    }finally{
+    } finally {
       dispatch(showContent())
     }
   }
@@ -203,7 +203,7 @@ function PageNO() {
               <ul className="mt-6 flex flex-wrap justify-center gap-6">
                 <PDFPageComponent file={files} />
               </ul>
-              <MainOperationButton buttonText={"Add Page Numbers"} disabled={files.length < 1}/>
+              <MainOperationButton buttonText={'Add Page Numbers'} disabled={files.length < 1} />
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
@@ -228,7 +228,12 @@ function PageNO() {
                   <option value="bottom-left">Bottom Left</option>
                 </select>
               </div>
-              <SidebarOperationButton buttonText={"Add Page Numbers"} disabled={files.length < 1}/>
+              <div className="mt-3 p-3">
+                <SidebarOperationButton
+                  buttonText={'Add Page Numbers'}
+                  disabled={files.length < 1}
+                />
+              </div>
             </OperationSidebar>
           </OperationBox>
         )}
@@ -243,20 +248,17 @@ function PageNO() {
         {progress === 100 && isProcessing && <Processing />}
       </form>
 
-      {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-24">
-          <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download Page Number Added PDF
-          </h1>
-          <div className="mt-3 w-fit mx-auto">
-            <a
-              href={downloadFileURL}
-              download
-              className="bg-blue-500  active:bg-blue-400 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
-            >
-              Download PDF
-            </a>
-          </div>
+      {downloadFileURL && completionStatus && (
+        <div className="pt-10">
+          <DownloadComponent
+            headingText={'Download Page Number Added PDF'}
+            buttonText={'Download PDF'}
+            downloadFileURL={downloadFileURL}
+            setCompletionStatus={setCompletionStatus}
+            setisDroped={setisDroped}
+            setFiles={setFiles}
+            setdownloadFileURL={setdownloadFileURL}
+          />
         </div>
       )}
 

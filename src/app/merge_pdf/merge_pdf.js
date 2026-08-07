@@ -59,7 +59,6 @@ function Merge() {
     setdownloadFileURL,
   } = useFileUpload()
 
-  useEffect(() => {console.log("files length :",files.length)},[files])
 
   let mergePdf = async () => {
     try {
@@ -143,7 +142,7 @@ function Merge() {
                 ))}
                 <AddMoreFilesComponent addFiles={addFiles} />
               </ul>
-                <MainOperationButton buttonText={"Merge PDF Files"} disabled={files.length <= 1}/>
+              <MainOperationButton buttonText={'Merge PDF Files'} disabled={files.length <= 1} />
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
@@ -153,7 +152,10 @@ function Merge() {
                 </h1>
               </div>
               <div className="flex-wrap items-center justify-center gap-4 mt-3 lg:flex hidden">
-                <SidebarOperationButton buttonText={"Merge PDF Files"} disabled={files.length <= 1}/>
+                <SidebarOperationButton
+                  buttonText={'Merge PDF Files'}
+                  disabled={files.length <= 1}
+                />
                 {/* Error Text */}
                 {files.length < 2 && (
                   <p className="text-red-500 text-sm text-center mt-2">
@@ -168,16 +170,18 @@ function Merge() {
         {serverPreparing && <ServerPreparingLoader />}
         {progress === 100 && isProcessing && <Processing />}
       </form>
-      {downloadFileURL && (
-        <OperationBox>
-          <OperationMain>
-            <DownloadComponent
-              headingText={'Download Merged PDF'}
-              buttonText={'Download Merged PDF'}
-              downloadFileURL={downloadFileURL}
-            />
-          </OperationMain>
-        </OperationBox>
+      {downloadFileURL && completionStatus && (
+        <div className='pt-10'>
+          <DownloadComponent
+            headingText={'Download Merged PDF'}
+            buttonText={'Download Merged PDF'}
+            downloadFileURL={downloadFileURL}
+            setCompletionStatus={setCompletionStatus}
+            setisDroped={setisDroped}
+            setFiles={setFiles}
+            setdownloadFileURL={setdownloadFileURL}
+          />
+        </div>
       )}
       <ToastContainer />
     </div>

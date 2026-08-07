@@ -12,27 +12,10 @@ import FaqSection from '@/components/FaqSection'
 import { showContent } from '@/store/hideContentSlice'
 import HowToSection from '@/components/HowToSection'
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-import {
-  BadgeCheck,
   Dot,
-  Download,
-  Gift,
-  InfinityIcon,
-  KeyRound,
-  MousePointerClick,
-  ShieldCheck,
-  Sparkles,
-  Upload,
-  Zap,
 } from 'lucide-react'
 import PDFPageComponent from '@/components/PDFPageComponent'
 import ToolList from '@/components/ToolList'
-import FadeIn from '@/components/FadeIn'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
 import FeatureCardSection from '@/components/FeatureCardSection'
@@ -43,10 +26,10 @@ import { unlockPdfHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
-import { Button } from '@/components/ui/button'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
 import { useDispatch } from 'react-redux'
+import DownloadComponent from '@/components/DownloadComponent'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -65,6 +48,8 @@ function Unlock() {
     setisDroped,
     setFiles,
     callApi,
+    setCompletionStatus,
+    setdownloadFileURL
   } = useFileUpload()
 
   const handleSubmit = async (e) => {
@@ -153,20 +138,17 @@ function Unlock() {
         {progress === 100 && isProcessing && <Processing />}
       </form>
 
-      {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-24">
-          <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download Unlocked PDF
-          </h1>
-          <div className="mt-3 w-fit mx-auto">
-            <a
-              href={downloadFileURL}
-              download
-              className="bg-blue-500  active:bg-blue-400 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
-            >
-              Download Unlocked PDF
-            </a>
-          </div>
+      {downloadFileURL && completionStatus && (
+        <div className="pt-10">
+          <DownloadComponent
+            headingText={'Download Unlocked PDF'}
+            buttonText={'Download Unlocked PDF'}
+            downloadFileURL={downloadFileURL}
+            setCompletionStatus={setCompletionStatus}
+            setisDroped={setisDroped}
+            setFiles={setFiles}
+            setdownloadFileURL={setdownloadFileURL}
+          />
         </div>
       )}
 

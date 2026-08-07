@@ -36,6 +36,7 @@ import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
 import { useDispatch } from 'react-redux'
 import { showContent } from '@/store/hideContentSlice'
+import DownloadComponent from '@/components/DownloadComponent'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -399,20 +400,17 @@ function AddWaterMarkPage() {
         {progress === 100 && isProcessing && <Processing />}
       </form>
 
-      {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-24">
-          <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download watermark Added PDF
-          </h1>
-          <div className="mt-3 w-fit mx-auto">
-            <a
-              href={downloadFileURL}
-              download
-              className="bg-blue-500  active:bg-blue-400 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
-            >
-              Download PDF
-            </a>
-          </div>
+      {downloadFileURL && completionStatus && (
+        <div className="pt-10">
+          <DownloadComponent
+            headingText={'Download watermark Added PDF'}
+            buttonText={'Download PDF'}
+            downloadFileURL={downloadFileURL}
+            setCompletionStatus={setCompletionStatus}
+            setisDroped={setisDroped}
+            setFiles={setFiles}
+            setdownloadFileURL={setdownloadFileURL}
+          />
         </div>
       )}
 

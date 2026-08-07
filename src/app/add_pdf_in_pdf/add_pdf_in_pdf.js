@@ -24,6 +24,7 @@ import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import { useDispatch } from 'react-redux'
 import { showContent } from '@/store/hideContentSlice'
+import DownloadComponent from '@/components/DownloadComponent'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -209,20 +210,17 @@ function AddPdfInPdf() {
           </OperationSidebar>
         </OperationBox>
       )}
-      {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-24">
-          <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download PDF Inserted PDF
-          </h1>
-          <div className="mt-3 w-fit mx-auto">
-            <a
-              href={downloadFileURL}
-              download
-              className="bg-blue-500  active:bg-blue-400 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
-            >
-              Download Final PDF
-            </a>
-          </div>
+      {downloadFileURL && completionStatus && (
+        <div className="pt-10">
+          <DownloadComponent
+            headingText={'Download PDF Inserted PDF'}
+            buttonText={'Download Final PDF'}
+            downloadFileURL={downloadFileURL}
+            setCompletionStatus={setCompletionStatus}
+            setisDroped={setisDroped}
+            setFiles={setFiles}
+            setdownloadFileURL={setdownloadFileURL}
+          />
         </div>
       )}
       <ToastContainer />

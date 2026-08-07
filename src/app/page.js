@@ -1,8 +1,4 @@
 import React from "react";
-import home from "./home.module.css"
-import InfoCard from "@/components/InfoCard";
-import FeaturesCard from "@/components/FeatureCard";
-import { Clock, CreditCard, Rabbit, ShieldCheck, TreePalm, Users } from "lucide-react";
 import { HeroSection } from "@/components/HeroSection";
 import { HomePageToolsSection } from "@/components/HomePageToolsSection";
 import { PDFManageSection } from "@/components/PDFManageSection";

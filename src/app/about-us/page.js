@@ -4,12 +4,12 @@ export const metadata = {
   title: "About Us — PDFtoolify | Free Online PDF Tools",
   description:
     "Learn about PDFtoolify: 17+ free online PDF tools to merge, split, compress and convert PDFs. No sign-up, secure by design, files deleted automatically.",
-  alternates: { canonical: "https://www.pdftoolify.com/about" },
+  alternates: { canonical: "https://www.pdftoolify.com/about-us" },
   openGraph: {
     title: "About Us — PDFtoolify | Free Online PDF Tools",
     description:
       "17+ free online PDF tools to merge, split, compress and convert PDFs. No sign-up, secure by design.",
-    url: "https://www.pdftoolify.com/about",
+    url: "https://www.pdftoolify.com/about-us",
     type: "website",
   },
   twitter: { card: "summary_large_image" },

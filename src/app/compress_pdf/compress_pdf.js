@@ -36,6 +36,7 @@ import { Button } from '@/components/ui/button'
 import MainOperationButton from '@/components/MainOperationButton'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import { useDispatch } from 'react-redux'
+import DownloadComponent from '@/components/DownloadComponent'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -51,9 +52,11 @@ function Compress() {
     downloadFileURL,
     serverPreparing,
     progress,
+    callApi,
     setisDroped,
     setFiles,
-    callApi,
+    setdownloadFileURL,
+    setCompletionStatus,
   } = useFileUpload()
 
   const handleSubmit = async (e) => {
@@ -146,20 +149,17 @@ function Compress() {
           {progress === 100 && isProcessing && <Processing />}
       </form>
 
-      {downloadFileURL && (
-        <div className="max-w-5xl text-center mx-auto  mt-24">
-          <h1 className="text-center text-gray-700 text-3xl font-semibold">
-            Download Compressed PDF
-          </h1>
-          <div className="mt-3 w-fit mx-auto">
-            <a
-              href={downloadFileURL}
-              download
-              className="bg-blue-500 font-bold text-white px-4 py-4 rounded-md inline-block mt-2"
-            >
-              Download Compressed PDF
-            </a>
-          </div>
+      {downloadFileURL && completionStatus && (
+        <div className="pt-10">
+          <DownloadComponent
+            headingText={'Download Compressed PDF'}
+            buttonText={'Download Compressed PDF'}
+            downloadFileURL={downloadFileURL}
+            setCompletionStatus={setCompletionStatus}
+            setisDroped={setisDroped}
+            setFiles={setFiles}
+            setdownloadFileURL={setdownloadFileURL}
+          />
         </div>
       )}
 

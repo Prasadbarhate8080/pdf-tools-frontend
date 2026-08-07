@@ -1,4 +1,4 @@
-import { FileText, Twitter, Linkedin, Youtube } from 'lucide-react'
+import { Twitter, Linkedin, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -45,14 +45,14 @@ export const Footer = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
             {/* Brand */}
             <div className="col-span-2 md:col-span-3 lg:col-span-2">
-              <a href="#" className="flex items-center gap-2.5 mb-5">
+              <Link href="/" className="flex items-center gap-2.5 mb-5">
                 <div className=" rounded-lg flex items-center justify-center ">
                   <Image src={'/PDFtoolify_logo.svg'} alt="pdftoolify.com" height={36} width={36} />
                 </div>
                 <span className="text-xl font-bold text-foreground">
                   PDF<span className="text-primary">toolify</span>
                 </span>
-              </a>
+              </Link>
               <p className="text-muted-foreground mb-6 max-w-sm leading-relaxed">
                 All the PDF tools you need in one place. Manage your documents smarter and faster
                 with PDFtoolify.

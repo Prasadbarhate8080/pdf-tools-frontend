@@ -5,13 +5,13 @@ export const metadata = {
   title: "Contact Us — PDFtoolify | Free Online PDF Tools",
   description:
     "Get in touch with the PDFtoolify team. Ask a question, report a bug, request a new PDF tool or send us feedback — we reply within 24-48 hours.",
-  alternates: { canonical: "https://www.pdftoolify.com/contact" },
+  alternates: { canonical: "https://www.pdftoolify.com/contact-us" },
   openGraph: {
     title: "Contact Us — PDFtoolify | Free Online PDF Tools",
     description:
       "Get in touch with the PDFtoolify team. Questions, bug reports, tool requests and feedback are all welcome.",
     type: "website",
-    url: "https://www.pdftoolify.com/contact",
+    url: "https://www.pdftoolify.com/contact-us",
   },
   twitter: { card: "summary_large_image" },
 };

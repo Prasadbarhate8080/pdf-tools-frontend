@@ -50,7 +50,7 @@ export const metadata = {
     siteName: 'PDFtoolify',
     images: [
       {
-        url: '/pdftoolify_logo.png',
+        url: '/pdftoolify_logo.svg',
         width: 800,
         height: 600,
         alt: 'PDFtoolify Logo',
@@ -63,7 +63,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'PDFtoolify | Free Online PDF Tools',
     description: 'The ultimate suite for all your PDF needs. Fast, secure, and free online tools.',
-    images: ['/pdftoolify_logo.png'],
+    images: ['/pdftoolify_logo.svg'],
   },
   robots: {
     index: true,
@@ -79,6 +79,9 @@ export const metadata = {
   alternates: {
     canonical: '/',
   },
+  icons: {
+    icon: "/favicon.ico",
+  }
 }
 
 export default function RootLayout({ children }) {
