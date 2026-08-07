@@ -396,7 +396,7 @@ function Split() {
       </form>
       {downloadFileURL && completionStatus && (
         <div className="pt-10">
-          <DownloadComponents
+          <DownloadComponent
             headingText={'Download Split PDF'}
             buttonText={'Download Split PDF'}
             downloadFileURL={downloadFileURL}
