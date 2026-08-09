@@ -10,19 +10,11 @@ import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
-import { CheckCircle2, CheckSquare, Check, Sparkles, Dot } from 'lucide-react'
-import Image from 'next/image'
-import { error, PDFDocument } from 'pdf-lib'
+import { Check, Dot } from 'lucide-react'
+import { PDFDocument } from 'pdf-lib'
 import { toast } from 'react-toastify'
 import ToolList from '@/components/ToolList'
-import FadeIn from '@/components/FadeIn'
 import { showContent } from '@/store/hideContentSlice'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
@@ -33,11 +25,13 @@ import { extractPdfHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
-import { Button } from '@/components/ui/button'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
 import { useDispatch } from 'react-redux'
 import DownloadComponent from '@/components/DownloadComponent'
+import PageContainer from '@/components/PDFPageComponents/PageContainer'
+import PageData from '@/components/PDFPageComponents/PageData'
+import PageImageContainer from '@/components/PDFPageComponents/PageImageContainer'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
@@ -59,7 +53,6 @@ export default function ExtractPdf() {
     progress,
     setisDroped,
     setFiles,
-    callApi,
     setdownloadFileURL,
     setCompletionStatus,
   } = useFileUpload()
@@ -125,7 +118,7 @@ export default function ExtractPdf() {
         <ToolHeader
           sparklesText={'Free Online PDF Page Extractor'}
           headings={['Extract', 'PDF Pages', 'Instantly']}
-          text={'Combine multiple PDF documents into one — free, fast, and without quality loss'}
+          text={'Extract the specific pages from the pdf easily, and make your work more simple'}
         />
       )}
 
@@ -163,33 +156,27 @@ export default function ExtractPdf() {
       {files && isDroped && !isUploading && !completionStatus && (
         <OperationBox>
           <OperationMain>
-            <div className="flex flex-wrap items-center justify-center py-3">
-              <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
-                <div className="flex flex-wrap justify-center mx-auto gap-8">
-                  {Array.from(new Array(numPages), (el, index) => {
-                    const pageNum = index + 1
-                    const isSelected = selectedPages.includes(pageNum)
-                    return (
-                      <div
-                        key={pageNum}
-                        className={`w-fit p-1 bg-white rounded-md border-gray-500 border relative  cursor-pointer transition-transform duration-200 hover:bg-gray-100`}
-                        onClick={() => togglePageSelection(pageNum)}
-                      >
-                        <Page pageNumber={pageNum} width={200} />
-                        <p className="text-center p-1">Page {pageNum}</p>
-                        <div
-                          className={`absolute top-0.5 right-0.5 h-6 w-6 border-1 border-gray-500 rounded-sm
-                    ${isSelected ? 'bg-blue-600' : 'bg-white'}`}
-                        >
-                          <Check color="white" className={`${isSelected ? 'block' : 'hidden'}`} />
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </Document>
-            </div>
-            <MainOperationButton buttonText={`Extract ${selectedPages.length > 0 ? selectedPages.length : ""} Selected Pages`} onClick={handleExtract} disabled={files.length < 1}/>
+            <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
+              <div className="flex flex-wrap items-center gap-4 justify-center py-3">
+                {Array.from(new Array(numPages), (el, index) => {
+                  const pageNum = index + 1
+                  const isSelected = selectedPages.includes(pageNum)
+                  return (
+                      <PageContainer isSelected={isSelected} onClick={() => togglePageSelection(pageNum)}>
+                        <PageImageContainer>
+                          <Page pageNumber={pageNum} width={160} />
+                        </PageImageContainer>
+                        <PageData data={pageNum}/>
+                      </PageContainer>
+                  )
+                })}
+              </div>
+            </Document>
+            <MainOperationButton
+              buttonText={`Extract ${selectedPages.length > 0 ? selectedPages.length : ''} Selected Pages`}
+              onClick={handleExtract}
+              disabled={files.length < 1}
+            />
           </OperationMain>
           <OperationSidebar>
             <div className="p-2 bg-blue-50 border-1">
@@ -199,7 +186,11 @@ export default function ExtractPdf() {
               </h1>
             </div>
             <div className="mt-3 p-3">
-              <SidebarOperationButton buttonText={`Extract ${selectedPages.length > 0 ? selectedPages.length : ""} Selected Pages`} onClick={handleExtract} disabled={files.length < 1}/>
+              <SidebarOperationButton
+                buttonText={`Extract ${selectedPages.length > 0 ? selectedPages.length : ''} Selected Pages`}
+                onClick={handleExtract}
+                disabled={files.length < 1}
+              />
             </div>
           </OperationSidebar>
         </OperationBox>

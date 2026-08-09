@@ -13,7 +13,7 @@ function OperationSidebar({ children }) {
         ${isOpenSidebar ? 'translate-x-0' : 'translate-x-[288px]'}
     `}
     >
-      <div className="border-1 border-l-2 border-l- h-full flex">
+      <div className="border-1  h-full flex">
         <div className="lg:hidden block w-8 p-1 h-full bg-gray-200">
           <button
             onClick={(e) => {

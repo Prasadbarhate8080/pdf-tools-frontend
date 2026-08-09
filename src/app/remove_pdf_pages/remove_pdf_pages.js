@@ -35,6 +35,9 @@ import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
 import { useDispatch } from 'react-redux'
 import DownloadComponent from '@/components/DownloadComponent'
+import PageImageContainer from '@/components/PDFPageComponents/PageImageContainer'
+import PageData from '@/components/PDFPageComponents/PageData'
+import PageContainer from '@/components/PDFPageComponents/PageContainer'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
@@ -110,7 +113,7 @@ export default function RemovePDFPages() {
       dispatch(showContent())
       // toast.error(error.message)
       console.log(error)
-    }finally{
+    } finally {
       dispatch(showContent())
     }
   }
@@ -168,31 +171,29 @@ export default function RemovePDFPages() {
         <OperationBox>
           <OperationMain>
             <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
-              <div className="flex flex-wrap max-w-7xl justify-center mx-auto gap-8 mt-6">
+              <div className="flex flex-wrap justify-center gap-4 py-3">
                 {Array.from(new Array(numPages), (el, index) => {
                   const pageNum = index + 1
                   const isSelected = selectedPages.includes(pageNum)
                   return (
-                    <div
-                      key={pageNum}
-                      className={`w-fit p-1 bg-white rounded-md border-gray-500 border relative  cursor-pointer transition-transform duration-200 hover:bg-gray-100`}
+                    <PageContainer
+                      isSelected={isSelected}
                       onClick={() => togglePageSelection(pageNum)}
                     >
-                      <Page pageNumber={pageNum} width={200} />
-                      <p className="text-center p-1">Page {pageNum}</p>
-                      <div
-                        className={`absolute top-0.5 right-0.5 h-6 w-6 border-1 border-gray-500 rounded-sm
-                    ${isSelected ? 'bg-blue-600' : 'bg-white'}`}
-                      >
-                        <Check color="white" className={`${isSelected ? 'block' : 'hidden'}`} />
-                      </div>
-                    </div>
+                      <PageImageContainer>
+                        <Page pageNumber={pageNum} width={160} />
+                      </PageImageContainer>
+                      <PageData data={pageNum} />
+                    </PageContainer>
                   )
                 })}
               </div>
             </Document>
-              <MainOperationButton buttonText={`Remove ${selectedPages.length > 0 ? selectedPages.length : ""} Selected Pages`} onClick={handleRemove} disabled={files.length < 1} />
-
+            <MainOperationButton
+              buttonText={`Remove ${selectedPages.length > 0 ? selectedPages.length : ''} Selected Pages`}
+              onClick={handleRemove}
+              disabled={files.length < 1}
+            />
           </OperationMain>
           <OperationSidebar>
             <div className="p-2 bg-blue-50 border-1">
@@ -201,8 +202,12 @@ export default function RemovePDFPages() {
                 <Dot /> Select the pages which you want to remove.
               </h1>
             </div>
-            <div  className="mt-3 p-3">
-              <SidebarOperationButton buttonText={`Remove ${selectedPages.length > 0 ? selectedPages.length : ""} Selected Pages`} onClick={handleRemove} disabled={files.length < 1} />
+            <div className="mt-3 p-3">
+              <SidebarOperationButton
+                buttonText={`Remove ${selectedPages.length > 0 ? selectedPages.length : ''} Selected Pages`}
+                onClick={handleRemove}
+                disabled={files.length < 1}
+              />
             </div>
           </OperationSidebar>
         </OperationBox>

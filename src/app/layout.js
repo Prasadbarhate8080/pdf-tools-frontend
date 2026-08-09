@@ -80,8 +80,8 @@ export const metadata = {
     canonical: '/',
   },
   icons: {
-    icon: "/favicon.ico",
-  }
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({ children }) {
@@ -116,8 +116,11 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2223852794079735"
-     crossorigin="anonymous"></script>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2223852794079735"
+          crossorigin="anonymous"
+        ></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased  min-h-screen flex flex-col justify-between`}
@@ -130,9 +133,13 @@ export default function RootLayout({ children }) {
           </HideContent>
         </StoreProvider>
         <ToastContainer />
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <GoogleAnalytics gaId="YOUR_GA_ID" />
+            <Analytics />
+          </>
+        )}
       </body>
-      <Analytics />
-      <GoogleAnalytics gaId="G-3X5G3GQHTZ" />
     </html>
   )
 }

@@ -18,12 +18,12 @@ const ALL_TOOLS = [
     desc: 'Reduce file size, keep quality',
     icon: '🗜️',
   },
-  { name: 'PDF to Word', href: '/pdf-to-word', desc: 'Editable DOCX in seconds', icon: '📝' },
-  { name: 'PDF to JPG', href: '/pdf-to-jpg', desc: 'Turn pages into images', icon: '🖼️' },
-  { name: 'JPG to PDF', href: '/jpg-to-pdf', desc: 'Images into a single PDF', icon: '📸' },
-  { name: 'Rotate PDF', href: '/rotate-pdf', desc: 'Fix page orientation', icon: '🔄' },
-  { name: 'Unlock PDF', href: '/unlock-pdf', desc: 'Remove PDF password', icon: '🔓' },
-  { name: 'Protect PDF', href: '/protect-pdf', desc: 'Add a password to your PDF', icon: '🔒' },
+  { name: 'PDF to Word', href: '/pdf_to_word', desc: 'Editable DOCX in seconds', icon: '📝' },
+  { name: 'PDF to JPG', href: '/pdf_to_jpg', desc: 'Turn pages into images', icon: '🖼️' },
+  { name: 'JPG to PDF', href: '/jpg_to_pdf', desc: 'Images into a single PDF', icon: '📸' },
+  { name: 'Rotate PDF', href: '/rotate_pdf', desc: 'Fix page orientation', icon: '🔄' },
+  { name: 'Unlock PDF', href: '/unlock_pdf', desc: 'Remove PDF password', icon: '🔓' },
+  { name: 'Protect PDF', href: '/protect_pdf', desc: 'Add a password to your PDF', icon: '🔒' },
 ]
 
 function DownloadComponent({
