@@ -162,7 +162,7 @@ export default function ExtractPdf() {
                   const pageNum = index + 1
                   const isSelected = selectedPages.includes(pageNum)
                   return (
-                      <PageContainer isSelected={isSelected} onClick={() => togglePageSelection(pageNum)}>
+                      <PageContainer key={pageNum} isSelected={isSelected} onClick={() => togglePageSelection(pageNum)}>
                         <PageImageContainer>
                           <Page pageNumber={pageNum} width={160} />
                         </PageImageContainer>

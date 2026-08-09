@@ -177,6 +177,7 @@ export default function RemovePDFPages() {
                   const isSelected = selectedPages.includes(pageNum)
                   return (
                     <PageContainer
+                    key={pageNum}
                       isSelected={isSelected}
                       onClick={() => togglePageSelection(pageNum)}
                     >
