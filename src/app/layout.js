@@ -135,7 +135,7 @@ export default function RootLayout({ children }) {
         <ToastContainer />
         {process.env.NODE_ENV === 'production' && (
           <>
-            <GoogleAnalytics gaId="YOUR_GA_ID" />
+            <GoogleAnalytics gaId="G-3X5G3GQHTZ" />
             <Analytics />
           </>
         )}
