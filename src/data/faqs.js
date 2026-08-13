@@ -24,9 +24,9 @@ export const mergePDFFaqs = [
       'Yes. You can download PDFtoolify for Windows and merge files offline without internet access.',
   },
   {
-    question: 'Does merging PDFs cost anything?',
+    question: 'How many PDF files can I merge at once?',
     answer:
-      'No, merging PDFs with PDFtoolify is completely free. No subscriptions, no trial limits.',
+      'You can merge up to 50 files at once',
   },
 ]
 
@@ -82,12 +82,7 @@ export const addPageNoFaq = [
   {
     question: "Can I customize the page numbers?",
     answer:
-      "Yes, you can choose the page number position and alignment to match your document’s requirements.",
-  },
-  {
-    question: "Does adding page numbers cost anything?",
-    answer:
-      "No, adding page numbers using PDFtoolify is completely free and unlimited.",
+      "Yes, you can choose the page number position and alignment to match your documents requirements.",
   },
 ];
 

@@ -4,7 +4,7 @@ const ToolBlog = () => {
   return (
     <div className="container mx-auto px-4 py-12 max-w-4xl">
       <div className="prose prose-blue max-w-none">
-        <h2 className="text-3xl font-bold mb-6 text-foreground">Why Converting Word to PDF is Essential for Professionalism</h2>
+        <h2 className="text-3xl font-bold mb-6 text-foreground">Why Converting Word to PDF is useful in day to day work</h2>
         <p className="text-muted-foreground leading-relaxed mb-4">
           Word documents are commonly used for creating and editing content, but when it comes to sharing or printing, converting them to PDF is often a better choice. PDF files are more professional and ensure that the document&apos;s formatting is preserved across all devices.
         </p>

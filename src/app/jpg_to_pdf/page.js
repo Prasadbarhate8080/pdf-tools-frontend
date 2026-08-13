@@ -18,8 +18,85 @@ export const metadata = {
 }
 
 function page() {
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'JPG to PDF Converter',
+      url: 'https://www.pdftoolify.com/jpg_to_pdf',
+      description:
+        'Convert JPG and PNG images to PDF online for free with PDFtoolify. Combine multiple images into a single PDF.',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'All',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Is PDFtoolify’s JPG to PDF converter free?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, PDFtoolify is completely free. You can convert JPG or PNG images to PDF without creating an account.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How can I convert JPG to PDF using PDFtoolify?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Upload your images, arrange them in the order you want, and click Convert. PDFtoolify will create a high-quality PDF instantly.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Will the image quality change after converting to PDF?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. Your images remain sharp and high-quality after conversion. PDFtoolify ensures excellent clarity in the final PDF.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is it safe to convert JPG to PDF online?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. All uploaded images are processed securely, and PDFtoolify automatically deletes your files after conversion.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I merge multiple images into one PDF?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Absolutely. You can add multiple JPG or PNG images and combine them into a single PDF file easily.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Do I need to install any software to convert JPG to PDF?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No installation required. PDFtoolify works directly in your browser, allowing you to convert images to PDF instantly online.',
+          },
+        },
+      ],
+    },
+  ]
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <JpgToPdf />
       <HideContent>
         <div className="container py-20 mx-auto">

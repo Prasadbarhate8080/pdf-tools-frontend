@@ -17,8 +17,85 @@ export const metadata = {
 }
 
 function page() {
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Unlock PDF',
+      url: 'https://www.pdftoolify.com/unlock_pdf',
+      description:
+        'Unlock password-protected PDF files online for free with PDFtoolify when you have the correct password.',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'All',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Is PDFtoolify Really Free?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, PDFtoolify is 100% free. You can unlock secured PDFs without signing up or paying anything.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How can I unlock a PDF with PDFtoolify?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Upload your locked PDF file, enter the correct password, and click “Unlock.” PDFtoolify will instantly remove the password protection.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Will unlocking my PDF affect its quality?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, unlocking a PDF does not change its quality or formatting. Your file remains exactly the same—just without the password.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is it safe to unlock PDFs online?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. PDFtoolify uses secure processing, and all uploaded files are automatically deleted after completion for maximum privacy.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I unlock PDFs offline with PDFtoolify?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. You can download the Windows app and unlock PDFs even without an internet connection.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Does unlocking PDFs cost anything?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, unlocking PDF files with PDFtoolify is completely free and unlimited.',
+          },
+        },
+      ],
+    },
+  ]
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <Unlock />
       <HideContent>
         <div className="container py-20 mx-auto">

@@ -18,8 +18,85 @@ export const metadata = {
 }
 
 function page() {
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Compress PDF',
+      url: 'https://www.pdftoolify.com/compress_pdf',
+      description:
+        'Compress PDF files online for free with PDFtoolify while maintaining clear and readable document quality.',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'All',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Is PDFtoolify’s compressor free?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, PDFtoolify is completely free to use. You can compress PDFs without signing up.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Will compression affect PDF quality?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, your PDF remains clear and readable. We optimize size while preserving quality.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is it safe to compress PDFs online?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. Files are processed securely and deleted automatically after completion.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I compress large PDF files?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Absolutely. PDFtoolify handles large files quickly and reliably.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Do I need to install anything?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. The compressor works in your browser with no downloads required.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Does compression cost anything?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, PDF compression with PDFtoolify is 100% free and unlimited.',
+          },
+        },
+      ],
+    },
+  ]
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <Compress />
       <HideContent>
         <div className="container py-20 mx-auto">

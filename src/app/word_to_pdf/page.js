@@ -16,8 +16,85 @@ export const metadata = {
   },
 }
 function page() {
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Word to PDF Converter',
+      url: 'https://www.pdftoolify.com/word_to_pdf',
+      description:
+        'Convert Word DOC and DOCX files to PDF online for free with PDFtoolify while preserving document formatting.',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'All',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Is PDFtoolify Really Free?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, PDFtoolify is completely free. You can convert Word (DOC/DOCX) files to PDF without signing up.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How can I convert a Word file to PDF using PDFtoolify?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Just upload your Word document and click “Convert.” PDFtoolify will instantly turn it into a high-quality PDF.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Will the formatting change after converting to PDF?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. Your text, fonts, images, spacing, and layout remain exactly the same after conversion.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is it safe to convert Word files online?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. PDFtoolify uses secure file processing, and all uploaded files are automatically deleted after conversion to protect your privacy.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I convert Word to PDF offline?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. You can download the Windows version of PDFtoolify to convert Word files to PDF offline.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Does converting Word to PDF cost anything?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. Word to PDF conversion with PDFtoolify is completely free and unlimited.',
+          },
+        },
+      ],
+    },
+  ]
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <WordToPdf />
       <HideContent>
         <div className="container py-20 mx-auto">

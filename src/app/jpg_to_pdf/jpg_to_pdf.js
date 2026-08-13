@@ -132,7 +132,7 @@ const JpgToPdf = () => {
       {!completionStatus && !isDroped && (
         <ToolHeader
           sparklesText={'Free Online JPG to PDF Converter'}
-          headings={['Create', 'PDF from Images', ' ']}
+          headings={['Create', 'PDF from JPGs', ' ']}
           text={
             'Convert JPG, PNG, and JPEG images into a single high-quality PDF — free, fast, and secure.'
           }

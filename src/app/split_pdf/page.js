@@ -17,8 +17,77 @@ export const metadata = {
 }
 
 function page() {
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Split PDF',
+      url: 'https://www.pdftoolify.com/split_pdf',
+      description:
+        'Split PDF files online for free. Extract pages or page ranges from PDF documents with PDFtoolify.',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'All',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Is PDFtoolify Really Free?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, PDFtoolify is completely free to use. You can split PDF files without any signup, subscription, or hidden charges.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How can I split a PDF with PDFtoolify?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Simply upload your PDF file, choose the pages or page ranges you want to extract, and click on "Split." PDFtoolify will create separate PDF files in seconds.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Will the quality of my PDF change after splitting?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, PDFtoolify preserves the original quality, formatting, and layout of your PDF pages after splitting.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is it safe to split my PDFs online?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. PDFtoolify processes your files securely, and all uploaded files are automatically deleted after processing to protect your privacy.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Does splitting PDFs cost anything?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, splitting PDFs with PDFtoolify is 100% free. There are no subscriptions, hidden fees, or usage limits.',
+          },
+        },
+      ],
+    },
+  ]
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <Split />
       <HideContent>
         <div className="container py-20 mx-auto">

@@ -16,8 +16,84 @@ export const metadata = {
 }
 
 function page() {
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Add Watermark to PDF',
+      url: 'https://www.pdftoolify.com/add_watermark',
+      description: 'Add customizable text watermarks to PDF files online for free with PDFtoolify.',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'All',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Is PDFtoolify Really Free?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, PDFtoolify is completely free. You can add text watermarks to your PDF files without signing up.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How can I add a watermark to my PDF?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Upload your PDF, customize the watermark text and placement, and click “Add Watermark.” Your updated PDF will be ready instantly.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Will adding a watermark affect PDF quality?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, the PDF quality remains the same. Only the watermark is added — your content stays untouched.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is it safe to upload my PDFs?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. Files are processed securely and deleted automatically after completion.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I customize the watermark?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Absolutely. You can customize text, opacity, rotation, and position for your watermark.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Does adding a watermark cost anything?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, adding a watermark with PDFtoolify is 100% free and unlimited.',
+          },
+        },
+      ],
+    },
+  ]
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <AddWaterMarkPage />
       <HideContent>
         <div className="container py-20 mx-auto">

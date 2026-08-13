@@ -4,7 +4,7 @@ const ToolBlog = () => {
   return (
     <div className="container mx-auto px-4 py-12 max-w-4xl">
       <div className="prose prose-blue max-w-none">
-        <h2 className="text-3xl font-bold mb-6 text-foreground">Why Compressing PDF Files is Crucial for Efficient Sharing</h2>
+        <h2 className="text-3xl font-bold mb-6 text-foreground">Why Compressing PDF Files is very important for file sharing</h2>
         <p className="text-muted-foreground leading-relaxed mb-4">
           PDF documents are often large and cumbersome, making them difficult to share via email or upload to online platforms. Compressing PDF files can significantly reduce their size while maintaining the quality of the content. This not only makes it easier to share files but also saves on storage space.
         </p>
