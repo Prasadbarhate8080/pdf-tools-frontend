@@ -50,9 +50,7 @@ export const metadata = {
     siteName: 'PDFtoolify',
     images: [
       {
-        url: '/pdftoolify_logo.svg',
-        width: 800,
-        height: 600,
+        url: '/pdftoolify_logo.png',
         alt: 'PDFtoolify Logo',
       },
     ],
@@ -63,7 +61,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'PDFtoolify | Free Online PDF Tools',
     description: 'The ultimate suite for all your PDF needs. Fast, secure, and free online tools.',
-    images: ['/pdftoolify_logo.svg'],
+    images: ['/pdftoolify_logo.png'],
   },
   robots: {
     index: true,
@@ -84,38 +82,12 @@ export const metadata = {
   },
 }
 
+
 export default function RootLayout({ children }) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    name: 'PDFtoolify',
-    url: 'https://www.pdftoolify.com',
-    description: 'Free online PDF tools including merge, split, compress, and more.',
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'All',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-    },
-    featureList: [
-      'Merge PDF',
-      'Split PDF',
-      'Compress PDF',
-      'Convert PDF to JPG',
-      'Word to PDF',
-      'Unlock PDF',
-      'Remove PDF pages',
-    ],
-  }
 
   return (
     <html lang="en" className="">
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2223852794079735"
