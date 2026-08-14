@@ -9,9 +9,9 @@ async function Posts({ toolName }) {
   try {
     let response
     if (!toolName) {
-      response = await fetch(`${baseUrl}/api/get_posts`)
+      response = await fetch(`${baseUrl}/api/get_posts`,{next:{revalidate:60}})
     } else {
-      response = await fetch(`${baseUrl}/api/get_tool_posts/?toolName=${toolName}`)
+      response = await fetch(`${baseUrl}/api/get_tool_posts/?toolName=${toolName}`,{next:{revalidate:60}})
     }
     if (!response.ok) {
       console.error('Failed to fetch posts:', response.statusText)
