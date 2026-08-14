@@ -1,17 +1,17 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/connectDB";
-import Blog from "@/models/Blog";
+import { dbConnect } from "@/db/dbConnect";
+import { blogModel } from "@/models/blogModel";
 
 export async function PUT(request, { params }) {
   try {
-    await connectDB();
+    await dbConnect();
 
     const { slug } = await params;
     const body = await request.json();
 
     const data = body.data;
 
-    const updatedPost = await Blog.findOneAndUpdate(
+    const updatedPost = await blogModel.findOneAndUpdate(
       { slug },
       {
         title: data.title,
