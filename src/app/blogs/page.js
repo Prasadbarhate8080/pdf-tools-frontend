@@ -1,5 +1,20 @@
 import { Posts } from "./posts";
 
+export const metadata = {
+  title: "Blog Articles — PDFtoolify | Free Online PDF Tools",
+  description:
+    "PDFtoolify blogs for guide and more information about the tools.",
+  alternates: { canonical: "https://www.pdftoolify.com/blogs" },
+  openGraph: {
+    title: "Blog Articles — PDFtoolify | Free Online PDF Tools",
+    description:
+      "PDFtoolify blogs for guide and more information about the tools",
+    url: "https://www.pdftoolify.com/blogs",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image" },
+};
+
 function page() {
   return (
     <div className="mt-24">

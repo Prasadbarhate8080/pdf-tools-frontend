@@ -52,23 +52,21 @@ function Page() {
   }
 
   return (
-    <div className="md:w-2/3 text-center px-2 mt-36 max-w-6xl mx-auto">
+    <div className="md:w-2/3 px-2 mt-36 max-w-6xl mx-auto">
       <Input
         label="Title :"
         placeholder="Title"
-        className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
         {...register("title", { required: true })}
       />
       <Input
         label="Desciption :"
         placeholder="Description"
-        className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
+        
         {...register("description", { required: true })}
       />
       <Input
         label="Slug :"
         placeholder="Slug"
-        className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
         {...register("slug", { required: true })}
         onInput={(e) => {
           setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
@@ -77,19 +75,17 @@ function Page() {
       <Input
         label="image Url :"
         placeholder="image url"
-        className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
         {...register("imageUrl", { required: true })}
       />
       <Input
         label="Toolname :"
         placeholder="toolname"
-        className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
         {...register("toolName", { required: true })}
       />
       <div className="mt-4">
         <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
       </div>
-      <button className='bg-blue-500 px-4  px-20  py-2 rounded-md text-white mt-4  '
+      <button className='bg-blue-500 px-20  py-2 rounded-md text-white mt-4  '
         onClick={handleSubmit(submit)}
       >Submit</button>
 
