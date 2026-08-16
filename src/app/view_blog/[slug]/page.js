@@ -116,7 +116,7 @@ async function Page({ params }) {
       : null;
 
     return (
-      <div className="mx-auto p-4 mt-20 max-w-5xl">
+      <div className="mx-auto p-4 mt-20 max-w-5xl prose dark:prose-invert ">
 
         {/* Blog Header */}
         <div className="mb-8">
