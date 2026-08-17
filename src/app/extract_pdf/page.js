@@ -20,21 +20,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Extract Pages from PDF',
-      url: 'https://www.pdftoolify.com/extract_pdf',
-      description:
-        'Extract selected pages from PDF files online for free with PDFtoolify and download them as a new PDF.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

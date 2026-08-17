@@ -18,7 +18,7 @@ export async function PUT(request, { params }) {
         slug: data.slug,
         description: data.description,
         imageUrl: data.imageUrl,
-        toolName: data.toolName,
+        ToolName: data.toolName,
         content: data.content,
       },
       {

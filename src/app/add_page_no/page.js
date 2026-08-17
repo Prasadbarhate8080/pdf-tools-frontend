@@ -23,21 +23,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Add Page Numbers to PDF',
-      url: 'https://www.pdftoolify.com/add_page_no',
-      description:
-        'Add page numbers to PDF files online for free. Choose the position, font, size, and style.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

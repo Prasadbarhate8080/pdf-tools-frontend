@@ -21,20 +21,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Protect PDF',
-      url: 'https://www.pdftoolify.com/protect_pdf',
-      description: 'Protect PDF files online for free with a password using PDFtoolify.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

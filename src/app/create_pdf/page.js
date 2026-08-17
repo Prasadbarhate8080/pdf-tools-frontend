@@ -20,21 +20,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Create PDF',
-      url: 'https://www.pdftoolify.com/create_pdf',
-      description:
-        'Create PDF files from images online for free with PDFtoolify. Combine multiple images into a single multi-page PDF.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

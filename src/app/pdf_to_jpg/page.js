@@ -20,21 +20,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'PDF to JPG Converter',
-      url: 'https://www.pdftoolify.com/pdf_to_jpg',
-      description:
-        'Convert PDF pages to JPG images online for free with PDFtoolify. Convert a single page or all pages of a PDF.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

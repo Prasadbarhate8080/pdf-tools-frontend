@@ -19,21 +19,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Word to PDF Converter',
-      url: 'https://www.pdftoolify.com/word_to_pdf',
-      description:
-        'Convert Word DOC and DOCX files to PDF online for free with PDFtoolify while preserving document formatting.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

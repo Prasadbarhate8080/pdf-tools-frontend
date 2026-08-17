@@ -144,21 +144,18 @@ function Page() {
       <Input
         label="Title :"
         placeholder="Title"
-        className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
         {...register("title", { required: true })}
       />
 
       <Input
         label="Description :"
         placeholder="Description"
-        className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
         {...register("description", { required: true })}
       />
 
       <Input
         label="Slug :"
         placeholder="Slug"
-        className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
         {...register("slug", { required: true })}
         onInput={(e) => {
           setValue(
@@ -172,14 +169,12 @@ function Page() {
       <Input
         label="Image URL :"
         placeholder="Image URL"
-        className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
         {...register("imageUrl", { required: true })}
       />
 
       <Input
         label="Toolname :"
         placeholder="Toolname"
-        className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
         {...register("toolName", { required: true })}
       />
 

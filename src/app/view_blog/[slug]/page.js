@@ -116,7 +116,7 @@ async function Page({ params }) {
       : null;
 
     return (
-      <div className="mx-auto p-4 mt-20 max-w-5xl prose dark:prose-invert ">
+      <div className="mx-auto p-4 mt-20 max-w-5xl">
 
         {/* Blog Header */}
         <div className="mb-8">
@@ -149,7 +149,7 @@ async function Page({ params }) {
         </div>
 
         {/* Blog Content */}
-        <article className="mt-10">
+        <article className="mt-10 prose dark:prose-invert ">
           {parse(post?.content || "<p>Post not found</p>")}
         </article>
 

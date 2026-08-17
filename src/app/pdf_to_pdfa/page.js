@@ -19,21 +19,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'PDF to PDF/A Converter',
-      url: 'https://www.pdftoolify.com/pdf_to_pdfa',
-      description:
-        'Convert regular PDF files to PDF/A format online for free with PDFtoolify for long-term document archiving.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

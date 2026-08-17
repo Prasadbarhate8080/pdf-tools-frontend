@@ -21,21 +21,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Compress PDF',
-      url: 'https://www.pdftoolify.com/compress_pdf',
-      description:
-        'Compress PDF files online for free with PDFtoolify while maintaining clear and readable document quality.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

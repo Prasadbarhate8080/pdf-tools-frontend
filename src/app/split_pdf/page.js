@@ -20,21 +20,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Split PDF',
-      url: 'https://www.pdftoolify.com/split_pdf',
-      description:
-        'Split PDF files online for free. Extract pages or page ranges from PDF documents with PDFtoolify.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

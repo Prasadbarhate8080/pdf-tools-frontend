@@ -21,21 +21,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'JPG to PDF Converter',
-      url: 'https://www.pdftoolify.com/jpg_to_pdf',
-      description:
-        'Convert JPG and PNG images to PDF online for free with PDFtoolify. Combine multiple images into a single PDF.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

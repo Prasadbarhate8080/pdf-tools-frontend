@@ -20,21 +20,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Add PDF in PDF',
-      url: 'https://www.pdftoolify.com/add_pdf_in_pdf',
-      description:
-        'Insert one PDF into another PDF online for free with PDFtoolify. Add full PDFs or selected pages exactly where you want.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

@@ -19,21 +19,6 @@ function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'PNG to PDF Converter',
-      url: 'https://www.pdftoolify.com/png_to_pdf',
-      description:
-        'Convert PNG images to PDF online for free with PDFtoolify. Combine multiple PNG images into a single PDF.',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'All',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: [
         {

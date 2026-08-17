@@ -1,3 +1,36 @@
+export const homeFaqs = [
+  {
+    question: 'Is PDFtoolify free to use?',
+    answer:
+      'Yes, PDFtoolify is completely free. All our PDF tools, including merge, split, compress, and convert, can be used without any signup or hidden charges.',
+  },
+  {
+    question: 'Do I need to create an account to use PDFtoolify?',
+    answer:
+      'No, you do not need to sign up or log in. Just visit the tool you need, upload your file, and get your result instantly.',
+  },
+  {
+    question: 'Is it safe to upload my PDF files to PDFtoolify?',
+    answer:
+      'Yes, your files are processed securely over an encrypted connection. PDFtoolify automatically deletes uploaded files from the server after processing, so your documents are never stored long-term.',
+  },
+  {
+    question: 'What PDF tools does PDFtoolify offer?',
+    answer:
+      'PDFtoolify offers a full suite of tools including merge, split, compress, extract, JPG to PDF, PDF to JPG, Word to PDF, protect, unlock, add watermark, add page numbers, add pages, and more.',
+  },
+  {
+    question: 'Can I use PDFtoolify on my phone?',
+    answer:
+      'Yes, PDFtoolify works directly in your mobile browser on any device, so you can merge, convert, or edit PDFs from your phone or tablet without installing an app.',
+  },
+  {
+    question: 'Will using PDFtoolify reduce the quality of my documents?',
+    answer:
+      'No, our tools are designed to preserve the original quality of your documents. Only the specific change you request, such as merging or compressing, is applied.',
+  },
+]
+
 export const mergePDFFaqs = [
   {
     question: 'Is PDFtoolify Really Free?',
