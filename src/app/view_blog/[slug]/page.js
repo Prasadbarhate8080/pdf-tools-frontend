@@ -57,13 +57,13 @@ export async function generateMetadata({ params }) {
       description,
 
       alternates: {
-        canonical: `/blog/${slug}`,
+        canonical: `/view_blog/${slug}`,
       },
 
       openGraph: {
         title: post.title,
         description,
-        url: `/blog/${slug}`,
+        url: `/view_blog/${slug}`,
         siteName: "PDFtoolify",
         type: "article",
 
