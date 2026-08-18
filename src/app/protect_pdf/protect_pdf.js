@@ -53,6 +53,8 @@ function Protect() {
     isUploading,
     downloadFileURL,
     serverPreparing,
+    setCompletionStatus,
+    setdownloadFileURL,
     progress,
     setisDroped,
     setFiles,

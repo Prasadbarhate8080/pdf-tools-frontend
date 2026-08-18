@@ -159,10 +159,10 @@ export const HomePageToolsSection = () => {
                 <tool.icon className="w-5 h-5 text-primary" />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-foreground mb-0.5 group-hover:text-primary transition-colors flex items-center gap-1">
+                <h5 className="font-semibold text-foreground mb-0.5 group-hover:text-primary transition-colors flex items-center gap-1">
                   {tool.name}
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </h3>
+                </h5> 
                 <p className="text-sm text-muted-foreground leading-relaxed">{tool.description}</p>
               </div>
             </motion.span>

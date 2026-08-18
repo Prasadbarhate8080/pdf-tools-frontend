@@ -95,7 +95,10 @@ function Home() {
         <MostUsefullTools />
         <PDFFeatures />
         <DownloadSoftware />
+        <div className='max-w-6xl mx-auto'>
+        <h1 className='text-center text-5xl'>Frequently Asked Questions/FAQs</h1>
         <FaqSection faqs={homeFaqs} />
+        </div>
       </main>
     </>
   )
