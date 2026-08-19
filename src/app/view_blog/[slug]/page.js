@@ -39,7 +39,7 @@ export async function generateMetadata({ params }) {
         title: "Post Not Found | PDFtoolify",
         description: "The requested blog post could not be found.",
       };
-    }
+    } 
 
     const description =
       post.description ||
