@@ -10,7 +10,7 @@ export const metadata = {
     description:
       "Read the terms and conditions for using PDFToolify's online PDF tools and services.",
     type: "website",
-    url: "https://pdftoolify.com/terms-and-conditions",
+    url: "https://www.pdftoolify.com/terms-and-conditions",
   },
   twitter: {
     card: "summary_large_image",
@@ -19,7 +19,7 @@ export const metadata = {
       "Read the terms and conditions for using PDFToolify's online PDF tools and services.",
   },
   alternates: {
-    canonical: "https://pdftoolify.com/terms-and-conditions",
+    canonical: "https://www.pdftoolify.com/terms-and-conditions",
   },
 };
 

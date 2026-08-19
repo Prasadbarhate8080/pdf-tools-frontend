@@ -9,7 +9,7 @@ export const metadata = {
     description:
       "Learn how PDFToolify collects, uses, and protects your information when you use our online PDF tools.",
     type: "website",
-    url: "https://pdftoolify.com/privacy-policy",
+    url: "https://www.pdftoolify.com/privacy-policy",
   },
   twitter: {
     card: "summary_large_image",
@@ -18,7 +18,7 @@ export const metadata = {
       "Learn how PDFToolify collects, uses, and protects your information when you use our online PDF tools.",
   },
   alternates: {
-    canonical: "https://pdftoolify.com/privacy-policy",
+    canonical: "https://www.pdftoolify.com/privacy-policy",
   },
 };
 

@@ -10,7 +10,7 @@ export const metadata = {
     description:
       "Read the disclaimer for PDFToolify's online PDF tools and services.",
     type: "website",
-    url: "https://pdftoolify.com/disclaimer",
+    url: "https://www.pdftoolify.com/disclaimer",
   },
   twitter: {
     card: "summary_large_image",
@@ -19,7 +19,7 @@ export const metadata = {
       "Read the disclaimer for PDFToolify's online PDF tools and services.",
   },
   alternates: {
-    canonical: "https://pdftoolify.com/disclaimer",
+    canonical: "https://www.pdftoolify.com/disclaimer",
   },
 };
 
