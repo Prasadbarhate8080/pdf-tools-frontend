@@ -2,6 +2,7 @@ import PageNO from './add_page_no'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
+import { addPageNoFaq } from '@/data/faqs'
 
 export const metadata = {
   title: 'Add Page Numbers to PDF Online - Free Page Numbering',
@@ -24,48 +25,16 @@ function page() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Is PDFtoolify really free?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, PDFtoolify is completely free. You can add page numbers to your PDF files without any signup or hidden charges.',
-          },
+      mainEntity: addPageNoFaq.map((faq) => {
+      return {
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          'text': faq.answer,
         },
-        {
-          '@type': 'Question',
-          name: 'How can I add page numbers to my PDF?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Upload your PDF, choose the page number position, then click “Add Page Numbers.” Your updated PDF will be ready instantly.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Will adding page numbers change my PDF quality?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No, adding page numbers does not affect your PDF content or quality. Only clean and accurate numbering is added.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is it safe to upload my PDFs?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, your files are processed securely. PDFtoolify automatically deletes your PDFs from the server after processing to ensure privacy.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I customize the page numbers?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, you can choose the page number position and alignment to match your document’s requirements.',
-          },
-        },
-      ],
+      }
+    }),
     },
   ]
   return (
@@ -81,10 +50,10 @@ function page() {
         <div className="container py-20 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              Add Page Numbers Blog Articles
+              Add Page Numbers to PDF Blog Articles
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              Learn more about organizing and numbering PDF pages
+              Learn more about PDF page Numbering and Managing
             </p>
           </div>
           <Posts toolName={'ADD_PAGE_NO'} />

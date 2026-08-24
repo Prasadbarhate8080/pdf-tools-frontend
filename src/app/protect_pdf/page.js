@@ -3,6 +3,7 @@ import Protect from './protect_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
+import { protectPdfFaqs } from '@/data/faqs'
 
 export const metadata = {
   title: 'Protect PDF Online - Password Protect Your PDF',
@@ -22,56 +23,16 @@ function page() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Is PDFtoolify really free for protecting PDFs?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. PDFtoolify is completely free to use. You can lock your PDF files with a password without any signup or charges.',
-          },
+      mainEntity: protectPdfFaqs.map((faq) => {
+      return {
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          'text': faq.answer,
         },
-        {
-          '@type': 'Question',
-          name: 'How can I protect my PDF using PDFtoolify?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Simply upload your PDF, enter a password, and click “Protect PDF.” Your file will instantly be encrypted with strong security.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Will protecting a PDF reduce its quality?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No. Protecting your PDF only adds encryption. Your content, layout, text, and images remain unchanged.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is it safe to protect my PDF online?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. PDFtoolify uses secure processing, and your files are automatically deleted after encryption to ensure complete privacy.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I protect PDF files offline with PDFtoolify?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. You can download PDFtoolify for Windows and protect your files offline without needing internet access.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Does protecting a PDF cost anything?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No. Adding a password to your PDF using PDFtoolify is completely free.',
-          },
-        },
-      ],
+      }
+    }),
     },
   ]
   return (

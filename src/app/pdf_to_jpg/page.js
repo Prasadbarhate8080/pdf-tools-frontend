@@ -3,6 +3,7 @@ import PDFToJPG from './pdf_to_jpg'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
+import { pdfToJpgFaqs } from '@/data/faqs'
 export const metadata = {
   title: 'PDF to JPG Converter Online - Extract Images from PDF',
   description:
@@ -21,56 +22,16 @@ function page() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Is PDFtoolify’s PDF to JPG converter free?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, PDFtoolify is completely free to use. You can convert any PDF page into a JPG image without creating an account.',
-          },
+      mainEntity: pdfToJpgFaqs.map((faq) => {
+      return {
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          'text': faq.answer,
         },
-        {
-          '@type': 'Question',
-          name: 'How can I convert a PDF to JPG using PDFtoolify?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Just upload your PDF file and click “Convert to JPG.” PDFtoolify will instantly turn each PDF page into a high-quality JPG image.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Will the image quality change after conversion?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No. The JPG images maintain excellent clarity and resolution. PDFtoolify ensures your output remains sharp and accurate.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is it safe to convert PDF files to JPG online?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. Your files are processed securely, and PDFtoolify automatically deletes all PDFs and images after the conversion is completed.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I convert all pages of a PDF to JPG?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Absolutely. You can convert a single page or all pages of a PDF—PDFtoolify handles multi-page conversion with ease.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Does converting PDF to JPG cost anything?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No, PDF to JPG conversion on PDFtoolify is completely free—no hidden fees or subscription required.',
-          },
-        },
-      ],
+      }
+    }),
     },
   ]
   return (

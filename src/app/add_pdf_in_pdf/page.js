@@ -3,6 +3,7 @@ import AddPdfInPdf from './add_pdf_in_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
+import { addPdfInPdfFaqs } from '@/data/faqs'
 export const metadata = {
   title: 'Insert PDF into PDF Online - Merge PDFs Anywhere',
   description:
@@ -21,56 +22,16 @@ function page() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Is PDFtoolify’s Add PDF in PDF tool free?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, PDFtoolify is completely free. You can insert one PDF into another without any signup or hidden charges.',
-          },
+      mainEntity: addPdfInPdfFaqs.map((faq) => {
+      return {
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          'text': faq.answer,
         },
-        {
-          '@type': 'Question',
-          name: 'How can I add a PDF inside another PDF?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Upload your main PDF, choose the page number where you want to insert the new PDF, select the second file, and PDFtoolify will insert it instantly.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Will adding a PDF affect the quality of my document?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No, the quality remains the same. PDFtoolify preserves original text, images, and formatting while adding pages.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is it safe to upload my PDFs online?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, your files are processed securely. PDFtoolify automatically deletes your PDFs after completion to ensure privacy.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I insert multiple pages or entire PDFs?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Absolutely. You can add a full PDF or selected pages, and place them exactly where you want in the main document.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is there any limit on how many PDFs I can add?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No limits. You can insert as many PDFs as you want—PDFtoolify is completely free and unlimited.',
-          },
-        },
-      ],
+      }
+    }),
     },
   ]
   return (

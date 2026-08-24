@@ -3,6 +3,7 @@ import Compress from './compress_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
+import { compressPdfFaqs } from '@/data/faqs'
 
 export const metadata = {
   title: 'Compress PDF Files Online - Reduce PDF Size Fast',
@@ -22,56 +23,16 @@ function page() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Is PDFtoolify’s compressor free?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, PDFtoolify is completely free to use. You can compress PDFs without signing up.',
-          },
+      mainEntity: compressPdfFaqs.map((faq) => {
+      return {
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          'text': faq.answer,
         },
-        {
-          '@type': 'Question',
-          name: 'Will compression affect PDF quality?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No, your PDF remains clear and readable. We optimize size while preserving quality.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is it safe to compress PDFs online?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. Files are processed securely and deleted automatically after completion.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I compress large PDF files?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Absolutely. PDFtoolify handles large files quickly and reliably.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Do I need to install anything?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No. The compressor works in your browser with no downloads required.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Does compression cost anything?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No, PDF compression with PDFtoolify is 100% free and unlimited.',
-          },
-        },
-      ],
+      }
+    }),
     },
   ]
   return (

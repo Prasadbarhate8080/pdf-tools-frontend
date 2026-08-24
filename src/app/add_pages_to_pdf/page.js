@@ -3,6 +3,7 @@ import AddPagesInPdf from './add_pages_to_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
+import { addPagesFaqs } from '@/data/faqs'
 
 export const metadata = {
   title: 'Add Pages to PDF Online - Free PDF Page Inserter',
@@ -22,56 +23,16 @@ function page() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Is PDFtoolify really free?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, PDFtoolify is completely free. You can add pages to your PDF files without creating an account.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'How can I add pages to a PDF using PDFtoolify?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Simply upload your PDF, insert blank or image pages where you want them, and click Export PDF. PDFtoolify will instantly generate your updated document.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Will the quality of my PDF change after adding pages?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No, the original quality and formatting of your PDF remain unchanged. New pages are inserted without distortion.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is it safe to add pages to my PDF online?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. PDFtoolify uses secure processing, and all uploaded files are automatically deleted after completion to protect your privacy.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I add pages offline using PDFtoolify?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. Download the Windows version of PDFtoolify to add pages to your PDF even without internet access.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Does adding pages to a PDF cost anything?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No, adding pages with PDFtoolify is 100% free with no hidden fees.',
-          },
-        },
-      ],
+      mainEntity: addPagesFaqs.map((faq) => {
+            return {
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                'text': faq.answer,
+              },
+            }
+          }),
     },
   ]
   return (

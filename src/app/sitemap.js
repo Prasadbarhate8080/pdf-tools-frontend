@@ -15,18 +15,19 @@ const staticRoutes = [
   '/add_watermark',
   '/add_page_no',
   '/add_pages_to_pdf',
+  '/protect_pdf',
+  
   '/blogs',
   '/about-us',
   '/contact-us',
   '/privacy-policy',
-  '/protect_pdf',
   '/disclaimer',
-  'terms-and-conditions',
+  '/terms-and-conditions',
 
   '/add_pdf_in_pdf',
   '/extract_pdf',
-  '/create_pdf',
   '/pdf_to_jpg',
+  '/create_pdf',
   '/jpg_to_pdf',
   '/png_to_pdf',
 ]

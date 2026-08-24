@@ -3,6 +3,7 @@ import ExtractPdf from './extract_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
+import { extractPdfFaqs } from '@/data/faqs'
 export const metadata = {
   title: 'Extract Pages from PDF Online - Free PDF Extractor',
   description:
@@ -21,56 +22,16 @@ function page() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'What is the Extract PDF tool?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Extract PDF allows you to select specific pages from your PDF and download them as a new PDF file.',
-          },
+      mainEntity: extractPdfFaqs.map((faq) => {
+      return {
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          'text': faq.answer,
         },
-        {
-          '@type': 'Question',
-          name: 'How do I extract pages from a PDF?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Upload your PDF, select the pages you need, and click on “Extract pages”. Your new PDF will be ready instantly.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is there any quality loss after extracting pages?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No. The extracted PDF maintains the exact same quality as the original pages.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is it safe to upload my PDF for extraction?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. Your files are processed securely, and they are removed automatically after extraction is completed.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I extract multiple pages at once?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. You can select multiple pages at the same time and extract them together into a single PDF.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is the Extract PDF tool free?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, PDFtoolify’s Extract PDF tool is completely free to use without signup.',
-          },
-        },
-      ],
+      }
+    }),
     },
   ]
   return (

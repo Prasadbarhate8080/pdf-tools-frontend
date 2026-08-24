@@ -72,80 +72,78 @@ export const mergePDFFeatures = [
 export const addPageNoFeatures = [
   {
     icon: MousePointerClick,
-    heading: "Easy to Use",
+    heading: 'Easy to Use',
     paragraph:
-      "Adding page numbers to your PDFs is super simple. Just upload your file and apply numbering in one click.",
+      'Adding page numbers to your pdf is very simple. You only have to upload the pdf select numbering position and click the button. ',
   },
   {
     icon: Gift,
-    heading: "Free & No Sign Up",
+    heading: 'Free & No Sign Up',
     paragraph:
-      "Add page numbers to unlimited PDFs online for free. No account or registration required.",
+      'Add page numbers to unlimited PDFs online for free. We are currently not charging for this tool.',
   },
   {
     icon: InfinityIcon,
-    heading: "Customize as You Want",
-    paragraph:
-      "Choose numbering position and alignment to match your document’s needs.",
+    heading: 'Easily Customizable ',
+    paragraph: 'Choose the numbering position and as you want.',
   },
   {
     icon: BadgeCheck,
-    heading: "Accurate Page Numbering",
-    paragraph:
-      "Clean, precise placement of page numbers on every page without affecting your original layout.",
+    heading: 'Accurate Page Numbering',
+    paragraph: 'Clean and precise placement of page numbers on every page with no any mistake.',
   },
   {
     icon: ShieldCheck,
-    heading: "Secure Online Processing",
+    heading: 'Secure Processing',
     paragraph:
-      "Your files are deleted automatically after processing. PDFtoolify keeps your documents private and secure.",
+      'For adding page number your files are procesed on your browser so there is no any security risk.',
   },
   {
     icon: Zap,
-    heading: "Fast & Powerful",
+    heading: '100% client Side',
     paragraph:
-      "Add page numbers to your PDFs within seconds. Quick processing with high-quality output.",
+      "This tool is totaly works on client side. So your files doesn't leave your browser.",
   },
-];
+]
 
 export const addPagesFeatures = [
   {
     icon: MousePointerClick,
-    heading: "Easy to Use",
+    heading: 'Easy to add pages',
     paragraph:
-      "Designed to be simple and intuitive so anyone can easily add new pages to a PDF without technical knowledge.",
+      'Focused on simplycity while designing the ui to help user to learn operation quickely.',
   },
   {
     icon: Gift,
-    heading: "Free & No Sign Up",
+    heading: '100% client side',
     paragraph:
-      "Add pages to your PDF files online for free—no account required. No hidden charges, no limits.",
+      'This tool processes your PDFs so there is no need to send your files on server and no security risk.',
   },
   {
     icon: FilePlus,
-    heading: "Add Unlimited Pages",
+    heading: 'Add Unlimited Pages',
     paragraph:
-      "Insert as many pages as you want—images or blank pages. Organize them easily before downloading.",
+      'Add as many pages as you want to add and make your work done.',
   },
   {
     icon: BadgeCheck,
-    heading: "Accurate Page Insertion",
+    heading: 'Accurate Page Insertion',
     paragraph:
-      "Add your new pages exactly where you want them. Our tool maintains original formatting and quality.",
+      'This tool inserts the page very accurately at specified position.',
   },
   {
     icon: ShieldCheck,
-    heading: "Secure & Private",
+    heading: 'Userfriendly interface',
     paragraph:
-      "Your files stay safe. All uploaded documents are automatically deleted after processing to protect your privacy.",
+      'Interface is very userfriendly so it doesnt feel complex and easy to do the operations.',
   },
   {
     icon: Zap,
-    heading: "Fast & Powerful",
+    heading: 'Proper PDF preview',
     paragraph:
-      "Add pages to your PDF in seconds with high processing speed. Reliable, fast, and built for performance.",
+      'Preview of each PDF or PDF pages is provided hence you can easily identify your PDFs or pages.',
   },
-];
+]
 
 export const addPdfInPdfFeatures = [
   {
@@ -184,7 +182,7 @@ export const addPdfInPdfFeatures = [
     paragraph:
       'Experience lightning-fast PDF insertion with optimized performance and high-quality output.',
   },
-];
+]
 
 export const addWatermarkFeatures = [
   {
@@ -202,74 +200,63 @@ export const addWatermarkFeatures = [
   {
     icon: InfinityIcon,
     heading: 'Watermarks Without Limits',
-    paragraph:
-      'Apply watermarks to any number of pages — from a single page to a full document.',
+    paragraph: 'Apply watermarks to any number of pages — from a single page to a full document.',
   },
   {
     icon: BadgeCheck,
     heading: 'Customizable Watermarks',
-    paragraph:
-      'Choose your text, size, opacity, rotation, and placement for a professional look.',
+    paragraph: 'Choose your text, size, opacity, rotation, and placement for a professional look.',
   },
   {
     icon: ShieldCheck,
     heading: 'Secure Online Processing',
-    paragraph:
-      'Your files stay safe. Documents are processed securely and deleted automatically.',
+    paragraph: 'Your files stay safe. Documents are processed securely and deleted automatically.',
   },
   {
     icon: Zap,
     heading: 'Fast & Powerful',
-    paragraph:
-      'PDFtoolify applies watermarks in seconds — reliable, smooth, and lightning fast.',
+    paragraph: 'PDFtoolify applies watermarks in seconds — reliable, smooth, and lightning fast.',
   },
-];
+]
 
 export const compressPdfFeatures = [
   {
     icon: MousePointerClick,
     heading: 'Easy to Use',
-    paragraph:
-      'Compress PDFs in just a few clicks with a clean, intuitive interface.',
+    paragraph: 'Compress PDFs in just a few clicks with a clean, intuitive interface.',
   },
   {
     icon: Gift,
     heading: 'Free & No Sign Up',
-    paragraph:
-      'Compress unlimited PDFs for free — no account, no hidden fees.',
+    paragraph: 'Compress unlimited PDFs for free — no account, no hidden fees.',
   },
   {
     icon: InfinityIcon,
     heading: 'Compress Without Limits',
-    paragraph:
-      'Reduce file size for single or multiple PDFs with consistent results.',
+    paragraph: 'Reduce file size for single or multiple PDFs with consistent results.',
   },
   {
     icon: BadgeCheck,
     heading: 'Quality Preserved',
-    paragraph:
-      'Maintain text clarity and layout while shrinking your PDF size.',
+    paragraph: 'Maintain text clarity and layout while shrinking your PDF size.',
   },
   {
     icon: ShieldCheck,
     heading: 'Secure Compression',
-    paragraph:
-      'Files are processed securely and deleted automatically after completion.',
+    paragraph: 'Files are processed securely and deleted automatically after completion.',
   },
   {
     icon: Zap,
     heading: 'Fast & Efficient',
-    paragraph:
-      'Optimized compression for quick results and smooth downloads.',
+    paragraph: 'Optimized compression for quick results and smooth downloads.',
   },
-];
+]
 
 export const createPdfFeatures = [
   {
     icon: Plus,
     heading: 'Create PDF Easily',
-    paragraph:
-      'Add your images and generate a clean, professional PDF in just a few clicks.',
+    paragraph: 'Add your images and generate a clean, professional PDF in just a few clicks.',
   },
   {
     icon: Gift,
@@ -280,8 +267,7 @@ export const createPdfFeatures = [
   {
     icon: FilePlus,
     heading: 'Multi-page PDF Support',
-    paragraph:
-      'Combine multiple images into a single PDF document, perfectly ordered and aligned.',
+    paragraph: 'Combine multiple images into a single PDF document, perfectly ordered and aligned.',
   },
   {
     icon: BadgeCheck,
@@ -301,7 +287,7 @@ export const createPdfFeatures = [
     paragraph:
       'Convert images to PDF in seconds — designed for speed, accuracy, and smooth workflow.',
   },
-];
+]
 
 export const extractPdfFeatures = [
   {
@@ -340,7 +326,7 @@ export const extractPdfFeatures = [
     paragraph:
       'Built with advanced technology, our extractor processes files quickly. Get your selected pages in just seconds—fast, reliable, and professional.',
   },
-];
+]
 
 export const jpgToPdfFeatures = [
   {
@@ -379,7 +365,7 @@ export const jpgToPdfFeatures = [
     paragraph:
       'Experience extremely fast JPG to PDF conversion. Get your final PDF in seconds—optimized for performance and accuracy.',
   },
-];
+]
 
 export const pdfToJpgFeatures = [
   {
@@ -418,7 +404,7 @@ export const pdfToJpgFeatures = [
     paragraph:
       'Our optimized engine converts PDF pages to JPGs within seconds—fast, reliable, and perfect for professional use.',
   },
-];
+]
 
 export const pdfToPdfaFeatures = [
   {
@@ -457,7 +443,7 @@ export const pdfToPdfaFeatures = [
     paragraph:
       'Powered by advanced technology, the converter processes your files quickly — get your PDF/A output within seconds.',
   },
-];
+]
 
 export const pngToPdfFeatures = [
   {
@@ -496,7 +482,7 @@ export const pngToPdfFeatures = [
     paragraph:
       'Enjoy lightning-fast PNG to PDF conversion. Optimized for speed and accuracy to deliver your final PDF within seconds.',
   },
-];
+]
 
 export const protectPdfFeatures = [
   {
@@ -535,7 +521,7 @@ export const protectPdfFeatures = [
     paragraph:
       'Protect your PDF in just seconds. Our optimized engine encrypts files quickly while ensuring top-level security.',
   },
-];
+]
 
 export const unlockPdfFeatures = [
   {
@@ -652,7 +638,7 @@ export const removePdfPagesFeatures = [
     paragraph:
       'Powered by optimized processing, our tool removes pages within seconds. Fast, reliable, and professional for everyday use.',
   },
-];
+]
 
 export const splitPdfFeatures = [
   {
@@ -682,8 +668,7 @@ export const splitPdfFeatures = [
   {
     icon: Sparkles,
     heading: 'Secure Online PDF splitting',
-    paragraph:
-      'Split PDFs securely without any risk of data leaks.',
+    paragraph: 'Split PDFs securely without any risk of data leaks.',
   },
   {
     icon: Smartphone,
@@ -691,4 +676,4 @@ export const splitPdfFeatures = [
     paragraph:
       'Your split documents maintain the same quality and formatting as the original file—no loss.',
   },
-];
+]

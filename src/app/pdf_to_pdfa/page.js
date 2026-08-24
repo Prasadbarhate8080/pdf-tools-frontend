@@ -3,6 +3,7 @@ import Pdfa from './pdf_to_pdfa'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
+import { pdfToPdfaFaqs } from '@/data/faqs'
 export const metadata = {
   title: 'Convert PDF to PDF/A for Long-Term Archiving',
   description:
@@ -20,56 +21,16 @@ function page() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Is PDFtoolify Really Free?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, PDFtoolify is completely free. You can convert your regular PDF files to PDF/A format without any signup.',
-          },
+      mainEntity: pdfToPdfaFaqs.map((faq) => {
+      return {
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          'text': faq.answer,
         },
-        {
-          '@type': 'Question',
-          name: 'How can I convert a PDF to PDF/A using PDFtoolify?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Upload your PDF file and click “Convert to PDF/A.” PDFtoolify will automatically generate a fully compliant PDF/A document for long-term archiving.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Will PDF/A conversion change my file quality?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No, the conversion preserves your documents fonts, layout, and formatting while ensuring PDF/A compliance for future readability.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is it safe to convert my PDF to PDF/A online?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. PDFtoolify processes your files securely, and all uploaded documents are automatically deleted after conversion to protect your privacy.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I convert to PDF/A offline?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. You can download the Windows version of PDFtoolify to convert PDF files to PDF/A even without an internet connection.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Does converting to PDF/A cost anything?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No, converting PDFs to PDF/A using PDFtoolify is completely free and unlimited.',
-          },
-        },
-      ],
+      }
+    }),
     },
   ]
   return (

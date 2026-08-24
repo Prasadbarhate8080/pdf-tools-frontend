@@ -7,19 +7,19 @@ export const mergePDFBenefits = [
 ]
 
 export const addPageNoBenefits = [
-  "Our free page number tool works perfectly on any device",
-  "Easily add page numbers to your PDF with PDFtoolify",
-  "PDFtoolify is secure, fast, and simple for all PDF operations",
-  "No signup required — add page numbers instantly",
-  "Add page numbers to PDFs in seconds — free, reliable, and easy to use",
+  "If there is page numbers on pdf it will help to find pages.",
+  "You can easily tell someone page number to find page.",
+  "Adding page number on a pdf will save your time.",
+  "PDFs with page numbers looks more proffesional.",
+  "PDFs with page number helps a lot while teaching and studying.",
 ];
 
 export const addPagesBenefits = [
-  "Add new pages to any PDF easily using PDFtoolify",
-  "Upload images and insert them anywhere in your document",
-  "Simple and secure tool for editing and updating PDFs online",
-  "No signup needed — add pages to your PDF instantly",
-  "Add pages in seconds — fast, free, and reliable experience",
+  "This tool will save your time of recreating pdfs.",
+  "It will minimize your chances of making mistakes if you tried to make new pdfs.",
+  "It will help you to finish your work earlier.",
+  "This tool will help you to add new pages into your pdfs.",
+  "You can insert an image or blank page using this tool.",
 ];
 
 export const addPdfInPdfBenefits = [

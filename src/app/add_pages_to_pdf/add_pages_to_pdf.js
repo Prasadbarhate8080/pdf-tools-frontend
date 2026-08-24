@@ -216,7 +216,7 @@ function AddPagesInPdf() {
         <ToolHeader
           sparklesText={'Free Online Add Pages to PDF'}
           headings={['Add', 'Pages to PDF', 'Easily']}
-          text={' Insert blank or image pages anywhere in your PDF — free, fast, and secure.'}
+          text={'Insert images or blank pages into your pdf using these powerfull tool.'}
         />
       )}
       {!isDroped && (
@@ -229,12 +229,12 @@ function AddPagesInPdf() {
             accept={{ 'application/pdf': [] }}
           />
           <BenefitsSection
-            heading={'Add pages to your PDF online for free'}
+            heading={'How this tool will improve your efficiency'}
             benefits={addPagesBenefits}
           />
           <FeatureCardSection
             tool={'Add Pages to PDF'}
-            text="Powerful tools to insert new pages exactly where you need them"
+            text="Powerful tool to insert new pages exactly where you need them to insert."
             features={addPagesFeatures}
           />
           <HowToSection

@@ -149,10 +149,10 @@ function PageNO() {
     <div className="min-h-screen bg-background">
       {!completionStatus && !isDroped && (
         <ToolHeader
-          sparklesText={'Free Online Page Number Adder'}
+          sparklesText={'Online PDF Page Number Adder'}
           headings={['Add', 'Page Numbers', 'to PDF']}
           text={
-            'Quickly add clear, consistent page numbers to your PDF documents — free, fast, and secure.'
+            'PDFtoolify will help you to add the Clear page numbers on your PDF pages.'
           }
         />
       )}
@@ -172,13 +172,13 @@ function PageNO() {
             />
             {/* Benefits Section */}
             <BenefitsSection
-              heading={'Add page numbers to your PDF online for free'}
+              heading={'How adding page numbers helps'}
               benefits={addPageNoBenefits}
             />
             {/* feature card section */}
             <FeatureCardSection
               tool={'Add Page Numbers'}
-              text="Everything you need to add clean, professional page numbers to your PDFs"
+              text="We are providing best quality features for adding page numbers on your PDFs."
               features={addPageNoFeatures}
             />
             {/* how to section */}

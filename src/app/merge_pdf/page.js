@@ -3,6 +3,7 @@ import Merge from './merge_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
+import { mergePDFFaqs } from '@/data/faqs'
 export const metadata = {
   title: 'Merge PDF Files Online - Combine Multiple PDFs into One',
   description:
@@ -20,56 +21,16 @@ function page() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'Is PDFtoolify Really Free?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes, PDFtoolify is completely free to use. You can easily use PDFtoolify for your work without any signup or hidden charges.',
-          },
+      mainEntity: mergePDFFaqs.map((faq) => {
+      return {
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          'text': faq.answer,
         },
-        {
-          '@type': 'Question',
-          name: 'How can I merge PDF files with PDFtoolify?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'You just need to upload your PDF files, arrange them in order, and click on "Merge." PDFtoolify will instantly combine them into a single file.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Will the quality of my PDFs change after merging?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No, the merged PDF keeps the same quality and formatting as your original files.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Is it safe to merge my PDFs online?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. PDFtoolify uses secure processing, and your files are deleted automatically after completion to ensure privacy.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I merge PDFs offline with PDFtoolify?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. You can download PDFtoolify for Windows and merge files offline without internet access.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'How many PDF files can I merge at once?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'You can merge up to 50 files at once.',
-          },
-        },
-      ],
+      }
+    }),
     },
   ]
   return (

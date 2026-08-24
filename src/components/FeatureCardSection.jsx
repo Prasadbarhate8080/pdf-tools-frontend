@@ -19,7 +19,7 @@ function FeatureCardSection({tool,text="Everything you need to manage your PDF f
       <div className="container py-20">
         <div className="text-center mb-14">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-            Features of PDFtoolify - {tool}
+            Features of PDFtoolify - {tool}  Tool
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto">
            {text}

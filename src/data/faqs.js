@@ -93,9 +93,9 @@ export const splitPdfFaqs = [
 
 export const addPageNoFaq = [
   {
-    question: "Is PDFtoolify really free?",
+    question: "Is PDFtoolify Add page numbers to pdf tool free?",
     answer:
-      "Yes, PDFtoolify is completely free. You can add page numbers to your PDF files without any signup or hidden charges.",
+      "Yes, PDFtoolify Add page numbers tool is completely free, you can use it without any charges or registration.",
   },
   {
     question: "How can I add page numbers to my PDF?",
@@ -105,17 +105,17 @@ export const addPageNoFaq = [
   {
     question: "Will adding page numbers change my PDF quality?",
     answer:
-      "No, adding page numbers does not affect your PDF content or quality. Only clean and accurate numbering is added.",
+      "No, adding page numbers does not change your PDF quality. Only clean and accurate numbering is added on pages of the pdf.",
   },
   {
-    question: "Is it safe to upload my PDFs?",
+    question: "Is it safe to add page number with this tool?",
     answer:
-      "Yes, your files are processed securely. PDFtoolify automatically deletes your PDFs from the server after processing to ensure privacy.",
+      "Yes, For this tool we process your files on the client side so there is no chance of leaking of your data.",
   },
   {
-    question: "Can I customize the page numbers?",
+    question: "Can I customize the page numbers position?",
     answer:
-      "Yes, you can choose the page number position and alignment to match your documents requirements.",
+      "Yes, you can choose the page number position as you want.",
   },
 ];
 
