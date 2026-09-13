@@ -1,6 +1,6 @@
 'use client'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { useState } from 'react'
+import { ToastContainer } from 'react-toastify'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
@@ -10,20 +10,8 @@ import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import { showContent } from '@/store/hideContentSlice'
 import {
-  FileOutput,
-  Scissors,
-  Settings,
-  Smartphone,
-  Sparkles,
-  SplitIcon,
   LucideScissorsLineDashed,
-  Trash2,
-  SidebarClose,
-  SidebarOpen,
-  Download,
-  Upload,
-  CircleCheck,
-  Dot,
+  Trash2, Dot
 } from 'lucide-react'
 import { PDFDocument } from 'pdf-lib'
 import JSZip from 'jszip'
@@ -37,7 +25,6 @@ import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
 import { splitPdfFaqs } from '@/data/faqs'
 import { splitPdfHowToSteps } from '@/data/howTo'
-import FeatureCard from '@/components/FeatureCard'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
 import OperationBox from '@/components/OperationBox'
@@ -148,7 +135,7 @@ function Split() {
               accept={{ 'application/pdf': [] }}
             />
             <BenefitsSection
-              heading={'Split PDF files online for free'}
+              heading={'How splitting PDFs will make your work easy'}
               benefits={splitPdfBenefits}
             />
             <FeatureCardSection

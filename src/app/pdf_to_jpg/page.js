@@ -1,4 +1,3 @@
-import React from 'react'
 import PDFToJPG from './pdf_to_jpg'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'

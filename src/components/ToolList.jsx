@@ -1,10 +1,21 @@
-import { 
-  Merge, Split, FileImage, FileDown, Scissors, 
-  Shield, LockOpen, FileType, FilePlus, 
-  FileCheck, Brush, Hash, Shrink, FileOutput 
-} from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import {
+  Merge,
+  Split,
+  FileImage,
+  FileDown,
+  Scissors,
+  Shield,
+  LockOpen,
+  FileType,
+  FilePlus,
+  FileCheck,
+  Brush,
+  Hash,
+  Shrink,
+  FileOutput,
+} from 'lucide-react'
+import Link from 'next/link'
+import React from 'react'
 
 function ToolList() {
   return (
@@ -14,114 +25,104 @@ function ToolList() {
       </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10 sm:gap-30 w-fit mx-auto text-gray-700">
-
         {/* Column 1 */}
         <ul className="flex flex-col gap-10">
-
-          <Link href="/merge_pdf">
-            <li className="flex items-center gap-2 hover:text-blue-400 transition cursor-pointer">
+          <li className="flex items-center gap-2 hover:text-blue-400 transition cursor-pointer">
+            <Link href="/merge_pdf">
               <Merge className="text-blue-400" strokeWidth={0.7} /> Merge PDF
-            </li>
-          </Link>
+            </Link>
+          </li>
 
-          <Link href="/split_pdf">
-            <li className="flex items-center gap-2 hover:text-green-400 transition cursor-pointer">
+          <li className="flex items-center gap-2 hover:text-green-400 transition cursor-pointer">
+            <Link href="/split_pdf">
               <Split className="text-green-400" strokeWidth={0.7} /> Split PDF
-            </li>
-          </Link>
+            </Link>
+          </li>
 
-          <Link href="/extract_pdf">
-            <li className="flex items-center gap-2 hover:text-green-400 transition cursor-pointer">
+          <li className="flex items-center gap-2 hover:text-green-400 transition cursor-pointer">
+            <Link href="/extract_pdf">
               <FileOutput className="text-green-400" strokeWidth={0.7} /> Extract Pages
-            </li>
-          </Link>
+            </Link>
+          </li>
 
-          <Link href="/jpg_to_pdf">
-            <li className="flex items-center gap-2 hover:text-red-400 transition cursor-pointer">
+          <li className="flex items-center gap-2 hover:text-red-400 transition cursor-pointer">
+            <Link href="/jpg_to_pdf">
               <FileImage className="text-red-400" strokeWidth={0.7} /> JPG to PDF
-            </li>
-          </Link>
-
+            </Link>
+          </li>
         </ul>
 
         {/* Column 2 */}
         <ul className="flex flex-col gap-10">
-
-          <Link href="/pdf_to_jpg">
-            <li className="flex items-center gap-2 hover:text-red-400 transition cursor-pointer">
+          <li className="flex items-center gap-2 hover:text-red-400 transition cursor-pointer">
+            <Link href="/pdf_to_jpg">
               <FileDown className="text-red-400" strokeWidth={0.7} /> PDF to JPG
-            </li>
-          </Link>
+            </Link>
+          </li>
 
-          <Link href="/compress_pdf">
-            <li className="flex items-center gap-2 hover:text-blue-400 transition cursor-pointer">
+          <li className="flex items-center gap-2 hover:text-blue-400 transition cursor-pointer">
+            <Link href="/compress_pdf">
               <Shrink className="text-blue-400" strokeWidth={0.7} /> Compress PDF
-            </li>
-          </Link>
+            </Link>
+          </li>
 
-          <Link href="/protect_pdf">
             <li className="flex items-center gap-2 hover:text-blue-400 transition cursor-pointer">
+          <Link href="/protect_pdf">
               <Shield className="text-blue-400" strokeWidth={0.7} /> Protect PDF
-            </li>
           </Link>
+            </li>
 
-          <Link href="/remove_pdf_pages">
             <li className="flex items-center gap-2 hover:text-green-400 transition cursor-pointer">
+          <Link href="/remove_pdf_pages">
               <Scissors className="text-green-400" strokeWidth={0.7} /> Remove Pages
-            </li>
           </Link>
-
+            </li>
         </ul>
 
         {/* Column 3 */}
         <ul className="flex flex-col gap-10">
-
-          <Link href="/add_pages_to_pdf">
             <li className="flex items-center gap-2 hover:text-green-400 transition cursor-pointer">
+          <Link href="/add_pages_to_pdf">
               <FilePlus className="text-green-400" strokeWidth={0.7} /> Add Pages
-            </li>
           </Link>
+            </li>
 
+            <li className="flex items-center gap-2 hover:text-red-400 transition cursor-pointer">
           <Link href="/unlock_pdf">
-            <li className="flex items-center gap-2 hover:text-red-400 transition cursor-pointer">
               <LockOpen className="text-red-400" strokeWidth={0.7} /> Unlock PDF
-            </li>
           </Link>
+            </li>
 
-          <Link href="/word_to_pdf">
             <li className="flex items-center gap-2 hover:text-red-400 transition cursor-pointer">
+          <Link href="/word_to_pdf">
               <FileType className="text-red-400" strokeWidth={0.7} /> Word to PDF
-            </li>
           </Link>
+            </li>
 
-          <Link href="/pdf_to_pdfa">
             <li className="flex items-center gap-2 hover:text-blue-400 transition cursor-pointer">
+          <Link href="/pdf_to_pdfa">
               <FileCheck className="text-blue-400" strokeWidth={0.7} /> PDF to PDFA
-            </li>
           </Link>
-
+            </li>
         </ul>
 
         {/* Column 4 */}
         <ul className="flex flex-col gap-10">
-
-          <Link href="/add_watermark">
             <li className="flex items-center gap-2 hover:text-red-400 transition cursor-pointer">
+          <Link href="/add_watermark">
               <Brush className="text-red-400" strokeWidth={0.7} /> Add Watermark
-            </li>
           </Link>
+            </li>
 
-          <Link href="/add_page_no">
             <li className="flex items-center gap-2 hover:text-green-400 transition cursor-pointer">
+          <Link href="/add_page_no">
               <Hash className="text-green-400" strokeWidth={0.7} /> Add Page Number
-            </li>
           </Link>
-
+            </li>
         </ul>
-
       </div>
     </div>
-  );
+  )
 }
 
-export default ToolList;
+export default ToolList

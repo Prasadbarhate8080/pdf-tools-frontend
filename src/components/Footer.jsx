@@ -1,13 +1,11 @@
 import { Twitter, Linkedin, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-
 const footerLinks = {
   tools: [
     { name: 'Merge PDF', href: 'https://www.pdftoolify.com/merge_pdf' },
     { name: 'Split PDF', href: 'https://www.pdftoolify.com/split_pdf' },
     { name: 'Compress PDF', href: 'https://www.pdftoolify.com/compress_pdf' },
-    { name: 'JPG to PDF', href: 'https://www.pdftoolify.com/jpg_to_pdf' },
     { name: 'PDF to JPG', href: 'https://www.pdftoolify.com/pdf_to_jpg' },
     { name: 'Word to PDF', href: 'https://www.pdftoolify.com/word_to_pdf' },
   ],
@@ -16,8 +14,7 @@ const footerLinks = {
     { name: 'Unlock PDF', href: 'https://www.pdftoolify.com/unlock_pdf' },
     { name: 'Add Watermark', href: 'https://www.pdftoolify.com/add_watermark' },
     { name: 'Extract PDF', href: 'https://www.pdftoolify.com/extract_pdf' },
-    { name: 'Create PDF', href: 'https://www.pdftoolify.com/create_pdf' },
-    { name: 'PNG to PDF', href: 'https://www.pdftoolify.com/png_to_pdf' },
+    { name: 'Create PDF', href: 'https://www.pdftoolify.com/create-pdf' },
   ],
   resources: [
     { name: 'Blogs', href: '/blogs' },
@@ -47,7 +44,7 @@ export const Footer = () => {
             <div className="col-span-2 md:col-span-3 lg:col-span-2">
               <Link href="/" className="flex items-center gap-2.5 mb-5">
                 <div className=" rounded-lg flex items-center justify-center ">
-                  <Image src={'/PDFtoolify_logo.svg'} alt="pdftoolify.com" height={36} width={36} />
+                  <Image src={'/pdftoolify_logo.svg'} alt="pdftoolify.com" height={36} width={36} />
                 </div>
                 <span className="text-xl font-bold text-foreground">
                   PDF<span className="text-primary">toolify</span>

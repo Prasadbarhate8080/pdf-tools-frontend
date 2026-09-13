@@ -1,13 +1,12 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import FadeIn from "./FadeIn";
 
 function PostCard({
   title, description, slug, imageUrl, index = 0
 }) {
   return (
-    <FadeIn delay={200 + index * 120}>
+    <div>
       <Link href={`/view_blog/${slug}`}>
         <article className="group rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300">
           <div className="aspect-video overflow-hidden bg-muted">
@@ -31,7 +30,7 @@ function PostCard({
           </div>
         </article>
       </Link>
-    </FadeIn>
+    </div>
   );
 }
 

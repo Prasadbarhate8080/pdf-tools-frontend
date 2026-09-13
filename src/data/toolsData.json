@@ -30,16 +30,6 @@
         "desc":"Extract the pages from the pdf which you want"
     },
     {
-        "href":"/jpg_to_pdf",
-        "src":"/convert.png",
-        "className":"",
-        "width":25,
-        "height":10,
-        "title":"JPG to PDF",
-        "alt":"convert jpg to pdf",
-        "desc":"Convert the jpg images into PDF"
-    },
-    {
         "href":"/pdf_to_jpg",
         "src":"/pdf_to_jpg.jpg",
         "className":"",
@@ -60,7 +50,7 @@
         "desc":"minimize the size of the pdf"
     },
     {
-        "href":"/create_pdf",
+        "href":"/create-pdf",
         "src":"/compress_pdf.png",
         "className":"",
         "width":35,
@@ -88,16 +78,6 @@
         "title":"Remove PDF Pages",
         "alt":"remove pdf pages",
         "desc":"Remove the pages from the pdf"
-    },
-    {
-        "href":"/png_to_pdf",
-        "src":"/remove_pages.jpg",
-        "className":"",
-        "width":25,
-        "height":10,
-        "title":"PNG to PDF",
-        "alt":"convert png images to pdf",
-        "desc":"create pdf file from png images"
     },
     {
         "href":"/unlock_pdf",

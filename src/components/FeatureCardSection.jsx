@@ -1,17 +1,3 @@
-import React from 'react'
-import {
-  ArrowRight,
-  CheckCircle,
-  Download,
-  Gift,
-  GitMerge,
-  Infinity as InfinityIcon,
-  Lock,
-  Shield,
-  Sparkles,
-  Upload,
-  Zap,
-} from 'lucide-react'
 import FeatureCard from './FeatureCard'
 function FeatureCardSection({tool,text="Everything you need to manage your PDF files with confidence",features}) {
   return (
@@ -21,7 +7,7 @@ function FeatureCardSection({tool,text="Everything you need to manage your PDF f
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
             Features of PDFtoolify - {tool}  Tool
           </h2>
-          <p className="text-muted-foreground max-w-lg mx-auto">
+          <p className="text-muted-foreground max-w-xl mx-auto">
            {text}
           </p>
         </div>

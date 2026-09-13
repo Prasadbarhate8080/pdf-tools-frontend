@@ -1,4 +1,3 @@
-import React from 'react'
 import Pdfa from './pdf_to_pdfa'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'

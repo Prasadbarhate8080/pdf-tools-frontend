@@ -1,5 +1,3 @@
-"use client"
-import { motion } from 'framer-motion'
 import { Users, Zap, Shield, Globe, Gift, Clock } from 'lucide-react'
 
 const features = [
@@ -43,22 +41,18 @@ export const PDFFeatures = () => {
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/3 rounded-full blur-[120px] translate-y-1/2" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-center mb-16">
+        <div className="text-center mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary mb-6">Why Us</span>
           <h2 className="section-heading text-foreground">
             Why Choose <span className="gradient-text">PDFtoolify</span>?
           </h2>
           <p className="section-subheading mx-auto mt-4">PDFtoolify is a secure and trusted PDF software with all the tools to work on PDF — free and easy to use.</p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <motion.div
+            <div
               key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
               className="group relative p-8 rounded-3xl border border-border/60 bg-card hover:border-primary/30 transition-all duration-500 hover:shadow-xl"
             >
               {/* Hover glow */}
@@ -71,7 +65,7 @@ export const PDFFeatures = () => {
                 <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

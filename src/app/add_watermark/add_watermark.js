@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
@@ -8,20 +8,11 @@ import Processing from '@/components/Processing'
 import ProgressBar from '@/components/ProgressBar'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import FileInput from '@/components/FileInput'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-import { Download, Droplet, Upload, SidebarClose, SidebarOpen, ArrowRight } from 'lucide-react'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
 import { PDFDocument, StandardFonts, rgb, degrees } from 'pdf-lib'
 import ToolList from '@/components/ToolList'
-import FadeIn from '@/components/FadeIn'
-import BlogCard from '@/components/BlogCard'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
 import { addWatermarkBenefits } from '@/data/benefits'
@@ -31,7 +22,6 @@ import { addWatermarkHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
-import { Button } from '@/components/ui/button'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
 import { useDispatch } from 'react-redux'
@@ -233,7 +223,7 @@ function AddWaterMarkPage() {
         <ToolHeader
           sparklesText={' Free Online PDF Watermarker'}
           headings={['Add', 'Watermark', 'to PDFs']}
-          text={'Customize text, placement, and opacity to protect your documents in seconds'}
+          text={'Customize text, placement, and opacity to protect your documents in seconds by adding watermark'}
         />
       )}
       <form
@@ -251,7 +241,7 @@ function AddWaterMarkPage() {
               accept={{ 'application/pdf': [] }}
             />
             <BenefitsSection
-              heading={'Add watermark to PDF online for free'}
+              heading={'How watermark can protect your documents'}
               benefits={addWatermarkBenefits}
             />
             <FeatureCardSection

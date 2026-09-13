@@ -10,7 +10,7 @@ import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
-import { Check, Dot } from 'lucide-react'
+import { Dot } from 'lucide-react'
 import { PDFDocument } from 'pdf-lib'
 import { toast } from 'react-toastify'
 import ToolList from '@/components/ToolList'
@@ -118,7 +118,7 @@ export default function ExtractPdf() {
         <ToolHeader
           sparklesText={'Free Online PDF Page Extractor'}
           headings={['Extract', 'PDF Pages', 'Instantly']}
-          text={'Extract the specific pages from the pdf easily, and make your work more simple'}
+          text={'Extract the specific pages from the pdf easily, and make your work more simple.'}
         />
       )}
 
@@ -131,12 +131,12 @@ export default function ExtractPdf() {
             accept={{ 'application/pdf': [] }}
           />
           <BenefitsSection
-            heading={'Extract PDF pages online for free'}
+            heading={'What can PDF pages extracting help you.'}
             benefits={extractPdfBenefits}
           />
           <FeatureCardSection
             tool={'Extract PDF Pages'}
-            text="Powerful tools to help you extract exactly the PDF pages you need"
+            text="Powerful tools to help you extract exactly the PDF pages you need. Using this tool you can make pdf form extracting the pages of existing PDF."
             features={extractPdfFeatures}
           />
           <HowToSection

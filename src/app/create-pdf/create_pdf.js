@@ -1,7 +1,6 @@
 'use client' // if you're using Next.js
-import React, { useState } from 'react'
-import Image from 'next/image'
-import { Document, Page, pdfjs } from 'react-pdf'
+import { useState } from 'react'
+import { pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import Processing from '@/components/Processing'
@@ -9,26 +8,18 @@ import { useFileUpload } from '@/hooks/useFileUpload'
 import FileInput from '@/components/FileInput'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
-import { Trash2, Sparkles, Dot } from 'lucide-react'
+import { Trash2, Dot } from 'lucide-react'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import { PDFDocument } from 'pdf-lib'
 import { toast } from 'react-toastify'
 import ToolList from '@/components/ToolList'
-import FadeIn from '@/components/FadeIn'
 import { showContent } from '@/store/hideContentSlice'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
-import { jpgToPdfBenefits } from '@/data/benefits'
-import { jpgToPdfFeatures } from '@/data/features'
-import { jpgToPdfFaqs } from '@/data/faqs'
-import { jpgToPdfHowToSteps } from '@/data/howTo'
-import { Button } from '@/components/ui/button'
+import { createPdfBenefits } from '@/data/benefits'
+import { createPdfFeatures } from '@/data/features'
+import { createPdfFaqs } from '@/data/faqs'
+import { createPdfHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
@@ -41,27 +32,23 @@ if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
-const JpgToPdf = () => {
+function CreatePdf() {
   const [loading, setLoading] = useState(false)
   const [images, setImages] = useState([])
   let dispatch = useDispatch()
   let {
     files,
     isDroped,
-    isProcessing,
     completionStatus,
     isUploading,
     downloadFileURL,
-    serverPreparing,
-    progress,
     setisDroped,
     setFiles,
-    callApi,
     setCompletionStatus,
     setdownloadFileURL,
   } = useFileUpload()
 
-  async function jpgToPdf() {
+  async function createPdf() {
     try {
       setLoading(true)
       let pdfDoc = await PDFDocument.create()
@@ -86,6 +73,7 @@ const JpgToPdf = () => {
         const drawWidth = imgWidth * scale
         const drawHeight = imgHeight * scale
 
+        // Center the image
         const x = (PAGE_WIDTH - drawWidth) / 2
         const y = (PAGE_HEIGHT - drawHeight) / 2
 
@@ -107,11 +95,11 @@ const JpgToPdf = () => {
         URL.revokeObjectURL(url)
       }, 10000)
     } catch (error) {
+      dispatch(showContent())
       console.log(error)
-      dispatch(showContent())
     } finally {
-      dispatch(showContent())
       setLoading(false)
+      dispatch(showContent())
     }
   }
 
@@ -121,21 +109,19 @@ const JpgToPdf = () => {
       alert('Please upload images')
       return
     }
-    jpgToPdf()
+    createPdf()
     // const formData = new FormData();
     // files.forEach((file) => formData.append("images", file));
     // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/jpg_to_pdf",formData)
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       {!completionStatus && !isDroped && (
         <ToolHeader
-          sparklesText={'Free Online JPG to PDF Converter'}
-          headings={['Create', 'PDF from JPGs', ' ']}
-          text={
-            'Convert JPG, PNG, and JPEG images into a single high-quality PDF — free, fast, and secure.'
-          }
+          sparklesText={'Free Online Image to PDF Creator'}
+          headings={['Create', 'PDF from Images', '']}
+          text={'Turn your images into polished PDFs with just few clicks. And manage your images by converting it into the PDFs.'}
         />
       )}
 
@@ -161,27 +147,28 @@ const JpgToPdf = () => {
             />
 
             <BenefitsSection
-              heading={'Create PDF from JPG & PNG images online for free'}
-              benefits={jpgToPdfBenefits}
+              heading={'What benefit you can get by using this tool'}
+              benefits={createPdfBenefits}
             />
 
             <FeatureCardSection
               tool={'Create PDF'}
-              text="Everything you need to turn your images into professional PDFs"
-              features={jpgToPdfFeatures}
+              text="Everything you need to turn your images into professional PDFs. Make the PDFs from the images online."
+              features={createPdfFeatures}
             />
 
             <HowToSection
-              heading={'How to convert JPG to PDF online?'}
-              text={'Follow these simple steps to create a PDF from your images.'}
-              steps={jpgToPdfHowToSteps}
+              heading={'How to create a PDF from images?'}
+              text={'Follow these steps to convert your images into a PDF document.'}
+              steps={createPdfHowToSteps}
             />
 
             <FaqSection
               heading={'Create PDF FAQs'}
               text={'Common questions about creating PDFs from images'}
-              faqs={jpgToPdfFaqs}
+              faqs={createPdfFaqs}
             />
+
             <ToolList />
           </div>
         )}
@@ -230,13 +217,13 @@ const JpgToPdf = () => {
                   </li>
                 ))}
               </ul>
-              <MainOperationButton buttonText={'Create PDF'} disabled={files.length < 1}/>
+              <MainOperationButton buttonText={"Create PDF"} disabled={files.length < 1}/>
             </OperationMain>
             <OperationSidebar>
               <div className="p-2 bg-blue-50 border-1">
                 <h1 className="flex text-gray-600 text-sm items-center">
                   {' '}
-                  <Dot /> Click on a create pdf button to create a PDF.
+                  <Dot /> Click on the create PDF button to create a PDF:
                 </h1>
               </div>
               <div className="mt-3 p-3">
@@ -272,4 +259,4 @@ const JpgToPdf = () => {
   )
 }
 
-export default JpgToPdf
+export default CreatePdf

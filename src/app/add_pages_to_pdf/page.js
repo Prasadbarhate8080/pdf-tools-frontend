@@ -1,4 +1,3 @@
-import React from 'react'
 import AddPagesInPdf from './add_pages_to_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'

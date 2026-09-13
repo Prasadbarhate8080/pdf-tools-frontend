@@ -2,11 +2,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import FadeIn from "./FadeIn";
 
 const BlogCard = ({ post, index = 0 }) => {
   return (
-    <FadeIn delay={index * 100} className="h-full">
+    <div className="h-full">
       <Link
         href={`/view_blog/${post.slug}`}
         className="group block h-full rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300"
@@ -32,7 +31,7 @@ const BlogCard = ({ post, index = 0 }) => {
           </span>
         </div>
       </Link>
-    </FadeIn>
+    </div>
   );
 };
 

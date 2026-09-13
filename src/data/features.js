@@ -33,39 +33,39 @@ import {
 export const mergePDFFeatures = [
   {
     icon: Sparkles,
-    heading: 'Easy to Use',
+    heading: 'Easy to Merge PDFs',
     paragraph:
       'Designed to be simple and intuitive. Anyone can merge PDFs effortlessly with just a few clicks.',
   },
   {
     icon: Gift,
-    heading: 'Free & No Sign Up',
+    heading: 'Reliable PDF Merging',
     paragraph:
-      'Merge unlimited PDFs for free. No hidden charges, no registration — just quick, hassle-free merging.',
+      'Our PDF merging tool is very powerful and reliable tool never fails while merging the PDF documents.',
   },
   {
     icon: InfinityIcon,
-    heading: 'PDF Merger With No Limit',
+    heading: '100% Client Side',
     paragraph:
-      'Combine as many PDF files as you want without restrictions. Our tool handles it all with ease and speed.',
+      'This tool merges your files on the client side so there is no risk of any file or data lose.',
   },
   {
     icon: Shield,
-    heading: 'Reliable PDF Merging',
+    heading: 'Accurate PDF position',
     paragraph:
-      'Our online PDF merger ensures accurate and consistent results every time with secure processing.',
+      'Very accurate for PDF positions as per selected the files.',
   },
   {
     icon: Lock,
-    heading: 'Secure Online PDF Merging',
+    heading: 'Actual PDF Preview',
     paragraph:
-      'Your privacy is our priority. All uploaded files are automatically deleted after processing.',
+      'Provides the PDF preview of actual PDF and you can ',
   },
   {
     icon: Zap,
-    heading: 'Powerful PDF Merger',
+    heading: 'No Limit',
     paragraph:
-      'Built with advanced technology, our PDF merger processes files quickly and efficiently.',
+      'You can merge unlimited files with these tool without limit.',
   },
 ]
 
@@ -148,59 +148,59 @@ export const addPagesFeatures = [
 export const addPdfInPdfFeatures = [
   {
     icon: FilePlus,
-    heading: 'Insert PDFs Easily',
+    heading: 'Insert PDF Easily',
     paragraph:
       'Add one PDF inside another without complications. Simply choose the page where you want to insert and you are done.',
   },
   {
     icon: Gift,
-    heading: 'Free & No Sign Up Required',
+    heading: '100% client side',
     paragraph:
-      'Insert PDFs into any page position completely free. No signup, no limits—just upload your files and merge instantly.',
+      'This tool is 100% client side so you pdfs are processed on your browser securely.',
   },
   {
     icon: FilePlus,
-    heading: 'Insert Multiple Pages',
+    heading: 'Efficient PDF insertion',
     paragraph:
-      'Add single pages or entire PDFs smoothly. Perfect for combining scanned pages, assignments, forms, and documents.',
+      'Using this tool you can efficiently insert a pdf into another without any failure.',
   },
   {
     icon: BadgeCheck,
-    heading: 'Precise Page Placement',
+    heading: 'Clean Ui',
     paragraph:
-      'Choose the exact page number where the new PDF should be inserted. Full control over your document structure.',
+      'This tool provides you clean ui for adding PDF on PDF operation.',
   },
   {
     icon: ShieldCheck,
-    heading: 'Secure PDF Processing',
+    heading: 'precise page placement',
     paragraph:
-      'Your PDFs are processed safely and automatically deleted after merging. 100% privacy—no files stored.',
+      'This tool provide you a precise position for inserting a pdf.',
   },
   {
     icon: Zap,
-    heading: 'Fast & Efficient',
+    heading: 'Accurate PDF inserting',
     paragraph:
-      'Experience lightning-fast PDF insertion with optimized performance and high-quality output.',
+      'This tool is very accurate for inserting the pdf inside another.',
   },
 ]
 
 export const addWatermarkFeatures = [
   {
     icon: Sparkles,
-    heading: 'Easy to Use',
+    heading: 'Easy to Add Watermark',
     paragraph:
-      'Designed to be simple and intuitive. Add watermarks to your PDFs in just a few clicks.',
+      'Designed to be simple and easy to use for easy handling and anyone can easily use the tool.',
   },
   {
     icon: Gift,
     heading: 'Free & No Sign Up',
     paragraph:
-      'Add unlimited text watermarks for free. No account needed — quick, easy, and hassle-free.',
+      'Add unlimited text watermarks for free. No account needed  quick, easy, and hassle-free.',
   },
   {
     icon: InfinityIcon,
     heading: 'Watermarks Without Limits',
-    paragraph: 'Apply watermarks to any number of pages — from a single page to a full document.',
+    paragraph: 'Apply watermarks to the any number of pdf for free.',
   },
   {
     icon: BadgeCheck,
@@ -209,21 +209,21 @@ export const addWatermarkFeatures = [
   },
   {
     icon: ShieldCheck,
-    heading: 'Secure Online Processing',
-    paragraph: 'Your files stay safe. Documents are processed securely and deleted automatically.',
+    heading: '100% Client Side',
+    paragraph: 'Your work done on client side so nothing goes on server so risk of any data loss.',
   },
   {
     icon: Zap,
     heading: 'Fast & Powerful',
-    paragraph: 'PDFtoolify applies watermarks in seconds — reliable, smooth, and lightning fast.',
+    paragraph: 'PDFtoolify applies watermarks in seconds reliable, smooth, and lightning fast.',
   },
 ]
 
 export const compressPdfFeatures = [
   {
     icon: MousePointerClick,
-    heading: 'Easy to Use',
-    paragraph: 'Compress PDFs in just a few clicks with a clean, intuitive interface.',
+    heading: 'Easy to Compress PDFs',
+    paragraph: 'Very simple ui for compressing PDFs anyone can as',
   },
   {
     icon: Gift,
@@ -238,7 +238,7 @@ export const compressPdfFeatures = [
   {
     icon: BadgeCheck,
     heading: 'Quality Preserved',
-    paragraph: 'Maintain text clarity and layout while shrinking your PDF size.',
+    paragraph: 'Your PDF text clarity will never lose while compressing.',
   },
   {
     icon: ShieldCheck,
@@ -260,71 +260,71 @@ export const createPdfFeatures = [
   },
   {
     icon: Gift,
-    heading: 'Free & No Login Needed',
+    heading: 'High quality output',
     paragraph:
-      'Create new PDFs completely free — no account needed. Just upload images and download instantly.',
+      'This PDF tool gives you high quality output PDF.',
   },
   {
     icon: FilePlus,
     heading: 'Multi-page PDF Support',
-    paragraph: 'Combine multiple images into a single PDF document, perfectly ordered and aligned.',
+    paragraph: 'Combine multiple images into a single PDF document, with Proper format.',
   },
   {
     icon: BadgeCheck,
-    heading: 'High-Quality Output',
+    heading: 'Better Images Preview',
     paragraph:
-      'Your images are converted with optimized sizing and alignment to keep the PDF looking sharp.',
+      'This tool will give you the better image preview before generating the pdf to select you a proper images.',
   },
   {
     icon: ShieldCheck,
-    heading: 'Secure PDF Creation',
+    heading: 'Clean UI',
     paragraph:
-      'Your files are processed safely, and all uploaded documents are deleted automatically after creating your PDF.',
+      'UI of these page is very clean so you can easily use this tool no need of extra guidance.',
   },
   {
     icon: Zap,
-    heading: 'Fast & Efficient',
+    heading: '100% client side',
     paragraph:
-      'Convert images to PDF in seconds — designed for speed, accuracy, and smooth workflow.',
+      'This tool is 100% client side so your PDFs are processed on your browser there is no need of any data loss.',
   },
 ]
 
 export const extractPdfFeatures = [
   {
     icon: MousePointerClick,
-    heading: 'Easy to Use',
+    heading: 'Easy to Extract Page',
     paragraph:
-      'Designed to be simple and intuitive so anyone can easily use this tool and make their work easier.',
+      'Designed to be simple and clean UI so anyone can easily use this tool.',
   },
   {
     icon: Gift,
-    heading: 'Free & No Sign Up',
+    heading: 'Extract Without Limit',
     paragraph:
-      'Extract unlimited pages from PDFs online for free without creating an account. No hidden costs, no registration—just fast and easy page extraction.',
+      'Extract unlimited pages from PDFs online for free without creating an account. Or any hidden charges.',
   },
   {
     icon: InfinityIcon,
-    heading: 'Extract Without Limits',
+    heading: 'Accurate Page Extraction',
     paragraph:
-      'Choose and extract as many pages as you want. Whether it is a single page or multiple sections, our tool handles it smoothly and efficiently.',
+      'Pages of your PDFs will be very accurately extracted according to the selected pages.',
   },
   {
     icon: BadgeCheck,
-    heading: 'Accurate Page Extraction',
+    heading: '100% client side',
     paragraph:
-      'Our PDF extractor ensures accurate results every time. Get the exact pages you need without affecting the rest of your document.',
+      'The process of page extraction is done on the your browser so your files stays only on browser.',
   },
   {
     icon: ShieldCheck,
-    heading: 'Secure Online Extraction',
+    heading: 'Reliable page extraction',
     paragraph:
-      'Your privacy is our priority. All uploaded files are automatically deleted after processing, ensuring safe and secure PDF extraction online.',
+      'This PDF page extraction tool is very realible you do not need to worry about that.',
   },
   {
     icon: Zap,
-    heading: 'Fast & Powerful',
+    heading: 'user-friendly interface',
     paragraph:
-      'Built with advanced technology, our extractor processes files quickly. Get your selected pages in just seconds—fast, reliable, and professional.',
+      'We Provided a very  user-friendly interface for aur users you will love our app.',
   },
 ]
 
@@ -487,39 +487,39 @@ export const pngToPdfFeatures = [
 export const protectPdfFeatures = [
   {
     icon: Lock,
-    heading: 'Easy to Protect',
+    heading: 'Easy to Protect PDFs',
     paragraph:
-      'Protecting your PDF is simple and intuitive. Upload your file, set a password, and secure your document instantly.',
+      'Protecting your PDF is very easy. Upload your file, enter a password, and secure your document instantly.',
   },
   {
     icon: Gift,
-    heading: 'Free & No Sign Up',
+    heading: 'Provides strong security',
     paragraph:
-      'Add password protection to unlimited PDF files for free. No registration, no hidden fees—just quick and secure PDF locking.',
+      'This tool provides the strong security to your PDFs not easily breakable.',
   },
   {
     icon: ShieldHalf,
     heading: 'Strong Encryption',
     paragraph:
-      'Your PDF is encrypted using strong security standards, ensuring your private documents stay safe from unauthorized access.',
+      'Uses a strong encryption method for securing your PDFs.',
   },
   {
     icon: BadgeCheck,
-    heading: 'Accurate & Reliable Protection',
+    heading: 'Reliable Protection',
     paragraph:
-      'PDFtoolify locks your PDF without altering its content. Your formatting and layout remain exactly the same after protection.',
+      'PDF protection is very reliable no one can easily destroy it.',
   },
   {
     icon: ShieldCheck,
-    heading: 'Secure Online Processing',
+    heading: 'Excellent UI',
     paragraph:
-      'All uploaded files are processed securely and deleted automatically after encryption to maintain your privacy.',
+      'We provides a very simple and clean UI for securing PDF operation.',
   },
   {
     icon: Zap,
-    heading: 'Fast & Powerful',
+    heading: 'Fast Processing',
     paragraph:
-      'Protect your PDF in just seconds. Our optimized engine encrypts files quickly while ensuring top-level security.',
+      'Your PDFs will be processed at very fast speed it will save your time.',
   },
 ]
 
@@ -610,15 +610,15 @@ export const removePdfPagesFeatures = [
   },
   {
     icon: Gift,
-    heading: 'Free & No Sign Up',
+    heading: 'Fast Processing',
     paragraph:
-      'Remove unlimited PDF pages online for free without creating an account. No hidden costs, no registration—just fast and easy PDF cleaning.',
+      'Processing is very fast so it will delivers the PDF to you fastly.',
   },
   {
     icon: InfinityIcon,
-    heading: 'Remove Without Limits',
+    heading: 'Maintain PDF structure',
     paragraph:
-      'Delete any number of pages—from one page to multiple sections. Our tool handles everything smoothly and efficiently.',
+      'Maintain the existing structure of the PDF after removing pages.',
   },
   {
     icon: BadgeCheck,
@@ -628,15 +628,15 @@ export const removePdfPagesFeatures = [
   },
   {
     icon: ShieldCheck,
-    heading: 'Secure Online Processing',
+    heading: '100% Client Side',
     paragraph:
-      'Your files stay private. All uploaded PDFs are auto-deleted after processing, ensuring safe and secure page removal.',
+      'Process of the page removal is performed on client side so no chance of any data loss.',
   },
   {
     icon: Zap,
-    heading: 'Fast & Powerful',
+    heading: 'Clean UI',
     paragraph:
-      'Powered by optimized processing, our tool removes pages within seconds. Fast, reliable, and professional for everyday use.',
+      'This tool is provides a very clean and well understandable UI for operation.',
   },
 ]
 
@@ -667,8 +667,8 @@ export const splitPdfFeatures = [
   },
   {
     icon: Sparkles,
-    heading: 'Secure Online PDF splitting',
-    paragraph: 'Split PDFs securely without any risk of data leaks.',
+    heading: '100% Client Side',
+    paragraph: 'Your files are processed on browser only.',
   },
   {
     icon: Smartphone,

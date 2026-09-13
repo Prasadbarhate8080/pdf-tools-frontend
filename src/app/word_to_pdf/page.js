@@ -1,4 +1,3 @@
-import React from 'react'
 import WordToPdf from './word_to_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'

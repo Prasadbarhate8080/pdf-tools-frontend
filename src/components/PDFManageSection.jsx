@@ -1,5 +1,3 @@
-"use client"
-import { motion } from 'framer-motion'
 import { ArrowRight, FolderOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -11,7 +9,7 @@ export const PDFManageSection = () => {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-primary/3 blur-[150px]" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-center mb-16">
+        <div className="text-center mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary mb-6">
             <FolderOpen className="w-4 h-4" />
             All-in-One Platform
@@ -22,9 +20,9 @@ export const PDFManageSection = () => {
             With <span className="gradient-text">PDFtoolify</span>
           </h2>
           <p className="section-subheading mx-auto mt-4">PDFtoolify is a secure and trusted PDF software. We have all the tools to work on PDF. PDFtoolify is free and easy to use.</p>
-        </motion.div>
+        </div>
 
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="max-w-5xl mx-auto">
+        <div  className="max-w-5xl mx-auto">
           <div className="relative rounded-3xl border border-border bg-card p-8 md:p-12 shadow-xl overflow-hidden">
             {/* Decorative corner accents */}
             <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-bl-[100px]" />
@@ -55,25 +53,21 @@ export const PDFManageSection = () => {
                     { label: 'Protect', color: 'bg-accent/10 border-accent/20' },
                     { label: 'Extract', color: 'bg-primary/10 border-primary/20' },
                   ].map((item, i) => (
-                    <motion.div
+                    <div
                       key={item.label}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: 0.3 + i * 0.08 }}
                       className={`rounded-2xl border ${item.color} p-5 text-center`}
                     >
                       <div className="w-10 h-10 rounded-xl bg-primary/10 mx-auto mb-2 flex items-center justify-center">
                         <div className="w-5 h-5 rounded bg-primary/30" />
                       </div>
                       <span className="text-sm font-medium text-foreground">{item.label}</span>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

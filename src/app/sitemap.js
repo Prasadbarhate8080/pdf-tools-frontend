@@ -27,9 +27,7 @@ const staticRoutes = [
   '/add_pdf_in_pdf',
   '/extract_pdf',
   '/pdf_to_jpg',
-  '/create_pdf',
-  '/jpg_to_pdf',
-  '/png_to_pdf',
+  '/create-pdf',
 ]
 
 async function collectDynamicBlogRoutes(baseUrl) {

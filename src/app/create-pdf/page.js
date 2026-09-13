@@ -1,4 +1,3 @@
-import React from 'react'
 import CreatePdf from './create_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'

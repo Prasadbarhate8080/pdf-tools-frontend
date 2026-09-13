@@ -1,5 +1,3 @@
-"use client"
-import { motion } from 'framer-motion'
 import { Monitor, Smartphone, Download, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -27,21 +25,17 @@ export const DownloadSoftware = () => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:6rem_6rem] opacity-15" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-center mb-16">
+        <div className="text-center mb-16">
           <h2 className="section-heading text-foreground">
             Handle PDF <span className="gradient-text">Anywhere</span>
           </h2>
           <p className="section-subheading mx-auto mt-4">Use PDFtoolify on your favorite platform. Available for Windows and Android.</p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {platforms.map((platform, index) => (
-            <motion.div
+            <div
               key={platform.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
               className="group relative rounded-3xl border border-border bg-card p-8 md:p-10 transition-all duration-500 hover:border-primary/40 hover:shadow-xl"
             >
               {/* Hover glow */}
@@ -60,7 +54,7 @@ export const DownloadSoftware = () => {
                   </a>
                 </Button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,9 +1,9 @@
 export const mergePDFBenefits = [
-  'Our free PDF merger can work on any device',
-  'Using PDFtoolify Merge tool you can easily combine PDF files',
-  'PDFtoolify is secure and easy to use tool for PDF related operations',
-  'No SignUp required to merge PDF online',
-  'Combine PDFs in seconds with PDFtoolify — free, fast, and secure.',
+  'You can share whole documents in single PDF.',
+  'Merging PDF makes your documents more structured.',
+  'By merging PDFs you can save your time.',
+  'It will avoid managing of multiple PDFs.',
+  'It will help for sharing and maintaining the files.',
 ]
 
 export const addPageNoBenefits = [
@@ -23,43 +23,43 @@ export const addPagesBenefits = [
 ];
 
 export const addPdfInPdfBenefits = [
-  "Add any PDF inside another PDF at any page position",
-  "Easily insert multiple pages or entire PDFs in one click",
-  "Works on all devices — mobile, tablet, and PC",
-  "No signup required — upload and insert PDFs instantly",
-  "Fast and secure — files auto-delete after processing",
+  "You can use it on any device on web.",
+  "It will make your pdf work easy.",
+  "It will give you fast processing and quick output.",
+  "You do not need registration or any account creation to use this tool.",
+  "Using this tool you can add any PDF inside another.",
 ];
 
 export const addWatermarkBenefits = [
-  "Our watermark tool works smoothly on any device",
-  "Add custom text watermarks to your PDF in seconds",
-  "PDFtoolify is secure, fast, and simple for watermarking",
-  "No signup required — watermark PDFs instantly for free",
-  "Professional results with zero quality loss",
+  "Watermark can protect your PDFs from getting copied.",
+  "It will also promote your brand to the PDF viewers.",
+  "No one can reuse your pdf for same purpose.",
+  "It will show your PDFs professional.",
+  "It will make your PDFs more premium.",
 ];
 
 export const compressPdfBenefits = [
-  "Compress PDF files quickly on any device",
-  "Reduce file size while preserving document quality",
-  "Secure processing with automatic file deletion",
-  "No signup required — compress PDFs instantly",
-  "Fast, reliable, and free PDF compression",
+  "Compressed PDFs are lightweight.",
+  "Compressed PDFs are helpfull for sharing online.",
+  "Compressed PDFs can save your internet because of less file size.",
+  "PDF compression is really important for the online form filling.",
+  "It can also save your device memory.",
 ];
 
 export const createPdfBenefits = [
-  "Create a new PDF instantly from your images",
-  "Maintain perfect quality while building a multi-page PDF",
-  "Works on any device — mobile, tablet, Windows, Mac",
-  "No signup needed — create a PDF instantly with one click",
-  "Secure and private — your PDFs are deleted automatically after creation",
+  "You can manage your images in structured way.",
+  "You can create PDF on any device with these tool.",
+  "It will give you a proper formatted PDF.",
+  "Its fast client side processing can save your time.",
+  "You do not need to pay any charges for it.",
 ];
 
 export const extractPdfBenefits = [
-  "Our free PDF extractor works on any device seamlessly",
-  "Easily extract specific pages from your PDF files with PDFtoolify",
-  "PDFtoolify is secure and simple to use for all PDF operations",
-  "No signup required — extract PDF pages instantly",
-  "Extract PDF pages in seconds — free, fast, and reliable.",
+  "It will reduce your time of recreating the PDFs.",
+  "It will save your time.",
+  "It will help you in your office work.",
+  "It can be beneficial for managing your documents.",
+  "It makes your PDF documents more structured.",
 ];
 
 export const jpgToPdfBenefits = [
@@ -95,34 +95,34 @@ export const pngToPdfBenefits = [
 ];
 
 export const protectPdfBenefits = [
-  "Our free Protect PDF tool works on any device, including mobile and desktop",
-  "Easily add a password to your PDF and secure your important documents",
-  "PDFtoolify uses strong encryption to protect your PDF from unauthorized access",
-  "No signup required — lock your PDF files instantly online",
-  "Protect PDFs in seconds with PDFtoolify — fast, secure, and reliable",
+  "It can prevent your files from unauthorized access.",
+  "You can share your files with confidence.",
+  "It will give strong protection to your PDFs.",
+  "It will give you a way to share PDFs online.",
+  "Your documents will stay confidential.",
 ];
 
 export const removePdfPagesBenefits = [
-  'Remove unwanted pages from any PDF on any device',
-  'Select exactly the pages you want to delete',
-  'Secure processing with automatic file deletion',
-  'No signup required — remove pages instantly',
-  'Fast, accurate, and free page removal',
+  'It will save your time of recreating new PDFs.',
+  'It will minimize the size of your PDFs.',
+  'Makes you easy to share PDFs online.',
+  'It will make you more productive.',
+  'It will make your PDFs more perfect and light.',
 ];
 
 export const splitPdfBenefits = [
-  'Split PDFs in seconds with PDFtoolify — free, fast, and secure.',
-  'No signup required to split PDFs online',
-  'PDFtoolify is secure and easy to use for PDF-related operations',
-  'Using the PDFtoolify split tool, you can easily split PDF files',
-  'Our free PDF splitter works on any device',
+  'It will save your time of making new PDFs with same pages.',
+  'Split PDF by reducing your file size.',
+  'It will make PDF sharing easy.',
+  'It will make your PDFs more structured.',
+  'Unwanted parts will be removed from your PDFs.',
 ];
 
 export const unlockPdfBenefits = [
   'Unlock PDF files instantly on any device with PDFtoolify',
-  'Remove password protection easily — no technical skills required',
-  'Secure processing with automatic file deletion',
-  'No signup required — unlock PDFs for free',
+  'Remove password protection easily no technical skills required',
+  'Secure processing with automatic file deletion.',
+  'Remove passoword from your PDFs and use it.',
   'Fast, reliable, and user-friendly unlocking',
 ];
 

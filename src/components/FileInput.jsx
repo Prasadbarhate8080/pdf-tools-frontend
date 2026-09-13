@@ -64,14 +64,14 @@ function FileInput({setFiles, setisDroped, multiple, accept, setImages, mode = '
       ) : (
         <p className=" hidden lg:block text-lg font-semibold">Drag & drop your PDF files here</p>
       )}
-      <p className="text-muted-foreground text-sm">
+      <label className="text-muted-foreground text-sm" htmlFor='input'>
         or{' '}
         <span className="text-primary font-medium cursor-pointer hover:underline">
           browse files
         </span>{' '}
         from your device
-      </p>
-      <input {...getInputProps()} type="file" name="pdf_files" />
+      </label>
+      <input {...getInputProps()} type="file" name="pdf_files" id='input' />
     </div>
   )
 }

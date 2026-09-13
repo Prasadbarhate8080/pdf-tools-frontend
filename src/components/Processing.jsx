@@ -1,5 +1,4 @@
 import React from 'react'
-
 function Processing() {
   return (
     <div className="flex flex-col items-center mt-24">
@@ -8,5 +7,4 @@ function Processing() {
           </div>
   )
 }
-
 export default Processing

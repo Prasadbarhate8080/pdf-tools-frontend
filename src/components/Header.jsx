@@ -63,14 +63,14 @@ export const Header = () => {
           className={`flex items-center justify-between ${blurHeader ? 'h-10 md:h-12' : 'h-12 md:h-14'}`}
         >
           {/* Logo of pdftoolify*/}
-          <a href="/" className="flex items-center gap-2.5 group">
+          <Link href="/" className="flex items-center gap-2.5 group">
             <div className=" rounded-lg flex items-center justify-center  shadow-md group-hover:shadow-lg transition-shadow">
               <Image src={'/PDFtoolify_logo.svg'} alt="pdftoolify.com" height={40} width={40} />
             </div>
             <span className="text-xl font-bold text-foreground">
               PDF<span className="text-primary">toolify</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
@@ -123,7 +123,7 @@ export const Header = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="hero" size="default" asChild>
-              <a href="/#tools">Explore All Tools</a>
+              <Link href="/#tools">Explore All Tools</Link>
             </Button>
           </div>
 

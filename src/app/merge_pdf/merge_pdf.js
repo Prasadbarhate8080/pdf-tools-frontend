@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
@@ -22,7 +22,6 @@ import FaqSection from '@/components/FaqSection'
 import { mergePDFFaqs } from '@/data/faqs'
 import ServerPreparingLoader from '@/components/ServerPreparingLoader'
 import DownloadComponent from '@/components/DownloadComponent'
-import { Button } from '@/components/ui/button'
 import OperationBox from '@/components/OperationBox'
 import OperationSidebar from '@/components/OperationSidebar'
 import AddMoreFilesComponent from '@/components/AddMoreFilesComponent'
@@ -102,6 +101,7 @@ function Merge() {
         <ToolHeader
           sparklesText={'Free Online PDF Merger'}
           headings={['Merge', 'PDF Files', 'Instantly']}
+          text={'Combine your PDF files easily using our this free tool. It will combine your PDFs in three easy steps.'}
         />
       )}
 
@@ -116,7 +116,7 @@ function Merge() {
               accept={{ 'application/pdf': [] }}
             />
             <BenefitsSection
-              heading={' Merge PDF files online for free'}
+              heading={'Benefits of merging PDFs'}
               benefits={mergePDFBenefits}
             />
             <FeatureCardSection features={mergePDFFeatures} tool={'Merge PDF'} text="" />

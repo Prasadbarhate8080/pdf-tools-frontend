@@ -1,5 +1,3 @@
-"use client"
-import { motion } from "framer-motion";
 import { FileText, PenTool, FileDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -34,11 +32,7 @@ export const MostUsefullTools = () => {
   return (
     <section id="how-it-works" className="py-28 relative bg-card/30">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <div
           className="text-center mb-20"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary mb-6">
@@ -50,16 +44,12 @@ export const MostUsefullTools = () => {
           <p className="section-subheading mx-auto mt-4">
             Simplify your PDF tasks with our most popular tools. Quick, easy, and reliable.
           </p>
-        </motion.div>
+        </div>
 
         <div className="max-w-5xl mx-auto space-y-20">
           {highlights.map((item, index) => (
-            <motion.div
+            <div
               key={item.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
               className={`flex flex-col md:flex-row items-center gap-12 ${
                 index % 2 !== 0 ? "md:flex-row-reverse" : ""
               }`}
@@ -100,7 +90,7 @@ export const MostUsefullTools = () => {
                   </a>
                 </Button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

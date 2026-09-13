@@ -1,6 +1,4 @@
 import React from 'react'
-import FadeIn from './FadeIn'
-
 function HowToSection({heading,text,steps}) {
   return (
     <section className="container py-20">
@@ -16,7 +14,7 @@ function HowToSection({heading,text,steps}) {
       </div>
       <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
         {steps.map((item, i) => (
-          <FadeIn
+          <div
             key={i}
             delay={200 + i * 150}
             className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
@@ -29,7 +27,7 @@ function HowToSection({heading,text,steps}) {
             </div>
             <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
-          </FadeIn>
+          </div>
         ))}
       </div>
     </section>

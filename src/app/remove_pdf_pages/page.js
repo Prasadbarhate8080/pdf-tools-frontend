@@ -1,4 +1,3 @@
-import React from 'react'
 import RemovePDFPages from './remove_pdf_pages'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'

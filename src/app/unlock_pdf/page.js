@@ -1,4 +1,3 @@
-import React from 'react'
 import Unlock from './unlock_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'

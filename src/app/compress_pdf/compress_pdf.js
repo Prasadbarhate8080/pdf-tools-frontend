@@ -1,7 +1,6 @@
 'use client'
-import React, { useEffect, useState, useRef, useCallback } from 'react'
-import { toast, ToastContainer } from 'react-toastify'
-import { Document, Page, pdfjs } from 'react-pdf'
+import { ToastContainer } from 'react-toastify'
+import { pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import Processing from '@/components/Processing'
@@ -9,20 +8,12 @@ import ProgressBar from '@/components/ProgressBar'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import FileInput from '@/components/FileInput'
 import { showContent } from '@/store/hideContentSlice'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-import { CircleCheck, CircleDashed, Dot, Sparkles, SplitIcon } from 'lucide-react'
+import { Dot } from 'lucide-react'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
-import Image from 'next/image'
 import PDFPageConponent from '@/components/PDFPageComponent'
 import ToolList from '@/components/ToolList'
-import FadeIn from '@/components/FadeIn'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
 import { compressPdfBenefits } from '@/data/benefits'
@@ -32,7 +23,6 @@ import { compressPdfHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
-import { Button } from '@/components/ui/button'
 import MainOperationButton from '@/components/MainOperationButton'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import { useDispatch } from 'react-redux'
@@ -73,7 +63,7 @@ function Compress() {
         <ToolHeader
           sparklesText={'Free Online PDF Compressor'}
           headings={['Compress', 'PDF Files', 'Fast']}
-          text={'Reduce PDF size without sacrificing quality — quick, secure, and free'}
+          text={'Reduce PDF size without loosing quality quick, secure, and free'}
         />
       )}
       <form
@@ -92,7 +82,7 @@ function Compress() {
             />
 
             <BenefitsSection
-              heading={'Compress PDF files online for free'}
+              heading={'How compressed PDFs are helpful'}
               benefits={compressPdfBenefits}
             />
 

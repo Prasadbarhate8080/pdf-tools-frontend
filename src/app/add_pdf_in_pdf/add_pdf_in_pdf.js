@@ -6,7 +6,7 @@ import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
-import { MousePointerClick, Zap, Plus, FilePlus, Dot } from 'lucide-react'
+import { Plus, Dot } from 'lucide-react'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import { PDFDocument } from 'pdf-lib'
 import { toast } from 'react-toastify'
@@ -105,7 +105,7 @@ function AddPdfInPdf() {
         <ToolHeader
           sparklesText={'Free Online PDF Inserter'}
           headings={['Insert', 'PDF into PDF', 'Easily']}
-          text={'Add one PDF inside another at any page position — free, fast, and secure.'}
+          text={'Insert a PDF into another PDF at any page position Quickly.'}
         />
       )}
       {!isDroped && (
@@ -119,12 +119,12 @@ function AddPdfInPdf() {
           />
 
           <BenefitsSection
-            heading={'Add a PDF inside another PDF online for free'}
+            heading={'How this pdf inserter tool will help you'}
             benefits={addPdfInPdfBenefits}
           />
           <FeatureCardSection
             tool={'Add PDF in PDF'}
-            text="Powerful tools to insert entire PDFs exactly where you need them"
+            text="Powerful tools to insert entire PDF exactly where you need to add"
             features={addPdfInPdfFeatures}
           />
 

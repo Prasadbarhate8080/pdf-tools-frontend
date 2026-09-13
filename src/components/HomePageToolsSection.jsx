@@ -1,5 +1,3 @@
-"use client"
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Merge, Split, FileDown, FileUp, Scissors, Lock, Unlock, Droplet, Image, FileText, FilePlus, FileX, Hash, Shield, Layers, ArrowUpRight } from 'lucide-react'
 export const tools = [
@@ -25,13 +23,6 @@ export const tools = [
       color: 'from-pink-500/15 to-pink-600/15 border-pink-200',
     },
   {
-    name: 'JPG to PDF',
-    description: 'Convert the JPG images into PDF. Easily select the JPG images and convert them into PDF fast.',
-    icon: Image,
-    href: '/jpg_to_pdf',
-    color: 'from-amber-500/15 to-amber-600/15 border-amber-200',
-  },
-  {
     name: 'PDF to JPG',
     description: 'Convert the PDF into JPG images. Select the PDF file and convert it into JPG images smoothly.',
     icon: FileDown,
@@ -49,7 +40,7 @@ export const tools = [
     name: 'Create PDF',
     description: 'Create PDF from images in seconds. Convert JPG and PNG format images into PDF.',
     icon: FilePlus,
-    href: '/create_pdf',
+    href: '/create-pdf',
     color: 'from-teal-500/15 to-teal-600/15 border-teal-200',
   },
   {
@@ -67,13 +58,6 @@ export const tools = [
     color: 'from-slate-500/15 to-slate-600/15 border-slate-200',
   },
   {
-    name: 'PNG to PDF',
-    description: 'Create PDFs from PNG images online. Convert multiple PNG images into a high-quality PDF quickly.',
-    icon: FileUp,
-    href: '/png_to_pdf',
-    color: 'from-lime-500/15 to-lime-600/15 border-lime-200',
-  },
-  {
     name: 'Unlock PDF',
     description: 'Unlock password-protected PDF files online. Remove PDF password securely and quickly with this free and easy-to-use PDF unlock tool.',
     icon: Unlock,
@@ -82,7 +66,7 @@ export const tools = [
   },
   {
     name: 'Word to PDF',
-    description: 'Convert Word files to PDF online quickly and easily. Turn DOC or DOCX documents into high-quality PDF files with this fast, secure, and free Word to PDF converter.',
+    description: 'Convert Word files to PDF online quickly and easily. Turn DOC or DOCX documents into high-quality PDF files.',
     icon: FileText,
     href: '/word_to_pdf',
     color: 'from-indigo-500/15 to-indigo-600/15 border-indigo-200',
@@ -124,21 +108,11 @@ export const tools = [
   },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.04 } },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 15, scale: 0.97 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.35 } },
-}
-
 export const HomePageToolsSection = () => {
   return (
     <section id="tools" className="py-28 relative">
       <div className="container mx-auto px-6">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-center mb-16">
+        <div className="text-center mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary mb-6">All Tools</span>
           <h2 className="section-heading text-foreground">
             PDFtoolify <span className="gradient-text">Free Online Tools</span>
@@ -146,29 +120,28 @@ export const HomePageToolsSection = () => {
           <p className="section-subheading mx-auto mt-4">
             Tools you need to work with PDFs in one place. PDFtoolify offers dozens of tools to help you complete simple and quick PDF tasks directly in your web browser.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {tools.map((tool) => (
             <Link href={tool.href} rel='noopener noreferrer' key={tool.name}>
-            <motion.span
-              variants={itemVariants}
+            <span
               className={`group relative flex items-start gap-4 p-5 rounded-2xl border bg-gradient-to-br ${tool.color} transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer`}
             >
               <div className="w-12 h-12 rounded-xl bg-card shadow-sm flex items-center justify-center shrink-0 group-hover:shadow-md transition-shadow">
                 <tool.icon className="w-5 h-5 text-primary" />
               </div>
               <div className="flex-1 min-w-0">
-                <h5 className="font-semibold text-foreground mb-0.5 group-hover:text-primary transition-colors flex items-center gap-1">
+                <strong className="font-semibold text-foreground mb-0.5 group-hover:text-primary transition-colors flex items-center gap-1">
                   {tool.name}
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </h5> 
+                </strong> 
                 <p className="text-sm text-muted-foreground leading-relaxed">{tool.description}</p>
               </div>
-            </motion.span>
+            </span>
             </Link>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

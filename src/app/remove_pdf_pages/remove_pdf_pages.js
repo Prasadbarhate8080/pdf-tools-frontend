@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
@@ -8,17 +8,10 @@ import ProgressBar from '@/components/ProgressBar'
 import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import { showContent } from '@/store/hideContentSlice'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-import { Check, Dot, Download, Scissors, Sparkles, Upload } from 'lucide-react'
+import { Dot } from 'lucide-react'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import { PDFDocument } from 'pdf-lib'
 import ToolList from '@/components/ToolList'
-import FadeIn from '@/components/FadeIn'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
 import { removePdfPagesBenefits } from '@/data/benefits'
@@ -30,7 +23,6 @@ import { removePdfPagesHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
 import OperationSidebar from '@/components/OperationSidebar'
-import { Button } from '@/components/ui/button'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
 import { useDispatch } from 'react-redux'
@@ -145,7 +137,7 @@ export default function RemovePDFPages() {
             accept={{ 'application/pdf': [] }}
           />
           <BenefitsSection
-            heading={'Remove PDF pages online for free'}
+            heading={'How remove PDF can help you'}
             benefits={removePdfPagesBenefits}
           />
           <FeatureCardSection

@@ -1,6 +1,6 @@
 'use client'
-import React, { useState } from 'react'
-import { toast, ToastContainer } from 'react-toastify'
+import { useState } from 'react'
+import { ToastContainer } from 'react-toastify'
 import { pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
@@ -10,19 +10,11 @@ import { useFileUpload } from '@/hooks/useFileUpload'
 import FileInput from '@/components/FileInput'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
-import { Dot, Sparkles } from 'lucide-react'
+import { Dot } from 'lucide-react'
 import FeatureCardSection from '@/components/FeatureCardSection'
-import Image from 'next/image'
 import PDFPageComponent from '@/components/PDFPageComponent'
 import ToolList from '@/components/ToolList'
-import FadeIn from '@/components/FadeIn'
 import { showContent } from '@/store/hideContentSlice'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
 import { protectPdfBenefits } from '@/data/benefits'
@@ -31,7 +23,6 @@ import { protectPdfFaqs } from '@/data/faqs'
 import { protectPdfHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationSidebar from '@/components/OperationSidebar'
-import { Button } from '@/components/ui/button'
 import OperationMain from '@/components/OperationMain'
 import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
@@ -77,7 +68,7 @@ function Protect() {
           sparklesText={'Free Online PDF Protector'}
           headings={['Protect', 'PDF Files', 'with Password']}
           text={
-            'Add strong password protection to your PDF files — fast, secure, and completely free.'
+            'Add strong password protection to your PDF files with this our online tool.'
           }
         />
       )}
@@ -97,7 +88,7 @@ function Protect() {
             />
 
             <BenefitsSection
-              heading={'Protect PDF files with a strong password'}
+              heading={'How password protection can help you'}
               benefits={protectPdfBenefits}
             />
 
