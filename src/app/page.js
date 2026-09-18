@@ -3,7 +3,7 @@ import { HeroSection } from '@/components/HeroSection'
 import { HomePageToolsSection } from '@/components/HomePageToolsSection'
 import { PDFManageSection } from '@/components/PDFManageSection'
 import { MostUsefullTools } from '@/components/MostUsefullTools'
-import { PDFFeatures } from '@/components/PDFFeatures'
+import { HomePageFeatures } from '@/components/HomePageFeatures'
 import { DownloadSoftware } from '@/components/DownloadSoftware'
 import FaqSection from '@/components/FaqSection'
 import { homeFaqs } from '@/data/faqs'
@@ -83,22 +83,17 @@ function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <main className="">
-        <div className="">
-          <HeroSection />
-          <div className={''}>
-            <div className="">
-              <HomePageToolsSection />
-            </div>
-          </div>
-        </div>
+        <HeroSection />
+        <HomePageToolsSection />
         <PDFManageSection />
         <MostUsefullTools />
-        <PDFFeatures />
+        <HomePageFeatures />
         <DownloadSoftware />
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-center text-5xl">Frequently Asked Questions/FAQs</h2>
-          <FaqSection faqs={homeFaqs} />
-        </div>
+        <FaqSection
+          faqs={homeFaqs}
+          heading={'Frequently Asked Questions/FAQs'}
+          headingClass={'section-heading mb-4'}
+        />
       </main>
     </>
   )

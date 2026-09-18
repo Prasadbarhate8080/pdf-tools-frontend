@@ -1,79 +1,30 @@
-import React from "react";
-import ToolName from "./ToolName";
-import {
-  Merge,
-  Split,
-  FileOutput,
-  FileImage,
-  FileDown,
-  Shrink,
-  Shield,
-  Scissors,
-  FilePlus,
-  LockOpen,
-  FileType,
-  FileCheck,
-  Brush,
-  Hash,
-  FileStack,
-  FileInput,
-} from "lucide-react";
+import React from 'react'
+import ToolName from './ToolName'
+import { tools } from '@/data/toolsData'
 
 function HeaderToolsSection({ setIsActiveTools, setIsActiveHamBurger }) {
+  let toolArray = []
+  for (let i = 0; i < tools.length; i += 4) {
+    toolArray.push(tools.slice(i, i + 4))
+  }
   return (
-    <div className="w-[750px] mx-auto p-6 bg-white rounded-2xl 
+    <div
+      className="w-[750px] mx-auto p-6 bg-white rounded-2xl 
                      border border-gray-100 shadow-xl
-                     animate-in fade-in slide-in-from-top-4 duration-300">
-
+                     animate-in fade-in slide-in-from-top-4 duration-300"
+    >
       <div className="grid grid-cols-4 gap-x-6 gap-y-1">
-        {/* COLUMN 1 */}
-        <ul className="flex flex-col gap-2">
-          <ToolName href="/merge_pdf" title="Merge PDF" Icon={Merge}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/split_pdf" title="Split PDF" Icon={Split}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/remove_pdf_pages" title="Remove Pages" Icon={Scissors}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/extract_pdf" title="Extract Pages" Icon={FileOutput}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-        </ul>
-
-        {/* COLUMN 2 */}
-        <ul className="flex flex-col gap-2">
-          <ToolName href="/pdf_to_jpg" title="PDF to JPG" Icon={FileDown}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/compress_pdf" title="Compress PDF" Icon={Shrink}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/word_to_pdf" title="Word to PDF" Icon={FileType}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-        </ul>
-
-        {/* COLUMN 3 */}
-        <ul className="flex flex-col gap-2">
-          <ToolName href="/add_pages_to_pdf" title="Add Pages" Icon={FilePlus}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/add_pdf_in_pdf" title="Insert PDF" Icon={FileStack}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/create-pdf" title="Create PDF" Icon={FileInput}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/pdf_to_pdfa" title="PDF to PDF/A" Icon={FileCheck}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-        </ul>
-
-        {/* COLUMN 4 */}
-        <ul className="flex flex-col gap-2">
-          <ToolName href="/protect_pdf" title="Protect PDF" Icon={Shield}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/unlock_pdf" title="Unlock PDF" Icon={LockOpen}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/add_watermark" title="Add Watermark" Icon={Brush}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-          <ToolName href="/add_page_no" title="Page Numbers" Icon={Hash}
-            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />
-        </ul>
+        {toolArray.map((val,index) => (
+          <ul className="flex flex-col gap-2" key={index}>
+            {
+              val.map((tool,index) => <ToolName href={tool.href} title={tool.name} Icon={tool.icon} key={index}
+            setIsActiveTools={setIsActiveTools} setIsActiveHamBurger={setIsActiveHamBurger} />) 
+            }
+          </ul>
+        ))}
       </div>
     </div>
-  );
+  )
 }
 
-export default HeaderToolsSection;
+export default HeaderToolsSection

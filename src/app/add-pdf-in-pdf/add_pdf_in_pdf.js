@@ -109,7 +109,7 @@ function AddPdfInPdf() {
         />
       )}
       {!isDroped && (
-        <div>
+        <div className='px-3'>
           <FileInput
             files={files}
             setFiles={setFiles}

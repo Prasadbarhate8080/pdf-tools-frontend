@@ -1,15 +1,13 @@
 import { CloudUpload } from 'lucide-react'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
-import { hideContent, showContent } from '@/store/hideContentSlice'
+import { hideContent } from '@/store/hideContentSlice'
 import { showBlurHeader } from '@/store/blurHeaderSlice'
-import { useSelector } from 'react-redux'
 
 function FileInput({setFiles, setisDroped, multiple, accept, setImages, mode = 'pdf' }) {
   const dispatch = useDispatch()
-  const hideContentState = useSelector((state) => state.hideContent.hideContent)
   const onDrop = useCallback((acceptedFiles) => {
     if (mode == 'pdf') {
       const pdfFiles = acceptedFiles.filter((file) => file.type === 'application/pdf')
@@ -51,7 +49,7 @@ function FileInput({setFiles, setisDroped, multiple, accept, setImages, mode = '
     <div
       {...getRootProps()}
       className={`upload-zone border-2 border-dashed border-border rounded-2xl transition-all duration-300 cursor-pointer p-12 max-w-4xl mx-auto flex flex-col items-center justify-center text-center group relative
-         ${isDragActive ? 'bg-[#ebf7ff]' : 'bg-[#ebf7ff]'} `}
+         ${isDragActive ? 'bg-[#ebf7ff]' : 'bg-[#ebf7ff]'}`}
     >
       <div
         className="w-20 h-20 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"

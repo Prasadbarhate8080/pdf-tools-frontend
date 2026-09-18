@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
@@ -31,10 +31,20 @@ import SidebarOperationButton from '@/components/SidebarOperationButton'
 import MainOperationButton from '@/components/MainOperationButton'
 import { showContent } from '@/store/hideContentSlice'
 import { useDispatch } from 'react-redux'
-
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
+
+export const testFunction = async (toolFunction, stateFunctions) => {
+  try {
+    stateFunctions.setLoading(true)
+    await toolFunction()
+   
+  } catch (error) {
+  } finally {
+  }
+}
+
 function Merge() {
   let dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -43,6 +53,10 @@ function Merge() {
     const pdfFiles = newFiles.filter((file) => file.type === 'application/pdf')
     setFiles((prev) => [...prev, ...pdfFiles])
   }
+  useEffect(() => {
+    console.log("loading:",loading)
+  }, [loading])
+  
   let {
     files,
     isDroped,
@@ -57,7 +71,6 @@ function Merge() {
     setFiles,
     setdownloadFileURL,
   } = useFileUpload()
-
 
   let mergePdf = async () => {
     try {
@@ -91,6 +104,7 @@ function Merge() {
       dispatch(showContent())
     }
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     mergePdf()
@@ -101,13 +115,36 @@ function Merge() {
         <ToolHeader
           sparklesText={'Free Online PDF Merger'}
           headings={['Merge', 'PDF Files', 'Instantly']}
-          text={'Combine your PDF files easily using our this free tool. It will combine your PDFs in three easy steps.'}
+          text={
+            'Combine your PDF files easily using our this free tool. It will combine your PDFs in three easy steps.'
+          }
         />
       )}
 
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {!isDroped && !completionStatus && (
-          <div>
+          <div className="px-3">
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                testFunction(
+                  async () => {
+                    console.log('this is the tool function')
+                  },
+                  {
+                    setCompletionStatus,
+                    setisDroped,
+                    setFiles,
+                    setdownloadFileURL,
+                    setLoading,
+                    dispatch,
+                    showContent,
+                  }
+                )
+              }}
+            >
+              Run testFunction
+            </button>
             <FileInput
               files={files}
               setFiles={setFiles}
@@ -115,10 +152,7 @@ function Merge() {
               multiple={true}
               accept={{ 'application/pdf': [] }}
             />
-            <BenefitsSection
-              heading={'Benefits of merging PDFs'}
-              benefits={mergePDFBenefits}
-            />
+            <BenefitsSection heading={'Benefits of merging PDFs'} benefits={mergePDFBenefits} />
             <FeatureCardSection features={mergePDFFeatures} tool={'Merge PDF'} text="" />
             <HowToSection
               heading={'How to merge PDFs online for free?'}
@@ -169,9 +203,10 @@ function Merge() {
         {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
         {serverPreparing && <ServerPreparingLoader />}
         {progress === 100 && isProcessing && <Processing />}
+        {/* {loading && 'Loading'} */}
       </form>
       {downloadFileURL && completionStatus && (
-        <div className='pt-10'>
+        <div className="pt-10">
           <DownloadComponent
             headingText={'Download Merged PDF'}
             buttonText={'Download Merged PDF'}

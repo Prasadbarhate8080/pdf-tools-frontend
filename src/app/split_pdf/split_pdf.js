@@ -127,7 +127,7 @@ function Split() {
       )}
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {!isDroped && !completionStatus && (
-          <div>
+          <div className='px-3'>
             <FileInput
               setisDroped={setisDroped}
               setFiles={setFiles}

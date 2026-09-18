@@ -3,7 +3,7 @@ import { Sparkles } from 'lucide-react'
 
 function ToolHeader({ sparklesText, headings, text }) {
   return (
-    <section className="relative pt-10 md:pt-12 pb-4 " style={{ background: 'var(--gradient-hero)' }}>
+    <section className="relative pt-10 md:pt-12 pb-4 " style={{ background:'var(--gradient-hero)'}}>
       <div
         className="absolute top-0 left-0 right-0 -bottom-96 pointer-events-none"
         style={{ background: 'var(--gradient-glow)' }}

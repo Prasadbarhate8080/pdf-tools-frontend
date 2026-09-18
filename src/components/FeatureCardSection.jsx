@@ -1,21 +1,21 @@
 import FeatureCard from './FeatureCard'
-function FeatureCardSection({tool,text="Everything you need to manage your PDF files with confidence",features}) {
+function FeatureCardSection({
+  tool,
+  text = 'Everything you need to manage your PDF files with confidence',
+  features,
+}) {
   return (
-    <section className="bg-muted/30">
-      <div className="container py-20">
-        <div className="text-center mb-14">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-            Features of PDFtoolify - {tool}  Tool
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-           {text}
-          </p>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {features.map((feature, i) => (
-            <FeatureCard key={i} {...feature} delay={200 + i * 100} />
-          ))}
-        </div>
+    <section className="bg-muted/30 container py-20">
+      <div className="text-center mb-14">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+          Features of PDFtoolify - {tool} Tool
+        </h2>
+        <p className="text-muted-foreground max-w-xl mx-auto">{text}</p>
+      </div>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {features.map((feature, i) => (
+          <FeatureCard key={i} {...feature} />
+        ))}
       </div>
     </section>
   )

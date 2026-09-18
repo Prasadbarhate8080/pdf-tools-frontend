@@ -129,7 +129,7 @@ export default function RemovePDFPages() {
         />
       )}
       {!isDroped && !completionStatus && (
-        <div>
+        <div className='px-3'>
           <FileInput
             setFiles={setFiles}
             setisDroped={setisDroped}

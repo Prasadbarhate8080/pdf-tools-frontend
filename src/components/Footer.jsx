@@ -6,14 +6,14 @@ const footerLinks = {
     { name: 'Merge PDF', href: 'https://www.pdftoolify.com/merge_pdf' },
     { name: 'Split PDF', href: 'https://www.pdftoolify.com/split_pdf' },
     { name: 'Compress PDF', href: 'https://www.pdftoolify.com/compress_pdf' },
-    { name: 'PDF to JPG', href: 'https://www.pdftoolify.com/pdf_to_jpg' },
+    { name: 'PDF to JPG', href: 'https://www.pdftoolify.com/pdf-to-jpg' },
     { name: 'Word to PDF', href: 'https://www.pdftoolify.com/word_to_pdf' },
   ],
   moreTools: [
     { name: 'Protect PDF', href: 'https://www.pdftoolify.com/protect_pdf' },
     { name: 'Unlock PDF', href: 'https://www.pdftoolify.com/unlock_pdf' },
     { name: 'Add Watermark', href: 'https://www.pdftoolify.com/add_watermark' },
-    { name: 'Extract PDF', href: 'https://www.pdftoolify.com/extract_pdf' },
+    { name: 'Extract PDF', href: 'https://www.pdftoolify.com/extract-pdf' },
     { name: 'Create PDF', href: 'https://www.pdftoolify.com/create-pdf' },
   ],
   resources: [
@@ -37,8 +37,7 @@ const socialLinks = [
 
 export const Footer = () => {
     return (
-      <footer className="border-t border-border bg-card/50 mt-10">
-        <div className="container mx-auto px-6 py-16">
+      <footer className="border-t border-border mt-10 container mx-auto px-6 py-16">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
             {/* Brand */}
             <div className="col-span-2 md:col-span-3 lg:col-span-2">
@@ -59,7 +58,7 @@ export const Footer = () => {
                   <Link
                     key={social.label}
                     href={social.href}
-                    className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
+                    className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10"
                     aria-label={social.label}
                     target='_blank'
                   >
@@ -81,7 +80,7 @@ export const Footer = () => {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      className="text-sm text-muted-foreground hover:text-primary"
                     >
                       {link.name}
                     </Link>
@@ -102,7 +101,7 @@ export const Footer = () => {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      className="text-sm text-muted-foreground hover:text-primary"
                     >
                       {link.name}
                     </Link>
@@ -121,7 +120,7 @@ export const Footer = () => {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      className="text-sm text-muted-foreground hover:text-primary"
                     >
                       {link.name}
                     </Link>
@@ -140,7 +139,7 @@ export const Footer = () => {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      className="text-sm text-muted-foreground hover:text-primary"
                     >
                       {link.name}
                     </Link>
@@ -156,7 +155,6 @@ export const Footer = () => {
             </p>
             <p className="text-sm text-muted-foreground">Work Smarter with Easy PDF Tools ✨</p>
           </div>
-        </div>
       </footer>
     )
 }

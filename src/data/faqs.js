@@ -33,7 +33,7 @@ export const homeFaqs = [
 
 export const mergePDFFaqs = [
   {
-    question: 'Is PDFtoolify Really Free?',
+    question: 'Is PDFtoolify Merge Tool Really Free?',
     answer:
       'Yes, PDFtoolify is completely free to use. You can easily use PDFtoolify for your work without any signup or hidden charges.',
   },
@@ -59,13 +59,13 @@ export const mergePDFFaqs = [
   {
     question: 'How many PDF files can I merge at once?',
     answer:
-      'You can merge up to 50 files at once',
+      'You can merge up to 50 files at once.',
   },
 ]
 
 export const splitPdfFaqs = [
   {
-    question: 'Is PDFtoolify Really Free?',
+    question: 'Is PDFtoolify Split Tool Really Free?',
     answer:
       'Yes, PDFtoolify is completely free to use. You can split PDF files without any signup, subscription, or hidden charges.',
   },
@@ -85,9 +85,9 @@ export const splitPdfFaqs = [
       'Yes. PDFtoolify processes your files securely, and all uploaded files are automatically deleted after processing to protect your privacy.',
   },
   {
-    question: 'Does splitting PDFs cost anything?',
+    question: 'Does splitting PDFs can change the internal structure of my PDFs?',
     answer:
-      'No, splitting PDFs with PDFtoolify is 100% free. There are no subscriptions, hidden fees, or usage limits.',
+      'No, splitting PDFs with PDFtoolify never affects on your PDFs internal structure.',
   },
 ]
 
@@ -121,7 +121,7 @@ export const addPageNoFaq = [
 
 export const addPagesFaqs = [
   {
-    question: "Is PDFtoolify really free?",
+    question: "Is PDFtoolify free for adding pages in pdf?",
     answer:
       "Yes, PDFtoolify is completely free. You can add pages to your PDF files without creating an account.",
   },
@@ -146,9 +146,9 @@ export const addPagesFaqs = [
       "Yes. Download the Windows version of PDFtoolify to add pages to your PDF even without internet access.",
   },
   {
-    question: "Does adding pages to a PDF cost anything?",
+    question: "Does adding pages to PDF make PDF more heavy than usual?",
     answer:
-      "No, adding pages with PDFtoolify is 100% free with no hidden fees.",
+      "No, adding pages dont make your pdfs heavy it slightly increase your size of your PDF.",
   },
 ];
 
@@ -187,7 +187,7 @@ export const addPdfInPdfFaqs = [
 
 export const addWatermarkFaqs = [
   {
-    question: "Is PDFtoolify Really Free?",
+    question: "Is PDFtoolify Really Free for adding watermark?",
     answer:
       "Yes, PDFtoolify is completely free. You can add text watermarks to your PDF files without signing up.",
   },
@@ -212,9 +212,9 @@ export const addWatermarkFaqs = [
       "Absolutely. You can customize text, opacity, rotation, and position for your watermark.",
   },
   {
-    question: "Does adding a watermark cost anything?",
+    question: "Does adding a watermark make my PDF text invisible?",
     answer:
-      "No, adding a watermark with PDFtoolify is 100% free and unlimited.",
+      "No, it will not make your PDF text invisible.",
   },
 ];
 
@@ -245,9 +245,9 @@ export const compressPdfFaqs = [
       "No. The compressor works in your browser with no downloads required.",
   },
   {
-    question: "Does compression cost anything?",
+    question: "Does compression affect on PDF structure?",
     answer:
-      "No, PDF compression with PDFtoolify is 100% free and unlimited.",
+      "No, no compression does not affect on PDF internal structure.",
   },
 ];
 
@@ -344,9 +344,9 @@ export const protectPdfFaqs = [
       "Yes. You can download PDFtoolify for Windows and protect your files offline without needing internet access.",
   },
   {
-    question: "Does protecting a PDF cost anything?",
+    question: "Does protecting affects on my PDF text?",
     answer:
-      "No. Adding a password to your PDF using PDFtoolify is completely free.",
+      "No. protecting PDFs does not affect on your PDF texts.",
   },
 ];
 
@@ -377,8 +377,8 @@ export const removePdfPagesFaqs = [
       'Yes. You can download PDFtoolify for Windows and remove pages offline without internet access.',
   },
   {
-    question: 'Does removing PDF pages cost anything?',
-    answer: 'No. PDFtoolify’s page removal tool is 100% free and has no hidden charges.',
+    question: 'Does removing PDF pages changes internal structure of my PDF?',
+    answer: 'No. it never affect on the structure of your PDFs.',
   },
 ];
 
@@ -475,15 +475,15 @@ export const pdfToJpgFaqs = [
       "Absolutely. You can convert a single page or all pages of a PDF—PDFtoolify handles multi-page conversion with ease.",
   },
   {
-    question: "Does converting PDF to JPG cost anything?",
+    question: "Does converting PDF to JPG give me the jpg images?",
     answer:
-      "No, PDF to JPG conversion on PDFtoolify is completely free—no hidden fees or subscription required.",
+      "Yes, converting PDF to JPG will give you the jpg images.",
   },
 ];
 
 export const pdfToPdfaFaqs = [
   {
-    question: "Is PDFtoolify Really Free?",
+    question: "Is PDFtoolify pdf to pdfa converter Free?",
     answer:
       "Yes, PDFtoolify is completely free. You can convert your regular PDF files to PDF/A format without any signup.",
   },
@@ -508,15 +508,15 @@ export const pdfToPdfaFaqs = [
       "Yes. You can download the Windows version of PDFtoolify to convert PDF files to PDF/A even without an internet connection.",
   },
   {
-    question: "Does converting to PDF/A cost anything?",
+    question: "what is PDF to PDFA conversion?",
     answer:
-      "No, converting PDFs to PDF/A using PDFtoolify is completely free and unlimited.",
+      "PDF to PDFA conversion converts your PDF file into PDFA format.",
   },
 ];
 
 export const unlockPdfFaqs = [
   {
-    question: "Is PDFtoolify Really Free?",
+    question: "Is PDFtoolify offer free unlock PDF feature?",
     answer:
       "Yes, PDFtoolify is 100% free. You can unlock secured PDFs without signing up or paying anything.",
   },
@@ -541,15 +541,15 @@ export const unlockPdfFaqs = [
       "Yes. You can download the Windows app and unlock PDFs even without an internet connection.",
   },
   {
-    question: "Does unlocking PDFs cost anything?",
+    question: "what unlocking the PDF does?",
     answer:
-      "No, unlocking PDF files with PDFtoolify is completely free and unlimited.",
+      "Unlocking the PDF removes the password from your PDF.",
   },
 ];
 
 export const wordToPdfFaqs = [
   {
-    question: "Is PDFtoolify Really Free?",
+    question: "Is PDFtoolify word to pdf converter really free?",
     answer:
       "Yes, PDFtoolify is completely free. You can convert Word (DOC/DOCX) files to PDF without signing up.",
   },
@@ -574,8 +574,8 @@ export const wordToPdfFaqs = [
       "Yes. You can download the Windows version of PDFtoolify to convert Word files to PDF offline.",
   },
   {
-    question: "Does converting Word to PDF cost anything?",
+    question: "what is word to PDF conversion?",
     answer:
-      "No. Word to PDF conversion with PDFtoolify is completely free and unlimited.",
+      "It converts the word document into the PDF format.",
   },
 ];

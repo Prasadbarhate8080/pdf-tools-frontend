@@ -233,7 +233,7 @@ function AddWaterMarkPage() {
         encType="multipart/form-data"
       >
         {!isDroped && !completionStatus && (
-          <div>
+          <div className='px-3'>
             <FileInput
               setFiles={setFiles}
               setisDroped={setisDroped}

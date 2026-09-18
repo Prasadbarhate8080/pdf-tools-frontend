@@ -1,26 +1,27 @@
-import Pdfa from './pdf_to_pdfa'
+import ExtractPdf from './extract_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
-import { pdfToPdfaFaqs } from '@/data/faqs'
+import { extractPdfFaqs } from '@/data/faqs'
 export const metadata = {
-  title: 'Convert PDF to PDF/A for Long-Term Archiving',
+  title: 'Extract Pages from PDF Online - Free PDF Extractor',
   description:
-    'Easily convert your PDF files into PDF/A format for reliable, long-term archiving. Fast, secure, and compliant with ISO standards.',
+    'Select and extract specific pages from any PDF file with PDFtoolify - fast, private, and user-friendly.',
   openGraph: {
-    title: 'PDF to PDF/A Converter - PDFtoolify',
-    description: 'Make your PDF documents archive-ready online.',
+    title: 'Extract PDF Pages Online - PDFtoolify',
+    description: 'Easily extract pages from your PDF documents for free.',
   },
   alternates: {
-    canonical: '/pdf_to_pdfa',
+    canonical: '/extract-pdf',
   },
 }
+
 function page() {
   const jsonLd = [
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: pdfToPdfaFaqs.map((faq) => {
+      mainEntity: extractPdfFaqs.map((faq) => {
       return {
         '@type': 'Question',
         name: faq.question,
@@ -40,18 +41,18 @@ function page() {
           __html: JSON.stringify(jsonLd),
         }}
       />
-      <Pdfa />
+      <ExtractPdf />
       <HideContent>
         <div className="container py-20 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              PDF to PDF/A Blog Articles
+              Extract PDF Blog Articles
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              Learn more about PDF/A archiving standards
+              Learn more about extracting and managing PDF pages
             </p>
           </div>
-          <Posts toolName={'PDF_TO_PDFA'} />
+          <Posts toolName={'EXTRACT_PDF'} />
           <ToolBlog />
         </div>
       </HideContent>

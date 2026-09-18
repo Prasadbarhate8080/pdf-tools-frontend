@@ -15,7 +15,7 @@ const Input = React.forwardRef(function Input(
   const generatedId = useId()
   const inputId = id || generatedId
   return (
-    <div className="h-10 w-full flex gap-3 items-center">
+    <div className="h-10 flex gap-3 items-center">
       {label && (
         <label
           className={`${labelClassName}`}

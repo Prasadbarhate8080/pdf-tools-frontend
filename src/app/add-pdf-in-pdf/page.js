@@ -1,18 +1,19 @@
-import ExtractPdf from './extract_pdf'
+import React from 'react'
+import AddPdfInPdf from './add_pdf_in_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
 import HideContent from '@/components/HideContent'
-import { extractPdfFaqs } from '@/data/faqs'
+import { addPdfInPdfFaqs } from '@/data/faqs'
 export const metadata = {
-  title: 'Extract Pages from PDF Online - Free PDF Extractor',
+  title: 'Insert PDF into PDF Online - Merge PDFs Anywhere',
   description:
-    'Select and extract specific pages from any PDF file with PDFtoolify - fast, private, and user-friendly.',
+    'Insert a PDF file into another PDF document at any position. Fast, secure, and free online tool with PDFtoolify.',
   openGraph: {
-    title: 'Extract PDF Pages Online - PDFtoolify',
-    description: 'Easily extract pages from your PDF documents for free.',
+    title: 'Insert PDF into PDF Online - PDFtoolify',
+    description: 'Insert documents into your existing PDFs easily and for free.',
   },
   alternates: {
-    canonical: '/extract_pdf',
+    canonical: '/add-pdf-in-pdf',
   },
 }
 
@@ -21,7 +22,7 @@ function page() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: extractPdfFaqs.map((faq) => {
+      mainEntity: addPdfInPdfFaqs.map((faq) => {
       return {
         '@type': 'Question',
         name: faq.question,
@@ -41,18 +42,18 @@ function page() {
           __html: JSON.stringify(jsonLd),
         }}
       />
-      <ExtractPdf />
+      <AddPdfInPdf />
       <HideContent>
         <div className="container py-20 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              Extract PDF Blog Articles
+              Insert PDF into PDF Blog Articles
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              Learn more about extracting and managing PDF pages
+              Learn more about merging and inserting PDFs
             </p>
           </div>
-          <Posts toolName={'EXTRACT_PDF'} />
+          <Posts toolName={'ADD_PDF_IN_PDF'} />
           <ToolBlog />
         </div>
       </HideContent>

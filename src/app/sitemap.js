@@ -8,7 +8,7 @@ const staticRoutes = [
   '/merge_pdf',
   '/split_pdf',
   '/word_to_pdf',
-  '/pdf_to_pdfa',
+  '/pdf-to-pdfa',
   '/compress_pdf',
   '/unlock_pdf',
   '/remove_pdf_pages',
@@ -24,9 +24,9 @@ const staticRoutes = [
   '/disclaimer',
   '/terms-and-conditions',
 
-  '/add_pdf_in_pdf',
-  '/extract_pdf',
-  '/pdf_to_jpg',
+  '/add-pdf-in-pdf',
+  '/extract-pdf',
+  '/pdf-to-jpg',
   '/create-pdf',
 ]
 

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import HeaderToolsSection from './HeaderToolsSection'
 import { useSelector } from 'react-redux'
-import { tools } from '@/components/HomePageToolsSection'
+import { tools } from '@/data/toolsData'
 import Link from 'next/link'
 import ToolName from './ToolName'
 const navItems = [
@@ -62,10 +62,9 @@ export const Header = () => {
         <div
           className={`flex items-center justify-between ${blurHeader ? 'h-10 md:h-12' : 'h-12 md:h-14'}`}
         >
-          {/* Logo of pdftoolify*/}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className=" rounded-lg flex items-center justify-center  shadow-md group-hover:shadow-lg transition-shadow">
-              <Image src={'/PDFtoolify_logo.svg'} alt="pdftoolify.com" height={40} width={40} />
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="rounded-lg">
+              <Image src={'/pdftoolify_logo.svg'} alt="pdftoolify.com" height={40} width={40} />
             </div>
             <span className="text-xl font-bold text-foreground">
               PDF<span className="text-primary">toolify</span>
@@ -85,8 +84,8 @@ export const Header = () => {
                   >
                     <Link
                       href={item.href}
-                      className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-all duration-200 flex items-center gap-1"
-                    >
+                      className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 flex items-center gap-1"
+                    > 
                       {item.name}{' '}
                       <ChevronDown
                         size={14}
@@ -112,7 +111,7 @@ export const Header = () => {
                   key={item.name}
                   href={item.href}
                   {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-all duration-200"
+                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50"
                 >
                   {item.name}
                 </Link>
@@ -122,7 +121,7 @@ export const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="hero" size="default" asChild>
+            <Button variant="default" size="default" asChild>
               <Link href="/#tools">Explore All Tools</Link>
             </Button>
           </div>
@@ -139,7 +138,7 @@ export const Header = () => {
         {/* Mobile Menu (kept in DOM for smooth transitions) */}
         <div
           className="md:hidden border-t border-border/50 overflow-auto"
-          aria-hidden={!isMobileMenuOpen}
+          // aria-hidden={!isMobileMenuOpen}
           style={{
             maxHeight: isMobileMenuOpen ? '100vh' : '0px',
             transition: 'max-height 300ms ease, padding 200ms ease, opacity 200ms ease',
@@ -164,8 +163,8 @@ export const Header = () => {
                 ))}
               <div className="pt-3 px-4">
                 <Button
-                  variant={`${mobileMoreTools ? 'outline' : 'hero'}`}
-                  size={`${mobileMoreTools ? 'sm' : 'lg'}`}
+                  variant={`${mobileMoreTools ? 'outline' : 'default'}`}
+                  size={`${mobileMoreTools ? 'sm' : 'sm'}`}
                   className={`w-full`}
                   onClick={() => setMobileMoreTools((prev) => !prev)}
                 >
@@ -178,7 +177,7 @@ export const Header = () => {
             <div
               className="px-4 mt-3 overflow-auto"
               style={{
-                maxHeight: mobileMoreTools ? '60vh' : '0px',
+                maxHeight: mobileMoreTools ? '80vh' : '0px',
                 transition: 'max-height 300ms ease, opacity 200ms ease',
                 opacity: mobileMoreTools ? 1 : 0,
               }}

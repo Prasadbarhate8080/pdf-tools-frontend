@@ -12,7 +12,7 @@ export const metadata = {
     description: 'Turn your photos and images into professional PDF documents for free.',
   },
   alternates: {
-    canonical: '/create_pdf',
+    canonical: '/create-pdf',
   },
 }
 
