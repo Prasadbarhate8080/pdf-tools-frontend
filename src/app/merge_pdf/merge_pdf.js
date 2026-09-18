@@ -124,7 +124,7 @@ function Merge() {
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {!isDroped && !completionStatus && (
           <div className="px-3">
-            <button
+            {/* <button
               onClick={(e) => {
                 e.preventDefault()
                 testFunction(
@@ -144,7 +144,7 @@ function Merge() {
               }}
             >
               Run testFunction
-            </button>
+            </button> */}
             <FileInput
               files={files}
               setFiles={setFiles}
