@@ -5,8 +5,8 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ToastContainer } from 'react-toastify'
 import { Header } from '@/components/Header'
-import HideContent from '@/components/HideContent'
 import { Footer } from '@/components/Footer'
+import HideDefaultContent from '@/components/HideDefaultContent'
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -82,22 +82,19 @@ export const metadata = {
   },
 }
 
-
 export default function RootLayout({ children }) {
-
   return (
     <html lang="en" className="">
-      <head>
-      </head>
+      <head></head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased  min-h-screen flex flex-col justify-between`}
       >
         <StoreProvider>
           <Header />
           {children}
-          <HideContent>
+          <HideDefaultContent>
             <Footer />
-          </HideContent>
+          </HideDefaultContent>
         </StoreProvider>
         <ToastContainer />
         {process.env.NODE_ENV === 'production' && (

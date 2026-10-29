@@ -7,7 +7,7 @@ const platforms = [
     name: 'Windows',
     description:
       'Download PDFtoolify for Windows and simplify your PDF tasks. Use add PDF pages and more PDF related features for free.',
-    href: 'https://www.pdftoolify.com/download_page/windows',
+    href: '/download_page/windows',
     cta: 'Download Now',
   },
   {
@@ -15,7 +15,7 @@ const platforms = [
     name: 'Android',
     description:
       'Download PDFtoolify app free for Android. Use read, merge, split and more PDF related features for free.',
-    href: 'https://www.pdftoolify.com/download_page/android',
+    href: '/download_page/android',
     cta: 'Download Now',
   },
 ]

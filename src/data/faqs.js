@@ -579,3 +579,172 @@ export const wordToPdfFaqs = [
       "It converts the word document into the PDF format.",
   },
 ];
+
+
+export const pdfToPptFaqs = [
+  {
+    question: 'Is PDFtoolify PDF to PPT converter really free?',
+    answer:
+      'PDFtoolify offers an online PDF to PowerPoint conversion tool. You can use it without signing up, subject to any applicable usage limits.',
+  },
+  {
+    question: 'How can I convert a PDF file to PowerPoint using PDFtoolify?',
+    answer:
+      'Upload your PDF document, click “Convert,” and wait for PDFtoolify to create a PowerPoint presentation that you can download.',
+  },
+  {
+    question: 'Will the original PDF layout be preserved in PowerPoint?',
+    answer:
+      'The converter renders each PDF page as an image and places it on a separate PowerPoint slide. This helps preserve the original page appearance.',
+  },
+  {
+    question: 'Can I edit the text in the converted PowerPoint slides?',
+    answer:
+      'The current conversion method creates image-based slides. The text and other content within each page image are not individually editable as PowerPoint elements.',
+  },
+  {
+    question: 'Is it safe to convert PDF files online?',
+    answer:
+      'PDFtoolify processes uploaded files to perform the conversion. File handling and deletion depend on the website’s security and file-retention policies.',
+  },
+  {
+    question: 'What is PDF to PowerPoint conversion?',
+    answer:
+      'PDF to PowerPoint conversion transforms PDF pages into presentation slides, making the document easier to display and present in PowerPoint.',
+  },
+]
+
+
+export const excelToPdfFaqs = [
+  {
+    question: "Is PDFtoolify Excel to PDF converter really free?",
+    answer:
+      "Yes, PDFtoolify lets you convert Excel (XLS/XLSX), ODS, and CSV files to PDF online for free without signing up.",
+  },
+  {
+    question: "How can I convert an Excel file to PDF using PDFtoolify?",
+    answer:
+      "Upload your Excel spreadsheet, click “Convert,” and PDFtoolify will process it into a PDF document that you can download.",
+  },
+  {
+    question: "Will my spreadsheet formatting be preserved after conversion?",
+    answer:
+      "PDFtoolify aims to preserve your spreadsheet's tables, cell formatting, fonts, and layout. The final appearance may vary depending on the original file and page settings.",
+  },
+  {
+    question: "Is it safe to convert Excel files online?",
+    answer:
+      "PDFtoolify processes uploaded files to perform the conversion. Files are handled according to the website's security and file-retention policies.",
+  },
+  {
+    question: "Can I convert Excel to PDF offline?",
+    answer:
+      "If you use a supported offline version of PDFtoolify, you can convert Excel files to PDF without an internet connection. Check the available desktop version for offline support.",
+  },
+  {
+    question: "What is Excel to PDF conversion?",
+    answer:
+      "Excel to PDF conversion transforms spreadsheet files into PDF documents, making tables and data easier to share, print, and view across different devices.",
+  },
+]
+
+
+export const pptToPdfFaqs = [
+  {
+    question: 'Is PDFtoolify PowerPoint to PDF converter really free?',
+    answer:
+      'PDFtoolify offers an online PowerPoint to PDF conversion tool. You can use it without signing up, subject to any applicable usage limits.',
+  },
+  {
+    question: 'How can I convert a PowerPoint file to PDF using PDFtoolify?',
+    answer:
+      'Upload your PowerPoint presentation, click “Convert,” and wait for PDFtoolify to process it. You can then download the converted PDF.',
+  },
+  {
+    question: 'Will my slide formatting be preserved after conversion?',
+    answer:
+      'PDFtoolify aims to preserve your presentation’s slide layout, text, images, and formatting. Results may vary depending on the original file and conversion engine.',
+  },
+  {
+    question: 'Which PowerPoint formats are supported?',
+    answer:
+      'The tool supports PowerPoint PPT and PPTX files, as well as ODP presentations, subject to the configured conversion service.',
+  },
+  {
+    question: 'Is it safe to convert PowerPoint files online?',
+    answer:
+      'PDFtoolify processes uploaded files to perform the conversion. File handling and deletion depend on the website’s security and file-retention policies.',
+  },
+  {
+    question: 'What is PowerPoint to PDF conversion?',
+    answer:
+      'PowerPoint to PDF conversion transforms presentation slides into a PDF document that is easier to share, view, and print across different devices.',
+  },
+]
+
+
+export const PDFToWordFaqs = [
+  {
+    question: "Is PDFtoolify pdf to word converter really free?",
+    answer:
+      "Yes, PDFtoolify is completely free. You can convert PDF files to word without signing up.",
+  },
+  {
+    question: "How can I convert a PDF file to Word using PDFtoolify?",
+    answer:
+      "Just upload your PDF document and click “Convert.” PDFtoolify will instantly turn it into a high-quality Word document.",
+  },
+  {
+    question: "Will the formatting change after converting to Word?",
+    answer:
+      "No. Your text, fonts, images, spacing, and layout remain same but some how spacing changes.",
+  },
+  {
+    question: "Is it safe to convert PDF files online?",
+    answer:
+      "Yes. PDFtoolify uses secure file processing, and all uploaded files are automatically deleted after conversion to protect your privacy.",
+  },
+  {
+    question: "Can I convert PDF to Word offline?",
+    answer:
+      "Yes. You can download the Windows version of PDFtoolify to convert PDF files to Word offline.",
+  },
+  {
+    question: "what is PDF to Word conversion?",
+    answer:
+      "It converts the PDF file into the Word document format.",
+  },
+];
+
+export const PDFToExcelFaqs = [
+  {
+    question: "Is PDFtoolify PDF to Excel converter really free?",
+    answer:
+      "Yes, PDFtoolify is completely free. You can convert PDF files to Excel without signing up.",
+  },
+  {
+    question: "How can I convert a PDF file to Excel using PDFtoolify?",
+    answer:
+      "Just upload your PDF document and click “Convert.” PDFtoolify will instantly turn it into a high-quality Excel sheet.",
+  },
+  {
+    question: "Will the formatting change after converting to PDF?",
+    answer:
+      "No. Your text, fonts, images, spacing, and layout remain exactly the same after conversion.",
+  },
+  {
+    question: "Is it safe to convert PDF files online?",
+    answer:
+      "Yes. PDFtoolify uses secure file processing, and all uploaded files are automatically deleted after conversion to protect your privacy.",
+  },
+  {
+    question: "Can I convert PDF to Excel offline?",
+    answer:
+      "Yes. You can download the Windows version of PDFtoolify to convert PDF files to Excel offline.",
+  },
+  {
+    question: "what is PDF to Excel conversion?",
+    answer:
+      "It converts the PDF file into the Excel sheet.",
+  },
+];

@@ -133,3 +133,44 @@ export const wordToPdfBenefits = [
   'No signup required — convert Word files in seconds',
   'Fast, reliable, and free Word to PDF conversion',
 ];
+
+export const PPTToPDFBenefits = [
+  'Convert PowerPoint presentations into PDF documents quickly and easily.',
+  'Preserve slide layouts, images, text, and visual formatting as much as possible.',
+  'Make presentations easier to share and view across different devices.',
+  'Prepare presentation slides for printing in a convenient document format.',
+  'Save time by converting PowerPoint files to PDF without recreating documents.',
+]
+
+
+export const PDFToWordBenefits = [
+  'It will help you to make changes in your pdf file directly.',
+  'Converting pdf into word will make document editable.',
+  'It will save your time of editing and formatting.',
+  'You do not need to create the new pdf file.',
+  'Formatting of your pdf is maintained.',
+];
+
+export const PDFToExcelBenefits = [
+  'It will save your time of typing the repetitive data.',
+  'PDF to excel conversion will make your work easy for data insertion.',
+  'Increases the output of your work in minimum time.',
+  'PDF to excel conversion save your time for creating excel file with same data.',
+  'It will help you to remove unnecessary data importing.',
+];
+
+export const PDFToPPTBenefits = [
+  'Convert PDF documents into PowerPoint presentations instantly',
+  'Preserve the original page layout, images, and visual appearance',
+  'Secure processing with automatic file deletion',
+  'No signup required — convert PDF files to PPT in seconds',
+  'Fast, reliable, and free PDF to PowerPoint conversion',
+];
+
+export const ExcelToPDFBenefits = [
+  'Convert Excel spreadsheets into professional PDF documents easily.',
+  'Preserve your spreadsheet layout, tables, and formatting when sharing files.',
+  'Make your Excel data easier to view, print, and distribute.',
+  'Share spreadsheets in a consistent format across different devices.',
+  'Protect your spreadsheet presentation by sharing a PDF instead of an editable Excel file.',
+];

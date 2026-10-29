@@ -369,6 +369,49 @@ export const wordToPdfHowToSteps = [
   },
 ]
 
+
+export const pdfToPptHowToSteps = [
+  {
+    icon: Upload,
+    step: '1',
+    title: 'Upload PDF File',
+    description: 'Select a PDF document from your device.',
+  },
+  {
+    icon: FileType2,
+    step: '2',
+    title: 'Convert to PowerPoint',
+    description: 'Click convert to turn each PDF page into a PowerPoint slide.',
+  },
+  {
+    icon: Download,
+    step: '3',
+    title: 'Download PPTX',
+    description: 'Download your converted PowerPoint presentation and start presenting.',
+  },
+]
+
+export const excelToPdfHowToSteps = [
+  {
+    icon: Upload,
+    step: '1',
+    title: 'Upload Excel File',
+    description: 'Select an XLS, XLSX, ODS, or CSV file from your device.',
+  },
+  {
+    icon: FileType2,
+    step: '2',
+    title: 'Convert to PDF',
+    description: 'Click convert to turn your spreadsheet into a PDF document.',
+  },
+  {
+    icon: Download,
+    step: '3',
+    title: 'Download PDF',
+    description: 'Download your converted PDF and share or print it easily.',
+  },
+]
+
 export const unlockPdfHowToSteps = [
   {
     icon: Upload,
@@ -389,3 +432,68 @@ export const unlockPdfHowToSteps = [
     description: 'Get your unlocked PDF file right away — fast and free.',
   },
 ];
+
+
+export const pptToPdfHowToSteps = [
+  {
+    icon: Upload,
+    step: '1',
+    title: 'Upload PowerPoint File',
+    description: 'Select a PPT, PPTX, or ODP presentation from your device.',
+  },
+  {
+    icon: FileType2,
+    step: '2',
+    title: 'Convert to PDF',
+    description: 'Click convert to turn your presentation into a PDF document.',
+  },
+  {
+    icon: Download,
+    step: '3',
+    title: 'Download PDF',
+    description: 'Download your converted PDF and share, view, or print it easily.',
+  },
+]
+
+
+export const PDFToWordHowToSteps = [
+  {
+    icon: Upload,
+    step: '1',
+    title: 'Upload PDF File',
+    description: 'Select a PDF file from your device.',
+  },
+  {
+    icon: FileType2,
+    step: '2',
+    title: 'Convert to Word',
+    description: 'Click convert to generate a high-quality Word document.',
+  },
+  {
+    icon: Download,
+    step: '3',
+    title: 'Download Word Document',
+    description: 'Get your converted Word document instantly — fast and free.',
+  },
+]
+
+export const PDFToExcelHowToSteps = [
+  {
+    icon: Upload,
+    step: '1',
+    title: 'Upload PDF File',
+    description: 'Select a PDF file from your device.',
+  },
+  {
+    icon: FileType2,
+    step: '2',
+    title: 'Convert to Excel',
+    description: 'Click convert to generate a high-quality Excel file.',
+  },
+  {
+    icon: Download,
+    step: '3',
+    title: 'Download Excel File',
+    description: 'Get your converted Excel sheet instantly — fast and free.',
+  },
+]

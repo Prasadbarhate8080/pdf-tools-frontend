@@ -1,15 +1,15 @@
-import { NextResponse } from "next/server";
-import { dbConnect } from "@/db/dbConnect";
-import { blogModel } from "@/models/blogModel";
+import { NextResponse } from 'next/server'
+import { dbConnect } from '@/db/dbConnect'
+import { blogModel } from '@/models/blogModel'
 
 export async function PUT(request, { params }) {
   try {
-    await dbConnect();
+    await dbConnect()
 
-    const { slug } = await params;
-    const body = await request.json();
+    const { slug } = await params
+    const body = await request.json()
 
-    const data = body.data;
+    const data = body.data
 
     const updatedPost = await blogModel.findOneAndUpdate(
       { slug },
@@ -20,34 +20,29 @@ export async function PUT(request, { params }) {
         imageUrl: data.imageUrl,
         ToolName: data.toolName,
         content: data.content,
+        tableOfContent: data.toc,
+        faqs: data.faqs,
       },
       {
         new: true,
         runValidators: true,
       }
-    );
+    )
 
     if (!updatedPost) {
-      return NextResponse.json(
-        { message: "Blog not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: 'Blog not found' }, { status: 404 })
     }
 
     return NextResponse.json(
       {
-        message: "Blog updated successfully",
+        message: 'Blog updated successfully',
         post: updatedPost,
       },
       { status: 200 }
-    );
-
+    )
   } catch (error) {
-    console.error(error);
+    console.error(error)
 
-    return NextResponse.json(
-      { message: "Failed to update blog" },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: 'Failed to update blog' }, { status: 500 })
   }
 }

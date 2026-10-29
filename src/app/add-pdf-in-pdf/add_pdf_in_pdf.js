@@ -1,16 +1,14 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
-import { Plus, Dot } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import { PDFDocument } from 'pdf-lib'
-import { toast } from 'react-toastify'
-import ToolList from '@/components/ToolList'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
 import FaqSection from '@/components/FaqSection'
@@ -21,134 +19,104 @@ import { addPdfInPdfFaqs } from '@/data/faqs'
 import { addPdfInPdfHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
-import OperationSidebar from '@/components/OperationSidebar'
-import { useDispatch } from 'react-redux'
-import { showContent } from '@/store/hideContentSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import DownloadComponent from '@/components/DownloadComponent'
+import { setDownloadFileUrl } from '@/store/downloadFileUrlSlice'
+import HideMainContent from '@/components/HideMainContent'
+import LoadingStateComponent from '@/components/LoadingStateComponent'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
 function AddPdfInPdf() {
+  let dispatch = useDispatch()
+  let downloadFileUrl = useSelector((state) => state.downloadFileUrl.downloadFileUrl)
   let pdfFile = useRef(null)
+  let newPdfNumPages = useRef(0)
+  let addingFilePageNo = useRef(null)
   const [numPages, setnumPages] = useState(0)
   const [isPopupActive, setIsPopupActive] = useState(false)
   const [pdfFilePageno, setPdfFilePageno] = useState(1)
-  let dispatch = useDispatch()
-
-  let {
-    files,
-    isDroped,
-    completionStatus,
-    isUploading,
-    downloadFileURL,
-    setisDroped,
-    setFiles,
-    setCompletionStatus,
-    setdownloadFileURL,
-  } = useFileUpload()
-
-  useEffect(() => {
-    console.log(pdfFile)
-    // console.log(numPages)
-    // console.log(isPopupActive)
-    // console.log(pdfFilePageno)
-    // console.log("completion status",completionStatus)
-    // console.log(downloadFileURL)
-  }, [pdfFile, numPages, isPopupActive, pdfFilePageno, completionStatus, downloadFileURL])
+  let { files, setFiles, toolFunctionWrapper } = useFileUpload()
 
   async function addPdfIntoPdf() {
-    try {
-      if (!files) throw new Error('No main PDF selected')
-      if (!pdfFile) throw new Error('No PDF selected to insert')
+    if (!files) throw new Error('No main PDF selected')
+    if (!pdfFile) throw new Error('No PDF selected to insert')
 
-      // ✅ Load Main PDF
-      const mainBytes = await files.arrayBuffer()
-      const mainPdfDoc = await PDFDocument.load(mainBytes)
+    // ✅ Load Main PDF
+    const mainBytes = await files.arrayBuffer()
+    const mainPdfDoc = await PDFDocument.load(mainBytes)
 
-      // ✅ Load Insert PDF
-      const insertBytes = await pdfFile.current.arrayBuffer()
-      const insertPdfDoc = await PDFDocument.load(insertBytes)
+    // ✅ Load Insert PDF
+    const insertBytes = await pdfFile.current.arrayBuffer()
+    const insertPdfDoc = await PDFDocument.load(insertBytes)
 
-      // ✅ Copy pages from insert PDF
-      const insertPages = await mainPdfDoc.copyPages(insertPdfDoc, insertPdfDoc.getPageIndices())
+    // ✅ Copy pages from insert PDF
+    const insertPages = await mainPdfDoc.copyPages(insertPdfDoc, insertPdfDoc.getPageIndices())
 
-      // ✅ Insert before this page (0-based index)
-      const insertAt = Number(pdfFilePageno) - 1
+    // ✅ Insert before this page (0-based index)
+    const insertAt = Number(pdfFilePageno) - 1
 
-      insertPages.forEach((page, index) => {
-        mainPdfDoc.insertPage(insertAt + index, page)
-      })
+    insertPages.forEach((page, index) => {
+      mainPdfDoc.insertPage(insertAt + index, page)
+    })
 
-      // ✅ Save final PDF
-      const newPdfBytes = await mainPdfDoc.save()
+    // ✅ Save final PDF
+    const newPdfBytes = await mainPdfDoc.save()
 
-      const blob = new Blob([newPdfBytes], { type: 'application/pdf' })
-      const url = URL.createObjectURL(blob)
-
-      setdownloadFileURL(url)
-      setCompletionStatus(true)
-    } catch (error) {
-      toast.error('error in inserting pdf')
-      dispatch(showContent())
-    }finally{
-      dispatch(showContent())
-    }
+    const blob = new Blob([newPdfBytes], { type: 'application/pdf' })
+    const url = URL.createObjectURL(blob)
+    dispatch(setDownloadFileUrl(url))
   }
 
   function onDocumentLoadSuccess({ numPages }) {
     setnumPages(numPages)
   }
+  function newPdfLoaded({ numPages }) {
+    newPdfNumPages.current = numPages
+  }
   return (
     <div className="min-h-screen bg-background">
-      {!completionStatus && !isDroped && (
+      <HideMainContent>
         <ToolHeader
           sparklesText={'Free Online PDF Inserter'}
           headings={['Insert', 'PDF into PDF', 'Easily']}
           text={'Insert a PDF into another PDF at any page position Quickly.'}
         />
-      )}
-      {!isDroped && (
-        <div className='px-3'>
-          <FileInput
-            files={files}
-            setFiles={setFiles}
-            setisDroped={setisDroped}
-            multiple={false}
-            accept={{ 'application/pdf': [] }}
-          />
+        <FileInput
+          files={files}
+          setFiles={setFiles}
+          multiple={false}
+          accept={{ 'application/pdf': [] }}
+        />
+        <BenefitsSection
+          heading={'How this pdf inserter tool will help you'}
+          benefits={addPdfInPdfBenefits}
+        />
+        <FeatureCardSection
+          tool={'Add PDF in PDF'}
+          text="Powerful tools to insert entire PDF exactly where you need to add"
+          features={addPdfInPdfFeatures}
+        />
+        <HowToSection
+          heading={'How to add a PDF inside another PDF?'}
+          text={'Insert one PDF into another in three quick steps.'}
+          steps={addPdfInPdfHowToSteps}
+        />
+        <FaqSection
+          heading={'Add PDF in PDF FAQs'}
+          text={'Common questions about inserting a PDF into another PDF'}
+          faqs={addPdfInPdfFaqs}
+        />
+      </HideMainContent>
 
-          <BenefitsSection
-            heading={'How this pdf inserter tool will help you'}
-            benefits={addPdfInPdfBenefits}
-          />
-          <FeatureCardSection
-            tool={'Add PDF in PDF'}
-            text="Powerful tools to insert entire PDF exactly where you need to add"
-            features={addPdfInPdfFeatures}
-          />
-
-          <HowToSection
-            heading={'How to add a PDF inside another PDF?'}
-            text={'Insert one PDF into another in three quick steps.'}
-            steps={addPdfInPdfHowToSteps}
-          />
-
-          <FaqSection
-            heading={'Add PDF in PDF FAQs'}
-            text={'Common questions about inserting a PDF into another PDF'}
-            faqs={addPdfInPdfFaqs}
-          />
-          <ToolList />
-        </div>
-      )}
-      {isDroped && !isUploading && !completionStatus && (
-        <OperationBox>
-          <OperationMain>
-            <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
-              <ul className="flex flex-wrap justify-center  items-center gap-6">
-                {Array.from({ length: numPages }, (_, index) => (
-                  <div className="flex gap-4 justify-center items-center " key={index}>
+      <OperationBox>
+        <OperationMain>
+          <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
+            <ul className="flex flex-wrap justify-center  items-center gap-6">
+              {Array.from({ length: numPages }, (_, index) => {
+                return (
+                  <li className="flex gap-4 justify-center items-center " key={index}>
                     <div
                       className="bg-blue-600 p-1 rounded-full"
                       onClick={() => {
@@ -162,67 +130,53 @@ function AddPdfInPdf() {
                       <Page pageNumber={index + 1} width={180} height={360} />
                       <div className="text-center bg-white">{index + 1}</div>
                     </div>
-                  </div>
-                ))}
-                <div
-                  className="bg-blue-600 p-1 rounded-full"
-                  onClick={() => {
-                    setIsPopupActive(true)
-                    setPdfFilePageno(numPages + 1)
-                  }}
-                >
-                  <Plus color="white" />
-                </div>
-              </ul>
-            </Document>
-            <div
-              className={`fixed z-50 inset-0 bg-[rgba(70,70,70,0.4)] ${isPopupActive ? 'flex' : 'hidden'}   rounded-xl  justify-center items-center`}
-              onClick={(e) => {
-                setIsPopupActive(false)
-              }}
-            >
-              <div className="bg-white px-10 py-5 rounded-md ">
-                <label htmlFor="pdfFile" className="cursor-pointer">
-                  Select pdf file
-                </label>
-                <input
-                  type="file"
-                  id="pdfFile"
-                  className="hidden"
-                  accept=".pdf"
-                  onChange={(e) => {
-                    if (e.target.files[0].type == 'application/pdf')
+                  </li>
+                )
+              })}
+              <li
+                className="bg-blue-600 p-1 rounded-full"
+                onClick={() => {
+                  setIsPopupActive(true)
+                  setPdfFilePageno(numPages + 1)
+                }}
+              >
+                <Plus color="white" />
+              </li>
+            </ul>
+          </Document>
+          <div
+            className={`fixed z-50 inset-0 bg-[rgba(70,70,70,0.4)] ${isPopupActive ? 'flex' : 'hidden'}   rounded-xl  justify-center items-center`}
+            onClick={(e) => {
+              setIsPopupActive(false)
+            }}
+          >
+            <div className="bg-white px-10 py-5 rounded-md ">
+              <label htmlFor="pdfFile" className="cursor-pointer">
+                Select pdf file
+              </label>
+              <input
+                type="file"
+                id="pdfFile"
+                className="hidden"
+                accept=".pdf"
+                onChange={(e) => {
+                  if (e.target.files[0].type == 'application/pdf')
                       pdfFile.current = e.target.files[0]
                     else return
-                    addPdfIntoPdf()
-                  }}
-                />
-              </div>
+                  toolFunctionWrapper(addPdfIntoPdf)
+                }}
+              />
             </div>
-          </OperationMain>
-          <OperationSidebar>
-            <div className="p-2 bg-blue-50 border-1">
-              <h1 className="flex text-gray-600 text-sm items-center">
-                {' '}
-                <Dot /> Click on the plus icon to add the PDF:
-              </h1>
-            </div>
-          </OperationSidebar>
-        </OperationBox>
-      )}
-      {downloadFileURL && completionStatus && (
-        <div className="pt-10">
-          <DownloadComponent
-            headingText={'Download PDF Inserted PDF'}
-            buttonText={'Download Final PDF'}
-            downloadFileURL={downloadFileURL}
-            setCompletionStatus={setCompletionStatus}
-            setisDroped={setisDroped}
-            setFiles={setFiles}
-            setdownloadFileURL={setdownloadFileURL}
-          />
-        </div>
-      )}
+          </div>
+        </OperationMain>
+      </OperationBox>
+      <LoadingStateComponent />
+      <DownloadComponent
+        headingText={'Download PDF Inserted PDF'}
+        buttonText={'Download Final PDF'}
+        downloadFileUrl={downloadFileUrl}
+        setFiles={setFiles}
+      />
       <ToastContainer />
     </div>
   )

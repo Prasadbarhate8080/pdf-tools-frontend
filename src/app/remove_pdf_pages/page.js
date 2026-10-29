@@ -1,8 +1,10 @@
 import RemovePDFPages from './remove_pdf_pages'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
-import HideContent from '@/components/HideContent'
+import HideContent from '@/components/HideDefaultContent'
 import { removePdfPagesFaqs } from '@/data/faqs'
+import HideDefaultContent from '@/components/HideDefaultContent'
+import ToolList from '@/components/ToolList'
 
 export const metadata = {
   title: 'Remove Pages from PDF Online - Delete Unwanted PDF Pages',
@@ -22,15 +24,15 @@ function page() {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: removePdfPagesFaqs.map((faq) => {
-      return {
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          'text': faq.answer,
-        },
-      }
-    }),
+        return {
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        }
+      }),
     },
   ]
   return (
@@ -42,20 +44,19 @@ function page() {
         }}
       />
       <RemovePDFPages />
-      <HideContent>
-        <div className="container py-20 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              Remove PDF Pages Blog Articles
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              Learn more about managing and removing PDF pages
-            </p>
-          </div>
-          <Posts toolName={'REMOVE_PDF_PAGES'} />
-          <ToolBlog />
+      <HideDefaultContent>
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+            Remove PDF Pages Blog Articles
+          </h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            Learn more about managing and removing PDF pages
+          </p>
         </div>
-      </HideContent>
+        <Posts toolName={'REMOVE_PDF_PAGES'} />
+        <ToolBlog />
+        <ToolList />
+      </HideDefaultContent>
     </div>
   )
 }

@@ -26,6 +26,12 @@ const blogSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    tableOfContent:{
+      type: []
+    },
+    faqs:{
+      type: []
+    }
   },
   {
     timestamps: true,

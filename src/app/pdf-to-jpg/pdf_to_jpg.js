@@ -4,18 +4,13 @@ import { ToastContainer } from 'react-toastify'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
-import Processing from '@/components/Processing'
-import ProgressBar from '@/components/ProgressBar'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import FileInput from '@/components/FileInput'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
-import { showContent } from '@/store/hideContentSlice'
-import { Dot } from 'lucide-react'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import PDFPageComponent from '@/components/PDFPageComponent'
 import JSZip from 'jszip'
-import ToolList from '@/components/ToolList'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
 import { pdfToJpgBenefits } from '@/data/benefits'
@@ -24,173 +19,121 @@ import { pdfToJpgFaqs } from '@/data/faqs'
 import { pdfToJpgHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
-import OperationSidebar from '@/components/OperationSidebar'
-import MainOperationButton from '@/components/MainOperationButton'
-import SidebarOperationButton from '@/components/SidebarOperationButton'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import DownloadComponent from '@/components/DownloadComponent'
+import { setDownloadFileUrl } from '@/store/downloadFileUrlSlice'
+import HideMainContent from '@/components/HideMainContent'
+import PageContainer from '@/components/PDFPageComponents/PageContainer'
+import PageImageContainer from '@/components/PDFPageComponents/PageImageContainer'
+import PageData from '@/components/PDFPageComponents/PageData'
+import LoadingStateComponent from '@/components/LoadingStateComponent'
+import OperationButton from '@/components/OperationButton'
+import BottomBar from '@/components/BottomBar'
+import AddMoreFilesComponent from '@/components/AddMoreFilesComponent'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
 function PDFToJPG() {
-  const [numPages, setnumPages] = useState(0)
-  const [loading, setLoading] = useState(false)
+  let downloadFileUrl = useSelector((state) => state.downloadFileUrl.downloadFileUrl)
   let dispatch = useDispatch()
-  let {
-    files,
-    isDroped,
-    isProcessing,
-    completionStatus,
-    isUploading,
-    downloadFileURL,
-    serverPreparing,
-    progress,
-    setisDroped,
-    setFiles,
-    callApi,
-    setdownloadFileURL,
-    setCompletionStatus,
-  } = useFileUpload()
-
-  function onDocumentLoadSuccess({ numPages }) {
-    setnumPages(numPages)
-  }
+  let { files, setFiles, toolFunctionWrapper } = useFileUpload()
+  const [numPages, setNumPages] = useState(null)
 
   async function convertToJpg() {
-    try {
-      if (!numPages) return
-      setLoading(true)
-      const zip = new JSZip()
+    const zip = new JSZip()
+    const canvases = document.querySelectorAll('.rendered-pdf .react-pdf__Page canvas')
+    console.log(canvases)
+    canvases.forEach((canvas, i) => {
+      const imageData = canvas.toDataURL('image/jpeg', 1.0)
+      const base64Data = imageData.split(',')[1]
+      zip.file(`page_${i + 1}.jpg`, base64Data, { base64: true })
+    })
+    const zipBlob = await zip.generateAsync({ type: 'blob' })
+    let url = URL.createObjectURL(zipBlob)
+    dispatch(setDownloadFileUrl(url))
+    setTimeout(() => URL.revokeObjectURL(url), 10000)
+  }
 
-      const canvases = document.querySelectorAll('.react-pdf__Page canvas')
-      canvases.forEach((canvas, i) => {
-        const imageData = canvas.toDataURL('image/jpeg', 1.0)
-        const base64Data = imageData.split(',')[1]
-        zip.file(`page_${i + 1}.jpg`, base64Data, { base64: true })
-      })
-      const zipBlob = await zip.generateAsync({ type: 'blob' })
-      let url = URL.createObjectURL(zipBlob)
-      setdownloadFileURL(url)
-      setCompletionStatus(true)
-      setTimeout(() => URL.revokeObjectURL(url), 10000)
-    } catch (error) {
-      console.log(error)
-      dispatch(showContent())
-    }finally{
-      dispatch(showContent())
-    }
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    convertToJpg()
-    // const formData = new FormData();
-    // formData.append("f1", files);
-
-    // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/pdf_to_jpg", formData);
+    toolFunctionWrapper(convertToJpg)
   }
 
   return (
     <div className="min-h-screen bg-background">
-      {!completionStatus && !isDroped && (
+      <HideMainContent>
         <ToolHeader
           sparklesText={' Free Online PDF to JPG Converter'}
           headings={['Convert', 'PDF to JPG', 'Instantly']}
           text={' Turn every PDF page into high-quality JPG images — fast, secure, and free'}
         />
-      )}
-      {isDroped && files && (
-        <Document className={''} file={files} onLoadSuccess={onDocumentLoadSuccess}>
-          {Array.from(new Array(numPages), (el, index) => (
-            <div key={index} className="hidden">
-              <Page key={index} pageNumber={index + 1}></Page>
-            </div>
-          ))}
-        </Document>
-      )}
-      <form
-        onSubmit={(e) => {
-          handleSubmit(e)
-        }}
-        encType="multipart/form-data"
-      >
-        {!isDroped && !completionStatus && (
-          <div className='px-3'>
-            <FileInput
-              setFiles={setFiles}
-              setisDroped={setisDroped}
-              multiple={false}
-              accept={{ 'application/pdf': [] }}
-            />
-            <BenefitsSection
-              heading={'Convert PDF pages to JPG online'}
-              benefits={pdfToJpgBenefits}
-            />
-            <FeatureCardSection
-              tool={'PDF to JPG'}
-              text="Everything you need to convert PDFs into images"
-              features={pdfToJpgFeatures}
-            />
-            <HowToSection
-              heading={'How to convert PDF to JPG?'}
-              text={'Convert your PDF in three quick steps'}
-              steps={pdfToJpgHowToSteps}
-            />
-            <FaqSection
-              heading={'PDF to JPG FAQs'}
-              text={'Common questions about PDF to JPG conversion'}
-              faqs={pdfToJpgFaqs}
-            />
-            <ToolList />
-          </div>
-        )}
+        <FileInput setFiles={setFiles} multiple={false} accept={{ 'application/pdf': [] }} />
+        <BenefitsSection heading={'Convert PDF pages to JPG online'} benefits={pdfToJpgBenefits} />
+        <FeatureCardSection
+          tool={'PDF to JPG'}
+          text="Everything you need to convert PDFs into images"
+          features={pdfToJpgFeatures}
+        />
+        <HowToSection
+          heading={'How to convert PDF to JPG?'}
+          text={'Convert your PDF in three quick steps'}
+          steps={pdfToJpgHowToSteps}
+        />
+        <FaqSection
+          heading={'PDF to JPG FAQs'}
+          text={'Common questions about PDF to JPG conversion'}
+          faqs={pdfToJpgFaqs}
+        />
+      </HideMainContent>
 
-        {isDroped && !isUploading && !isProcessing && !completionStatus && (
-          <OperationBox>
-            <OperationMain>
-              <ul className="mt-6 flex flex-wrap justify-center gap-6">
-                <PDFPageComponent file={files} />
-              </ul>
-              <MainOperationButton buttonText={"Convert To JPG"} disabled={files.length < 1}/>
-            </OperationMain>
-            <OperationSidebar>
-              <div className="p-2 bg-blue-50 border-1">
-                <h1 className="flex text-gray-600 text-sm items-center">
-                  {' '}
-                  <Dot /> Click on convert to jpg button to convert pdf into jpg images.
-                </h1>
+      <OperationBox>
+        <OperationMain>
+          <ul className="mt-6 flex flex-wrap justify-center gap-6">
+            {files && <PDFPageComponent file={files} setFiles={setFiles} singleFile />}
+            {!files && (
+              <div className="flex items-center justify-center">
+                <AddMoreFilesComponent setFiles={setFiles} />
               </div>
-              <div className="mt-3 p-3">
-                <SidebarOperationButton buttonText={"Convert To JPG"} disabled={files.length < 1}/>
+            )}
+          </ul>
+          <div className="rendered-pdf hidden">
+            <Document file={files} onLoadSuccess={onDocumentLoadSuccess} className={''}>
+              <div className="flex flex-wrap items-center gap-4 justify-center py-3">
+                {Array.from(new Array(numPages), (el, index) => {
+                  const pageNum = index + 1
+                  return (
+                    <PageContainer key={pageNum} width={'auto'} height={'auto'}>
+                      <PageImageContainer>
+                        <Page pageNumber={pageNum} />
+                      </PageImageContainer>
+                      <PageData data={pageNum} />
+                    </PageContainer>
+                  )
+                })}
               </div>
-            </OperationSidebar>
-          </OperationBox>
-        )}
-
-        {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
-        {serverPreparing && isDroped && (
-          <div className="flex flex-col items-center mt-8">
-            <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
-            <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
+            </Document>
           </div>
-        )}
-        {progress === 100 && isProcessing && <Processing />}
-      </form>
-
-      {downloadFileURL && completionStatus && (
-        <div className="pt-10">
-          <DownloadComponent
-            headingText={'Download JPG Images'}
-            buttonText={'Download Zip File'}
-            downloadFileURL={downloadFileURL}
-            setCompletionStatus={setCompletionStatus}
-            setisDroped={setisDroped}
-            setFiles={setFiles}
-            setdownloadFileURL={setdownloadFileURL}
+        </OperationMain>
+        <BottomBar>
+          <OperationButton
+            buttonText={'Convert To JPG'}
+            disabled={!files}
+            onClick={handleSubmit}
           />
-        </div>
-      )}
+        </BottomBar>
+      </OperationBox>
+      <LoadingStateComponent />
+      <DownloadComponent
+        headingText={'Download JPG Images'}
+        buttonText={'Download Zip File'}
+        downloadFileUrl={downloadFileUrl}
+        setFiles={setFiles}
+      />
 
       <ToastContainer />
     </div>

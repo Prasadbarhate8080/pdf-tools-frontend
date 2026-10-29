@@ -39,6 +39,7 @@ export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isToolsHovered, setIsToolsHovered] = useState(false)
   const [mobileMoreTools, setMobileMoreTools] = useState(false)
+  let operationState = useSelector((state) => state.operationState.operationState)
   useEffect(() => {
     if (!isMobileMenuOpen) setMobileMoreTools(false)
   }, [isMobileMenuOpen])
@@ -49,18 +50,17 @@ export const Header = () => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-  const blurHeader = useSelector((state) => state.blurHeader.blurHeader)
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled || isMobileMenuOpen || blurHeader
+        isScrolled || isMobileMenuOpen || operationState != null
           ? 'bg-background/80 backdrop-blur-xl  border-b border-border/50 shadow-sm'
           : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-6">
         <div
-          className={`flex items-center justify-between ${blurHeader ? 'h-10 md:h-12' : 'h-12 md:h-14'}`}
+          className={`flex items-center justify-between ${operationState != null ? 'h-10 md:h-12' : 'h-12 md:h-14'}`}
         >
           <Link href="/" className="flex items-center gap-2.5">
             <div className="rounded-lg">
@@ -85,7 +85,7 @@ export const Header = () => {
                     <Link
                       href={item.href}
                       className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 flex items-center gap-1"
-                    > 
+                    >
                       {item.name}{' '}
                       <ChevronDown
                         size={14}
@@ -95,7 +95,7 @@ export const Header = () => {
 
                     {/* Mega Menu Dropdown */}
                     {isToolsHovered && (
-                      <div className="absolute top-[100%] left-1/2 -translate-x-1/2 pt-4 w-max">
+                      <div className="absolute top-[100%] left-1/2 -translate-x-1/2 pt-4">
                         <HeaderToolsSection
                           setIsActiveTools={setIsToolsHovered}
                           setIsActiveHamBurger={setIsMobileMenuOpen}
@@ -119,13 +119,12 @@ export const Header = () => {
             })}
           </div>
 
-          {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="default" size="default" asChild>
-              <Link href="/#tools">Explore All Tools</Link>
-            </Button>
-          </div>
-
+              <Button variant="default" size="default" asChild>
+                <Link href="/#tools">Explore All Tools</Link>
+              </Button>
+            </div>
+          
           {/* Mobile Menu Button */}
           <button
             className="md:hidden text-foreground p-2 rounded-lg hover:bg-muted/50 transition-colors"

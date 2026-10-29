@@ -14,14 +14,16 @@ export async function POST(request)
             slug: data.slug,
             content: data.content,
             imageUrl: data.imageUrl,
-            ToolName: data.toolName
+            ToolName: data.toolName,
+            tableOfContent: data.toc,
+            faqs:data.faqs,
         })
         const saveBlog = await newBlog.save();
         if(saveBlog)        
             return NextResponse.json({message:'Blog added successfully',status:200})
         
     } catch (error) {
-        console.log("in catch")
+        console.log("error while adding the blog",error)
         return NextResponse.json({message:error.message,status:500})
     }
 }

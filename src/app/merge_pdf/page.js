@@ -2,8 +2,9 @@ import React from 'react'
 import Merge from './merge_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
-import HideContent from '@/components/HideContent'
 import { mergePDFFaqs } from '@/data/faqs'
+import ToolList from '@/components/ToolList'
+import HideDefaultContent from '@/components/HideDefaultContent'
 export const metadata = {
   title: 'Merge PDF Files Online - Combine Multiple PDFs into One',
   description:
@@ -22,15 +23,15 @@ function page() {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: mergePDFFaqs.map((faq) => {
-      return {
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          'text': faq.answer,
-        },
-      }
-    }),
+        return {
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        }
+      }),
     },
   ]
   return (
@@ -42,18 +43,17 @@ function page() {
         }}
       />
       <Merge />
-      <HideContent>
-        <div className="container py-20 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              Merge PDF Blog Articles
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">Learn more about merging PDFs</p>
-          </div>
-          <Posts toolName={'MERGE_PDF'} />
-          <ToolBlog />
+      <HideDefaultContent>
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+            Merge PDF Blog Articles
+          </h2>
+          <p className="text-muted-foreground">Learn more about merging PDFs</p>
         </div>
-      </HideContent>
+        <Posts toolName={'MERGE_PDF'} />
+        <ToolBlog />
+        <ToolList />
+      </HideDefaultContent>
     </div>
   )
 }

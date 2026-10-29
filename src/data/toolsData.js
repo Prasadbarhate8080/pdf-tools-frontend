@@ -1,12 +1,35 @@
-import { Merge, Split, FileDown, FileUp, Scissors, Lock, Unlock, Droplet, Image, FileText, FilePlus, FileX, Hash, Shield, Layers, ArrowUpRight } from 'lucide-react'
+import {
+  Merge,
+  Split,
+  FileDown,
+  FileUp,
+  Scissors,
+  Lock,
+  Unlock,
+  Droplet,
+  Image,
+  FileText,
+  FilePlus,
+  FileX,
+  Hash,
+  Shield,
+  Layers,
+  FileSpreadsheet,
+  Presentation,
+  Minimize2,
+  PenLine,
+} from 'lucide-react'
+
 export const tools = [
+  // ── Organize ──────────────────────────────────────────────
   {
     name: 'Merge PDF',
     description: 'Combine multiple PDF files into one in the order you want with the pdfToolify merge tool.',
     icon: Merge,
     href: '/merge_pdf',
     color: 'from-blue-500/15 to-blue-600/15 border-blue-200',
-    textColor:"text-blue-400"
+    textColor: 'text-blue-400',
+    category: 'organize',
   },
   {
     name: 'Split PDF',
@@ -14,47 +37,17 @@ export const tools = [
     icon: Split,
     href: '/split_pdf',
     color: 'from-violet-500/15 to-violet-600/15 border-violet-200',
-    textColor:"text-green-400"
-  },
-    {
-      name: 'Extract PDF',
-      description: 'Extract the pages from the pdf instantly. Select and download Pages from your PDf.',
-      icon: Scissors,
-      href: '/extract-pdf',
-      color: 'from-pink-500/15 to-pink-600/15 border-pink-200',
-      textColor:"text-green-400"
-    },
-  {
-    name: 'PDF to JPG',
-    description: 'Convert the PDF into JPG images. Select the PDF file and convert it into JPG images smoothly.',
-    icon: FileDown,
-    href: '/pdf-to-jpg',
-    color: 'from-orange-500/15 to-orange-600/15 border-orange-200',
-    textColor:"text-red-400"
+    textColor: 'text-green-400',
+    category: 'organize',
   },
   {
-    name: 'Compress PDF',
-    description: 'Reduce the size of the PDF securely with better quality.',
-    icon: FileDown,
-    href: '/compress_pdf',
-    color: 'from-emerald-500/15 to-emerald-600/15 border-emerald-200',
-    textColor:"text-blue-400"
-  },
-  {
-    name: 'Create PDF',
-    description: 'Create PDF from images in seconds. Convert JPG and PNG format images into PDF.',
-    icon: FilePlus,
-    href: '/create-pdf',
-    color: 'from-teal-500/15 to-teal-600/15 border-teal-200',
-    textColor:"text-red-400"
-  },
-  {
-    name: 'Protect PDF',
-    description: 'Protect the PDF with a password online and keep your PDF files safe and secure.',
-    icon: Lock,
-    href: '/protect_pdf',
-    color: 'from-red-500/15 to-red-600/15 border-red-200',
-    textColor:"text-blue-400"
+    name: 'Extract PDF',
+    description: 'Extract the pages from the pdf instantly. Select and download Pages from your PDf.',
+    icon: Scissors,
+    href: '/extract-pdf',
+    color: 'from-pink-500/15 to-pink-600/15 border-pink-200',
+    textColor: 'text-green-400',
+    category: 'organize',
   },
   {
     name: 'Remove PDF Pages',
@@ -62,47 +55,8 @@ export const tools = [
     icon: FileX,
     href: '/remove_pdf_pages',
     color: 'from-slate-500/15 to-slate-600/15 border-slate-200',
-    textColor:"text-green-400"
-  },
-  {
-    name: 'Unlock PDF',
-    description: 'Unlock password-protected PDF files online. Remove PDF password securely and quickly with this free and easy-to-use PDF unlock tool.',
-    icon: Unlock,
-    href: '/unlock_pdf',
-    color: 'from-cyan-500/15 to-cyan-600/15 border-cyan-200',
-    textColor:"text-red-400"
-  },
-  {
-    name: 'Word to PDF',
-    description: 'Convert Word files to PDF online quickly and easily. Turn DOC or DOCX documents into high-quality PDF files.',
-    icon: FileText,
-    href: '/word_to_pdf',
-    color: 'from-indigo-500/15 to-indigo-600/15 border-indigo-200',
-    textColor:"text-red-400"
-  },
-  {
-    name: 'PDF to PDFA',
-    description: 'Convert PDF files to PDF/A format online. Ensure long-term document archiving with this fast, secure, and free PDF to PDF/A converter.',
-    icon: Shield,
-    href: '/pdf-to-pdfa',
-    color: 'from-sky-500/15 to-sky-600/15 border-sky-200',
-    textColor:"text-blue-400"
-  },
-  {
-    name: 'Add Watermark',
-    description: 'Add watermark to PDF files online easily.Insert text watermark to protect your documents with this fast, secure, and free PDF watermark tool.',
-    icon: Droplet,
-    href: '/add_watermark',
-    color: 'from-blue-500/15 to-cyan-500/15 border-blue-200',
-    textColor:"text-red-400"
-  },
-  {
-    name: 'Add Page Number',
-    description: 'Add page numbers to PDF files online easily.Insert and customize page numbering in your PDF documents with this fast, secure, and free tool.',
-    icon: Hash,
-    href: '/add_page_no',
-    color: 'from-purple-500/15 to-purple-600/15 border-purple-200',
-    textColor:"text-green-400"
+    textColor: 'text-green-400',
+    category: 'organize',
   },
   {
     name: 'Add Pages to PDF',
@@ -110,7 +64,8 @@ export const tools = [
     icon: FilePlus,
     href: '/add_pages_to_pdf',
     color: 'from-green-500/15 to-green-600/15 border-green-200',
-    textColor:"text-green-400"
+    textColor: 'text-green-400',
+    category: 'organize',
   },
   {
     name: 'Add PDF in PDF',
@@ -118,6 +73,185 @@ export const tools = [
     icon: Layers,
     href: '/add-pdf-in-pdf',
     color: 'from-fuchsia-500/15 to-fuchsia-600/15 border-fuchsia-200',
-    textColor:"text-blue-400"
+    textColor: 'text-blue-400',
+    category: 'organize',
+  },
+
+  // ── Convert from PDF ──────────────────────────────────────
+  {
+    name: 'PDF to JPG',
+    description: 'Convert the PDF into JPG images. Select the PDF file and convert it into JPG images smoothly.',
+    icon: Image,
+    href: '/pdf-to-jpg',
+    color: 'from-orange-500/15 to-orange-600/15 border-orange-200',
+    textColor: 'text-red-400',
+    category: 'from_pdf',
+  },
+  {
+    name: 'PDF to Word',
+    description: 'Convert PDF files to editable Word documents while keeping the original layout intact.',
+    icon: FileText,
+    href: '/pdf-to-word',
+    color: 'from-blue-500/15 to-blue-600/15 border-blue-200',
+    textColor: 'text-blue-400',
+    category: 'from_pdf',
+  },
+  {
+    name: 'PDF to Excel',
+    description: 'Turn PDF tables into editable Excel spreadsheets quickly and accurately.',
+    icon: FileSpreadsheet,
+    href: '/pdf-to-excel',
+    color: 'from-green-500/15 to-green-600/15 border-green-200',
+    textColor: 'text-green-400',
+    category: 'from_pdf',
+  },
+  {
+    name: 'PDF to PPT',
+    description: 'Convert PDF files into editable PowerPoint presentations in seconds.',
+    icon: Presentation,
+    href: '/pdf-to-ppt',
+    color: 'from-orange-500/15 to-orange-600/15 border-orange-200',
+    textColor: 'text-orange-400',
+    category: 'from_pdf',
+  },
+  {
+    name: 'PDF to PDFA',
+    description: 'Convert PDF files to PDF/A format online. Ensure long-term document archiving with this fast, secure, and free PDF to PDF/A converter.',
+    icon: Shield,
+    href: '/pdf-to-pdfa',
+    color: 'from-sky-500/15 to-sky-600/15 border-sky-200',
+    textColor: 'text-blue-400',
+    category: 'from_pdf',
+  },
+
+  // ── Convert to PDF ────────────────────────────────────────
+  {
+    name: 'Word to PDF',
+    description: 'Convert Word files to PDF online quickly and easily. Turn DOC or DOCX documents into high-quality PDF files.',
+    icon: FileText,
+    href: '/word_to_pdf',
+    color: 'from-indigo-500/15 to-indigo-600/15 border-indigo-200',
+    textColor: 'text-red-400',
+    category: 'to_pdf',
+  },
+  {
+    name: 'Excel to PDF',
+    description: 'Convert Excel spreadsheets to PDF documents while keeping the layout intact.',
+    icon: FileSpreadsheet,
+    href: '/excel-to-pdf',
+    color: 'from-emerald-500/15 to-emerald-600/15 border-emerald-200',
+    textColor: 'text-emerald-400',
+    category: 'to_pdf',
+  },
+  {
+    name: 'PPT to PDF',
+    description: 'Convert PowerPoint presentations to PDF with all slides preserved.',
+    icon: Presentation,
+    href: '/ppt-to-pdf',
+    color: 'from-red-500/15 to-red-600/15 border-red-200',
+    textColor: 'text-red-400',
+    category: 'to_pdf',
+  },
+  {
+    name: 'Create PDF',
+    description: 'Create PDF from images in seconds. Convert JPG and PNG format images into PDF.',
+    icon: FilePlus,
+    href: '/create-pdf',
+    color: 'from-teal-500/15 to-teal-600/15 border-teal-200',
+    textColor: 'text-red-400',
+    category: 'to_pdf',
+  },
+
+  // ── Edit ──────────────────────────────────────────────────
+  {
+    name: 'Add Watermark',
+    description: 'Add watermark to PDF files online easily. Insert text watermark to protect your documents with this fast, secure, and free PDF watermark tool.',
+    icon: Droplet,
+    href: '/add_watermark',
+    color: 'from-blue-500/15 to-cyan-500/15 border-blue-200',
+    textColor: 'text-red-400',
+    category: 'edit',
+  },
+  {
+    name: 'Add Page Number',
+    description: 'Add page numbers to PDF files online easily. Insert and customize page numbering in your PDF documents with this fast, secure, and free tool.',
+    icon: Hash,
+    href: '/add_page_no',
+    color: 'from-purple-500/15 to-purple-600/15 border-purple-200',
+    textColor: 'text-green-400',
+    category: 'edit',
+  },
+
+  // ── Security ──────────────────────────────────────────────
+  {
+    name: 'Protect PDF',
+    description: 'Protect the PDF with a password online and keep your PDF files safe and secure.',
+    icon: Lock,
+    href: '/protect_pdf',
+    color: 'from-red-500/15 to-red-600/15 border-red-200',
+    textColor: 'text-blue-400',
+    category: 'security',
+  },
+  {
+    name: 'Unlock PDF',
+    description: 'Unlock password-protected PDF files online. Remove PDF password securely and quickly with this free and easy-to-use PDF unlock tool.',
+    icon: Unlock,
+    href: '/unlock_pdf',
+    color: 'from-cyan-500/15 to-cyan-600/15 border-cyan-200',
+    textColor: 'text-red-400',
+    category: 'security',
+  },
+
+  // ── Optimize ──────────────────────────────────────────────
+  {
+    name: 'Compress PDF',
+    description: 'Reduce the size of the PDF securely with better quality.',
+    icon: Minimize2,
+    href: '/compress_pdf',
+    color: 'from-emerald-500/15 to-emerald-600/15 border-emerald-200',
+    textColor: 'text-blue-400',
+    category: 'optimize',
   },
 ]
+
+  export const categories = [
+    {
+      id: 'organize',
+      name: 'Organize PDF',
+      icon: Layers,
+      chip: 'bg-blue-500/10 text-blue-500',
+    },
+    {
+      id: 'from_pdf',
+      name: 'Convert from PDF',
+      icon: FileDown,
+      chip: 'bg-emerald-500/10 text-emerald-500',
+    },
+    {
+      id: 'to_pdf',
+      name: 'Convert to PDF',
+      icon: FileUp,
+      chip: 'bg-indigo-500/10 text-indigo-500',
+    },
+    {
+      id: 'edit',
+      name: 'Edit PDF',
+      icon: PenLine,
+      chip: 'bg-amber-500/10 text-amber-500',
+    },
+    {
+      id: 'security',
+      name: 'Security',
+      icon: Lock,
+      chip: 'bg-red-500/10 text-red-500',
+    },
+    {
+      id: 'optimize',
+      name: 'Optimize',
+      icon: Minimize2,
+      chip: 'bg-teal-500/10 text-teal-500',
+    },
+  ]
+
+export const getToolsByCategory = (categoryId) =>
+  tools.filter((tool) => tool.category === categoryId)

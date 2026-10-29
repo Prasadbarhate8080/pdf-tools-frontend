@@ -1,0 +1,196 @@
+'use client'
+import { toast, ToastContainer } from 'react-toastify'
+import { pdfjs } from 'react-pdf'
+import 'react-pdf/dist/Page/AnnotationLayer.css'
+import 'react-pdf/dist/Page/TextLayer.css'
+import { useFileUpload } from '@/hooks/useFileUpload'
+import FileInput from '@/components/FileInput'
+import FaqSection from '@/components/FaqSection'
+import HowToSection from '@/components/HowToSection'
+import ToolHeader from '@/components/ToolHeader'
+import BenefitsSection from '@/components/BenefitsSection'
+import FeatureCardSection from '@/components/FeatureCardSection'
+import { PDFToExcelBenefits, wordToPdfBenefits } from '@/data/benefits'
+import { PDFToExcelFeatures, wordToPdfFeatures } from '@/data/features'
+import { PDFToExcelFaqs, wordToPdfFaqs } from '@/data/faqs'
+import { PDFToExcelHowToSteps, wordToPdfHowToSteps } from '@/data/howTo'
+import OperationBox from '@/components/OperationBox'
+import OperationMain from '@/components/OperationMain'
+import { useDispatch, useSelector } from 'react-redux'
+import DownloadComponent from '@/components/DownloadComponent'
+import HideMainContent from '@/components/HideMainContent'
+import LoadingStateComponent from '@/components/LoadingStateComponent'
+import OperationButton from '@/components/OperationButton'
+import BottomBar from '@/components/BottomBar'
+import AddMoreFilesComponent from '@/components/AddMoreFilesComponent'
+import PDFPageConponent from '@/components/PDFPageComponent'
+import { setDownloadFileUrl } from '@/store/downloadFileUrlSlice'
+import { setCompleted, setProcessing, setUploading } from '@/store/operationStateSlice'
+import { setProgress } from '@/store/progressBarSlice'
+import axios from 'axios'
+
+if (typeof window !== 'undefined') {
+  pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
+}
+
+function PDFToExcel() {
+  let downloadFileUrl = useSelector((state) => state.downloadFileUrl.downloadFileUrl)
+  let { files, setFiles, callApi } = useFileUpload()
+  let dispatch = useDispatch()
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!files) {
+      return toast.error('Please select a PDF file')
+    }
+
+    try {
+      dispatch(setProcessing())
+      // 1. Get presigned upload URL
+      const uploadResponse = await fetch('/api/upload-url', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          operation: 'pdf-to-excel',
+          size: files.size,
+        }),
+      })
+
+      const uploadData = await uploadResponse.json()
+      if (!uploadResponse.ok) {
+        throw new Error(uploadData.error || 'Failed to prepare upload')
+      }
+      const { jobId, uploadUrl } = uploadData
+
+      // 2. Upload directly to S3
+      dispatch(setUploading())
+      const s3Response = await axios.put(uploadUrl, files, {
+        headers: {
+          'Content-Type': 'application/pdf',
+        },
+        onUploadProgress: (progressEvent) => {
+          if (progressEvent.total) {
+            const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            dispatch(setProgress(percent))
+            if (percent === 100) {
+              dispatch(setProcessing())
+            }
+          }
+        },
+      })
+
+      toast.info('PDF uploaded. Processing started...')
+
+      // 3. Poll for maximum 2 minutes
+      const maxPollingTime = 2 * 60 * 1000 // 2 minutes
+      const pollingInterval = 2000 // 2 seconds
+
+      const startTime = Date.now()
+
+      while (Date.now() - startTime < maxPollingTime) {
+        const statusResponse = await fetch(`/api/status/${jobId}`, {
+          cache: 'no-store',
+        })
+
+        const statusData = await statusResponse.json()
+
+        if (!statusResponse.ok) {
+          throw new Error(statusData.error || 'Failed to check processing status')
+        }
+
+        console.log('Processing status:', statusData.status)
+
+        // Processing completed
+        if (statusData.status === 'DONE') {
+          toast.success('PDF converted successfully')
+
+          // Download
+          dispatch(setDownloadFileUrl(statusData.downloadUrl))
+          dispatch(setCompleted())
+          return
+        }
+
+        // Processing failed
+        if (statusData.status === 'ERROR') {
+          throw new Error('PDF processing failed')
+        }
+
+        // Wait 2 seconds before next check
+        await new Promise((resolve) => setTimeout(resolve, pollingInterval))
+      }
+
+      // 4. 2 minutes completed
+      toast.error('Processing is taking longer than expected. Please try again later.')
+    } catch (error) {
+      console.error('conversion error:', error)
+
+      toast.error(error.message || 'Something went wrong')
+    } finally {
+    }
+  }
+
+  return (
+    <div className="bg-background">
+      <HideMainContent>
+        <ToolHeader
+          sparklesText={'Free Online PDF to Excel Converter'}
+          headings={['Convert', 'PDF to Excel', 'Instantly']}
+          text={'Keep your formatting intact while converting PDF to Excel — fast and free'}
+        />
+        <FileInput setFiles={setFiles} multiple={false} accept={{ 'application/pdf': [] }} />
+        <BenefitsSection
+          heading={'How PDF to excel conversion will help you'}
+          benefits={PDFToExcelBenefits}
+        />
+        <FeatureCardSection
+          tool={'PDF to Excel'}
+          text="Everything you need for reliable PDF to Excel conversion"
+          features={PDFToExcelFeatures}
+        />
+        <HowToSection
+          heading={'How to convert PDF to Excel?'}
+          text={'Convert your PDFs files to Excel in  three quick steps'}
+          steps={PDFToExcelHowToSteps}
+        />
+        <FaqSection
+          heading={'PDF to Excel FAQs'}
+          text={'Common questions about PDF to Word conversion'}
+          faqs={PDFToExcelFaqs}
+        />
+      </HideMainContent>
+      <OperationBox>
+        <OperationMain>
+          <ul className="mt-6 flex flex-wrap justify-center gap-6">
+            {files && <PDFPageConponent setFiles={setFiles} singleFile file={files} />}
+            {!files && (
+              <div className="flex items-center justify-center">
+                <AddMoreFilesComponent setFiles={setFiles} accept={'.pdf'} />
+              </div>
+            )}
+          </ul>
+        </OperationMain>
+        <BottomBar>
+          <div className="flex justify-center items-center">
+            <OperationButton
+              buttonText={'Convert To Excel File'}
+              disabled={!files}
+              onClick={handleSubmit}
+            />
+          </div>
+        </BottomBar>
+      </OperationBox>
+      <LoadingStateComponent />
+      <DownloadComponent
+        headingText={'Download Converted File'}
+        buttonText={'Download Converted File'}
+        downloadFileUrl={downloadFileUrl}
+        setFiles={setFiles}
+      />
+      <ToastContainer />
+    </div>
+  )
+}
+export default PDFToExcel

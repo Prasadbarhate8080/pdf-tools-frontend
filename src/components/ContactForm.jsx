@@ -49,7 +49,8 @@ export default function ContactForm() {
       if (!res.ok) throw new Error("Request failed");
       setForm(initial);
       setStatus("sent");
-    } catch {
+    } catch(error) {
+      console.log(error)
       setError("Something went wrong. Please email support@pdftoolify.com instead.");
       setStatus("error");
     }

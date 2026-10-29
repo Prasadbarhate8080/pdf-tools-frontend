@@ -406,6 +406,47 @@ export const pdfToJpgFeatures = [
   },
 ]
 
+
+export const pdfToPptFeatures = [
+  {
+    icon: MousePointerClick,
+    heading: 'Simple & Easy to Use',
+    paragraph:
+      'Convert PDF documents to PowerPoint presentations in a few simple steps. PDFtoolify makes the process easy for beginners and everyday users.',
+  },
+  {
+    icon: Gift,
+    heading: 'Free & No Sign Up',
+    paragraph:
+      'Convert PDF files to PPT online without creating an account. Get started quickly with PDFtoolify.',
+  },
+  {
+    icon: FileType2,
+    heading: 'Preserve Original Layout',
+    paragraph:
+      'Each PDF page becomes a slide image, helping preserve the original page design, fonts, images, and visual appearance.',
+  },
+  {
+    icon: BadgeCheck,
+    heading: 'Consistent Slide Appearance',
+    paragraph:
+      'Keep the visual content of your PDF pages together in PowerPoint slides for convenient viewing and presenting.',
+  },
+  {
+    icon: ShieldCheck,
+    heading: 'Secure & Private',
+    paragraph:
+      'Your files are processed according to PDFtoolify’s security and file-retention policies.',
+  },
+  {
+    icon: Zap,
+    heading: 'Fast & Convenient',
+    paragraph:
+      'Convert PDF pages into PowerPoint slides without manually recreating each page in a presentation.',
+  },
+]
+
+
 export const pdfToPdfaFeatures = [
   {
     icon: MousePointerClick,
@@ -562,6 +603,47 @@ export const unlockPdfFeatures = [
   },
 ]
 
+
+export const pptToPdfFeatures = [
+  {
+    icon: MousePointerClick,
+    heading: 'Simple & Easy to Use',
+    paragraph:
+      'Convert PowerPoint presentations to PDF in just a few simple steps. PDFtoolify makes the process easy for beginners and everyday users.',
+  },
+  {
+    icon: Gift,
+    heading: 'Free & No Sign Up',
+    paragraph:
+      'Convert PowerPoint files to PDF online without creating an account. Upload your presentation and get started quickly.',
+  },
+  {
+    icon: FileType2,
+    heading: 'Preserve Slide Formatting',
+    paragraph:
+      'Keep your presentation slides, text, images, and layout organized in PDF format. The final appearance may vary depending on the source file and conversion engine.',
+  },
+  {
+    icon: BadgeCheck,
+    heading: 'High-Quality Output',
+    paragraph:
+      'Create PDF documents that are convenient for sharing, presenting, and printing while retaining the visual content of your slides.',
+  },
+  {
+    icon: ShieldCheck,
+    heading: 'Secure & Private',
+    paragraph:
+      'Your files are processed according to PDFtoolify’s security and file-retention policies.',
+  },
+  {
+    icon: Zap,
+    heading: 'Fast & Convenient',
+    paragraph:
+      'Convert PowerPoint presentations into PDF documents without manually exporting or recreating each slide.',
+  },
+]
+
+
 export const wordToPdfFeatures = [
   {
     icon: MousePointerClick,
@@ -600,6 +682,47 @@ export const wordToPdfFeatures = [
       'Convert Word to PDF in seconds with PDFtoolify’s optimized and fast processing engine.',
   },
 ]
+
+
+export const excelToPdfFeatures = [
+  {
+    icon: MousePointerClick,
+    heading: 'Simple & Easy to Use',
+    paragraph:
+      'Convert Excel spreadsheets to PDF in just one click. PDFtoolify makes conversion simple, intuitive, and beginner-friendly.',
+  },
+  {
+    icon: Gift,
+    heading: 'Free & No Sign Up',
+    paragraph:
+      'Convert Excel files to PDF online for free without creating an account or dealing with hidden costs.',
+  },
+  {
+    icon: FileType2,
+    heading: 'Preserve Spreadsheet Layout',
+    paragraph:
+      'Keep your spreadsheet tables, cell formatting, fonts, and page layout organized when converting Excel files to PDF.',
+  },
+  {
+    icon: BadgeCheck,
+    heading: 'Accurate Conversion',
+    paragraph:
+      'Convert Excel worksheets into clear, readable PDF documents while preserving the structure of your data as much as possible.',
+  },
+  {
+    icon: ShieldCheck,
+    heading: 'Secure & Private',
+    paragraph:
+      'Your files are processed securely and automatically deleted after conversion according to PDFtoolify’s file retention policy.',
+  },
+  {
+    icon: Zap,
+    heading: 'Fast & Powerful',
+    paragraph:
+      'Convert Excel spreadsheets to PDF quickly with PDFtoolify’s efficient document processing engine.',
+  },
+]
+
 
 export const removePdfPagesFeatures = [
   {
@@ -675,5 +798,83 @@ export const splitPdfFeatures = [
     heading: 'High Quality Results',
     paragraph:
       'Your split documents maintain the same quality and formatting as the original file—no loss.',
+  },
+]
+
+  export const PDFToWordFeatures = [
+  {
+    icon: MousePointerClick,
+    heading: 'Perfect Formatting',
+    paragraph:
+      'Convert the PDF into the word document without loosing of your formatting of the pdf page. We provides the this tool for saving the time of users of making new word doc.',
+  },
+  {
+    icon: Gift,
+    heading: 'Reliable PDF conversion',
+    paragraph:
+      'Our tool is very reliable for we guarrenteed that our tool will never fail while converting. It will definitely give you the proper result.',
+  },
+  {
+    icon: FileType2,
+    heading: 'Clean UI',
+    paragraph:
+      'Our software provides the very clean ui for the operation anyone can easily convert the pdf file into word document using this tool.',
+  },
+  {
+    icon: BadgeCheck,
+    heading: 'More Feature Options',
+    paragraph:
+      'We provides the more feature for this conversion tool like change file or delete a file like this feature operations we provides.',
+  },
+  {
+    icon: ShieldCheck,
+    heading: 'Fast And Powerful',
+    paragraph:
+      'Our system is very Powerful runs on a Powerful servers without any failure.',
+  },
+  {
+    icon: Zap,
+    heading: 'Efficient Document Processing',
+    paragraph:
+      'Our document processing is very efficient and fast we give the result as soon as possible to us.',
+  },
+]
+
+export const PDFToExcelFeatures = [
+  {
+    icon: MousePointerClick,
+    heading: 'Simple & Easy to Use',
+    paragraph:
+      'Convert PDF to Ecxel in just one click. PDFtoolify is built to be simple, intuitive, and beginner-friendly.',
+  },
+  {
+    icon: Gift,
+    heading: 'Free & No Sign Up',
+    paragraph:
+      'Convert PDF files to Excel online for free—no registration, no hidden costs, and no limitations.',
+  },
+  {
+    icon: FileType2,
+    heading: 'Perfect Formatting',
+    paragraph:
+      'PDFtoolify preserves fonts, layout, images, spacing, and formatting from your original document without any distortion.',
+  },
+  {
+    icon: BadgeCheck,
+    heading: 'Accurate Conversion',
+    paragraph:
+      'Enjoy high-quality and accurate document conversion with reliable results every time.',
+  },
+  {
+    icon: ShieldCheck,
+    heading: 'Secure & Private',
+    paragraph:
+      'Your files are processed securely and automatically deleted after conversion, ensuring complete data privacy.',
+  },
+  {
+    icon: Zap,
+    heading: 'Fast & Powerful',
+    paragraph:
+      'Convert PDF to Excel in seconds with PDFtoolify’s optimized and fast processing engine.',
   },
 ]

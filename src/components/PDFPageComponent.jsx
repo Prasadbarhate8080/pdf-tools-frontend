@@ -6,10 +6,17 @@ import PageData from './PDFPageComponents/PageData'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
-function PDFPageConponent({ file }) {
+function PDFPageConponent({
+  file,
+  setFiles,
+  fileIndex,
+  singleFile,
+  multipleFiles,
+  pages,
+}) {
   return (
     <Document file={file}>
-      <PageContainer>
+      <PageContainer setFiles={setFiles} fileIndex={fileIndex} singleFile={singleFile} multipleFiles={multipleFiles} pages={pages}>
         <PageImageContainer>
           <Page pageNumber={1} width={160} />
         </PageImageContainer>

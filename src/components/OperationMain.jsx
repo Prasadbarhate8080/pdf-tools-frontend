@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from "./Scrollbar.module.css"
 
-function OperationMain({ children }) {
+function OperationMain({ children,className }) {
   return (
-    <div className='pt-12 flex-1 h-screen'>
+    <div className={`pt-12 flex-1 h-screen relative ${className}`}>
       <div
         className={`h-full ${styles.customScrollbar}
       overflow-auto`}

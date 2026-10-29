@@ -2,7 +2,7 @@ import React from 'react'
 
 function PageImageContainer({children}) {
   return (
-    <div className="px-4 pt-4 pb-1 w-full flex flex-1 items-center justify-center">
+    <div className="px-4 pt-4 pb-1 w-full flex flex-1 items-center relative justify-center">
       {children}
     </div>
   )

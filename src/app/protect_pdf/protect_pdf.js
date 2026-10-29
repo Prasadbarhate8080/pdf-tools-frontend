@@ -4,16 +4,12 @@ import { ToastContainer } from 'react-toastify'
 import { pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
-import Processing from '@/components/Processing'
-import ProgressBar from '@/components/ProgressBar'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import FileInput from '@/components/FileInput'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
-import { Dot } from 'lucide-react'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import PDFPageComponent from '@/components/PDFPageComponent'
-import ToolList from '@/components/ToolList'
 import { showContent } from '@/store/hideContentSlice'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
@@ -22,35 +18,28 @@ import { protectPdfFeatures } from '@/data/features'
 import { protectPdfFaqs } from '@/data/faqs'
 import { protectPdfHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
-import OperationSidebar from '@/components/OperationSidebar'
+import OperationSidebar, {
+  SidebarToolsButtons,
+  SidebarToolsSection,
+} from '@/components/OperationSidebar'
 import OperationMain from '@/components/OperationMain'
-import SidebarOperationButton from '@/components/SidebarOperationButton'
-import MainOperationButton from '@/components/MainOperationButton'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import DownloadComponent from '@/components/DownloadComponent'
+import HideMainContent from '@/components/HideMainContent'
+import LoadingStateComponent from '@/components/LoadingStateComponent'
+import OperationButton from '@/components/OperationButton'
+import BottomBar from '@/components/BottomBar'
+import AddMoreFilesComponent from '@/components/AddMoreFilesComponent'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
 function Protect() {
+  let downloadFileUrl = useSelector((state) => state.downloadFileUrl.downloadFileUrl)
   const [password, setPassword] = useState(null)
   let dispatch = useDispatch()
-  let {
-    files,
-    isDroped,
-    isProcessing,
-    completionStatus,
-    isUploading,
-    downloadFileURL,
-    serverPreparing,
-    setCompletionStatus,
-    setdownloadFileURL,
-    progress,
-    setisDroped,
-    setFiles,
-    callApi,
-  } = useFileUpload()
+  let { files, setFiles, callApi } = useFileUpload()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -58,123 +47,91 @@ function Protect() {
     formData.append('pdf_file', files)
     formData.append('password', password)
     await callApi('https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/protect_pdf', formData)
-    dispatch(showContent())
   }
 
   return (
     <div className="min-h-screen bg-background">
-      {!completionStatus && !isDroped && (
+      <HideMainContent>
         <ToolHeader
           sparklesText={'Free Online PDF Protector'}
           headings={['Protect', 'PDF Files', 'with Password']}
-          text={
-            'Add strong password protection to your PDF files with this our online tool.'
-          }
+          text={'Add strong password protection to your PDF files with this our online tool.'}
         />
-      )}
-      <form
-        onSubmit={(e) => {
-          handleSubmit(e)
-        }}
-        encType="multipart/form-data"
-      >
-        {!isDroped && (
-          <div className='px-3'>
-            <FileInput
-              setFiles={setFiles}
-              setisDroped={setisDroped}
-              multiple={false}
-              accept={{ 'application/pdf': [] }}
-            />
 
-            <BenefitsSection
-              heading={'How password protection can help you'}
-              benefits={protectPdfBenefits}
-            />
+        <FileInput setFiles={setFiles} multiple={false} accept={{ 'application/pdf': [] }} />
 
-            <FeatureCardSection
-              tool={'Protect PDF'}
-              text="Secure your important PDF documents with powerful, easy-to-use protection tools"
-              features={protectPdfFeatures}
-            />
+        <BenefitsSection
+          heading={'How password protection can help you'}
+          benefits={protectPdfBenefits}
+        />
 
-            <HowToSection
-              heading={'How to protect a PDF online for free?'}
-              text={'Lock your PDF with a password in three quick steps.'}
-              steps={protectPdfHowToSteps}
-            />
+        <FeatureCardSection
+          tool={'Protect PDF'}
+          text="Secure your important PDF documents with powerful, easy-to-use protection tools"
+          features={protectPdfFeatures}
+        />
 
-            {/* FAQs Section */}
-            <FaqSection
-              heading={'Protect PDF FAQs'}
-              text={'Common questions about locking your PDF files with a password'}
-              faqs={protectPdfFaqs}
-            />
+        <HowToSection
+          heading={'How to protect a PDF online for free?'}
+          text={'Lock your PDF with a password in three quick steps.'}
+          steps={protectPdfHowToSteps}
+        />
 
-            <ToolList />
-          </div>
-        )}
+        {/* FAQs Section */}
+        <FaqSection
+          heading={'Protect PDF FAQs'}
+          text={'Common questions about locking your PDF files with a password'}
+          faqs={protectPdfFaqs}
+        />
+      </HideMainContent>
 
-        {isDroped && !isUploading && !isProcessing && !completionStatus && (
-          <OperationBox>
-            <OperationMain>
-              <ul className="mt-6 flex flex-wrap justify-center gap-6">
-                <PDFPageComponent file={files} />
-              </ul>
-              <MainOperationButton buttonText={"Protect The PDF File"} disabled={files.length < 1}/>
-            </OperationMain>
-            <OperationSidebar>
-              <div className="p-2 bg-blue-50 border-1">
-                <h1 className="flex text-gray-600 text-sm items-center">
-                  {' '}
-                  <Dot /> Click on convert to PDFA button to convert pdf into pdfa.
-                </h1>
+      <OperationBox>
+        <OperationMain>
+          <ul className="mt-6 flex flex-wrap justify-center gap-6">
+            {files && <PDFPageComponent file={files} setFiles={setFiles} singleFile />}
+            {!files && (
+              <div className="flex items-center justify-center">
+                <AddMoreFilesComponent setFiles={setFiles} />
               </div>
-              <div className="text-center w-fit mx-auto mt-3">
-                <label htmlFor="password" className="block w-full text-left">
-                  Enter Password
-                </label>
-                <input
-                  onChange={(e) => {
-                    setPassword(e.target.value)
-                  }}
-                  type="password"
-                  id="password"
-                  className="bg-white text-gray indent-1 border-2 border-gray-500 h-8
-                 hover:border-gray-700 rounded-md "
-                />
-              </div>
-              <div className="mt-3 p-3">
-                <SidebarOperationButton buttonText={"Protect The PDF File"} disabled={files.length < 1}/>
-              </div>
-            </OperationSidebar>
-          </OperationBox>
-        )}
+            )}
+          </ul>
+          <BottomBar>
+            <OperationButton
+              buttonText={'Protect The PDF File'}
+              disabled={!files}
+              onClick={handleSubmit}
+            />
+          </BottomBar>
+        </OperationMain>
+        <OperationSidebar>
+          <SidebarToolsButtons className="lg:hidden block"></SidebarToolsButtons>
+          <SidebarToolsSection>
+            <div className="ml-3 mt-6">
+              <label htmlFor="password" className="block w-full text-lg tracking-wide text-left">
+                Enter Password :
+              </label>
+              <input
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                }}
+                type="password"
+                id="password"
+                className="bg-white text-gray indent-1 border-2  h-10 w-60 lg:w-80
+                  rounded-md mt-2 ml-4"
+                disabled={!files}
+              />
+            </div>
+          </SidebarToolsSection>
+        </OperationSidebar>
+      </OperationBox>
+      <LoadingStateComponent />
 
-        {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
-        {serverPreparing && (
-          <div className="flex flex-col items-center mt-24">
-            <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
-            <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
-        {progress === 100 && isProcessing && <Processing />}
-      </form>
-
-      {downloadFileURL && completionStatus && (
-        
-        <div className="pt-10">
-          <DownloadComponent
-            headingText={'Download Protected PDF'}
-            buttonText={'Download Protected PDF'}
-            downloadFileURL={downloadFileURL}
-            setCompletionStatus={setCompletionStatus}
-            setisDroped={setisDroped}
-            setFiles={setFiles}
-            setdownloadFileURL={setdownloadFileURL}
-          />
-        </div>
-      )}
+      <DownloadComponent
+        headingText={'Download Protected PDF'}
+        buttonText={'Download Protected PDF'}
+        downloadFileUrl={downloadFileUrl}
+        setFiles={setFiles}
+      />
 
       <ToastContainer />
     </div>

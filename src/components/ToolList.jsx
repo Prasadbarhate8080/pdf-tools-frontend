@@ -3,12 +3,12 @@ import React from 'react'
 import { tools } from '@/data/toolsData'
 function ToolList() {
   let toolArray = [];
-  for(let i = 0; i < tools.length; i += 4)
+  for(let i = 0; i < tools.length; i += 5)
   {
-    toolArray.push(tools.slice(i,i + 4))
+    toolArray.push(tools.slice(i,i + 5))
   }
   return (
-    <div className="max-w-7xl mx-auto p-10  shadow-sm rounded-2xl">
+    <div className="max-w-7xl mx-auto p-10 shadow-sm rounded-2xl">
       <h2 className="text-2xl font-semibold text-gray-800 text-center mb-16">
         PDFtoolify – All PDF Tools
       </h2>

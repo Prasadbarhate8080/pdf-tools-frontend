@@ -5,6 +5,9 @@ import ProgressBarSlice from './progressBarSlice.js'
 import hideContentSlice from "./hideContentSlice.js"
 import blurHeaderSlice from "./blurHeaderSlice.js"
 import sidebarSlice from "./sidebarSlice.js"
+import operationStateSlice from "./operationStateSlice.js"
+import isDropedSlice from "./isDropedSlice.js"
+import downloadFileUrlSlice from "./downloadFileUrlSlice.js"
 
 const store = configureStore({
     reducer: {
@@ -12,7 +15,10 @@ const store = configureStore({
         fileProgress: ProgressBarSlice,
         hideContent: hideContentSlice,
         blurHeader: blurHeaderSlice,
-        sidebarToggle: sidebarSlice
+        sidebarToggle: sidebarSlice,
+        operationState: operationStateSlice,
+        isDroped: isDropedSlice,
+        downloadFileUrl: downloadFileUrlSlice
     },
 });
 

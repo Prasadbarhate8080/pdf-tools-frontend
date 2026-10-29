@@ -1,8 +1,10 @@
 import Pdfa from './pdf_to_pdfa'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
-import HideContent from '@/components/HideContent'
+import HideContent from '@/components/HideDefaultContent'
 import { pdfToPdfaFaqs } from '@/data/faqs'
+import HideDefaultContent from '@/components/HideDefaultContent'
+import ToolList from '@/components/ToolList'
 export const metadata = {
   title: 'Convert PDF to PDF/A for Long-Term Archiving',
   description:
@@ -21,15 +23,15 @@ function page() {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: pdfToPdfaFaqs.map((faq) => {
-      return {
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          'text': faq.answer,
-        },
-      }
-    }),
+        return {
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        }
+      }),
     },
   ]
   return (
@@ -41,20 +43,19 @@ function page() {
         }}
       />
       <Pdfa />
-      <HideContent>
-        <div className="container py-20 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              PDF to PDF/A Blog Articles
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              Learn more about PDF/A archiving standards
-            </p>
-          </div>
-          <Posts toolName={'PDF_TO_PDFA'} />
-          <ToolBlog />
+      <HideDefaultContent>
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+            PDF to PDF/A Blog Articles
+          </h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            Learn more about PDF/A archiving standards
+          </p>
         </div>
-      </HideContent>
+        <Posts toolName={'PDF_TO_PDFA'} />
+        <ToolBlog />
+        <ToolList />
+      </HideDefaultContent>
     </div>
   )
 }

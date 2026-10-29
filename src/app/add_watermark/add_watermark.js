@@ -4,15 +4,12 @@ import { ToastContainer } from 'react-toastify'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
-import Processing from '@/components/Processing'
-import ProgressBar from '@/components/ProgressBar'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import FileInput from '@/components/FileInput'
 import FeatureCardSection from '@/components/FeatureCardSection'
 import FaqSection from '@/components/FaqSection'
 import HowToSection from '@/components/HowToSection'
 import { PDFDocument, StandardFonts, rgb, degrees } from 'pdf-lib'
-import ToolList from '@/components/ToolList'
 import ToolHeader from '@/components/ToolHeader'
 import BenefitsSection from '@/components/BenefitsSection'
 import { addWatermarkBenefits } from '@/data/benefits'
@@ -21,40 +18,35 @@ import { addWatermarkFaqs } from '@/data/faqs'
 import { addWatermarkHowToSteps } from '@/data/howTo'
 import OperationBox from '@/components/OperationBox'
 import OperationMain from '@/components/OperationMain'
-import OperationSidebar from '@/components/OperationSidebar'
-import SidebarOperationButton from '@/components/SidebarOperationButton'
-import MainOperationButton from '@/components/MainOperationButton'
-import { useDispatch } from 'react-redux'
-import { showContent } from '@/store/hideContentSlice'
+import OperationSidebar, {
+  SidebarToolsButtons,
+  SidebarToolsSection,
+} from '@/components/OperationSidebar'
+
+import { useDispatch, useSelector } from 'react-redux'
 import DownloadComponent from '@/components/DownloadComponent'
+import HideMainContent from '@/components/HideMainContent'
+import { setDownloadFileUrl } from '@/store/downloadFileUrlSlice'
+import LoadingStateComponent from '@/components/LoadingStateComponent'
+import OperationButton from '@/components/OperationButton'
+import BottomBar from '@/components/BottomBar'
+import { Trash2 } from 'lucide-react'
+import AddMoreFilesComponent from '@/components/AddMoreFilesComponent'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
 function AddWaterMarkPage() {
+  let dispatch = useDispatch()
+  let downloadFileUrl = useSelector((state) => state.downloadFileUrl.downloadFileUrl)
   const [water_mark_position, setWater_mark_position] = useState(5)
   const [water_mark_text, setWater_mark_text] = useState('PdfToolify')
   const [numPages, setnumPages] = useState(0)
   const [transparency, setTransparency] = useState(0)
   const [rotation, setRotation] = useState(45)
-  const [isActiveSetting, setisActiveSetting] = useState(true)
-  let dispatch = useDispatch()
-  let {
-    files,
-    isDroped,
-    isProcessing,
-    completionStatus,
-    isUploading,
-    downloadFileURL,
-    serverPreparing,
-    progress,
-    setisDroped,
-    setFiles,
-    callApi,
-    setdownloadFileURL,
-    setCompletionStatus,
-  } = useFileUpload()
-
+  const [fontSize, setFontSize] = useState(36)
+  let { files, setFiles, toolFunctionWrapper } = useFileUpload()
+  const fontSizes = [8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, , 28, , 36, 48, 72]
   function onDocumentLoadSuccess({ numPages }) {
     setnumPages(numPages)
   }
@@ -69,121 +61,103 @@ function AddWaterMarkPage() {
     }
   }
   async function addWatermark() {
-    try {
-      if (!files) throw new Error('no file selected')
+    if (!files) throw new Error('no file selected')
 
-      const arrayBuffer = await files.arrayBuffer()
-      const pdfDoc = await PDFDocument.load(arrayBuffer)
+    const arrayBuffer = await files.arrayBuffer()
+    const pdfDoc = await PDFDocument.load(arrayBuffer)
 
-      const pages = pdfDoc.getPages()
-      const font = await pdfDoc.embedFont(StandardFonts.Helvetica)
-      const fontSize = 36
+    const pages = pdfDoc.getPages()
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica)
 
-      const { r, g, b } = hexToRgb('#cccccc')
+    const { r, g, b } = hexToRgb('#cccccc')
 
-      const transparencyValue = 1 - Number(transparency) / 100
-      const rotationValue = Number(rotation)
+    const transparencyValue = 1 - Number(transparency) / 100
+    const rotationValue = Number(rotation)
 
-      pages.forEach((page) => {
-        const { width, height } = page.getSize()
+    pages.forEach((page) => {
+      const { width, height } = page.getSize()
 
-        const textWidth = font.widthOfTextAtSize(water_mark_text, fontSize)
-        const textHeight = font.heightAtSize(fontSize)
+      const textWidth = font.widthOfTextAtSize(water_mark_text, fontSize)
+      const textHeight = font.heightAtSize(fontSize)
 
-        let x = 0
-        let y = 0
+      let x = 0
+      let y = 0
 
-        const padding = 90
+      const padding = 90
 
-        switch (water_mark_position) {
-          case 1: // top-left
-            x = padding
-            y = height - padding - fontSize
-            break
+      switch (water_mark_position) {
+        case 1: // top-left
+          x = padding
+          y = height - padding - fontSize
+          break
 
-          case 2: // top-center
-            x = (width - textWidth) / 2
-            y = height - padding - fontSize
-            break
+        case 2: // top-center
+          x = (width - textWidth) / 2
+          y = height - padding - fontSize
+          break
 
-          case 3: // top-right
-            x = width - textWidth - padding
-            y = height - padding - fontSize
-            break
+        case 3: // top-right
+          x = width - textWidth - padding
+          y = height - padding - fontSize
+          break
 
-          case 4: // center-left
-            x = padding
-            y = height / 2 - fontSize / 2
-            break
+        case 4: // center-left
+          x = padding
+          y = height / 2 - fontSize / 2
+          break
 
-          case 5: // center
-            x = (width - textWidth) / 2
-            y = height / 2
-            break
+        case 5: // center
+          x = (width - textWidth) / 2
+          y = height / 2
+          break
 
-          case 6: // center-right
-            x = width - textWidth - padding
-            y = height / 2
-            break
+        case 6: // center-right
+          x = width - textWidth - padding
+          y = height / 2
+          break
 
-          case 7: // bottom-left
-            x = padding
-            y = padding
-            break
+        case 7: // bottom-left
+          x = padding
+          y = padding
+          break
 
-          case 8: // bottom-center
-            x = (width - textWidth) / 2
-            y = padding
-            break
+        case 8: // bottom-center
+          x = (width - textWidth) / 2
+          y = padding
+          break
 
-          case 9: // bottom-right
-            x = width - textWidth - padding
-            y = padding
-            break
+        case 9: // bottom-right
+          x = width - textWidth - padding
+          y = padding
+          break
 
-          default:
-            x = (width - textWidth) / 2
-            y = height / 2
-        }
+        default:
+          x = (width - textWidth) / 2
+          y = height / 2
+      }
 
-        page.drawText(water_mark_text, {
-          x,
-          y,
-          size: fontSize,
-          font,
-          color: rgb(r, g, b),
-          rotate: degrees(rotationValue),
-          opacity: transparencyValue,
-        })
+      page.drawText(water_mark_text, {
+        x,
+        y,
+        size: fontSize,
+        font,
+        color: rgb(r, g, b),
+        rotate: degrees(rotationValue),
+        opacity: transparencyValue,
       })
+    })
 
-      const newPdfBytes = await pdfDoc.save()
-      const blob = new Blob([newPdfBytes], { type: 'application/pdf' })
-      const url = URL.createObjectURL(blob)
-
-      setdownloadFileURL(url)
-      setCompletionStatus(true)
-
-      setTimeout(() => URL.revokeObjectURL(url), 10000)
-    } catch (error) {
-      console.log(error)
-      dispatch(showContent())
-    }finally{
-      dispatch(showContent())
-    }
+    const newPdfBytes = await pdfDoc.save()
+    const blob = new Blob([newPdfBytes], { type: 'application/pdf' })
+    const url = URL.createObjectURL(blob)
+    dispatch(setDownloadFileUrl(url))
+    setTimeout(() => URL.revokeObjectURL(url), 10000)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    addWatermark()
-    // const formData = new FormData();
-    // formData.append("pdf_file", files);
-    // formData.append("water_mark_position", water_mark_position);
-    // formData.append("water_mark_text", water_mark_text);
-    // setTimeout(() => {
-    //   if (serverPreparing) toast.info("Please refresh the page and try again");
-    // }, 12000);
-    // callApi("https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/add_water_mark",formData);
+    console.log('function is calling')
+    toolFunctionWrapper(addWatermark)
   }
 
   let scrollbarStyle = {
@@ -196,12 +170,7 @@ function AddWaterMarkPage() {
     [7, 8, 9],
   ]
 
-  useEffect(() => {
-    console.log('transparency', transparency)
-    console.log('rotation', rotation)
-    console.log('water_mark_text', water_mark_text)
-    console.log('water_mark_position', water_mark_position)
-  }, [transparency])
+  useEffect(() => {}, [transparency])
 
   let dotPosition = {
     1: 'top-8 left-8',
@@ -219,190 +188,198 @@ function AddWaterMarkPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {!completionStatus && !isDroped && (
+      <HideMainContent>
         <ToolHeader
           sparklesText={' Free Online PDF Watermarker'}
           headings={['Add', 'Watermark', 'to PDFs']}
-          text={'Customize text, placement, and opacity to protect your documents in seconds by adding watermark'}
+          text={
+            'Customize text, placement, and opacity to protect your documents in seconds by adding watermark'
+          }
         />
-      )}
-      <form
-        onSubmit={(e) => {
-          handleSubmit(e)
-        }}
-        encType="multipart/form-data"
-      >
-        {!isDroped && !completionStatus && (
-          <div className='px-3'>
-            <FileInput
-              setFiles={setFiles}
-              setisDroped={setisDroped}
-              multiple={false}
-              accept={{ 'application/pdf': [] }}
-            />
-            <BenefitsSection
-              heading={'How watermark can protect your documents'}
-              benefits={addWatermarkBenefits}
-            />
-            <FeatureCardSection
-              tool={'Add Watermark to PDF'}
-              text="Everything you need to watermark PDFs with confidence"
-              features={addWatermarkFeatures}
-            />
-            <HowToSection
-              heading={'How to add a watermark online?'}
-              text={'Protect your PDF in three simple steps'}
-              steps={addWatermarkHowToSteps}
-            />
-            <FaqSection
-              heading={'Add Watermark FAQs'}
-              text={'Common questions about our watermark tool'}
-              faqs={addWatermarkFaqs}
-            />
-            <ToolList />
-          </div>
-        )}
 
-        {isDroped && !isUploading && !isProcessing && !completionStatus && (
-          <OperationBox>
-            <OperationMain>
-              <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
-                <ul className="flex flex-wrap justify-center gap-6">
-                  {Array.from({ length: numPages }, (_, index) => (
-                    <div className="rounded-xl bg-gray-50 p-2 relative" key={index}>
-                      <Page pageNumber={index + 1} width={180} height={360} />
-                      <div className="text-center bg-white">{index + 1}</div>
-                      <p
-                        className={`w-5 h-5 rounded-full absolute  bg-blue-400 ${dotPosition[water_mark_position]}`}
-                      ></p>
-                    </div>
-                  ))}
-                </ul>
-              </Document>
-              <MainOperationButton buttonText={'Export PDF'} disabled={files.length < 1} />
-            </OperationMain>
-            <OperationSidebar>
-              <h3 className="text-2xl font-semibold text-center text-gray-600">
-                Watermark Options
-              </h3>
-              <div className="w-full px-2 mt-6">
-                <label htmlFor="watermarkText" className="text-gray-800">
-                  Watermark Text:
-                </label>
-                <input
-                  id="watermarkText"
-                  type="text"
-                  value={water_mark_text}
-                  onChange={(e) => setWater_mark_text(e.target.value)}
-                  className="w-full border indent-2 rounded-sm h-10 mt-1"
-                />
-              </div>
-              <div className="px-2 mt-6">
-                <label htmlFor="">Position:</label>
-                <div>
-                  <div className="">
-                    <table>
-                      <tbody>
-                        {positionArray.map((value, rowIndex) => {
-                          return (
-                            <tr key={`row-${rowIndex}`}>
-                              {value.map((_, cellIndex) => {
-                                selected++
-                                return (
-                                  <td
-                                    key={`cell-${rowIndex}-${cellIndex}`}
-                                    className="w-6 cursor-pointer hover:bg-blue-200 h-6 border border-dashed"
-                                    onClick={() => {
-                                      setWater_mark_position(value[cellIndex])
-                                    }}
-                                  >
-                                    {selected == water_mark_position && (
-                                      <p className="w-5 h-5 rounded-full mx-auto my-auto bg-blue-400"></p>
-                                    )}
-                                  </td>
-                                )
-                              })}
-                            </tr>
-                          )
-                        })}
-                      </tbody>
-                    </table>
+        <FileInput setFiles={setFiles} multiple={false} accept={{ 'application/pdf': [] }} />
+        <BenefitsSection
+          heading={'How watermark can protect your documents'}
+          benefits={addWatermarkBenefits}
+        />
+        <FeatureCardSection
+          tool={'Add Watermark to PDF'}
+          text="Everything you need to watermark PDFs with confidence"
+          features={addWatermarkFeatures}
+        />
+        <HowToSection
+          heading={'How to add a watermark online?'}
+          text={'Protect your PDF in three simple steps'}
+          steps={addWatermarkHowToSteps}
+        />
+        <FaqSection
+          heading={'Add Watermark FAQs'}
+          text={'Common questions about our watermark tool'}
+          faqs={addWatermarkFaqs}
+        />
+      </HideMainContent>
+      <OperationBox>
+        <OperationMain>
+          {files && (
+            <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
+              <ul className="flex flex-wrap justify-center gap-6">
+                {Array.from({ length: numPages }, (_, index) => (
+                  <div className="rounded-xl bg-gray-50 p-2 relative" key={index}>
+                    <Page pageNumber={index + 1} width={180} height={360} />
+                    <div className="text-center bg-white">{index + 1}</div>
+                    <p
+                      className={`w-5 h-5 rounded-full absolute  bg-blue-400 ${dotPosition[water_mark_position]}`}
+                    ></p>
                   </div>
+                ))}
+              </ul>
+            </Document>
+          )}
+          {!files && (
+            <div className="flex items-center justify-center">
+              <AddMoreFilesComponent setFiles={setFiles} />
+            </div>
+          )}
+          <BottomBar>
+            <div className="flex flex-1 justify-end px-3 items-center ">
+              <div
+                className="border h-12 w-12 flex items-center justify-center rounded-lg hover:bg-muted"
+                onClick={() => {
+                  setFiles(null)
+                }}
+              >
+                <Trash2 />
+              </div>
+            </div>
+            <OperationButton buttonText={'Export PDF'} disabled={!files} onClick={handleSubmit} />
+            <div className="flex-1"></div>
+          </BottomBar>
+        </OperationMain>
+        <OperationSidebar>
+          <SidebarToolsButtons className={'lg:hidden block'}></SidebarToolsButtons>
+          <SidebarToolsSection>
+            <h3 className="text-2xl font-semibold text-center text-gray-600">Watermark Options</h3>
+            <div className="w-full px-2 mt-6">
+              <label htmlFor="watermarkText" className="text-gray-800">
+                Watermark Text:
+              </label>
+              <input
+                id="watermarkText"
+                type="text"
+                value={water_mark_text}
+                onChange={(e) => setWater_mark_text(e.target.value)}
+                className="w-full border indent-2 rounded-sm h-10 mt-1"
+              />
+            </div>
+            <div className="px-2 mt-6">
+              <label htmlFor="">Position:</label>
+              <div>
+                <div className="">
+                  <table>
+                    <tbody>
+                      {positionArray.map((value, rowIndex) => {
+                        return (
+                          <tr key={`row-${rowIndex}`}>
+                            {value.map((_, cellIndex) => {
+                              selected++
+                              return (
+                                <td
+                                  key={`cell-${rowIndex}-${cellIndex}`}
+                                  className="w-6 cursor-pointer hover:bg-blue-200 h-6 border border-dashed"
+                                  onClick={() => {
+                                    setWater_mark_position(value[cellIndex])
+                                  }}
+                                >
+                                  {selected == water_mark_position && (
+                                    <p className="w-5 h-5 rounded-full mx-auto my-auto bg-blue-400"></p>
+                                  )}
+                                </td>
+                              )
+                            })}
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div className="mt-6 p-2">
-                <label htmlFor="t" className="text-gray-800">
-                  Transparency:
-                </label>
-                <div>
-                  <select
-                    name="transparency"
-                    id="t"
-                    value={transparency}
-                    onChange={(e) => {
-                      setTransparency(e.target.value)
-                    }}
-                    className="border w-48 rounded-sm h-10 "
-                  >
-                    <option value="0">0%</option>
-                    <option value="25">25%</option>
-                    <option value="50">50%</option>
-                    <option value="75">75%</option>
-                  </select>
-                </div>
+            </div>
+            <div className="mt-6 p-2">
+              <label htmlFor="t" className="text-gray-800">
+                Transparency:
+              </label>
+              <div>
+                <select
+                  name="transparency"
+                  id="t"
+                  value={transparency}
+                  onChange={(e) => {
+                    setTransparency(e.target.value)
+                  }}
+                  className="border w-48 rounded-sm h-10 "
+                >
+                  <option value="0">0%</option>
+                  <option value="25">25%</option>
+                  <option value="50">50%</option>
+                  <option value="75">75%</option>
+                </select>
               </div>
-              <div className="mt-6 p-2">
-                <label htmlFor="t" className="text-gray-800">
-                  Rotation:
-                </label>
-                <div>
-                  <select
-                    name="transparency"
-                    id="t"
-                    value={rotation}
-                    onChange={(e) => {
-                      setRotation(e.target.value)
-                    }}
-                    className="border w-48 rounded-sm h-10 "
-                  >
-                    <option value="0"> 0deg </option>
-                    <option value="45"> 45deg </option>
-                    <option value="90"> 90deg </option>
-                    <option value="180"> 180deg </option>
-                    <option value="270"> 270deg </option>
-                  </select>
-                </div>
+            </div>
+            <div className="mt-6 p-2">
+              <label htmlFor="t" className="text-gray-800">
+                Rotation:
+              </label>
+              <div>
+                <select
+                  name="transparency"
+                  id="t"
+                  value={rotation}
+                  onChange={(e) => {
+                    setRotation(e.target.value)
+                  }}
+                  className="border w-48 rounded-sm h-10 "
+                >
+                  <option value="0"> 0deg </option>
+                  <option value="45"> 45deg </option>
+                  <option value="90"> 90deg </option>
+                  <option value="180"> 180deg </option>
+                  <option value="270"> 270deg </option>
+                </select>
               </div>
-              <div className="mt-3 p-3">
-                <SidebarOperationButton buttonText={'Export PDF'} disabled={files.length < 1} />
+            </div>
+            <div className="mt-6 p-2">
+              <label htmlFor="s" className="text-gray-800">
+                Size:
+              </label>
+              <div>
+                <select
+                  name="size"
+                  id="s"
+                  value={fontSize}
+                  onChange={(e) => {
+                    setFontSize(Number(e.target.value))
+                  }}
+                  className="border w-48 rounded-sm h-10"
+                >
+                  {fontSizes.map((size, index) => (
+                    <option key={index} value={size} className="">
+                      {' '}
+                      {size}{' '}
+                    </option>
+                  ))}
+                </select>
               </div>
-            </OperationSidebar>
-          </OperationBox>
-        )}
-
-        {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
-        {serverPreparing && isDroped && (
-          <div className="flex flex-col items-center mt-8">
-            <p className="text-gray-700 text-md mb-2">Preparing Server... Please wait</p>
-            <div className="w-15 h-15 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
-        {progress === 100 && isProcessing && <Processing />}
-      </form>
-
-      {downloadFileURL && completionStatus && (
-        <div className="pt-10">
-          <DownloadComponent
-            headingText={'Download watermark Added PDF'}
-            buttonText={'Download PDF'}
-            downloadFileURL={downloadFileURL}
-            setCompletionStatus={setCompletionStatus}
-            setisDroped={setisDroped}
-            setFiles={setFiles}
-            setdownloadFileURL={setdownloadFileURL}
-          />
-        </div>
-      )}
+            </div>
+          </SidebarToolsSection>
+        </OperationSidebar>
+      </OperationBox>
+      <LoadingStateComponent />
+      <DownloadComponent
+        headingText={'Download watermark Added PDF'}
+        buttonText={'Download PDF'}
+        downloadFileUrl={downloadFileUrl}
+        setFiles={setFiles}
+      />
 
       <ToastContainer />
     </div>

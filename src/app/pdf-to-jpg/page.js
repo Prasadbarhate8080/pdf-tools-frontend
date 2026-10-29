@@ -1,8 +1,10 @@
 import PDFToJPG from './pdf_to_jpg'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
-import HideContent from '@/components/HideContent'
+import HideContent from '@/components/HideDefaultContent'
 import { pdfToJpgFaqs } from '@/data/faqs'
+import HideDefaultContent from '@/components/HideDefaultContent'
+import ToolList from '@/components/ToolList'
 export const metadata = {
   title: 'PDF to JPG Converter Online - Extract Images from PDF',
   description:
@@ -22,15 +24,15 @@ function page() {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: pdfToJpgFaqs.map((faq) => {
-      return {
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          'text': faq.answer,
-        },
-      }
-    }),
+        return {
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        }
+      }),
     },
   ]
   return (
@@ -42,20 +44,19 @@ function page() {
         }}
       />
       <PDFToJPG />
-      <HideContent>
-        <div className="container py-20 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              PDF to JPG Blog Articles
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              Learn more about converting PDFs to JPG images
-            </p>
-          </div>
-          <Posts toolName={'PDF_TO_JPG'} />
-          <ToolBlog />
+      <HideDefaultContent>
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+            PDF to JPG Blog Articles
+          </h2>
+          <p className="text-muted-foreground">
+            Learn more about converting PDFs to JPG images
+          </p>
         </div>
-      </HideContent>
+        <Posts toolName={'PDF_TO_JPG'} />
+        <ToolBlog />
+        <ToolList />
+      </HideDefaultContent>
     </div>
   )
 }

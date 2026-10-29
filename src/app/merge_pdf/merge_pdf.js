@@ -1,16 +1,12 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import { pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
-import Processing from '@/components/Processing'
-import ProgressBar from '@/components/ProgressBar'
 import FileInput from '@/components/FileInput'
 import { useFileUpload } from '@/hooks/useFileUpload'
 import { PDFDocument } from 'pdf-lib'
 import PDFPageComponent from '@/components/PDFPageComponent'
-import ToolList from '@/components/ToolList'
 import ToolHeader from '@/components/ToolHeader'
 import { mergePDFBenefits } from '@/data/benefits'
 import BenefitsSection from '@/components/BenefitsSection'
@@ -20,98 +16,66 @@ import HowToSection from '@/components/HowToSection'
 import { mergePDFHowTosteps } from '@/data/howTo'
 import FaqSection from '@/components/FaqSection'
 import { mergePDFFaqs } from '@/data/faqs'
-import ServerPreparingLoader from '@/components/ServerPreparingLoader'
 import DownloadComponent from '@/components/DownloadComponent'
 import OperationBox from '@/components/OperationBox'
-import OperationSidebar from '@/components/OperationSidebar'
 import AddMoreFilesComponent from '@/components/AddMoreFilesComponent'
 import OperationMain from '@/components/OperationMain'
-import { Dot } from 'lucide-react'
-import SidebarOperationButton from '@/components/SidebarOperationButton'
-import MainOperationButton from '@/components/MainOperationButton'
-import { showContent } from '@/store/hideContentSlice'
+import { FileText, Bug } from 'lucide-react'
 import { useDispatch } from 'react-redux'
+import { setDownloadFileUrl } from '@/store/downloadFileUrlSlice'
+import { useSelector } from 'react-redux'
+import { setCompleted } from '@/store/operationStateSlice'
+import HideMainContent from '@/components/HideMainContent'
+import LoadingStateComponent from '@/components/LoadingStateComponent'
+import { useEffect, useRef, useState } from 'react'
+import OperationButton from '@/components/OperationButton'
+import BottomBar from '@/components/BottomBar'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
 
-export const testFunction = async (toolFunction, stateFunctions) => {
-  try {
-    stateFunctions.setLoading(true)
-    await toolFunction()
-   
-  } catch (error) {
-  } finally {
-  }
-}
-
 function Merge() {
-  let dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
-  const addFiles = (e) => {
-    const newFiles = Array.from(e.target.files)
-    const pdfFiles = newFiles.filter((file) => file.type === 'application/pdf')
-    setFiles((prev) => [...prev, ...pdfFiles])
-  }
+  const dispatch = useDispatch()
+  let draggingIndex = useRef(null)
+  let draggingOverIndex = useRef(null)
+  let downloadFileUrl = useSelector((state) => state.downloadFileUrl.downloadFileUrl)
+  let [error, setError] = useState()
+
+  let { files, setFiles, toolFunctionWrapper } = useFileUpload()
   useEffect(() => {
-    console.log("loading:",loading)
-  }, [loading])
-  
-  let {
-    files,
-    isDroped,
-    isProcessing,
-    completionStatus,
-    isUploading,
-    downloadFileURL,
-    serverPreparing,
-    progress,
-    setCompletionStatus,
-    setisDroped,
-    setFiles,
-    setdownloadFileURL,
-  } = useFileUpload()
+    if (!files) setError('please select atleast two pdf files')
+    else if(files.length <= 1) setError('please select atleast two pdf files')
+    else setError('')
+  }, [files])
 
   let mergePdf = async () => {
-    try {
-      setLoading(true)
-      const mergedPdf = await PDFDocument.create()
-      for (const file of files) {
-        const arrayBuffer = await file.arrayBuffer()
-        const pdf = await PDFDocument.load(arrayBuffer)
-        const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices())
-        pages.forEach((page) => {
-          mergedPdf.addPage(page)
-        })
-      }
-      let mergedPdfBytes = await mergedPdf.save()
-      const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' })
-      const url = URL.createObjectURL(blob)
-      setdownloadFileURL(url)
-      setCompletionStatus(true)
-      setTimeout(() => {
-        URL.revokeObjectURL(url)
-      }, 10000)
-    } catch (error) {
-      toast.error(error)
-      setisDroped(false)
-      dispatch(showContent())
-      setFiles([])
-    } finally {
-      setLoading(false)
-      setFiles([])
-      setisDroped(false)
-      dispatch(showContent())
+    const mergedPdf = await PDFDocument.create()
+    for (const file of files) {
+      const arrayBuffer = await file.arrayBuffer()
+      const pdf = await PDFDocument.load(arrayBuffer)
+      const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices())
+      pages.forEach((page) => {
+        mergedPdf.addPage(page)
+      })
     }
+    let mergedPdfBytes = await mergedPdf.save()
+    const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' })
+    const url = URL.createObjectURL(blob)
+    dispatch(setDownloadFileUrl(url))
+    dispatch(setCompleted())
+    setTimeout(() => {
+      URL.revokeObjectURL(url)
+    }, 10000)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    mergePdf()
+    toolFunctionWrapper(mergePdf)
   }
+
   return (
     <div className="bg-background">
-      {!completionStatus && !isDroped && (
+      <HideMainContent>
         <ToolHeader
           sparklesText={'Free Online PDF Merger'}
           headings={['Merge', 'PDF Files', 'Instantly']}
@@ -119,105 +83,101 @@ function Merge() {
             'Combine your PDF files easily using our this free tool. It will combine your PDFs in three easy steps.'
           }
         />
-      )}
-
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        {!isDroped && !completionStatus && (
-          <div className="px-3">
-            {/* <button
-              onClick={(e) => {
-                e.preventDefault()
-                testFunction(
-                  async () => {
-                    console.log('this is the tool function')
-                  },
-                  {
-                    setCompletionStatus,
-                    setisDroped,
-                    setFiles,
-                    setdownloadFileURL,
-                    setLoading,
-                    dispatch,
-                    showContent,
-                  }
-                )
-              }}
-            >
-              Run testFunction
-            </button> */}
-            <FileInput
-              files={files}
-              setFiles={setFiles}
-              setisDroped={setisDroped}
-              multiple={true}
-              accept={{ 'application/pdf': [] }}
-            />
-            <BenefitsSection heading={'Benefits of merging PDFs'} benefits={mergePDFBenefits} />
-            <FeatureCardSection features={mergePDFFeatures} tool={'Merge PDF'} text="" />
-            <HowToSection
-              heading={'How to merge PDFs online for free?'}
-              text={'Combine your PDF documents in three simple steps'}
-              steps={mergePDFHowTosteps}
-            />
-            <FaqSection
-              heading={'Merge PDF FAQs'}
-              text={'Common questions about our PDF merger tool'}
-              faqs={mergePDFFaqs}
-            />
-            <ToolList />
+        <FileInput
+          files={files}
+          setFiles={setFiles}
+          multiple={true}
+          accept={{ 'application/pdf': [] }}
+        />
+        <BenefitsSection heading={'Benefits of merging PDFs'} benefits={mergePDFBenefits} />
+        <FeatureCardSection features={mergePDFFeatures} tool={'Merge PDF'} text="" />
+        <HowToSection
+          heading={'How to merge PDFs online for free?'}
+          text={'Combine your PDF documents in three simple steps'}
+          steps={mergePDFHowTosteps}
+        />
+        <FaqSection
+          heading={'Merge PDF FAQs'}
+          text={'Common questions about our PDF merger tool'}
+          faqs={mergePDFFaqs}
+        />
+      </HideMainContent>
+      <OperationBox>
+        <OperationMain>
+          <ul className="flex flex-wrap justify-center p-5 gap-6">
+            {files &&
+              files.map((file, index) => (
+                <div
+                  className="transition-all duration-200 p-1 rounded-md"
+                  key={index}
+                  draggable
+                  onDragStart={(e) => {
+                    draggingIndex.current = index
+                    e.currentTarget.classList.add('opacity-50')
+                  }}
+                  onDragOver={(e) => {
+                    e.currentTarget.classList.add('bg-gray-100')
+                    draggingOverIndex.current = index
+                  }}
+                  onDragLeave={(e) => {
+                    e.currentTarget.classList.remove('bg-gray-100')
+                  }}
+                  onDragEnd={(e) => {
+                    e.currentTarget.classList.remove('opacity-50')
+                    setFiles((prev) => {
+                      let arr = [...prev]
+                      let onDropfile = arr[draggingOverIndex.current]
+                      let draggedFile = arr[draggingIndex.current]
+                      arr.splice(draggingOverIndex.current, 1, draggedFile)
+                      arr.splice(draggingIndex.current, 1, onDropfile)
+                      return arr
+                    })
+                  }}
+                >
+                  <PDFPageComponent
+                    file={file}
+                    key={index}
+                    setFiles={setFiles}
+                    fileIndex={index}
+                    multipleFiles
+                  />
+                </div>
+              ))}
+            <AddMoreFilesComponent setFiles={setFiles} multiple />
+          </ul>
+        </OperationMain>
+        {error && (
+          <div className="text-red-400 p-3 border absolute bottom-4 w-80 lg:w-[340px] flex items-center gap-2">
+            <Bug size={18} />
+            <span className="">{error}</span>
           </div>
         )}
-        {isDroped && !completionStatus && !isProcessing && !isUploading && (
-          <OperationBox>
-            <OperationMain>
-              <ul className="flex flex-wrap justify-center p-5 gap-6">
-                {files.map((file, index) => (
-                  <PDFPageComponent file={file} key={index} />
-                ))}
-                <AddMoreFilesComponent addFiles={addFiles} />
-              </ul>
-              <MainOperationButton buttonText={'Merge PDF Files'} disabled={files.length <= 1} />
-            </OperationMain>
-            <OperationSidebar>
-              <div className="p-2 bg-blue-50 border-1">
-                <h1 className="flex text-gray-600 text-sm items-center">
-                  {' '}
-                  <Dot /> Click on the merge PDF files button to merge the pdf files.
-                </h1>
+        <BottomBar>
+          <div className="flex flex-1 justify-end px-3 items-center ">
+            <div className="border h-12 w-12 flex items-center justify-center rounded-lg">
+              <div className="relative w-fit  border-gray-300">
+                <FileText />
+                <span className="absolute -top-3 -right-2">{files ? files.length: 0}</span>
               </div>
-              <div className="flex-wrap items-center justify-center gap-4 mt-3 lg:flex hidden">
-                <SidebarOperationButton
-                  buttonText={'Merge PDF Files'}
-                  disabled={files.length <= 1}
-                />
-                {/* Error Text */}
-                {files.length < 2 && (
-                  <p className="text-red-500 text-sm text-center mt-2">
-                    Please select at least two PDF files.
-                  </p>
-                )}
-              </div>
-            </OperationSidebar>
-          </OperationBox>
-        )}
-        {progress > 0 && progress < 100 && <ProgressBar progress={progress} />}
-        {serverPreparing && <ServerPreparingLoader />}
-        {progress === 100 && isProcessing && <Processing />}
-        {/* {loading && 'Loading'} */}
-      </form>
-      {downloadFileURL && completionStatus && (
-        <div className="pt-10">
-          <DownloadComponent
-            headingText={'Download Merged PDF'}
-            buttonText={'Download Merged PDF'}
-            downloadFileURL={downloadFileURL}
-            setCompletionStatus={setCompletionStatus}
-            setisDroped={setisDroped}
-            setFiles={setFiles}
-            setdownloadFileURL={setdownloadFileURL}
-          />
-        </div>
-      )}
+            </div>
+          </div>
+          <div className="flex justify-center items-center">
+            <OperationButton
+              buttonText={'Merge PDF Files'}
+              disabled={files ? files.length <= 1 : true}
+              onClick={handleSubmit}
+            />
+          </div>
+          <div className="flex-1"></div>
+        </BottomBar>
+      </OperationBox>
+      <LoadingStateComponent />
+      <DownloadComponent
+        headingText={'Download Merged PDF'}
+        buttonText={'Download Merged PDF'}
+        downloadFileUrl={downloadFileUrl}
+        setFiles={setFiles}
+      />
       <ToastContainer />
     </div>
   )

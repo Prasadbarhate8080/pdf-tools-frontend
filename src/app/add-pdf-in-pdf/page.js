@@ -2,8 +2,9 @@ import React from 'react'
 import AddPdfInPdf from './add_pdf_in_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
-import HideContent from '@/components/HideContent'
 import { addPdfInPdfFaqs } from '@/data/faqs'
+import HideDefaultContent from '@/components/HideDefaultContent'
+import ToolList from '@/components/ToolList'
 export const metadata = {
   title: 'Insert PDF into PDF Online - Merge PDFs Anywhere',
   description:
@@ -23,15 +24,15 @@ function page() {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: addPdfInPdfFaqs.map((faq) => {
-      return {
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          'text': faq.answer,
-        },
-      }
-    }),
+        return {
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        }
+      }),
     },
   ]
   return (
@@ -43,20 +44,19 @@ function page() {
         }}
       />
       <AddPdfInPdf />
-      <HideContent>
-        <div className="container py-20 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              Insert PDF into PDF Blog Articles
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              Learn more about merging and inserting PDFs
-            </p>
-          </div>
-          <Posts toolName={'ADD_PDF_IN_PDF'} />
-          <ToolBlog />
+      <HideDefaultContent>
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+            Insert PDF into PDF Blog Articles
+          </h2>
+          <p className="text-muted-foreground">
+            Learn more about merging and inserting PDFs
+          </p>
         </div>
-      </HideContent>
+        <Posts toolName={'ADD_PDF_IN_PDF'} />
+        <ToolBlog />
+        <ToolList />
+      </HideDefaultContent>
     </div>
   )
 }

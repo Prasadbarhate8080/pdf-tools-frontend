@@ -1,8 +1,10 @@
 import Split from './split_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
-import HideContent from '@/components/HideContent'
+import HideContent from '@/components/HideDefaultContent'
 import { splitPdfFaqs } from '@/data/faqs'
+import HideDefaultContent from '@/components/HideDefaultContent'
+import ToolList from '@/components/ToolList'
 export const metadata = {
   title: 'Split PDF Files Online - Divide PDFs Fast and Securely',
   description:
@@ -22,15 +24,15 @@ function page() {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: splitPdfFaqs.map((faq) => {
-      return {
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          'text': faq.answer,
-        },
-      }
-    }),
+        return {
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        }
+      }),
     },
   ]
   return (
@@ -42,20 +44,19 @@ function page() {
         }}
       />
       <Split />
-      <HideContent>
-        <div className="container py-20 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              Split PDF Blog Articles
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              Learn more about splitting PDFs efficiently
-            </p>
-          </div>
-          <Posts toolName={'SPLIT_PDF'} />
-          <ToolBlog />
+      <HideDefaultContent>
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+            Split PDF Blog Articles
+          </h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            Learn more about splitting PDFs efficiently
+          </p>
         </div>
-      </HideContent>
+        <Posts toolName={'SPLIT_PDF'} />
+        <ToolBlog />
+        <ToolList />
+      </HideDefaultContent>
     </div>
   )
 }

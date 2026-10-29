@@ -1,94 +1,115 @@
-"use client"
-import Input from '@/components/Input';
+'use client'
+import Input from '@/components/Input'
 import axios from 'axios'
 import React from 'react'
-import { useForm } from 'react-hook-form';
-import { useCallback } from 'react';
-import RTE from '@/components/RTE';
+import { useForm } from 'react-hook-form'
+import { useCallback } from 'react'
+import RTE from '@/components/RTE'
 
 function Page() {
   const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
     defaultValues: {
-      title: "",
-      slug: "",
-      content: "",
-      description: "",
-      imageUrl: "",
-      toolName: "",
+      title: '',
+      slug: '',
+      content: '',
+      description: '',
+      imageUrl: '',
+      toolName: '',
+      toc: [],
+      faqs: [],
     },
-  });
+  })
 
   const slugTransform = useCallback((value) => {
-    if (value && typeof value === "string")
+    if (value && typeof value === 'string')
       return value
         .trim()
         .toLowerCase()
-        .replace(/[^a-zA-Z\d\s]+/g, "-")
-        .replace(/\s/g, "-")
+        .replace(/[^a-zA-Z\d\s]+/g, '-')
+        .replace(/\s/g, '-')
         .slice(0, 35)
-    return "";
-  }, []);
+    return ''
+  }, [])
 
   React.useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name === "title") {
-        setValue("slug", slugTransform(value.title), { shouldValidate: true });
+      if (name === 'title') {
+        setValue('slug', slugTransform(value.title), { shouldValidate: true })
       }
-    });
+    })
 
-    return () => subscription.unsubscribe();
-  }, [watch, slugTransform, setValue]);
+    return () => subscription.unsubscribe()
+  }, [watch, slugTransform, setValue])
 
   const submit = async (data) => {
     try {
       let response = await axios.post('/api/add_blog_in_db', {
-        data
-      });
-      alert("Blog added successfully");
+        data,
+      })
+      alert('Blog added successfully')
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-
   }
 
   return (
     <div className="md:w-2/3 px-2 mt-36 max-w-6xl mx-auto">
-      <Input
-        label="Title :"
-        placeholder="Title"
-        {...register("title", { required: true })}
-      />
+      <Input label="Title :" placeholder="Title" {...register('title', { required: true })} />
       <Input
         label="Desciption :"
         placeholder="Description"
-        
-        {...register("description", { required: true })}
+        {...register('description', { required: true })}
       />
       <Input
         label="Slug :"
         placeholder="Slug"
-        {...register("slug", { required: true })}
+        {...register('slug', { required: true })}
         onInput={(e) => {
-          setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
+          setValue('slug', slugTransform(e.currentTarget.value), { shouldValidate: true })
         }}
       />
       <Input
         label="image Url :"
         placeholder="image url"
-        {...register("imageUrl", { required: true })}
+        {...register('imageUrl', { required: true })}
       />
       <Input
         label="Toolname :"
         placeholder="toolname"
-        {...register("toolName", { required: true })}
+        {...register('toolName', { required: true })}
       />
-      <div className="mt-4">
-        <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
+      <div className="flex gap-3">
+        <label htmlFor="">Table Of Content:</label>
+        <textarea
+          name="toc"
+          id="toc"
+          className=" border-2"
+          {...register('toc', { required: true })}
+        ></textarea>
       </div>
-      <button className='bg-blue-500 px-20  py-2 rounded-md text-white mt-4  '
+      <div className="flex gap-3">
+        <label htmlFor="">FAQs:</label>
+        <textarea
+          name="faqs"
+          id="faqs"
+          className=" border-2"
+          {...register('faqs')}
+        ></textarea>
+      </div>
+      <div className="mt-4">
+        <RTE
+          label="Content :"
+          name="content"
+          control={control}
+          defaultValue={getValues('content')}
+        />
+      </div>
+      <button
+        className="bg-blue-500 px-20  py-2 rounded-md text-white mt-4  "
         onClick={handleSubmit(submit)}
-      >Submit</button>
-
+      >
+        Submit
+      </button>
     </div>
   )
 }

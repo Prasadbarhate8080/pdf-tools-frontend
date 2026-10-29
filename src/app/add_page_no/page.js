@@ -1,8 +1,9 @@
 import PageNO from './add_page_no'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
-import HideContent from '@/components/HideContent'
 import { addPageNoFaq } from '@/data/faqs'
+import HideDefaultContent from '@/components/HideDefaultContent'
+import ToolList from '@/components/ToolList'
 
 export const metadata = {
   title: 'Add Page Numbers to PDF Online - Free Page Numbering',
@@ -26,15 +27,15 @@ function page() {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: addPageNoFaq.map((faq) => {
-      return {
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          'text': faq.answer,
-        },
-      }
-    }),
+        return {
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        }
+      }),
     },
   ]
   return (
@@ -46,20 +47,17 @@ function page() {
         }}
       />
       <PageNO />
-      <HideContent>
-        <div className="container py-20 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              Add Page Numbers to PDF Blog Articles
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              Learn more about PDF page Numbering and Managing
-            </p>
-          </div>
-          <Posts toolName={'ADD_PAGE_NO'} />
-          <ToolBlog />
+      <HideDefaultContent>
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+            Add Page Numbers to PDF Blog Articles
+          </h2>
+          <p className="text-muted-foreground">Learn more about PDF page Numbering and Managing</p>
         </div>
-      </HideContent>
+        <Posts toolName={'ADD_PAGE_NO'} />
+        <ToolBlog />
+        <ToolList />
+      </HideDefaultContent>
     </div>
   )
 }

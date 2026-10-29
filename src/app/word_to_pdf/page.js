@@ -1,8 +1,9 @@
 import WordToPdf from './word_to_pdf'
 import { Posts } from '../blogs/posts'
 import ToolBlog from './ToolBlog'
-import HideContent from '@/components/HideContent'
 import { wordToPdfFaqs } from '@/data/faqs'
+import HideDefaultContent from '@/components/HideDefaultContent'
+import ToolList from '@/components/ToolList'
 export const metadata = {
   title: 'Word to PDF Converter Online - Fast and Free',
   description:
@@ -21,15 +22,15 @@ function page() {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: wordToPdfFaqs.map((faq) => {
-      return {
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          'text': faq.answer,
-        },
-      }
-    }),
+        return {
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        }
+      }),
     },
   ]
   return (
@@ -41,20 +42,19 @@ function page() {
         }}
       />
       <WordToPdf />
-      <HideContent>
-        <div className="container py-20 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              Word to PDF Blog Articles
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              Learn more about converting Word documents to PDF
-            </p>
-          </div>
-          <Posts toolName={'WORD_TO_PDF'} />
-          <ToolBlog />
+      <HideDefaultContent>
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+            Word to PDF Blog Articles
+          </h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            Learn more about converting Word documents to PDF
+          </p>
         </div>
-      </HideContent>
+        <Posts toolName={'WORD_TO_PDF'} />
+        <ToolBlog />
+        <ToolList />
+      </HideDefaultContent>
     </div>
   )
 }
