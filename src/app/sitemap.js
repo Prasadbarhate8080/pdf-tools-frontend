@@ -7,7 +7,6 @@ const staticRoutes = [
   '/',
   '/merge_pdf',
   '/split_pdf',
-  '/word_to_pdf',
   '/pdf-to-pdfa',
   '/compress_pdf',
   '/unlock_pdf',
@@ -16,7 +15,15 @@ const staticRoutes = [
   '/add_page_no',
   '/add_pages_to_pdf',
   '/protect_pdf',
+  '/extract-pdf',
   
+  '/pdf-to-word',
+  '/pdf-to-excel',
+  '/pdf-to-ppt',
+  '/word_to_pdf',
+  '/excel-to-pdf',
+  '/ppt-to-pdf',
+
   '/blogs',
   '/about-us',
   '/contact-us',
@@ -25,9 +32,10 @@ const staticRoutes = [
   '/terms-and-conditions',
 
   '/add-pdf-in-pdf',
-  '/extract-pdf',
   '/pdf-to-jpg',
   '/create-pdf',
+
+
 ]
 
 async function collectDynamicBlogRoutes(baseUrl) {
