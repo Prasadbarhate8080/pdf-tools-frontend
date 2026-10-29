@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-function page() {
+function Page() {
   let [messages, setMessages] = useState([])
   async function getMessages() {
     try {
@@ -38,4 +38,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

@@ -244,9 +244,9 @@ function Split() {
               <div className="">
                 <span className="font-semibold text-gray-800">Ranges:</span>
                 <div className="w-90 min-h-20 bg-white rounded-md border p-4 flex gap-3 items-start flex-wrap">
-                  {splitRanges.map((array) => {
+                  {splitRanges.map((array,index) => {
                     return (
-                      <span className="px-3 py-1 bg-blue-200 font-medium rounded-xl">
+                      <span className="px-3 py-1 bg-blue-200 font-medium rounded-xl" key={index}>
                         {array[0] + ' - ' + array[1]}
                       </span>
                     )

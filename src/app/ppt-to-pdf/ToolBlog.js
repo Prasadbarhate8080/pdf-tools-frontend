@@ -1,4 +1,3 @@
-
 import React from 'react'
 
 const ToolBlog = () => {
@@ -8,6 +7,7 @@ const ToolBlog = () => {
         <h2 className="text-3xl font-bold mb-6 text-foreground">
           Why Converting PowerPoint to PDF is Useful for Presentations
         </h2>
+
         <p className="text-muted-foreground leading-relaxed mb-4">
           PowerPoint presentations are commonly used for meetings, lectures,
           business proposals, and educational content. However, recipients
@@ -19,6 +19,7 @@ const ToolBlog = () => {
         <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">
           1. Consistent Slide Appearance
         </h3>
+
         <p className="text-muted-foreground leading-relaxed mb-4">
           PDF conversion helps retain the visual arrangement of presentation
           slides, including text, images, and other slide elements. This
@@ -29,6 +30,7 @@ const ToolBlog = () => {
         <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">
           2. Simple Sharing and Printing
         </h3>
+
         <p className="text-muted-foreground leading-relaxed mb-4">
           PDF presentations are convenient to attach to emails, distribute
           to colleagues, or print as handouts. Recipients can open the
@@ -38,6 +40,7 @@ const ToolBlog = () => {
         <h3 className="text-2xl font-semibold mt-8 mb-4 text-foreground">
           3. Convenient Presentation Review
         </h3>
+
         <p className="text-muted-foreground leading-relaxed mb-4">
           Saving slides as a PDF makes it easier to review the complete
           presentation, browse individual pages, and keep a copy for
@@ -47,8 +50,7 @@ const ToolBlog = () => {
 
         <div className="bg-primary/5 border-l-4 border-primary p-6 my-8 rounded-r-xl">
           <p className="italic text-foreground">
-            "PDFtoolify's PPT to PDF tool helps you convert presentation
-            slides into a convenient format for sharing, reviewing, and printing."
+            {`PDFtoolify's PPT to PDF tool helps you convert presentation slides into a convenient format for sharing, reviewing, and printing.`}
           </p>
         </div>
 

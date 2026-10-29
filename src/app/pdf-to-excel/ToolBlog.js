@@ -8,6 +8,7 @@ const ToolBlog = () => {
         <h2 className="text-3xl font-bold mb-6 text-foreground">
           Why Converting PDF to Excel Helps with Data Management
         </h2>
+
         <p className="text-muted-foreground leading-relaxed mb-4">
           PDF files are commonly used to share reports, invoices, financial
           summaries, and tables. However, extracting data from a PDF for
@@ -46,13 +47,12 @@ const ToolBlog = () => {
 
         <div className="bg-primary/5 border-l-4 border-primary p-6 my-8 rounded-r-xl">
           <p className="italic text-foreground">
-            "PDFtoolify's PDF to Excel tool helps you extract tabular
-            information into spreadsheets for easier organization and analysis."
+            {`PDFtoolify's PDF to Excel tool helps you extract tabular information into spreadsheets for easier organization and analysis.`}
           </p>
         </div>
 
         <p className="text-muted-foreground leading-relaxed">
-          Try PDFtoolify's PDF to Excel tool to simplify table extraction
+          Try PDFtoolify&apos;s PDF to Excel tool to simplify table extraction
           and make your document data easier to work with.
         </p>
       </div>
