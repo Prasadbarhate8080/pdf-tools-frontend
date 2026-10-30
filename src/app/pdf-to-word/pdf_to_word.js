@@ -58,10 +58,10 @@ function PDFToWord() {
         }),
       })
 
+      const uploadData = await uploadResponse.json()
       if (!uploadResponse.ok) {
         throw new Error(uploadData.error || 'Failed to prepare upload')
       }
-      const uploadData = await uploadResponse.json()
 
       const { jobId, uploadUrl } = uploadData
 
