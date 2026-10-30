@@ -24,6 +24,10 @@ import { setDownloadFileUrl } from '@/store/downloadFileUrlSlice'
 import { setCompleted, setProcessing, setUploading } from '@/store/operationStateSlice'
 import { setProgress } from '@/store/progressBarSlice'
 import axios from 'axios'
+import { PDFToWordBenefits } from '@/data/benefits'
+import { PDFToWordFeatures } from '@/data/features'
+import { PDFToWordHowToSteps } from '@/data/howTo'
+import { PDFToWordFaqs } from '@/data/faqs'
 
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
