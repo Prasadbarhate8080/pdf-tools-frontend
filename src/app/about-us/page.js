@@ -1,70 +1,87 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 export const metadata = {
-  title: "About Us — PDFtoolify | Free Online PDF Tools",
+  title: 'About Us — PDFtoolify | Free Online PDF Tools',
   description:
-    "Learn about PDFtoolify: 17+ free online PDF tools to merge, split, compress and convert PDFs. No sign-up, secure by design, files deleted automatically.",
-  alternates: { canonical: "https://www.pdftoolify.com/about-us" },
+    'Learn about PDFtoolify: 17+ free online PDF tools to merge, split, compress and convert PDFs. No sign-up, secure by design, files deleted automatically.',
+  alternates: { canonical: 'https://www.pdftoolify.com/about-us' },
   openGraph: {
-    title: "About Us — PDFtoolify | Free Online PDF Tools",
+    title: 'About Us — PDFtoolify | Free Online PDF Tools',
     description:
-      "17+ free online PDF tools to merge, split, compress and convert PDFs. No sign-up, secure by design.",
-    url: "https://www.pdftoolify.com/about-us",
-    type: "website",
+      '17+ free online PDF tools to merge, split, compress and convert PDFs. No sign-up, secure by design.',
+    url: 'https://www.pdftoolify.com/about-us',
+    type: 'website',
   },
-  twitter: { card: "summary_large_image" },
-};
+  twitter: { card: 'summary_large_image' },
+}
+
+import Image from 'next/image' // upar imports mein add karo
+
+const founder = {
+  name: 'Prasad Barhate', // TODO
+  role: 'Founder & Developer', // TODO
+  photo: '/profile.png', // e.g. "/founder.jpg" (public folder mein rakho), nahi hai to null
+  bio: [
+    "Hi, I'm Prasad Barhate, the person behind PDFtoolify. I'm a developer based in India who got tired of PDF tools that hide basic features behind sign-ups and paywalls.", // TODO
+    "I build and maintain every tool on PDFtoolify myself, and I read every piece of feedback. If a PDF task is missing, tell me and I'll try to build it.", // TODO
+  ],
+  links: [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/prasadbarhate' }, // TODO
+    { label: 'X / Twitter', href: 'https://x.com/pdftoolify' }, // TODO
+    { label: 'Email', href: 'mailto:prasadbarhate388@gmail.com' }, // TODO
+  ],
+}
 
 const stats = [
-  { value: "17+", label: "PDF Tools" },
-  { value: "100%", label: "Free to Use" },
-  { value: "0", label: "Files Stored" },
-  { value: "No", label: "Sign-up Needed" },
-];
+  { value: '20+', label: 'PDF Tools' },
+  { value: '100%', label: 'Free to Use' },
+  { value: '0', label: 'Files Stored' },
+  { value: 'No', label: 'Sign-up Needed' },
+]
 
 const values = [
   {
-    title: "Privacy First",
-    body: "We never store your documents. Files are removed automatically once your task is complete, so nothing lingers on our servers.",
+    title: 'Privacy First',
+    body: 'We never store your documents. Files are removed automatically once your task is complete, so nothing lingers on our servers.',
   },
   {
-    title: "Genuinely Free",
-    body: "Every essential tool is free to use. No trials, no watermarks on your work, no locked features hiding behind a paywall.",
+    title: 'Genuinely Free',
+    body: 'Every essential tool is free to use. No trials, no watermarks on your work, no locked features hiding behind a paywall.',
   },
   {
-    title: "Simple by Design",
-    body: "Upload, click, download. Each tool does one job clearly, so anyone can finish a PDF task in seconds without a manual.",
+    title: 'Simple by Design',
+    body: 'Upload, click, download. Each tool does one job clearly, so anyone can finish a PDF task in seconds without a manual.',
   },
   {
-    title: "Works Everywhere",
-    body: "Everything runs in your browser on desktop, tablet or mobile — plus apps for Windows and Android are comming.",
+    title: 'Works Everywhere',
+    body: 'Everything runs in your browser on desktop, tablet or mobile — plus apps for Windows and Android are comming.',
   },
-];
+]
 
 const missionPoints = [
-  "Keep every essential tool free and accessible",
-  "Protect user privacy by never keeping files",
-  "Deliver results in seconds, not minutes",
-  "Keep adding the tools our users ask for",
-];
+  'Keep every essential tool free and accessible',
+  'Protect user privacy by never keeping files',
+  'Deliver results in seconds, not minutes',
+  'Keep adding the tools our users ask for',
+]
 
 const tools = [
-  "Merge PDF",
-  "Split PDF",
-  "Compress PDF",
-  "Extract Pages",
-  "JPG to PDF",
-  "PDF to JPG",
-  "Word to PDF",
-  "PNG to PDF",
-  "Protect PDF",
-  "Unlock PDF",
-  "Add Watermark",
-  "Add Page Numbers",
-  "Add Pages to PDF",
-  "Remove Pages",
-  "PDF to PDF/A",
-];
+  'Merge PDF',
+  'Split PDF',
+  'Compress PDF',
+  'Extract Pages',
+  'JPG to PDF',
+  'PDF to JPG',
+  'Word to PDF',
+  'PNG to PDF',
+  'Protect PDF',
+  'Unlock PDF',
+  'Add Watermark',
+  'Add Page Numbers',
+  'Add Pages to PDF',
+  'Remove Pages',
+  'PDF to PDF/A',
+]
 
 export default function AboutPage() {
   return (
@@ -75,15 +92,14 @@ export default function AboutPage() {
           About PDFtoolify
         </span>
         <h1 className="mt-6 text-4xl font-extrabold tracking-tight sm:text-6xl">
-          PDF work should be{" "}
+          PDF work should be{' '}
           <span className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
             simple and free.
           </span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-600">
-          PDFtoolify is a free online PDF tools software that brings every PDF task at  one Place
-          like merge, split, compress, convert, protect, and more.
-          No accounts, no install, np cost
+          PDFtoolify is a free online PDF tools software that brings every PDF task at one Place
+          like merge, split, compress, convert, protect, and more. No accounts, no install, no cost
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Link
@@ -119,21 +135,21 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Our Story</h2>
             <p className="mt-4 text-slate-600">
-              PDFtoolify started with a small problem: There are lots of PDF editors are online
-              but everyone is trying to give there best but still we found the problem related to 
-              pdf operations like add pages to pdf and some more features and thats how we started.
+              PDFtoolify started with a small problem: There are lots of PDF editors are online but
+              everyone is trying to give there best but still we found the problem related to pdf
+              operations like add pages to pdf and some more features and thats how we started.
             </p>
             <p className="mt-4 text-slate-600">
               Today PDFtoolify offers more than seventeen focused tools used by students,
-              freelancers, teachers and office teams around the world. Each one is built to
-              be fast, dependable and safe with the documents you trust us with.
+              freelancers, teachers and office teams around the world. Each one is built to be fast,
+              dependable and safe with the documents you trust us with.
             </p>
           </div>
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Our Mission</h2>
             <p className="mt-4 text-slate-600">
-              To make working with PDF documents effortless for everyone, regardless of
-              budget, device or technical skill.
+              To make working with PDF documents effortless for everyone, regardless of budget,
+              device or technical skill.
             </p>
             <ul className="mt-6 space-y-3">
               {missionPoints.map((item) => (
@@ -147,12 +163,63 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Founder */}
+      <section className="mx-auto max-w-5xl px-6 pb-20">
+        <h2 className="text-3xl font-bold tracking-tight">Meet the Founder</h2>
+        <div className="mt-8 flex flex-col gap-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm sm:flex-row sm:items-start">
+          {/* Photo ya initials */}
+          {founder.photo ? (
+            <Image
+              src={founder.photo}
+              alt={`${founder.name}, ${founder.role} of PDFtoolify`}
+              width={140}
+              height={140}
+              className="shrink-0 rounded-2xl object-cover"
+            />
+          ) : (
+            <div
+              aria-hidden="true"
+              className="flex h-32 w-32 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-sky-500 text-4xl font-extrabold text-white"
+            >
+              {founder.name
+                .split(' ')
+                .map((w) => w[0])
+                .join('')
+                .slice(0, 2)}
+            </div>
+          )}
+
+          <div>
+            <h3 className="text-xl font-semibold">{founder.name}</h3>
+            <p className="text-sm font-medium text-blue-600">{founder.role}</p>
+
+            {founder.bio.map((p) => (
+              <p key={p} className="mt-4 text-slate-600">
+                {p}
+              </p>
+            ))}
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              {founder.links.map((l) => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  target={l.href.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Values */}
       <section className="border-y border-slate-200 bg-white">
         <div className="mx-auto max-w-5xl px-6 py-20">
-          <h2 className="text-center text-3xl font-bold tracking-tight">
-            What We Stand For
-          </h2>
+          <h2 className="text-center text-3xl font-bold tracking-tight">What We Stand For</h2>
           <p className="mx-auto mt-3 max-w-xl text-center text-slate-600">
             The principles behind every tool we ship.
           </p>
@@ -195,8 +262,7 @@ export default function AboutPage() {
             Ready to simplify your PDFs?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-blue-100">
-            Pick a tool and get your document sorted in seconds — free, secure and with no
-            sign-up.
+            Pick a tool and get your document sorted in seconds — free, secure and with no sign-up.
           </p>
           <Link
             href="/#tools"
@@ -207,5 +273,5 @@ export default function AboutPage() {
         </div>
       </section>
     </main>
-  );
+  )
 }

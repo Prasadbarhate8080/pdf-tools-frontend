@@ -2,7 +2,7 @@ import { Sparkles, ArrowRight, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 const stats = [
-  { value: '17+', label: 'PDF Tools' },
+  { value: '20+', label: 'PDF Tools' },
   { value: '100%', label: 'Free to Use' },
   { value: 'Safe', label: '& Private' },
 ]

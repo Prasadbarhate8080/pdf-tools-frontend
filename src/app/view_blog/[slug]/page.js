@@ -148,7 +148,7 @@ async function Page({ params }) {
             <div className="mt-6 flex gap-4">
               <div className="w-12 h-12 rounded-full relative bg-purple-200">
                 <Image
-                  src={'/profile.jpg'}
+                  src={'/profile.png'}
                   fill
                   alt={"author"}
                   className="rounded-full"

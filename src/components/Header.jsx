@@ -176,12 +176,12 @@ export const Header = () => {
             <div
               className="px-4 mt-3 overflow-auto"
               style={{
-                maxHeight: mobileMoreTools ? '80vh' : '0px',
+                maxHeight: mobileMoreTools ? '88vh' : '0px',
                 transition: 'max-height 300ms ease, opacity 200ms ease',
                 opacity: mobileMoreTools ? 1 : 0,
               }}
             >
-              <ul className="flex flex-col gap-1 h-full overflow-auto">
+              <ul className="flex flex-col gap-2 h-full overflow-auto">
                 {tools.map((tool) => {
                   return (
                     <ToolName

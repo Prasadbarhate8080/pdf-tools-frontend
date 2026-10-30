@@ -1,4 +1,4 @@
-import { Twitter, Linkedin, Youtube } from 'lucide-react'
+import { Twitter, Linkedin, Youtube, Instagram } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 const footerLinks = {
@@ -33,6 +33,7 @@ const socialLinks = [
   { icon: Twitter, href: 'https://x.com/prasad_dev25', label: 'Twitter' },
   { icon: Linkedin, href: 'https://www.linkedin.com/in/prasadbarhate/', label: 'LinkedIn' },
   { icon: Youtube, href: 'https://www.youtube.com/channel/UC4Eayd1T5nXaoR_yOrKtbmg', label: 'YouTube' },
+  { icon: Instagram, href: 'https://www.instagram.com/prasadbarhate2005', label: 'instagram' },
 ]
 
 export const Footer = () => {
