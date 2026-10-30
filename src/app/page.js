@@ -7,7 +7,6 @@ import { HomePageFeatures } from '@/components/HomePageFeatures'
 import { DownloadSoftware } from '@/components/DownloadSoftware'
 import FaqSection from '@/components/FaqSection'
 import { homeFaqs } from '@/data/faqs'
-import Feedback from '@/components/Feedback'
 
 export const metadata = {
   title: 'Free Online PDF Tools - PDFtoolify',

@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import HideDefaultContent from '@/components/HideDefaultContent'
+import OperationGuard from '@/components/OperationGuard'
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -95,6 +96,7 @@ export default function RootLayout({ children }) {
           <HideDefaultContent>
             <Footer />
           </HideDefaultContent>
+          <OperationGuard />
         </StoreProvider>
         <ToastContainer />
         {process.env.NODE_ENV === 'production' && (

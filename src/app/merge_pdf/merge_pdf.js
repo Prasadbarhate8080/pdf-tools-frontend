@@ -30,6 +30,7 @@ import LoadingStateComponent from '@/components/LoadingStateComponent'
 import { useEffect, useRef, useState } from 'react'
 import OperationButton from '@/components/OperationButton'
 import BottomBar from '@/components/BottomBar'
+import OperationGuard from '@/components/OperationGuard'
 if (typeof window !== 'undefined') {
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 }
