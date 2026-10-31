@@ -28,7 +28,7 @@ const founder = {
   links: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/prasadbarhate' }, // TODO
     { label: 'X / Twitter', href: 'https://x.com/pdftoolify' }, // TODO
-    { label: 'Email', href: 'mailto:prasadbarhate388@gmail.com' }, // TODO
+    { label: 'Email', href: 'mailto:prasad@pdftoolify.com' }, // TODO
   ],
 }
 

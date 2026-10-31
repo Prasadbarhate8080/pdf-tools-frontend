@@ -7,7 +7,7 @@ const BlogCard = ({ post}) => {
   return (
     <Link
       href={`/view_blog/${post.slug}`}
-      className="group block h-full rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-primary/30"
+      className="group block h-full rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-primary/30 px-2"
     >
       <div className="aspect-video relative bg-muted">
         <Image

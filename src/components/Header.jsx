@@ -60,7 +60,7 @@ export const Header = () => {
     >
       <div className="container mx-auto px-6">
         <div
-          className={`flex items-center justify-between ${operationState != null ? 'h-10 md:h-12' : 'h-12 md:h-14'}`}
+          className={`flex items-center justify-between h-12 md:h-14`}
         >
           <Link href="/" className="flex items-center gap-2.5">
             <div className="rounded-lg">
@@ -139,14 +139,13 @@ export const Header = () => {
           className="md:hidden border-t border-border/50 overflow-auto"
           // aria-hidden={!isMobileMenuOpen}
           style={{
-            maxHeight: isMobileMenuOpen ? '100vh' : '0px',
+            maxHeight: isMobileMenuOpen ? '' : '0px',
             transition: 'max-height 300ms ease, padding 200ms ease, opacity 200ms ease',
             paddingTop: isMobileMenuOpen ? '1rem' : '0px',
             paddingBottom: isMobileMenuOpen ? '1rem' : '0px',
             opacity: isMobileMenuOpen ? 1 : 0,
           }}
         >
-          <div className="px-0">
             <div className="flex flex-col gap-1">
               {!mobileMoreTools &&
                 navMobileMenuItems.map((item) => (
@@ -176,7 +175,7 @@ export const Header = () => {
             <div
               className="px-4 mt-3 overflow-auto"
               style={{
-                maxHeight: mobileMoreTools ? '88vh' : '0px',
+                maxHeight: mobileMoreTools ? '90vh' : '0px',
                 transition: 'max-height 300ms ease, opacity 200ms ease',
                 opacity: mobileMoreTools ? 1 : 0,
               }}
@@ -196,7 +195,6 @@ export const Header = () => {
                 })}
               </ul>
             </div>
-          </div>
         </div>
       </div>
     </nav>
