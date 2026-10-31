@@ -8,6 +8,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import HideDefaultContent from '@/components/HideDefaultContent'
 import OperationGuard from '@/components/OperationGuard'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -103,6 +104,7 @@ export default function RootLayout({ children }) {
           <>
             <GoogleAnalytics gaId="G-3X5G3GQHTZ" />
             <Analytics />
+            <SpeedInsights/>
           </>
         )}
       </body>
