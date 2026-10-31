@@ -175,7 +175,7 @@ export const Header = () => {
             <div
               className="px-4 mt-3 overflow-auto"
               style={{
-                maxHeight: mobileMoreTools ? '90vh' : '0px',
+                maxHeight: mobileMoreTools ? '550px' : '0px',
                 transition: 'max-height 300ms ease, opacity 200ms ease',
                 opacity: mobileMoreTools ? 1 : 0,
               }}
