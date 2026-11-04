@@ -225,3 +225,12 @@
   h5 { @apply text-lg font-medium; }
   h6 { @apply text-base font-medium; }
 }
+
+.blog-content h2[id],
+.blog-content h3[id] {
+  scroll-margin-top: 90px;
+}
+
+html {
+  scroll-behavior: smooth;
+}

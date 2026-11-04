@@ -10,6 +10,7 @@ export async function PUT(request, { params }) {
     const body = await request.json()
 
     const data = body.data
+    console.log(data)
 
     const updatedPost = await blogModel.findOneAndUpdate(
       { slug },
@@ -20,7 +21,7 @@ export async function PUT(request, { params }) {
         imageUrl: data.imageUrl,
         ToolName: data.toolName,
         content: data.content,
-        tableOfContent: data.toc,
+        tableOfContent: data.tableOfContent,
         faqs: data.faqs,
       },
       {

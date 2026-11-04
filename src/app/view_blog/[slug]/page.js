@@ -18,7 +18,9 @@ async function getPost(slug) {
   if (!response.ok) {
     throw new Error('Failed to fetch post')
   }
+  
   const data = await response.json()
+  // console.log(data.post)
   return data.post
 }
 
@@ -86,8 +88,6 @@ export async function generateMetadata({ params }) {
   }
 }
 
-
-
 async function Page({ params }) {
   try {
     const { slug } = await params
@@ -97,6 +97,15 @@ async function Page({ params }) {
     if (!post) {
       notFound()
     }
+    const tableOfContent = Array.isArray(post?.tableOfContent)
+      ? post.tableOfContent.filter(
+          (item) =>
+            typeof item?.id === 'string' &&
+            item.id.trim() !== '' &&
+            typeof item?.text === 'string' &&
+            item.text.trim() !== ''
+        )
+      : []
     // Format updatedAt date
     const updatedDate = post?.updatedAt
       ? new Date(post.updatedAt).toLocaleDateString('en-US', {
@@ -124,21 +133,22 @@ async function Page({ params }) {
             }}
           />
         )}
-        <div className={` ${post.faqs ? "w-72" : ""} hidden sticky top-18 lg:block h-[500px]  p-2`}>
-          {  post.faqs && <>
-              <h4 className="text-lg">Table of Contents</h4>
-              <ol className='pl-1'>
-                { post.faqs.map((faq,index) => {
-                  return (
-                    <li key={index} className='p-1.5 text-primary'>
-                      <Link href={'#' + faq.id}>{index+1 + ".  "  + faq.text}</Link>
-                    </li>
-                  )
-                })}
-              </ol>
-            </>
-          }
-        </div>
+        {/* Table of Contents */}
+        {tableOfContent.length > 0 && (
+          <aside className="w-72 hidden sticky top-18 lg:block h-fit p-2">
+            <h4 className="text-lg font-semibold">Table of Contents</h4>
+
+            <ol className="pl-1">
+              {tableOfContent.map((item, index) => (
+                <li key={item.id} className="p-1.5 text-primary">
+                  <Link href={`#${item.id}`}>
+                    {index + 1}. {item.text}
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </aside>
+        )}
         <div className="max-w-4xl p-6 lg:p-2 ">
           {/* Blog Header */}
           <div className="mb-8">
@@ -147,12 +157,7 @@ async function Page({ params }) {
 
             <div className="mt-6 flex gap-4">
               <div className="w-12 h-12 rounded-full relative bg-purple-200">
-                <Image
-                  src={'/profile.png'}
-                  fill
-                  alt={"author"}
-                  className="rounded-full"
-                />
+                <Image src={'/profile.png'} fill alt={'author'} className="rounded-full" />
               </div>
               <div>
                 <strong>Prasad Barhate</strong>
@@ -175,7 +180,7 @@ async function Page({ params }) {
           </div>
 
           {/* Blog Content */}
-          <article className="mt-10 prose dark:prose-invert ">
+          <article className="mt-10 prose dark:prose-invert blog-content">
             {parse(post?.content || '<p>Post not found</p>')}
           </article>
         </div>
