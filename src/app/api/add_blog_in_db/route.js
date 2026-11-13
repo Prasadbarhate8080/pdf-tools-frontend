@@ -15,7 +15,7 @@ export async function POST(request)
             content: data.content,
             imageUrl: data.imageUrl,
             ToolName: data.toolName,
-            tableOfContent: data.toc,
+            tableOfContent: data.tableOfContent,
             faqs:data.faqs,
         })
         const saveBlog = await newBlog.save();

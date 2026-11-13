@@ -169,7 +169,7 @@ function PPTToPDF() {
             {files && (
               <PageContainer setFiles={setFiles} singleFile>
                 <PageImageContainer>
-                  <Image src={'/ppt_logo.jpg'} width={80} height={80} alt="ppt-to-pdf-logo" />
+                  <Image src={'/ppt_logo.svg'} width={80} height={80} alt="ppt-to-pdf-logo" />
                 </PageImageContainer>
                 <PageData data={files.name}></PageData>
               </PageContainer>

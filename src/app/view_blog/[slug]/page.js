@@ -135,7 +135,7 @@ async function Page({ params }) {
         )}
         {/* Table of Contents */}
         {tableOfContent.length > 0 && (
-          <aside className="w-72 hidden sticky top-18 lg:block h-fit p-2">
+          <aside className="w-72 hidden sticky top-18 lg:block h-fit p-2 border-r">
             <h4 className="text-lg font-semibold">Table of Contents</h4>
 
             <ol className="pl-1">
