@@ -1,29 +1,41 @@
+
 'use client'
+
 import { Editor } from '@tinymce/tinymce-react'
 import { Controller } from 'react-hook-form'
 
-export default function RTE({ name, control, label, defaultValue = '' }) {
+export default function RTE({
+  name,
+  control,
+  label,
+  defaultValue = '',
+}) {
   return (
     <div className="w-full">
-      {label && <label className="inline-block mb-1 pl-1">{label}</label>}
+      {label && (
+        <label className="inline-block mb-1 pl-1">
+          {label}
+        </label>
+      )}
 
       <Controller
         name={name || 'content'}
         control={control}
-        render={({ field: { onChange } }) => (
+        defaultValue={defaultValue}
+        render={({ field: { onChange, onBlur, value } }) => (
           <Editor
-            apiKey="2clugnf68lqwsswzf06x6cohwgs1d69zvvjcke58btxjbimi"
-            initialValue={defaultValue}
+            apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
+            value={value ?? ''}
             init={{
-              height: 900,
+              height: 700,
               menubar: true,
+
               plugins: [
                 'image',
                 'advlist',
                 'autolink',
                 'lists',
                 'link',
-                'image',
                 'charmap',
                 'preview',
                 'anchor',
@@ -34,14 +46,13 @@ export default function RTE({ name, control, label, defaultValue = '' }) {
                 'insertdatetime',
                 'media',
                 'table',
-                'code',
                 'help',
                 'wordcount',
-                'anchor',
               ],
+
               toolbar:
-                'undo redo | blocks | fontfamily fontsizeinput | styles | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help',
-              content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                'undo redo | blocks | fontfamily fontsizeinput | styles | image | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+
               style_formats: [
                 {
                   title: 'Font Weight',
@@ -81,8 +92,12 @@ export default function RTE({ name, control, label, defaultValue = '' }) {
               ],
 
               style_formats_merge: true,
+
+              content_style:
+                'body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }',
             }}
             onEditorChange={onChange}
+            onBlur={onBlur}
           />
         )}
       />

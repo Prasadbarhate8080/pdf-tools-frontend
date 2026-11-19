@@ -354,7 +354,7 @@ function Page() {
         {/* Blog Content */}
 
         <div className="mt-4">
-          <RTE label="Content :" name="content" control={control} defaultValue="" />
+          <RTE label="Content :" name="content" control={control} />
         </div>
 
         {/* Submit */}

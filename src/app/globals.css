@@ -102,6 +102,18 @@
   @apply border-primary/50 bg-primary/5;
 }
 
+.blog-content ul {
+  @apply list-disc pl-6;
+}
+
+.blog-content ol {
+  @apply list-decimal pl-6;
+}
+
+.blog-content li {
+  @apply my-1;
+}
+
 :root {
   /* Base */
   --background: oklch(1 0 0);

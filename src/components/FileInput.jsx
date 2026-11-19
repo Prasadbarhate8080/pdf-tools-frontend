@@ -10,9 +10,19 @@ import { setInOperation } from '@/store/operationStateSlice'
 
 function FileInput({ setFiles, multiple = false, accept, setImages, mode = 'pdf' }) {
   const dispatch = useDispatch()
+  let fileSelected = async () => {
+    fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'file selected' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
+  }
 
   const onDrop = useCallback(
     (acceptedFiles) => {
+      fileSelected()
       if (mode === 'pdf') {
         const pdfFiles = acceptedFiles.filter((file) => file.type === 'application/pdf')
 
@@ -95,7 +105,7 @@ function FileInput({ setFiles, multiple = false, accept, setImages, mode = 'pdf'
     }[mode] || 'files'
 
   return (
-    <div className='px-2'>
+    <div className="px-2">
       <div
         {...getRootProps()}
         className={`upload-zone border-2 border-dashed border-border rounded-2xl transition-all duration-300 cursor-pointer p-12 max-w-4xl mx-auto flex flex-col items-center justify-center text-center group relative ${
