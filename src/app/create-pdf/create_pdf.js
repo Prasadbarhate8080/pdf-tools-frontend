@@ -99,6 +99,13 @@ function CreatePdf() {
       return
     }
     toolFunctionWrapper(createPdf)
+    fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'create pdf' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
   }
 
   return (

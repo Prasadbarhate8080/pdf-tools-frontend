@@ -40,6 +40,13 @@ function Pdfa() {
     const formData = new FormData()
     formData.append('pdf_file', files)
     await callApi('https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/pdf_to_pdfa', formData)
+    fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'pdf to pdfa' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
     dispatch(showContent())
   }
 

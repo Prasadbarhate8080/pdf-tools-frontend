@@ -1,3 +1,4 @@
+import ToolList from "@/components/ToolList";
 import { Posts } from "./posts";
 
 export const metadata = {
@@ -20,6 +21,7 @@ function page() {
     <div className="mt-24">
       <h1 className="text-3xl font-bold mx-auto container  text-foreground ">Blogs Posts</h1>
       <Posts />
+      <ToolList />
     </div>
   );
 }

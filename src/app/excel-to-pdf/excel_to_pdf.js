@@ -43,6 +43,13 @@ function ExcelToPDF() {
     }
 
     try {
+      fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'excel to pdf' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
       const uploadResponse = await fetch('/api/upload-url', {
         method: 'POST',
         headers: {

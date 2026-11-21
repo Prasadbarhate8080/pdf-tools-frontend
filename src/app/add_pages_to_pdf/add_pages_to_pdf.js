@@ -93,6 +93,13 @@ function AddPagesInPdf() {
   const handleSubmit = (e) => {
     e.preventDefault()
     toolFunctionWrapper(addPagesToPdf)
+    fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'add pages to pdf' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
   }
 
   const onDocumentLoadSuccess = ({ numPages }) => {

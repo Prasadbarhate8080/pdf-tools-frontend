@@ -47,6 +47,13 @@ function Protect() {
     formData.append('pdf_file', files)
     formData.append('password', password)
     await callApi('https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/protect_pdf', formData)
+    fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'protect pdf' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
   }
 
   return (

@@ -89,6 +89,13 @@ export default function RemovePDFPages() {
   const handleRemove = async () => {
     if (!files || selectedPages.length === 0) return alert('Select at least one page.')
     toolFunctionWrapper(removePages)
+  fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'remove pdf pages' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
   }
 
   return (

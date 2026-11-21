@@ -80,6 +80,13 @@ export default function ExtractPdf() {
   const handleExtract = async () => {
     if (!files || selectedPages.length === 0) return alert('Select at least one page.')
     toolFunctionWrapper(extractPDF)
+  fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'extract pdf' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
   }
 
   return (

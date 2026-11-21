@@ -156,8 +156,14 @@ function AddWaterMarkPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('function is calling')
     toolFunctionWrapper(addWatermark)
+    fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'add watermark' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
   }
 
   let scrollbarStyle = {

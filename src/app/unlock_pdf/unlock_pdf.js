@@ -40,6 +40,13 @@ function Unlock() {
     const formData = new FormData()
     formData.append('pdf_file', files)
     await callApi('https://pdf-tools-backend-45yy.onrender.com/api/v1/pdf/unlock_pdf', formData)
+    fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'unlock pdf' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
   }
 
   return (

@@ -122,6 +122,13 @@ function PageNO() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     toolFunctionWrapper(addPageNumber)
+    fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'add page number' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
   }
 
   return (

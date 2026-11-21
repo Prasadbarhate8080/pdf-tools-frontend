@@ -1,11 +1,22 @@
 
 'use client'
-
 import Input from '@/components/Input'
 import axios from 'axios'
 import React, { useCallback, useEffect } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
-import RTE from '@/components/RTE'
+import dynamic from 'next/dynamic'
+
+const RTE = dynamic(
+  () => import('@/components/RTE'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[500px] animate-pulse rounded-lg border bg-gray-50 flex items-center justify-center">
+        Loading editor...
+      </div>
+    ),
+  }
+)
 
 function Page() {
   const {

@@ -80,6 +80,13 @@ function Split() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     toolFunctionWrapper(splitPdf)
+    fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'split pdf' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
   }
 
   return (

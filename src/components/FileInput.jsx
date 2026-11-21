@@ -5,7 +5,7 @@ import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
-import { setIsdroped } from '@/store/isDropedSlice'
+import { setIsdroped } from  '@/store/isDropedSlice'
 import { setInOperation } from '@/store/operationStateSlice'
 
 function FileInput({ setFiles, multiple = false, accept, setImages, mode = 'pdf' }) {

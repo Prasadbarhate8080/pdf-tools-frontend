@@ -60,6 +60,13 @@ function Compress() {
       }
 
       try {
+        fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'compress pdf' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
         // 1. Get presigned upload URL
         const uploadResponse = await fetch('/api/upload-url', {
           method: 'POST',

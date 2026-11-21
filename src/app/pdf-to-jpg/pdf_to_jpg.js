@@ -62,6 +62,13 @@ function PDFToJPG() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     toolFunctionWrapper(convertToJpg)
+    fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'pdf to jpg' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
   }
 
   return (

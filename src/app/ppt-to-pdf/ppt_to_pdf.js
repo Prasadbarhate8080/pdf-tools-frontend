@@ -44,6 +44,13 @@ function PPTToPDF() {
 
     try {
       // 1. Get presigned upload URL
+      fetch('/api/button-click', {
+      method: 'POST',
+      body: JSON.stringify({ eventName: 'ppt to pdf' }),
+      headers:{
+        'content-Type': 'application/json',
+      }
+    })
       const uploadResponse = await fetch('/api/upload-url', {
         method: 'POST',
         headers: {
