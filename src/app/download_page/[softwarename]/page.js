@@ -10,7 +10,7 @@ export async function generateMetadata({ params }) {
     .replace(/\b\w/g, char => char.toUpperCase());
 
   return {
-    title: `Download PDFtoolify for ${softwareName} - Coming Soon | PDFtoolify`,
+    title: `Download PDFtoolify for ${softwareName} - Coming Soon`,
     description: `The PDFtoolify for ${softwareName} download page on PDFtoolify is coming soon. Stay tuned for updates and download availability.`,
     alternates: {
       canonical: `https://www.pdftoolify.com/download_page/${softwarename}`,
